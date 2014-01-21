@@ -34,4 +34,9 @@ public class Goal extends Dependency{
 		return applicableDeps;
 	}
 
+	@Override
+	public String myType() {
+		return Dependency.GOAL;
+	}
+
 }
