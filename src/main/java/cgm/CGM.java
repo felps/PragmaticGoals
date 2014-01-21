@@ -2,14 +2,14 @@ package cgm;
 
 public class CGM {
 
-	private Goal rootGoal;
+	private Dependency rootGoal;
 	
-	public void setRoot(Goal root) {
+	public void setRoot(Dependency root) {
 		this.rootGoal = root;
 		
 	}
 
-	public Object getRoot() {
+	public Dependency getRoot() {
 		return rootGoal;
 	}
 

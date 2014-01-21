@@ -10,10 +10,10 @@ public class GoalTest {
 
 	@Test
 	public void shouldGetDependencies(){
-		Goal root = new Goal();
+		Dependency root = new Goal(false);
 		
 		Task task = new Task();
-		Goal goal = new Goal();
+		Dependency goal = new Goal(false);
 		Delegation delegation = new Delegation();
 		
 		root.addDependency(task);
@@ -30,12 +30,12 @@ public class GoalTest {
 	
 	@Test
 	public void shouldGetApplicableDependencies(){
-		Goal root = new Goal();
+		Dependency root = new Goal(false);
 		
 		Context context = new Context();
 		
 		Task task = new Task();
-		Goal goal = new Goal();
+		Dependency goal = new Goal(false);
 		Delegation delegation = new Delegation();
 		
 		task.setApplicableContext(context);
@@ -48,6 +48,18 @@ public class GoalTest {
 		deps.add(task);
 		
 		assertTrue(deps.containsAll(root.getApplicableDependencies(context)));
+	}
+	
+	@Test
+	public void shouldBeOrDecompositionOrAndDecomposition() throws Exception {
+		Dependency or = new Goal(true);
+		Dependency and = new Goal(false);
+		
+		assertTrue(or.isOrDecomposition());
+		assertFalse(or.isAndDecomposition());
+		
+		assertFalse(and.isOrDecomposition());
+		assertTrue(and.isAndDecomposition());
 	}
 
 

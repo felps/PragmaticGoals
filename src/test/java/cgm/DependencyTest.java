@@ -8,7 +8,7 @@ public class DependencyTest {
 
 	@Test
 	public void shouldReturnMyType() {
-		Goal goal = new Goal();
+		Dependency goal = new Goal(false);
 		Task task = new Task();
 		Delegation delegation = new Delegation();
 
@@ -21,7 +21,7 @@ public class DependencyTest {
 	
 	@Test
 	public void shouldBeApplicable() throws Exception {
-		Goal goal = new Goal();
+		Dependency goal = new Goal(false);
 		Task task = new Task();
 		Delegation delegation = new Delegation();
 		
@@ -38,7 +38,7 @@ public class DependencyTest {
 
 	@Test
 	public void shouldBeNotApplicable() throws Exception {
-		Goal goal = new Goal();
+		Dependency goal = new Goal(false);
 		Task task = new Task();
 		Delegation delegation = new Delegation();
 		

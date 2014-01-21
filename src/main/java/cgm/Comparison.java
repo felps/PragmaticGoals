@@ -6,10 +6,5 @@ public class Comparison {
 	public static final String EQUAL_TO = "eq";
 	public static final String LESS_THAN = "lt";
 	public static final String LESS_OR_EQUAL_TO = "leq";
-	
-	private String comparison;
-	
-	public Comparison(String compare) {
-		comparison = compare;
-	}
+
 }
