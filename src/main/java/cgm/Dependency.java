@@ -17,5 +17,15 @@ public abstract class Dependency {
 	}
 	
 	public abstract String myType();
+	
+	public boolean isApplicable(Context context) {
+		boolean returnValue;
+		if (applicableContext == context)
+			returnValue = true;
+		else returnValue =  false;
+		
+		return returnValue;
+	}
+
 
 }

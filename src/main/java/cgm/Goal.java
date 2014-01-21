@@ -39,4 +39,6 @@ public class Goal extends Dependency{
 		return Dependency.GOAL;
 	}
 
+	
+
 }
