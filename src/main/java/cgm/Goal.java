@@ -1,17 +1,14 @@
 package cgm;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.print.attribute.HashAttributeSet;
 
 public class Goal extends Dependency{
 
 	HashSet<Dependency> dependencies;
 	
 	public Goal() {
-		dependencies = new HashSet();
+		dependencies = new HashSet<Dependency>();
 	}
 	
 	public void addDependency(Dependency goal) {
