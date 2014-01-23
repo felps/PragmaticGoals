@@ -1,5 +1,7 @@
 package cgm;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,13 +12,19 @@ public abstract class Refinement {
 	public static final int DELEGATION = 3;
 	
 	private Context applicableContext;
-	private QualityConstraint qc;
+	private HashMap<Context, QualityConstraint> constraints;
 	protected boolean isOrDecomposition = false;
 	protected HashSet<Refinement> dependencies;
 	private String identifier;
 	
+	public Refinement() {
+		constraints= new HashMap<Context, QualityConstraint>();
+		
+	}
+	
 	public void setApplicableContext(Context context) {
 		applicableContext = context;
+//		dependencies = new HashSet<Refinement>();
 	}
 
 	public Context getApplicableContext() {
@@ -55,8 +63,8 @@ public abstract class Refinement {
 		}
 		QualityConstraint consideredQualCons ;
 		
-		if(this.qc != null)
-			consideredQualCons = qc.stricterQC(this.getQualityConstraint());
+		if(this.constraints.size() > 0)
+			consideredQualCons = qc.stricterQC(this.getQualityConstraint(current));
 		else
 			consideredQualCons = qc;
 		
@@ -64,33 +72,26 @@ public abstract class Refinement {
 			Refinement plan, complete;
 			// create an object of the same type as this one
 			complete = this.cloneWithoutDependencies();
-			System.out.println("Object Cloned");
 			for (Refinement dep : this.getApplicableDependencies(current)) {
 				plan = dep.isAchievable(current, consideredQualCons);
 				if (plan != null) {
-					System.out.println("Plan is not null");
 					complete.addDependency(plan);
 					return complete;
 				}
-				System.out.println("plan is null");
 			}
 			return null;
 		}
 		
 		if (this.isAndDecomposition()) {
 			Refinement complete, plan;
-			System.out.println("AND-Decomp");
 			// create an object of the same type as this one
 			complete = this.cloneWithoutDependencies();
-			System.out.println("Object Cloned");
 			for (Refinement dep : this.getApplicableDependencies(current)) {
 				plan = dep.isAchievable(current, consideredQualCons);
 				if (plan != null) {
-					System.out.println("Plan is not null");
 					complete.addDependency(plan);
 				}
 				else {
-					System.out.println("plan is null");
 					return null;
 				}
 			}
@@ -106,13 +107,13 @@ public abstract class Refinement {
 			 Goal clone = new Goal(this.isOrDecomposition);
 			 clone.setApplicableContext(applicableContext);
 			 clone.setIdentifier(this.getIdentifier());
-			 clone.setQualityConstraint(qc);
+			 clone.setQualityConstraint(constraints.values());
 			 return clone;
 		case Refinement.DELEGATION:
 			Delegation delegation = new Delegation();
 			delegation.setApplicableContext(getApplicableContext());
 			delegation.setIdentifier(identifier);
-			delegation.setQualityConstraint(getQualityConstraint());
+			delegation.setQualityConstraint(getAllQualityConstraint());
 			return delegation;
 		}
 		
@@ -127,11 +128,22 @@ public abstract class Refinement {
 		return !isOrDecomposition;
 	}
 
-	public QualityConstraint getQualityConstraint() {
-		return this.qc;
+	public QualityConstraint getQualityConstraint(Context current) {
+		return this.constraints.get(current);
 	}
+	
+	public Collection<QualityConstraint> getAllQualityConstraint() {
+		return this.constraints.values();
+	}
+	
 	public void setQualityConstraint(QualityConstraint qc) {
-		this.qc = qc;
+		this.constraints.put(qc.getApplicableContext(), qc);
+	}
+
+	public void setQualityConstraint(Collection<QualityConstraint> qcs) {
+		for (QualityConstraint qualityConstraint : qcs) {
+			this.constraints.put(qualityConstraint .getApplicableContext(), qualityConstraint );
+		}
 	}
 
 	public void addDependency(Refinement goal) {

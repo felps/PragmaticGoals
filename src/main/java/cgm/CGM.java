@@ -1,7 +1,5 @@
 package cgm;
 
-import org.yaml.snakeyaml.Yaml;
-
 import cgm.util.YamlHandler;
 
 public class CGM {

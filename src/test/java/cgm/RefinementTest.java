@@ -259,7 +259,7 @@ public class RefinementTest {
 		
 		Refinement clonedGoal = goal.cloneWithoutDependencies();
 		 
-		assertEquals(qc, clonedGoal.getQualityConstraint());
+		assertEquals(qc, clonedGoal.getQualityConstraint(current));
 		assertEquals(current, clonedGoal.getApplicableContext());
 		assertTrue("Root".contentEquals(clonedGoal.getIdentifier()));
 	}

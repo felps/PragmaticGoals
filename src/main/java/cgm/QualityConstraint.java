@@ -11,7 +11,7 @@ public class QualityConstraint {
 		return metric;
 	}
 
-	public float getThreshold() {
+	public double getThreshold() {
 		return this.threshold;
 	}
 
@@ -20,10 +20,10 @@ public class QualityConstraint {
 	}
 
 	private String metric;
-	private float threshold;
+	private double threshold;
 	private int comparison;
 
-	public QualityConstraint(Context applicable, String metric, float value,
+	public QualityConstraint(Context applicable, String metric, double value,
 			int comparison) {
 		this.applicableContext = applicable;
 		this.metric = metric;
@@ -40,7 +40,7 @@ public class QualityConstraint {
 		return false;
 	}
 
-	private boolean compare(float value) {
+	private boolean compare(double value) {
 		switch (this.comparison) {
 		case Comparison.GREATER_THAN:
 			if (value > this.threshold)

@@ -20,6 +20,18 @@ public class Context {
 	
 
 	public boolean equals(Context c){
-		return contextAnnotations.containsAll(c.contextAnnotations);
+		return contextAnnotations.equals(c.contextAnnotations);
 	}
+	
+	@Override
+	public boolean equals(Object c){
+		if(c.getClass().equals(Context.class)){
+		return contextAnnotations.equals(((Context) c).contextAnnotations);
+		}
+		else return (this == c);
+	}
+	
+	
+	
+	
 }

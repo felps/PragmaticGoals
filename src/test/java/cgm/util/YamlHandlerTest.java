@@ -1,87 +1,53 @@
 package cgm.util;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
 
-import cgm.util.YamlHandler;
-import cgm.*;
+import org.junit.Test;
+
+import cgm.CGM;
+import cgm.Comparison;
+import cgm.Context;
+import cgm.ContextAnnotation;
+import cgm.QualityConstraint;
+import cgm.Refinement;
 
 public class YamlHandlerTest {
 
-	YamlHandler yaml = new YamlHandler();
-	CGM cgm = new CGM();
-	Task taskAbide = new Task();
-	Task taskDoesNotAbide = new Task();
-	Goal goal = new Goal(false);
-	Delegation deleg = new Delegation();
-	Context current = new Context();
-	QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
-	String data;
-	
-	@Test
-	public void shouldDumpATask() {
-		data = "!!cgm.Task {applicableContext: null, identifier: null, qualityConstraint: null}\n";
-
-		assertEquals(data, yaml.dumpToString(taskAbide));
-	}
+	YamlHandler yamlHandler = new YamlHandler();
 
 	@Test
-	public void shouldDumpAQualityConstraint() {
-		data = "!!cgm.Task {applicableContext: null, identifier: null, qualityConstraint: null}\n";
+	public void shouldLoadAFullCgmFromFile() throws Exception {
+		String filename = "singleGoalCGM.yaml";
 
-		System.out.println(yaml.dumpToString(qc));
-		
-		assertEquals(data, yaml.dumpToString(qc));
-	}
-	
-	@Test
-	public void shouldDumpAGoal() {
-		goal.setApplicableContext(current);
-		goal.setIdentifier("root goal");
-		goal.setQualityConstraint(qc);
-		System.out.println(yaml.dumpToString(goal));
-	}
-	
-	@Test
-	public void shouldDumpADelegation() {
-		data = "!!cgm.Delegation {applicableContext: null, identifier: null, qualityConstraint: null}\n";
+		CGM cgm = yamlHandler.parseCgmFromFile(filename);
 
+		assertEquals("g1", cgm.getRoot().getIdentifier());
 
-		System.out.println(yaml.dumpToString(deleg));
+		assertTrue(cgm.getRoot().isAndDecomposition());
+
+		ContextAnnotation applicableContextAnnotations = ContextAnnotation
+				.createContextAnnotation("c1", "");
+		Context applicableContext = new Context(
+				applicableContextAnnotations.getIdentifier());
+
+		assertTrue(cgm.getRoot().getApplicableContext().contextAnnotations
+				.contains(applicableContextAnnotations));
+
+		assertEquals(1, cgm.getRoot().getDependencies().size());
+
+		for( QualityConstraint qc : cgm.getRoot().getAllQualityConstraint()){
+			assertNotEquals(null, qc);
+			assertEquals(Comparison.LESS_OR_EQUAL_TO, qc.getComparison());
+			assertEquals(20.0, qc.getThreshold(), 0);
+			assertEquals("seconds", qc.getMetric());
+			assertEquals(applicableContext, qc.getApplicableContext());
+		}
+
+		for (Refinement ref : cgm.getRoot().getDependencies()) {
+			assertEquals("t1", ref.getIdentifier());
+			assertTrue(applicableContext.equals(ref.getApplicableContext()));
+
+		}
 	}
-	
-	@Test
-	public void shouldDumpAnEmptyCGM() {
-		
-		System.out.println(yaml.dumpToString(cgm));
-	}
-	
-	@Test
-	public void shouldDumpAComplexCGM() {
-		data = "!!cgm.CGM\nroot: !!cgm.Goal\n  applicableContext: {}\n  identifier: root goal\n  qualityConstraint: {}\n";
-		
-		cgm.setRoot(goal);
-		
-		goal.setApplicableContext(current);
-		goal.setIdentifier("root goal");
-		goal.setQualityConstraint(qc);
-	
-		taskAbide.setApplicableContext(current);
-		taskAbide.setIdentifier("TaskAbide");
-		taskAbide.setProvidedQuality(current, Metric.SECONDS, 13);
-		
-		taskDoesNotAbide.setApplicableContext(current);
-		taskDoesNotAbide.setIdentifier("TaskAbide");
-		taskDoesNotAbide.setProvidedQuality(current, Metric.SECONDS, 16);
-		
-		goal.addDependency(taskAbide);
-		goal.addDependency(taskDoesNotAbide);
-		goal.addDependency(deleg);
-		
-//		System.out.println(yaml.dumpToString(cgm));
-	}
-	
-	
-	
 
 }

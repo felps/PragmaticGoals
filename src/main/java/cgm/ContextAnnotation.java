@@ -1,6 +1,5 @@
 package cgm;
 
-import java.security.acl.LastOwnerException;
 import java.util.HashMap;
 
 public class ContextAnnotation {
@@ -20,6 +19,10 @@ public class ContextAnnotation {
 			throw (new Exception("Previously created annotation"));
 	}
 
+	public static ContextAnnotation createContextAnnotation(String id) {
+		return createContextAnnotation(id, "");
+	}
+
 	public static ContextAnnotation createContextAnnotation(String id,
 			String descriptionString) {
 		if (!existent.containsKey(id)) {
@@ -29,11 +32,25 @@ public class ContextAnnotation {
 				e.printStackTrace();
 				return null;
 			}
-		}
-		else{
+		} else {
 			return existent.get(id);
 		}
-			
+
+	}
+
+	public static ContextAnnotation getContextAnnotation(String id,
+			String descriptionString) {
+		if (!existent.containsKey(id)) {
+			try {
+				return (new ContextAnnotation(id, descriptionString));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		} else {
+			return existent.get(id);
+		}
+
 	}
 
 	public String getIdentifier() {
