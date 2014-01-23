@@ -3,7 +3,7 @@ package cgm;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Dependency {
+public abstract class Refinement {
 
 	public static final String GOAL = "GOAL";
 	public static final String TASK = "TASK";
@@ -12,7 +12,7 @@ public abstract class Dependency {
 	private Context applicableContext;
 	private QualityConstraint qc;
 	protected boolean isOrDecomposition = false;
-	protected HashSet<Dependency> dependencies;
+	protected HashSet<Refinement> dependencies;
 	
 	public void setApplicableContext(Context context) {
 		applicableContext = context;
@@ -33,17 +33,17 @@ public abstract class Dependency {
 		return returnValue;
 	}
 	
-	public Dependency isAchievable(CGM cgm, Context current, QualityConstraint qc) {
-		Dependency root = cgm.getRoot();
+	public Refinement isAchievable(CGM cgm, Context current, QualityConstraint qc) {
+		Refinement root = cgm.getRoot();
 		return root.isAchievable(current, qc);
 	}
 	
-	private Dependency isAchievable(Context current, QualityConstraint qc) {
+	private Refinement isAchievable(Context current, QualityConstraint qc) {
 		if(!this.isApplicable(current)){
 			return null;
 		}
 		
-		if(this.myType().contentEquals(Dependency.TASK)){
+		if(this.myType().contentEquals(Refinement.TASK)){
 			Task task = (Task) this;
 			String metric = qc.getMetric();
 			
@@ -56,10 +56,10 @@ public abstract class Dependency {
 		QualityConstraint consideredQualCons = qc.stricterQC(this.getQualityConstraint());
 		
 		if (this.isOrDecomposition()) {
-			Dependency plan;
+			Refinement plan;
 			// create an object of the same type as this one
 			// plan = this.cloneWithoutDependencies();
-			for (Dependency dep : this.getApplicableDependencies(current)) {
+			for (Refinement dep : this.getApplicableDependencies(current)) {
 				plan = dep.isAchievable(current, consideredQualCons);
 				if (plan != null) {
 					// plan.addDependency(dep);
@@ -70,10 +70,10 @@ public abstract class Dependency {
 		}
 		
 		if (this.isAndDecomposition()) {
-			Dependency plan;
+			Refinement plan;
 			// create an object of the same type as this one
 			// plan = this.cloneWithoutDependencies();
-			for (Dependency dep : this.getApplicableDependencies(current)) {
+			for (Refinement dep : this.getApplicableDependencies(current)) {
 				plan = dep.isAchievable(current, consideredQualCons);
 				if (plan != null) {
 					// complete = plan.addDependency(dep);
@@ -100,19 +100,19 @@ public abstract class Dependency {
 		this.qc = qc;
 	}
 
-	public void addDependency(Dependency goal) {
+	public void addDependency(Refinement goal) {
 		dependencies.add(goal);
 	}
 
-	public Set<Dependency> getDependencies() {
+	public Set<Refinement> getDependencies() {
 		return dependencies;
 	}
 
-	public Set<Dependency> getApplicableDependencies(Context context) {
+	public Set<Refinement> getApplicableDependencies(Context context) {
 		
-		HashSet<Dependency> applicableDeps = new HashSet<Dependency>();
+		HashSet<Refinement> applicableDeps = new HashSet<Refinement>();
 		
-		for (Dependency dep : dependencies) {
+		for (Refinement dep : dependencies) {
 			if(dep.getApplicableContext() == context){
 				applicableDeps.add(dep);
 			}
