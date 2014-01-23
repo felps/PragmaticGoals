@@ -1,0 +1,22 @@
+---
+tasks:
+ t1:
+  context: [c1]
+  qp:
+    metric: seconds
+    value: 15.0
+    context: []
+goals:
+ g1:
+  isOr: false
+  context: [c1]
+  deps: [t1]
+  qc:
+   -qc1:
+     metric: seconds
+     value: 20.0
+     comparison: <=
+     context: [c1]
+CGM:
+ root: g1
+
