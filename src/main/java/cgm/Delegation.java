@@ -1,10 +1,10 @@
 package cgm;
 
-public class Delegation extends Dependency{
+public class Delegation extends Refinement{
 
 	@Override
 	public String myType() {
-		return Dependency.DELEGATION;
+		return Refinement.DELEGATION;
 	}
 
 }

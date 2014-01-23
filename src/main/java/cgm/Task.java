@@ -2,13 +2,13 @@ package cgm;
 
 import java.util.HashMap;
 
-public class Task extends Dependency {
+public class Task extends Refinement {
 
 	HashMap<String, HashMap<Context, Float>> providedQualityLevels;
 
 	@Override
 	public String myType() {
-		return Dependency.TASK;
+		return Refinement.TASK;
 	}
 
 	public Task() {

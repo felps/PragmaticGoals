@@ -38,7 +38,7 @@ public abstract class Refinement {
 		return root.isAchievable(current, qc);
 	}
 	
-	private Refinement isAchievable(Context current, QualityConstraint qc) {
+	public Refinement isAchievable(Context current, QualityConstraint qc) {
 		if(!this.isApplicable(current)){
 			return null;
 		}
