@@ -2,6 +2,8 @@ package cgm;
 
 import java.util.HashSet;
 
+import cgm.util.YamlHandler;
+
 public class Goal extends Refinement{
 
 	public Goal(boolean isOrDecomposition) {
@@ -14,6 +16,15 @@ public class Goal extends Refinement{
 		return Refinement.GOAL;
 	}
 
-	
+
+	public void parseFromYamlFile(){
+		
+	}
+
+	public void dumpToYamlFile(){
+		YamlHandler yaml = new YamlHandler();
+		yaml.dumpToYamlFile(this);
+		
+	}
 
 }

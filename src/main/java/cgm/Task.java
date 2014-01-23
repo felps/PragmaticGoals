@@ -2,6 +2,8 @@ package cgm;
 
 import java.util.HashMap;
 
+import cgm.util.YamlHandler;
+
 public class Task extends Refinement {
 
 	HashMap<String, HashMap<Context, Float>> providedQualityLevels;
@@ -32,4 +34,14 @@ public class Task extends Refinement {
 		return providedQualityLevels.get(metric).get(context).floatValue();
 	}
 
+
+	public void parseFromYamlFile(){
+		YamlHandler yaml = new YamlHandler();
+		yaml.dumpToYamlFile(this);
+	}
+
+	public void dumpToYamlFile(){
+		YamlHandler yaml = new YamlHandler();
+		yaml.dumpToYamlFile(this);
+	}
 }
