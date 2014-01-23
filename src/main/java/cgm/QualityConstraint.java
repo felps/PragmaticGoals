@@ -15,16 +15,16 @@ public class QualityConstraint {
 		return this.threshold;
 	}
 
-	public String getComparison() {
+	public int getComparison() {
 		return comparison;
 	}
 
 	private String metric;
 	private float threshold;
-	private String comparison;
+	private int comparison;
 
 	public QualityConstraint(Context applicable, String metric, float value,
-			String comparison) {
+			int comparison) {
 		this.applicableContext = applicable;
 		this.metric = metric;
 		this.threshold = value;
@@ -73,7 +73,7 @@ public class QualityConstraint {
 	}
 
 	public QualityConstraint stricterQC(QualityConstraint qualityConstraint) {
-		if (qualityConstraint.comparison.contentEquals(this.comparison)) {
+		if (qualityConstraint.comparison == this.comparison) {
 		
 			if (qualityConstraint.metric.contentEquals(this.metric)) {
 			

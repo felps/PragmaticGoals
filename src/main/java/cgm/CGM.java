@@ -1,5 +1,7 @@
 package cgm;
 
+import org.yaml.snakeyaml.Yaml;
+
 public class CGM {
 
 	private Refinement rootGoal;
@@ -13,4 +15,12 @@ public class CGM {
 		return rootGoal;
 	}
 
+	public void parseFromYamlFile(){
+		
+	}
+
+	public void dumpToYamlFile(){
+		Yaml yaml = new Yaml();
+		System.out.println();
+	}
 }

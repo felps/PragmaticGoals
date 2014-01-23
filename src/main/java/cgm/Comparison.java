@@ -1,10 +1,10 @@
 package cgm;
 
 public class Comparison {
-	public static final String GREATER_THAN = "gt";
-	public static final String GREATER_OR_EQUAL_TO = "geq";
-	public static final String EQUAL_TO = "eq";
-	public static final String LESS_THAN = "lt";
-	public static final String LESS_OR_EQUAL_TO = "leq";
+	public static final int GREATER_THAN = 1;
+	public static final int GREATER_OR_EQUAL_TO = 2;
+	public static final int EQUAL_TO = 3;
+	public static final int LESS_THAN = 4;
+	public static final int LESS_OR_EQUAL_TO = 5;
 
 }

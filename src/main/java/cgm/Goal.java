@@ -10,7 +10,7 @@ public class Goal extends Refinement{
 	}
 	
 	@Override
-	public String myType() {
+	public int myType() {
 		return Refinement.GOAL;
 	}
 

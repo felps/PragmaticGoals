@@ -7,7 +7,7 @@ public class Task extends Refinement {
 	HashMap<String, HashMap<Context, Float>> providedQualityLevels;
 
 	@Override
-	public String myType() {
+	public int myType() {
 		return Refinement.TASK;
 	}
 

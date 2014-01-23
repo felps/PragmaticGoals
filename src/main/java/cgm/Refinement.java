@@ -1,14 +1,13 @@
 package cgm;
 
-import java.sql.Ref;
 import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Refinement {
 
-	public static final String GOAL = "GOAL";
-	public static final String TASK = "TASK";
-	public static final String DELEGATION = "DELEGATION";
+	public static final int GOAL = 1;
+	public static final int TASK = 2;
+	public static final int DELEGATION = 3;
 	
 	private Context applicableContext;
 	private QualityConstraint qc;
@@ -24,7 +23,7 @@ public abstract class Refinement {
 		return applicableContext;
 	}
 	
-	public abstract String myType();
+	public abstract int myType();
 	
 	public boolean isApplicable(Context context) {
 		boolean returnValue;
@@ -45,7 +44,7 @@ public abstract class Refinement {
 			return null;
 		}
 		
-		if(this.myType().contentEquals(Refinement.TASK)){
+		if(this.myType() == Refinement.TASK){
 			Task task = (Task) this;
 			String metric = qc.getMetric();
 			

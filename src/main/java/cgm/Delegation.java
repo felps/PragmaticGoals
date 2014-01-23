@@ -3,7 +3,7 @@ package cgm;
 public class Delegation extends Refinement{
 
 	@Override
-	public String myType() {
+	public int myType() {
 		return Refinement.DELEGATION;
 	}
 
