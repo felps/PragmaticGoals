@@ -1,5 +1,7 @@
 package cgm;
 
+import java.util.Set;
+
 import cgm.util.YamlHandler;
 
 public class CGM {
@@ -15,7 +17,9 @@ public class CGM {
 		return rootGoal;
 	}
 	
-	
+	public Plan isAchievable(Set<Context> current, QualityConstraint qc){
+		return rootGoal.isAchievable(current, qc);
+	}
 	public void parseFromYamlFile(){
 		
 	}

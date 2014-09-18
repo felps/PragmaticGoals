@@ -2,6 +2,8 @@ package cgm;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+
 import org.junit.Test;
 
 public class TaskTest {
@@ -9,11 +11,14 @@ public class TaskTest {
 	@Test
 	public void shouldProvideCorrectValueForMetric() {
 		Task task = new Task();
-		Context context = new Context();
 		
-		task.setProvidedQuality(context, Metric.METERS, 30.0);
+		Context current = new Context();
+		HashSet<Context> fullContext = new HashSet<Context>();
+		fullContext.add(current);
 		
-		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, context), 0);
+		task.setProvidedQuality(current, Metric.METERS, 30.0);
+		
+		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
 	}
 
 }

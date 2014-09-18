@@ -162,7 +162,7 @@ public class YamlHandler {
 			
 			QualityConstraint qc = new QualityConstraint(applicable, metric,value,comparison);
 			
-			goal.setQualityConstraint(qc);
+			goal.addQualityConstraint(qc);
 		}
 		return null;
 	}

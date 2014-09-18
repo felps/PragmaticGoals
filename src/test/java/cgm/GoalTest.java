@@ -26,6 +26,7 @@ public class GoalTest {
 		deps.add(task);
 		
 		assertTrue(deps.containsAll(root.getDependencies()));
+		assertTrue(root.getDependencies().containsAll(deps));
 	}
 	
 	@Test
@@ -33,7 +34,8 @@ public class GoalTest {
 		Refinement root = new Goal(false);
 		
 		Context context = new Context();
-		
+		HashSet<Context> current = new HashSet<Context>();
+		current.add(context);
 		Task task = new Task();
 		Refinement goal = new Goal(false);
 		Delegation delegation = new Delegation();
@@ -47,7 +49,7 @@ public class GoalTest {
 		HashSet<Refinement> deps = new HashSet<Refinement>();
 		deps.add(task);
 		
-		assertTrue(deps.containsAll(root.getApplicableDependencies(context)));
+		assertTrue(deps.containsAll(root.getApplicableDependencies(current)));
 	}
 	
 	@Test

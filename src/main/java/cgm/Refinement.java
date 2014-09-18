@@ -24,7 +24,6 @@ public abstract class Refinement {
 	
 	public void setApplicableContext(Context context) {
 		applicableContext = context;
-//		dependencies = new HashSet<Refinement>();
 	}
 
 	public Context getApplicableContext() {
@@ -33,63 +32,59 @@ public abstract class Refinement {
 	
 	public abstract int myType();
 	
-	public boolean isApplicable(Context context) {
-		boolean returnValue;
-		if (applicableContext == context)
-			returnValue = true;
-		else returnValue =  false;
-		
+	public boolean isApplicable(Set<Context> current) {
+		boolean returnValue = false;
+		for (Context context : current) {
+			if (applicableContext == context)
+				returnValue = true;
+		}
 		return returnValue;
 	}
 	
-	public Refinement isAchievable(CGM cgm, Context current, QualityConstraint qc) {
+	public Plan isAchievable(CGM cgm, Set<Context> current, QualityConstraint qc) {
 		Refinement root = cgm.getRoot();
 		return root.isAchievable(current, qc);
 	}
 	
-	public Refinement isAchievable(Context current, QualityConstraint qc) {
+	public Plan isAchievable(Set<Context> current, QualityConstraint qc) {
 		if(!this.isApplicable(current)){
 			return null;
 		}
-		
 		if(this.myType() == Refinement.TASK){
 			Task task = (Task) this;
 			String metric = qc.getMetric();
 			
-			if(qc.abidesByQC(task.myProvidedQuality(metric, current), metric))
-				return this;
-			else
+			if(qc.abidesByQC(task.myProvidedQuality(metric, current), metric)){
+				return new Plan(task);
+			} else {
 				return null;
+			}
 		}
 		QualityConstraint consideredQualCons ;
 		
-		if(this.constraints.size() > 0)
+		if(this.constraints.size() > 0 && this.getQualityConstraint(current) != null)
 			consideredQualCons = qc.stricterQC(this.getQualityConstraint(current));
 		else
 			consideredQualCons = qc;
-		
+
 		if (this.isOrDecomposition()) {
-			Refinement plan, complete;
-			// create an object of the same type as this one
-			complete = this.cloneWithoutDependencies();
+			Plan plan;
 			for (Refinement dep : this.getApplicableDependencies(current)) {
 				plan = dep.isAchievable(current, consideredQualCons);
 				if (plan != null) {
-					complete.addDependency(plan);
-					return complete;
+					return plan;
 				}
 			}
 			return null;
 		}
-		
+
 		if (this.isAndDecomposition()) {
-			Refinement complete, plan;
-			// create an object of the same type as this one
-			complete = this.cloneWithoutDependencies();
+			Plan complete, plan;
+			complete = new Plan();
 			for (Refinement dep : this.getApplicableDependencies(current)) {
 				plan = dep.isAchievable(current, consideredQualCons);
 				if (plan != null) {
-					complete.addDependency(plan);
+					complete.add(plan);
 				}
 				else {
 					return null;
@@ -128,15 +123,27 @@ public abstract class Refinement {
 		return !isOrDecomposition;
 	}
 
-	public QualityConstraint getQualityConstraint(Context current) {
-		return this.constraints.get(current);
+	public QualityConstraint getQualityConstraint(Set<Context> current) {
+		QualityConstraint qc = null, stricter = null;
+		
+		for (Context context : current) {
+			qc = this.constraints.get(context);
+			if (qc != null){
+				if (stricter == null){
+					stricter = qc;
+				} else {
+					stricter = qc.stricterQC(stricter);
+				}
+			}
+		}
+		return stricter;
 	}
 	
 	public Collection<QualityConstraint> getAllQualityConstraint() {
 		return this.constraints.values();
 	}
 	
-	public void setQualityConstraint(QualityConstraint qc) {
+	public void addQualityConstraint(QualityConstraint qc) {
 		this.constraints.put(qc.getApplicableContext(), qc);
 	}
 
@@ -154,13 +161,15 @@ public abstract class Refinement {
 		return dependencies;
 	}
 
-	public Set<Refinement> getApplicableDependencies(Context context) {
+	public Set<Refinement> getApplicableDependencies(Set<Context> current) {
 		
 		HashSet<Refinement> applicableDeps = new HashSet<Refinement>();
 		
 		for (Refinement dep : dependencies) {
-			if(dep.getApplicableContext() == context){
-				applicableDeps.add(dep);
+			for (Context context : current) {
+				if(dep.getApplicableContext() == context){
+					applicableDeps.add(dep);
+				}
 			}
 		}
 		return applicableDeps;
