@@ -38,13 +38,18 @@ public class Task extends Refinement {
 		}
 	}
 
-	public float myProvidedQuality(String metric, Set<Context> current) {
+	public float myProvidedQuality(String metric, Set<Context> current) throws MetricNotFoundException {
 		float myQuality = 0;
 		boolean set = false;
+		
+		if(providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).containsKey(null)){
+			myQuality = providedQualityLevels.get(metric).get(null);
+			set = true;
+		}
+		
 		for (Context context : current) {
 			if (providedQualityLevels.get(metric) != null
 					&& providedQualityLevels.get(metric).get(context) != null) {
-				System.out.println("Setting...");
 				if (!set) {
 					myQuality = providedQualityLevels.get(metric).get(context)
 							.floatValue();
@@ -65,6 +70,8 @@ public class Task extends Refinement {
 			}
 
 		}
+		if(!set)
+			throw (new MetricNotFoundException());
 		return myQuality;
 	}
 

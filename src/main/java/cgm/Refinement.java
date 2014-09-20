@@ -54,9 +54,13 @@ public abstract class Refinement {
 			Task task = (Task) this;
 			String metric = qc.getMetric();
 			
-			if(qc.abidesByQC(task.myProvidedQuality(metric, current), metric)){
-				return new Plan(task);
-			} else {
+			try {
+				if(qc.abidesByQC(task.myProvidedQuality(metric, current), metric)){
+					return new Plan(task);
+				} else {
+					return null;
+				}
+			} catch (MetricNotFoundException e) {
 				return null;
 			}
 		}
