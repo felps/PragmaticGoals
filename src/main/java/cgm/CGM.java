@@ -2,8 +2,6 @@ package cgm;
 
 import java.util.Set;
 
-import cgm.util.YamlHandler;
-
 public class CGM {
 
 	private Refinement rootGoal;
@@ -17,16 +15,16 @@ public class CGM {
 		return rootGoal;
 	}
 	
-	public Plan isAchievable(Set<Context> current, QualityConstraint qc){
-		return rootGoal.isAchievable(current, qc);
+	public Plan isAchievable(Set<Context> current, Interpretation interp){
+		return rootGoal.isAchievable(current, interp);
 	}
 	public void parseFromYamlFile(){
 		
 	}
 
-	public void dumpToYamlFile(){
-		YamlHandler yaml = new YamlHandler();
-		yaml.dumpToYamlFile(this);
-		
-	}
+//	public void dumpToYamlFile(){
+//		YamlHandler yaml = new YamlHandler();
+//		yaml.dumpToYamlFile(this);
+//		
+//	}
 }

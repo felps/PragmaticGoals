@@ -3,8 +3,6 @@ package cgm;
 import java.util.HashMap;
 import java.util.Set;
 
-import cgm.util.YamlHandler;
-
 public class Task extends Refinement {
 
 	private HashMap<String, HashMap<Context, Float>> providedQualityLevels;
@@ -38,15 +36,17 @@ public class Task extends Refinement {
 		}
 	}
 
-	public float myProvidedQuality(String metric, Set<Context> current) throws MetricNotFoundException {
+	public float myProvidedQuality(String metric, Set<Context> current)
+			throws MetricNotFoundException {
 		float myQuality = 0;
 		boolean set = false;
-		
-		if(providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).containsKey(null)){
+
+		if (providedQualityLevels.get(metric) != null
+				&& providedQualityLevels.get(metric).containsKey(null)) {
 			myQuality = providedQualityLevels.get(metric).get(null);
 			set = true;
 		}
-		
+
 		for (Context context : current) {
 			if (providedQualityLevels.get(metric) != null
 					&& providedQualityLevels.get(metric).get(context) != null) {
@@ -70,18 +70,46 @@ public class Task extends Refinement {
 			}
 
 		}
-		if(!set)
+		if (!set)
 			throw (new MetricNotFoundException());
 		return myQuality;
 	}
 
-	public void parseFromYamlFile() {
-		YamlHandler yaml = new YamlHandler();
-		yaml.dumpToYamlFile(this);
+	public boolean abidesByInterpretation(Interpretation interp,
+			Set<Context> current) {
+		boolean feasible = true;
+
+		for (QualityConstraint qc : interp.getQualityConstraints(current)) {
+			try {
+				if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current),
+						qc.getMetric())) {
+					feasible = false;
+				}
+			} catch (MetricNotFoundException e) {
+			}
+		}
+		return feasible;
+	}
+	
+	@Override
+	public Plan isAchievable(Set<Context> current, Interpretation interp) {
+		if (!this.isApplicable(current)) {
+			return null;
+		}
+		if (abidesByInterpretation(interp, current)) {
+			return new Plan(this);
+		} else {
+			return null;
+		}
 	}
 
-	public void dumpToYamlFile() {
-		YamlHandler yaml = new YamlHandler();
-		yaml.dumpToYamlFile(this);
-	}
+	// public void parseFromYamlFile() {
+	// YamlHandler yaml = new YamlHandler();
+	// yaml.dumpToYamlFile(this);
+	// }
+	//
+	// public void dumpToYamlFile() {
+	// YamlHandler yaml = new YamlHandler();
+	// yaml.dumpToYamlFile(this);
+	// }
 }

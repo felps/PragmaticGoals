@@ -72,7 +72,7 @@ public class QualityConstraint {
 		return false;
 	}
 
-	public QualityConstraint stricterQC(QualityConstraint qualityConstraint) {
+	public QualityConstraint stricterQC(QualityConstraint qualityConstraint) throws DifferentMetricsException{
 		if (qualityConstraint.comparison == this.comparison) {
 		
 			if (qualityConstraint.metric.contentEquals(this.metric)) {
@@ -82,7 +82,7 @@ public class QualityConstraint {
 				else
 					return qualityConstraint;
 			}
-		}
+		} else throw (new DifferentMetricsException());
 		return null;
 	}
 }

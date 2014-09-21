@@ -12,7 +12,7 @@ public class TaskTest {
 	public void shouldProvideCorrectValueForMetric() throws MetricNotFoundException {
 		Task task = new Task();
 		
-		Context current = new Context();
+		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 		
@@ -25,7 +25,7 @@ public class TaskTest {
 	public void shouldProvideMetricForBaseline() throws MetricNotFoundException {
 		Task task = new Task();
 		
-		Context current = new Context();
+		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 		
@@ -38,7 +38,7 @@ public class TaskTest {
 	public void shouldThrowExceptionIfMetricNotFound() throws MetricNotFoundException {
 		Task task = new Task();
 		
-		Context current = new Context();
+		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 		
@@ -46,7 +46,4 @@ public class TaskTest {
 		
 		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
 	}
-	
-	
-
 }

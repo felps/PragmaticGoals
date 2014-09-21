@@ -1,34 +1,35 @@
 package cgm;
 
-import java.util.Collection;
-import java.util.HashSet;
 
 public class Context {
-	public HashSet<ContextAnnotation> contextAnnotations;
+	private String name;
 	
-	public Context(Collection<ContextAnnotation> annotations) {
-		contextAnnotations = new HashSet<ContextAnnotation>();
-		contextAnnotations.addAll(annotations);
-	}
 	
-	public Context(String... annotationNames) {
-		contextAnnotations = new HashSet<ContextAnnotation>();
-		for (String name : annotationNames) {
-			contextAnnotations.add(ContextAnnotation.createContextAnnotation(name, ""));
-		}
+	public Context(String name) {
+		this.setName(name);
 	}
 	
 
 	public boolean equals(Context c){
-		return contextAnnotations.equals(c.contextAnnotations);
+		return name.equalsIgnoreCase(c.getName());
 	}
 	
 	@Override
 	public boolean equals(Object c){
 		if(c.getClass().equals(Context.class)){
-		return contextAnnotations.equals(((Context) c).contextAnnotations);
+			return name.equalsIgnoreCase(((Context) c).getName());
 		}
 		else return (this == c);
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

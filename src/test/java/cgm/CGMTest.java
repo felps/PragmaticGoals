@@ -14,10 +14,10 @@ public class CGMTest {
 		assertEquals(cgm.getRoot(),root);
 	}
 	
-	@Test
-	public void whatOsTheOutputForYamlDump() throws Exception {
-		CGM cgm = new CGM();
-		cgm.setRoot((new Goal(false)));
-		cgm.dumpToYamlFile();
-	}
+//	@Test
+//	public void whatOsTheOutputForYamlDump() throws Exception {
+//		CGM cgm = new CGM();
+//		cgm.setRoot((new Goal(false)));
+//		cgm.dumpToYamlFile();
+//	}
 }

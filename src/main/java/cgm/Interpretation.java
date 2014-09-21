@@ -6,34 +6,51 @@ import java.util.Set;
 
 public class Interpretation {
 
-	HashMap<Context, Set<QualityConstraint>> contextDependentInterpretation;
+	private HashMap<Context, Set<QualityConstraint>> contextDependentInterpretation;
+	private HashSet<QualityConstraint> qualityConstraints;
+
+	public HashMap<Context, Set<QualityConstraint>> getContextDependentInterpretation() {
+		return contextDependentInterpretation;
+	}
 
 	public Interpretation() {
 		contextDependentInterpretation = new HashMap<Context, Set<QualityConstraint>>();
+		qualityConstraints = new HashSet<QualityConstraint>();
 	}
 
-	public void addQualityConstraint(QualityConstraint constraint,
-			Context context) {
+	public void addQualityConstraint(QualityConstraint constraint) {
+		qualityConstraints.add(constraint);
+
+		Context context = constraint.getApplicableContext();
+
 		if (contextDependentInterpretation.containsKey(context)) {
 			contextDependentInterpretation.get(context).add(constraint);
 		} else {
-
 			HashSet<QualityConstraint> constraintSet = new HashSet<QualityConstraint>();
-
 			constraintSet.add(constraint);
-
 			contextDependentInterpretation.put(context, constraintSet);
 		}
 	}
 
-	public Set<QualityConstraint> getQualityConstraints(Context context) {
-
-		if (contextDependentInterpretation.containsKey(context)) {
-			return contextDependentInterpretation.get(context);
-		} else {
-			return null;
+	public Set<QualityConstraint> getQualityConstraints(Set<Context> current) {
+		HashSet<QualityConstraint> allQCs = new HashSet<QualityConstraint>();
+		for (Context context : current) {
+			if (contextDependentInterpretation.containsKey(context)) {
+				allQCs.addAll(contextDependentInterpretation.get(context));
+			}
 		}
-		
+		return allQCs;
+	}
+
+	public void merge(Interpretation interp) {
+		for (QualityConstraint qualityConstraint : interp
+				.getAllQualityConstraints()) {
+			addQualityConstraint(qualityConstraint);
+		}
+	}
+
+	private HashSet<QualityConstraint> getAllQualityConstraints() {
+		return qualityConstraints;
 	}
 
 }

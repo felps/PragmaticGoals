@@ -33,14 +33,14 @@ public class GoalTest {
 	public void shouldGetApplicableDependencies(){
 		Refinement root = new Goal(false);
 		
-		Context context = new Context();
+		Context context = new Context("c1");
 		HashSet<Context> current = new HashSet<Context>();
 		current.add(context);
 		Task task = new Task();
 		Refinement goal = new Goal(false);
 		Delegation delegation = new Delegation();
 		
-		task.setApplicableContext(context);
+		task.addApplicableContext(context);
 		
 		root.addDependency(task);
 		root.addDependency(goal);
@@ -54,8 +54,8 @@ public class GoalTest {
 	
 	@Test
 	public void shouldBeOrDecompositionOrAndDecomposition() throws Exception {
-		Refinement or = new Goal(true);
-		Refinement and = new Goal(false);
+		Goal or = new Goal(Goal.OR);
+		Goal and = new Goal(Goal.AND);
 		
 		assertTrue(or.isOrDecomposition());
 		assertFalse(or.isAndDecomposition());
