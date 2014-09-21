@@ -405,6 +405,42 @@ public class RefinementTest {
 		assertTrue(goal.getInterpretation().getQualityConstraints(fullContext).contains(stricter));
 
 	}
+	
+	@Test
+	public void shouldIncludeNonApplicableContexts() {
+		Pragmatic goal = new Pragmatic(false);
+
+		Task task = new Task();
+		Context context = new Context("C1");
+		Context wrongContext = new Context("C2");
+		HashSet<Context> current = new HashSet<Context>();
+		
+		QualityConstraint qc = new QualityConstraint(context, Metric.SECONDS,15,Comparison.LESS_OR_EQUAL_TO);
+
+		task.addApplicableContext(context);
+		task.setProvidedQuality(context, Metric.SECONDS, 13);
+		
+		goal.addDependency(task);
+		goal.setIdentifier("Root");
+		goal.addNonApplicableContext(wrongContext);
+		goal.getInterpretation().addQualityConstraint(qc);
+		
+		Interpretation interp = new Interpretation();
+		interp.addQualityConstraint(qc);
+
+		
+		current.add(wrongContext);
+		assertEquals(null, goal.isAchievable(current, interp));
+		
+		current.add(context);
+		assertEquals(null, goal.isAchievable(current, interp));
+		
+		current.remove(wrongContext);
+		assertTrue(goal.isAchievable(current, interp)!=null);
+		assertTrue(goal.isAchievable(current, interp).getTasks()!=null);
+		assertEquals(1, goal.isAchievable(current, interp).getTasks().size());
+		
+	}
 /*	@Test
 	public void shouldCloneAGoal() throws Exception {
 		Goal goal = new Goal(false);

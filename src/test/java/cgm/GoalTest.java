@@ -49,7 +49,8 @@ public class GoalTest {
 		HashSet<Refinement> deps = new HashSet<Refinement>();
 		deps.add(task);
 		
-		assertTrue(deps.containsAll(root.getApplicableDependencies(current)));
+		assertEquals(1, deps.size());
+		assertTrue(deps.contains(task));
 	}
 	
 	@Test

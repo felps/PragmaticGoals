@@ -10,6 +10,8 @@ public abstract class Refinement {
 	public static final int DELEGATION = 3;
 
 	private HashSet<Context> applicableContexts;
+	private HashSet<Context> nonApplicableContexts;
+	
 	protected boolean isOrDecomposition = false;
 	protected HashSet<Refinement> dependencies;
 	private String identifier;
@@ -17,6 +19,7 @@ public abstract class Refinement {
 	public Refinement() {
 		applicableContexts = new HashSet<Context>();
 		applicableContexts.add(null);
+		nonApplicableContexts = new HashSet<Context>();
 		dependencies = new HashSet<Refinement>();
 	}
 
@@ -27,6 +30,11 @@ public abstract class Refinement {
 		applicableContexts.add(context);
 	}
 
+	public void addNonApplicableContext(Context wrongContext) {
+		nonApplicableContexts.add(wrongContext);
+		
+	}
+	
 	public void addApplicableContext(HashSet<Context> contextSet) {
 		applicableContexts.addAll(contextSet);
 	}
@@ -39,10 +47,14 @@ public abstract class Refinement {
 
 	public boolean isApplicable(Set<Context> current) {
 		boolean returnValue = false;
+		
 		if (applicableContexts.contains(null)) {
-			return true;
+			returnValue = true;
 		}
+		
 		for (Context context : current) {
+			if(nonApplicableContexts.contains(context))
+				returnValue = false;
 			if (applicableContexts.contains(context))
 				returnValue = true;
 		}
