@@ -16,10 +16,14 @@ public abstract class Refinement {
 
 	public Refinement() {
 		applicableContexts = new HashSet<Context>();
-
+		applicableContexts.add(null);
+		dependencies = new HashSet<Refinement>();
 	}
 
 	public void addApplicableContext(Context context) {
+		if (applicableContexts.contains(null)) {
+			applicableContexts.remove(null);
+		}
 		applicableContexts.add(context);
 	}
 
@@ -35,6 +39,9 @@ public abstract class Refinement {
 
 	public boolean isApplicable(Set<Context> current) {
 		boolean returnValue = false;
+		if (applicableContexts.contains(null)) {
+			return true;
+		}
 		for (Context context : current) {
 			if (applicableContexts.contains(context))
 				returnValue = true;
@@ -43,7 +50,6 @@ public abstract class Refinement {
 	}
 
 	public abstract Plan isAchievable(Set<Context> current, Interpretation interp);
-		
 
 	public void addDependency(Refinement goal) {
 		dependencies.add(goal);
@@ -56,10 +62,9 @@ public abstract class Refinement {
 	public Set<Refinement> getApplicableDependencies(Set<Context> current) {
 
 		HashSet<Refinement> applicableDeps = new HashSet<Refinement>();
-
 		for (Refinement dep : dependencies) {
 			for (Context context : current) {
-				if (dep.getApplicableContext().contains(context)) {
+				if (dep.getApplicableContext().contains(context) || dep.getApplicableContext().contains(null)) {
 					applicableDeps.add(dep);
 				}
 			}
