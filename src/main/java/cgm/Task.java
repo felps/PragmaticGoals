@@ -36,35 +36,27 @@ public class Task extends Refinement {
 		}
 	}
 
-	public float myProvidedQuality(String metric, Set<Context> current)
-			throws MetricNotFoundException {
+	public float myProvidedQuality(String metric, Set<Context> current) throws MetricNotFoundException {
 		float myQuality = 0;
 		boolean set = false;
 
-		if (providedQualityLevels.get(metric) != null
-				&& providedQualityLevels.get(metric).containsKey(null)) {
+		if (providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).containsKey(null)) {
 			myQuality = providedQualityLevels.get(metric).get(null);
 			set = true;
 		}
 
 		for (Context context : current) {
-			if (providedQualityLevels.get(metric) != null
-					&& providedQualityLevels.get(metric).get(context) != null) {
+			if (providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).get(context) != null) {
 				if (!set) {
-					myQuality = providedQualityLevels.get(metric).get(context)
-							.floatValue();
+					myQuality = providedQualityLevels.get(metric).get(context).floatValue();
 					set = true;
 				} else {
 					if (lessIsMore) {
-						if (myQuality > providedQualityLevels.get(metric)
-								.get(context).floatValue()) {
-							myQuality = providedQualityLevels.get(metric)
-									.get(context).floatValue();
+						if (myQuality > providedQualityLevels.get(metric).get(context).floatValue()) {
+							myQuality = providedQualityLevels.get(metric).get(context).floatValue();
 						}
-					} else if (myQuality < providedQualityLevels.get(metric)
-							.get(context).floatValue()) {
-						myQuality = providedQualityLevels.get(metric)
-								.get(context).floatValue();
+					} else if (myQuality < providedQualityLevels.get(metric).get(context).floatValue()) {
+						myQuality = providedQualityLevels.get(metric).get(context).floatValue();
 					}
 				}
 			}
@@ -75,14 +67,12 @@ public class Task extends Refinement {
 		return myQuality;
 	}
 
-	public boolean abidesByInterpretation(Interpretation interp,
-			Set<Context> current) {
+	public boolean abidesByInterpretation(Interpretation interp, Set<Context> current) {
 		boolean feasible = true;
 
 		for (QualityConstraint qc : interp.getQualityConstraints(current)) {
 			try {
-				if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current),
-						qc.getMetric())) {
+				if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
 					feasible = false;
 				}
 			} catch (MetricNotFoundException e) {
@@ -90,7 +80,7 @@ public class Task extends Refinement {
 		}
 		return feasible;
 	}
-	
+
 	@Override
 	public Plan isAchievable(Set<Context> current, Interpretation interp) {
 		if (!this.isApplicable(current)) {

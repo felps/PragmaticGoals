@@ -23,8 +23,7 @@ public class QualityConstraint {
 	private double threshold;
 	private int comparison;
 
-	public QualityConstraint(Context applicable, String metric, double value,
-			int comparison) {
+	public QualityConstraint(Context applicable, String metric, double value, int comparison) {
 		this.applicableContext = applicable;
 		this.metric = metric;
 		this.threshold = value;
@@ -72,17 +71,18 @@ public class QualityConstraint {
 		return false;
 	}
 
-	public QualityConstraint stricterQC(QualityConstraint qualityConstraint) throws DifferentMetricsException{
+	public QualityConstraint stricterQC(QualityConstraint qualityConstraint) throws DifferentMetricsException {
 		if (qualityConstraint.comparison == this.comparison) {
-		
+
 			if (qualityConstraint.metric.contentEquals(this.metric)) {
-			
+
 				if (qualityConstraint.compare(this.threshold))
 					return this;
 				else
 					return qualityConstraint;
 			}
-		} else throw (new DifferentMetricsException());
+		} else
+			throw (new DifferentMetricsException());
 		return null;
 	}
 }

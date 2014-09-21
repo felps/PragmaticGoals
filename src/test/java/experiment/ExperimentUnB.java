@@ -92,13 +92,11 @@ public class ExperimentUnB {
 		emergencyIsDetectedGoal.addDependency(callForHelpIsAcceptedGoal);
 		emergencyIsDetectedGoal.addDependency(situationsAreIdentifiedGoal);
 
-		callForHelpIsAcceptedGoal
-				.addDependency(receivesEmergencyButtonCallGoal);
+		callForHelpIsAcceptedGoal.addDependency(receivesEmergencyButtonCallGoal);
 		callForHelpIsAcceptedGoal.addDependency(falseAlarmIsCheckedGoal);
 
 		receivesEmergencyButtonCallGoal.addDependency(notifyCentralBySMSTask);
-		receivesEmergencyButtonCallGoal
-				.addDependency(notifyCentralByInternetTask);
+		receivesEmergencyButtonCallGoal.addDependency(notifyCentralByInternetTask);
 
 		falseAlarmIsCheckedGoal.addDependency(acceptEmergencyTask);
 		falseAlarmIsCheckedGoal.addDependency(pIsContacted);
@@ -132,95 +130,65 @@ public class ExperimentUnB {
 		locationIsIdentifiedGoal.addDependency(considerLastKnownLocationTask);
 		locationIsIdentifiedGoal.addDependency(identifyLocationByVoiceCallTask);
 		locationIsIdentifiedGoal.addDependency(accessLocationFromGPSTask);
-		locationIsIdentifiedGoal
-				.addDependency(accessLocationFromTriangulationTask);
+		locationIsIdentifiedGoal.addDependency(accessLocationFromTriangulationTask);
 
 		situationDataIsRecoveredGoal.addDependency(accessDataFromDatabaseTask);
 
 		contactResponsibleGoal.addDependency(getInfoFromResponsibleTask);
 
-		ambulanceIsDispatchedToLocationGoal
-				.addDependency(ambulanceDispatchDelegation);
+		ambulanceIsDispatchedToLocationGoal.addDependency(ambulanceDispatchDelegation);
 
 		/* Goal interpretations */
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS,
-					900, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS,
-					600, Comparison.LESS_THAN);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS,
-					1800, Comparison.LESS_THAN);
-			respondToEmergencyGoal.getInterpretation()
-					.addQualityConstraint(qc1);
-			respondToEmergencyGoal.getInterpretation()
-					.addQualityConstraint(qc2);
-			respondToEmergencyGoal.getInterpretation()
-					.addQualityConstraint(qc3);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
+			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 1800, Comparison.LESS_THAN);
+			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
+			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
+			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc3);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null,
-					Metric.FALSE_NEGATIVE_PERCENTAGE, 80, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c3,
-					Metric.FALSE_NEGATIVE_PERCENTAGE, 95, Comparison.LESS_THAN);
-			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(
-					qc1);
-			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(
-					qc2);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 80,
+					Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c3, Metric.FALSE_NEGATIVE_PERCENTAGE, 95,
+					Comparison.LESS_THAN);
+			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc1);
+			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS,
-					60, Comparison.LESS_THAN);
-			centralReceivesInfoGoal.getInterpretation().addQualityConstraint(
-					qc1);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 60, Comparison.LESS_THAN);
+			centralReceivesInfoGoal.getInterpretation().addQualityConstraint(qc1);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS,
-					900, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS,
-					600, Comparison.LESS_THAN);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS,
-					1800, Comparison.LESS_THAN);
-			QualityConstraint qc4 = new QualityConstraint(null, Metric.SECONDS,
-					900, Comparison.LESS_THAN);
-			QualityConstraint qc5 = new QualityConstraint(c10, Metric.SECONDS,
-					600, Comparison.LESS_THAN);
-			QualityConstraint qc6 = new QualityConstraint(c9, Metric.SECONDS,
-					1800, Comparison.LESS_THAN);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(
-					qc1);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(
-					qc2);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(
-					qc3);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(
-					qc4);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(
-					qc5);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(
-					qc6);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
+			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 1800, Comparison.LESS_THAN);
+			QualityConstraint qc4 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
+			QualityConstraint qc5 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
+			QualityConstraint qc6 = new QualityConstraint(c9, Metric.SECONDS, 1800, Comparison.LESS_THAN);
+			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);
+			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);
+			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);
+			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc4);
+			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc5);
+			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc6);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS,
-					900, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS,
-					600, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc1);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS,
-					900, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS,
-					600, Comparison.LESS_THAN);
-			isNotifiedAboutEmergencyGoal.getInterpretation()
-					.addQualityConstraint(qc1);
-			isNotifiedAboutEmergencyGoal.getInterpretation()
-					.addQualityConstraint(qc2);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
+			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
+			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 	}
 
@@ -241,20 +209,12 @@ public class ExperimentUnB {
 												for (int t11 = 0; t11 < 2; t11++) {
 													for (int t12 = 0; t12 < 2; t12++) {
 														for (int t13 = 0; t13 < 2; t13++) {
-															fullContext = createFullContext(
-																	t1, t2, t3,
-																	t4, t5, t6,
-																	t7, t8, t9,
-																	t10, t11,
-																	t12, t13);
-															if (cgm.isAchievable(
-																	fullContext,
-																	null) != null) {
-																System.out
-																		.println("Achievable");
+															fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7,
+																	t8, t9, t10, t11, t12, t13);
+															if (cgm.isAchievable(fullContext, null) != null) {
+																System.out.println("Achievable");
 															} else
-																System.out
-																		.println("Not achievable");
+																System.out.println("Not achievable");
 														}
 													}
 												}
@@ -270,9 +230,8 @@ public class ExperimentUnB {
 		}
 	}
 
-	private HashSet<Context> createFullContext(int t1, int t2, int t3, int t4,
-			int t5, int t6, int t7, int t8, int t9, int t10, int t11, int t12,
-			int t13) {
+	private HashSet<Context> createFullContext(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,
+			int t10, int t11, int t12, int t13) {
 		HashSet<Context> fullContext = new HashSet<Context>();
 
 		System.out.print("Contexto: [");
