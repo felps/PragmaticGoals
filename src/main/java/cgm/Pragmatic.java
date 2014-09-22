@@ -17,7 +17,7 @@ public class Pragmatic extends Goal {
 
 	@Override
 	public Plan isAchievable(Set<Context> current, Interpretation interp) {
-		interp.merge(this.interp);
-		return super.isAchievable(current, interp);
+		this.interp.merge(interp);
+		return super.isAchievable(current, this.interp);
 	}
 }

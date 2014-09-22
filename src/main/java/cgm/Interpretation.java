@@ -43,6 +43,8 @@ public class Interpretation {
 	}
 
 	public void merge(Interpretation interp) {
+		if(interp==null)
+			return;
 		for (QualityConstraint qualityConstraint : interp.getAllQualityConstraints()) {
 			addQualityConstraint(qualityConstraint);
 		}
