@@ -60,26 +60,67 @@ public class ExperimentUnB {
 
 		/* Tasks */
 		Task notifyCentralBySMSTask = new Task();
+		notifyCentralBySMSTask.setIdentifier("notifyCentralBySMS");
+		
 		Task notifyCentralByInternetTask = new Task();
+		notifyCentralByInternetTask.setIdentifier("notifyCentralByInternet");
+		
 		Task acceptEmergencyTask = new Task();
+		acceptEmergencyTask.setIdentifier("acceptEmergency");
+		
 		Task confirmEmergencyByCallTask = new Task();
+		confirmEmergencyByCallTask.setIdentifier("confirmEmergencyByCall");
+		
 		Task processDataFromSensorsTask = new Task();
+		processDataFromSensorsTask.setIdentifier("confirmEmergencyByCallTask");
+		
 		Task identifySituationTask = new Task();
+		identifySituationTask.setIdentifier("identifySituationTask");
+		
 		Task collectDataFromSensorsTask = new Task();
+		collectDataFromSensorsTask.setIdentifier("collectDataFromSensorsTask");
+		
 		Task persistDataToDatabaseTask = new Task();
+		persistDataToDatabaseTask.setIdentifier("persistDataToDatabaseTask");
+		
 		Task notifyByMobileVibrationTask = new Task();
+		notifyByMobileVibrationTask.setIdentifier("notifyByMobileVibrationTask");
+		
 		Task notifyBySoundAlertTask = new Task();
+		notifyByMobileVibrationTask.setIdentifier("notifyBySoundAlert");
+		
 		Task notifyByLightAlertTask = new Task();
+		notifyByLightAlertTask.setIdentifier("notifyByLightAlert");
+		
 		Task centralCallTask = new Task();
+		centralCallTask.setIdentifier("centralCall");
+		
 		Task sendInfoBySMSTask = new Task();
+		sendInfoBySMSTask.setIdentifier("sendInfoBySMS");
+		
 		Task sendInfoByInternetTask = new Task();
+		sendInfoByInternetTask.setIdentifier("sendInfoByInternet");
+		
 		Task considerLastKnownLocationTask = new Task();
+		considerLastKnownLocationTask.setIdentifier("considerLastKnownLocation");
+		
 		Task identifyLocationByVoiceCallTask = new Task();
+		identifyLocationByVoiceCallTask.setIdentifier("identifyLocationByVoiceCall");
+		
 		Task accessLocationFromTriangulationTask = new Task();
+		accessLocationFromTriangulationTask.setIdentifier("accessLocationFromTriangulation");
+		
 		Task accessLocationFromGPSTask = new Task();
+		accessLocationFromGPSTask.setIdentifier("accessLocationFromGPS");
+		
 		Task accessDataFromDatabaseTask = new Task();
+		accessDataFromDatabaseTask.setIdentifier("accessDataFromDatabase");
+		
 		Task getInfoFromResponsibleTask = new Task();
+		getInfoFromResponsibleTask.setIdentifier("getInfoFromResponsible");
+		
 		Task ambulanceDispatchDelegation = new Task();
+		ambulanceDispatchDelegation.setIdentifier("ambulanceDispatchDelegation");
 
 		cgm.setRoot(respondToEmergencyGoal);
 
@@ -289,12 +330,19 @@ public class ExperimentUnB {
 												for (int t11 = 0; t11 < 2; t11++) {
 													for (int t12 = 0; t12 < 2; t12++) {
 														for (int t13 = 0; t13 < 2; t13++) {
+															System.out.println("========================================");
 															fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7,
 																	t8, t9, t10, t11, t12, t13);
 															if (cgm.isAchievable(fullContext, null) != null) {
 																System.out.println("Achievable");
+																System.out.print("[");
+																for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+																	System.out.print(task.getIdentifier() + " ");
+																}
+																System.out.println("]");
 															} else
 																System.out.println("Not achievable");
+															System.out.println("========================================");
 														}
 													}
 												}
