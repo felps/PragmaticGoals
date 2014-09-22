@@ -40,22 +40,22 @@ public class ExperimentUnB {
 		/* Goals */
 		Pragmatic respondToEmergencyGoal = new Pragmatic(Goal.AND);
 		Pragmatic emergencyIsDetectedGoal = new Pragmatic(Goal.OR);
-		Pragmatic callForHelpIsAcceptedGoal = new Pragmatic(Goal.AND);
-		Pragmatic falseAlarmIsCheckedGoal = new Pragmatic(Goal.OR);
-		Pragmatic pIsContacted = new Pragmatic(Goal.AND);
-		Pragmatic receivesEmergencyButtonCallGoal = new Pragmatic(Goal.OR);
-		Pragmatic situationsAreIdentifiedGoal = new Pragmatic(Goal.AND);
-		Pragmatic vitalSignsAreMonitoredGoal = new Pragmatic(Goal.AND);
-		Pragmatic isNotifiedAboutEmergencyGoal = new Pragmatic(Goal.OR);
 		Pragmatic centralReceivesInfoGoal = new Pragmatic(Goal.AND);
-		Pragmatic infoIsSentToEmergencyGoal = new Pragmatic(Goal.OR);
-		Pragmatic infoIsPreparedGoal = new Pragmatic(Goal.OR);
 		Pragmatic locationIsIdentifiedGoal = new Pragmatic(Goal.OR);
-		Pragmatic setupAutomatedInfoGoal = new Pragmatic(Goal.AND);
-		Pragmatic situationDataIsRecoveredGoal = new Pragmatic(Goal.AND);
-		Pragmatic contactResponsibleGoal = new Pragmatic(Goal.AND);
-		Pragmatic medicalCareReachesGoal = new Pragmatic(Goal.AND);
-		Pragmatic ambulanceIsDispatchedToLocationGoal = new Pragmatic(Goal.AND);
+		Pragmatic infoIsPreparedGoal = new Pragmatic(Goal.OR);
+		Pragmatic isNotifiedAboutEmergencyGoal = new Pragmatic(Goal.OR);
+		Goal callForHelpIsAcceptedGoal = new Goal(Goal.AND);
+		Goal falseAlarmIsCheckedGoal = new Goal(Goal.OR);
+		Goal pIsContacted = new Goal(Goal.AND);
+		Goal receivesEmergencyButtonCallGoal = new Goal(Goal.OR);
+		Goal situationsAreIdentifiedGoal = new Goal(Goal.AND);
+		Goal vitalSignsAreMonitoredGoal = new Goal(Goal.AND);
+		Goal infoIsSentToEmergencyGoal = new Goal(Goal.OR);
+		Goal setupAutomatedInfoGoal = new Goal(Goal.AND);
+		Goal situationDataIsRecoveredGoal = new Goal(Goal.AND);
+		Goal contactResponsibleGoal = new Goal(Goal.AND);
+		Goal medicalCareReachesGoal = new Goal(Goal.AND);
+		Goal ambulanceIsDispatchedToLocationGoal = new Goal(Goal.AND);
 
 		/* Tasks */
 		Task notifyCentralBySMSTask = new Task();
@@ -138,6 +138,39 @@ public class ExperimentUnB {
 
 		ambulanceIsDispatchedToLocationGoal.addDependency(ambulanceDispatchDelegation);
 
+		/* Applicable Contexts */
+		
+		notifyCentralBySMSTask.addApplicableContext(c2);
+		
+		notifyCentralByInternetTask.addApplicableContext(c3);
+		notifyCentralByInternetTask.addApplicableContext(c4);
+		
+		acceptEmergencyTask.addNonApplicableContext(c2);
+		
+		confirmEmergencyByCallTask.addApplicableContext(c2);
+		
+		notifyByMobileVibrationTask.addApplicableContext(c1);
+		
+		notifyBySoundAlertTask.addApplicableContext(c6);
+		
+		notifyByLightAlertTask.addApplicableContext(c7);
+		
+		centralCallTask.addApplicableContext(c8);
+		
+		sendInfoBySMSTask.addApplicableContext(c2);
+		
+		sendInfoByInternetTask.addApplicableContext(c3);
+		sendInfoByInternetTask.addApplicableContext(c4);
+		
+		identifyLocationByVoiceCallTask.addApplicableContext(c2);
+		
+		accessLocationFromTriangulationTask.addApplicableContext(c2);
+		
+		accessLocationFromGPSTask.addApplicableContext(c5);
+		
+		
+		
+		
 		/* Goal interpretations */
 		{
 			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
