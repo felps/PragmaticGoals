@@ -1,5 +1,6 @@
 package experiment;
 
+import java.awt.DisplayMode;
 import java.util.HashSet;
 
 import org.junit.Before;
@@ -139,38 +140,35 @@ public class ExperimentUnB {
 		ambulanceIsDispatchedToLocationGoal.addDependency(ambulanceDispatchDelegation);
 
 		/* Applicable Contexts */
-		
+
 		notifyCentralBySMSTask.addApplicableContext(c2);
-		
+
 		notifyCentralByInternetTask.addApplicableContext(c3);
 		notifyCentralByInternetTask.addApplicableContext(c4);
-		
+
 		acceptEmergencyTask.addNonApplicableContext(c2);
-		
+
 		confirmEmergencyByCallTask.addApplicableContext(c2);
-		
+
 		notifyByMobileVibrationTask.addApplicableContext(c1);
-		
+
 		notifyBySoundAlertTask.addApplicableContext(c6);
-		
+
 		notifyByLightAlertTask.addApplicableContext(c7);
-		
+
 		centralCallTask.addApplicableContext(c8);
-		
+
 		sendInfoBySMSTask.addApplicableContext(c2);
-		
+
 		sendInfoByInternetTask.addApplicableContext(c3);
 		sendInfoByInternetTask.addApplicableContext(c4);
-		
+
 		identifyLocationByVoiceCallTask.addApplicableContext(c2);
-		
+
 		accessLocationFromTriangulationTask.addApplicableContext(c2);
-		
+
 		accessLocationFromGPSTask.addApplicableContext(c5);
-		
-		
-		
-		
+
 		/* Goal interpretations */
 		{
 			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
@@ -223,6 +221,55 @@ public class ExperimentUnB {
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 		}
+
+		/* Provided Task QoS */
+		notifyCentralBySMSTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 10);
+		notifyCentralByInternetTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);
+
+		acceptEmergencyTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30);
+
+		confirmEmergencyByCallTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);
+
+		processDataFromSensorsTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 15);
+
+		collectDataFromSensorsTask.setProvidedQuality(null, Metric.SECONDS, 120);
+		collectDataFromSensorsTask.setProvidedQuality(c3, Metric.SECONDS, 60);
+
+		persistDataToDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 5);
+
+		identifySituationTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 20);
+
+		notifyByMobileVibrationTask.setProvidedQuality(null, Metric.NOISE, 2);
+		notifyBySoundAlertTask.setProvidedQuality(null, Metric.NOISE, 9);
+		notifyByLightAlertTask.setProvidedQuality(null, Metric.NOISE, 0);
+		centralCallTask.setProvidedQuality(null, Metric.NOISE, 7);
+
+		sendInfoBySMSTask.setProvidedQuality(null, Metric.SECONDS, 65);
+		sendInfoBySMSTask.setProvidedQuality(c8, Metric.SECONDS, 45);
+
+		sendInfoByInternetTask.setProvidedQuality(null, Metric.SECONDS, 40);
+
+		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 15);
+		considerLastKnownLocationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 900);
+
+		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 100);
+		identifyLocationByVoiceCallTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 300);
+		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.SECONDS, 45);
+
+		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 40);
+		accessLocationFromTriangulationTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 400);
+		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.SECONDS, 30);
+
+		accessLocationFromGPSTask.setProvidedQuality(null, Metric.SECONDS, 30);
+		accessLocationFromGPSTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 40);
+		accessLocationFromGPSTask.setProvidedQuality(c12, Metric.DISTANCE_ERROR, 400);
+
+		accessDataFromDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 20);
+
+		getInfoFromResponsibleTask.setProvidedQuality(null, Metric.SECONDS, 25);
+		getInfoFromResponsibleTask.setProvidedQuality(c11, Metric.SECONDS, 50);
+
+		ambulanceDispatchDelegation.setProvidedQuality(null, Metric.SECONDS, 500);
 	}
 
 	@Test
