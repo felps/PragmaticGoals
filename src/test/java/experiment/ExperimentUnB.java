@@ -31,8 +31,9 @@ public class ExperimentUnB {
 	Context c9 = new Context("c9");
 	Context c10 = new Context("c10");
 	Context c11 = new Context("c11");
-	Context c12 = new Context("c12");
-	Context c13 = new Context("c13");
+
+	// Context c12 = new Context("c12");
+	// Context c13 = new Context("c13");
 
 	@Before
 	public void setUp() {
@@ -59,66 +60,66 @@ public class ExperimentUnB {
 		Goal ambulanceIsDispatchedToLocationGoal = new Goal(Goal.AND);
 
 		/* Tasks */
-		Task notifyCentralBySMSTask = new Task();
-		notifyCentralBySMSTask.setIdentifier("notifyCentralBySMS");
-		
-		Task notifyCentralByInternetTask = new Task();
-		notifyCentralByInternetTask.setIdentifier("notifyCentralByInternet");
-		
-		Task acceptEmergencyTask = new Task();
-		acceptEmergencyTask.setIdentifier("acceptEmergency");
-		
-		Task confirmEmergencyByCallTask = new Task();
-		confirmEmergencyByCallTask.setIdentifier("confirmEmergencyByCall");
-		
-		Task processDataFromSensorsTask = new Task();
-		processDataFromSensorsTask.setIdentifier("confirmEmergencyByCallTask");
-		
+		Task 	notifyCentralBySMSTask = new Task();
+				notifyCentralBySMSTask.setIdentifier("notifyCentralBySMS");
+
+		Task 	notifyCentralByInternetTask = new Task();
+				notifyCentralByInternetTask.setIdentifier("notifyCentralByInternet");
+
+		Task 	acceptEmergencyTask = new Task();
+				acceptEmergencyTask.setIdentifier("acceptEmergency");
+
+		Task 	confirmEmergencyByCallTask = new Task();
+				confirmEmergencyByCallTask.setIdentifier("confirmEmergencyByCall");
+
+		Task 	processDataFromSensorsTask = new Task();
+				processDataFromSensorsTask.setIdentifier("processDataFromSensors");
+
 		Task identifySituationTask = new Task();
 		identifySituationTask.setIdentifier("identifySituationTask");
-		
+
 		Task collectDataFromSensorsTask = new Task();
 		collectDataFromSensorsTask.setIdentifier("collectDataFromSensorsTask");
-		
+
 		Task persistDataToDatabaseTask = new Task();
 		persistDataToDatabaseTask.setIdentifier("persistDataToDatabaseTask");
-		
+
 		Task notifyByMobileVibrationTask = new Task();
 		notifyByMobileVibrationTask.setIdentifier("notifyByMobileVibrationTask");
-		
+
 		Task notifyBySoundAlertTask = new Task();
-		notifyByMobileVibrationTask.setIdentifier("notifyBySoundAlert");
-		
+		notifyBySoundAlertTask.setIdentifier("notifyBySoundAlert");
+
 		Task notifyByLightAlertTask = new Task();
 		notifyByLightAlertTask.setIdentifier("notifyByLightAlert");
-		
+
 		Task centralCallTask = new Task();
-		centralCallTask.setIdentifier("centralCall");
-		
+		centralCallTask.setIdentifier("centralCallsP");
+
 		Task sendInfoBySMSTask = new Task();
 		sendInfoBySMSTask.setIdentifier("sendInfoBySMS");
-		
+
 		Task sendInfoByInternetTask = new Task();
 		sendInfoByInternetTask.setIdentifier("sendInfoByInternet");
-		
+
 		Task considerLastKnownLocationTask = new Task();
 		considerLastKnownLocationTask.setIdentifier("considerLastKnownLocation");
-		
+
 		Task identifyLocationByVoiceCallTask = new Task();
 		identifyLocationByVoiceCallTask.setIdentifier("identifyLocationByVoiceCall");
-		
+
 		Task accessLocationFromTriangulationTask = new Task();
 		accessLocationFromTriangulationTask.setIdentifier("accessLocationFromTriangulation");
-		
+
 		Task accessLocationFromGPSTask = new Task();
 		accessLocationFromGPSTask.setIdentifier("accessLocationFromGPS");
-		
+
 		Task accessDataFromDatabaseTask = new Task();
 		accessDataFromDatabaseTask.setIdentifier("accessDataFromDatabase");
-		
+
 		Task getInfoFromResponsibleTask = new Task();
 		getInfoFromResponsibleTask.setIdentifier("getInfoFromResponsible");
-		
+
 		Task ambulanceDispatchDelegation = new Task();
 		ambulanceDispatchDelegation.setIdentifier("ambulanceDispatchDelegation");
 
@@ -177,7 +178,9 @@ public class ExperimentUnB {
 		situationDataIsRecoveredGoal.addDependency(accessDataFromDatabaseTask);
 
 		contactResponsibleGoal.addDependency(getInfoFromResponsibleTask);
-
+		
+		medicalCareReachesGoal.addDependency(ambulanceIsDispatchedToLocationGoal);
+		
 		ambulanceIsDispatchedToLocationGoal.addDependency(ambulanceDispatchDelegation);
 
 		/* Applicable Contexts */
@@ -209,24 +212,26 @@ public class ExperimentUnB {
 		accessLocationFromTriangulationTask.addApplicableContext(c2);
 
 		accessLocationFromGPSTask.addApplicableContext(c5);
-
+		
 		/* Goal interpretations */
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 1800, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 180, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 90, Comparison.LESS_THAN);
+			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 240, Comparison.LESS_THAN);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc3);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 80,
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30,
 					Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c3, Metric.FALSE_NEGATIVE_PERCENTAGE, 95,
+			QualityConstraint qc2 = new QualityConstraint(c3, Metric.FALSE_NEGATIVE_PERCENTAGE, 10,
 					Comparison.LESS_THAN);
+			QualityConstraint qc3 = new QualityConstraint(c9, Metric.FALSE_NEGATIVE_PERCENTAGE, 5, Comparison.LESS_THAN);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc1);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc2);
+			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc3);
 		}
 
 		{
@@ -235,12 +240,12 @@ public class ExperimentUnB {
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 1800, Comparison.LESS_THAN);
-			QualityConstraint qc4 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
-			QualityConstraint qc5 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
-			QualityConstraint qc6 = new QualityConstraint(c9, Metric.SECONDS, 1800, Comparison.LESS_THAN);
+			QualityConstraint qc4 = new QualityConstraint(null, Metric.DISTANCE_ERROR, 1000, Comparison.LESS_THAN);
+			QualityConstraint qc6 = new QualityConstraint(c5, Metric.DISTANCE_ERROR, 20, Comparison.LESS_THAN);
+			QualityConstraint qc5 = new QualityConstraint(c10, Metric.DISTANCE_ERROR, 200, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 120, Comparison.LESS_THAN);
+			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 240, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 20, Comparison.LESS_THAN);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);
@@ -257,14 +262,15 @@ public class ExperimentUnB {
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.NOISE, 10, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c1, Metric.NOISE, 3, Comparison.LESS_THAN);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 
 		/* Provided Task QoS */
 		notifyCentralBySMSTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 10);
+
 		notifyCentralByInternetTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);
 
 		acceptEmergencyTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30);
@@ -290,8 +296,8 @@ public class ExperimentUnB {
 
 		sendInfoByInternetTask.setProvidedQuality(null, Metric.SECONDS, 40);
 
-		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 15);
 		considerLastKnownLocationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 900);
+		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 15);
 
 		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 100);
 		identifyLocationByVoiceCallTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 300);
@@ -301,16 +307,16 @@ public class ExperimentUnB {
 		accessLocationFromTriangulationTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 400);
 		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.SECONDS, 30);
 
-		accessLocationFromGPSTask.setProvidedQuality(null, Metric.SECONDS, 30);
-		accessLocationFromGPSTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 40);
-		accessLocationFromGPSTask.setProvidedQuality(c12, Metric.DISTANCE_ERROR, 400);
+		accessLocationFromGPSTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 20);
+		accessLocationFromGPSTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 30);
+		accessLocationFromGPSTask.setProvidedQuality(null, Metric.SECONDS, 50);
 
 		accessDataFromDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 20);
 
 		getInfoFromResponsibleTask.setProvidedQuality(null, Metric.SECONDS, 25);
 		getInfoFromResponsibleTask.setProvidedQuality(c11, Metric.SECONDS, 50);
 
-		ambulanceDispatchDelegation.setProvidedQuality(null, Metric.SECONDS, 500);
+		ambulanceDispatchDelegation.setProvidedQuality(null, Metric.SECONDS, 30);
 	}
 
 	@Test
@@ -328,23 +334,19 @@ public class ExperimentUnB {
 										for (int t9 = 0; t9 < 2; t9++) {
 											for (int t10 = 0; t10 < 2; t10++) {
 												for (int t11 = 0; t11 < 2; t11++) {
-													for (int t12 = 0; t12 < 2; t12++) {
-														for (int t13 = 0; t13 < 2; t13++) {
-															System.out.println("========================================");
-															fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7,
-																	t8, t9, t10, t11, t12, t13);
-															if (cgm.isAchievable(fullContext, null) != null) {
-																System.out.println("Achievable");
-																System.out.print("[");
-																for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
-																	System.out.print(task.getIdentifier() + " ");
-																}
-																System.out.println("]");
-															} else
-																System.out.println("Not achievable");
-															System.out.println("========================================");
+													System.out.println("========================================");
+													fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7, t8, t9,
+															t10, t11);
+													if (cgm.isAchievable(fullContext, null) != null) {
+														System.out.println("Achievable");
+														System.out.print("[");
+														for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+															System.out.print(task.getIdentifier() + " ");
 														}
-													}
+														System.out.println("]");
+													} else
+														System.out.println("Not achievable");
+													System.out.println("========================================");
 												}
 											}
 										}
@@ -359,7 +361,7 @@ public class ExperimentUnB {
 	}
 
 	private HashSet<Context> createFullContext(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,
-			int t10, int t11, int t12, int t13) {
+			int t10, int t11) {
 		HashSet<Context> fullContext = new HashSet<Context>();
 
 		System.out.print("Contexto: [");
@@ -406,14 +408,6 @@ public class ExperimentUnB {
 		if (t11 == 0) {
 			fullContext.add(c11);
 			System.out.print("c11 ");
-		}
-		if (t12 == 0) {
-			fullContext.add(c12);
-			System.out.print("c12 ");
-		}
-		if (t13 == 0) {
-			fullContext.add(c13);
-			System.out.print("c13 ");
 		}
 		System.out.println("]");
 		return fullContext;
