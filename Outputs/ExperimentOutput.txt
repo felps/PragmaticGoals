@@ -16382,3 +16382,4 @@ Contexto: [c13 ]
 Not achievable
 Contexto: []
 Achievable
+Elapsed time: 231 for 4096 combinations

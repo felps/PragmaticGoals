@@ -1,6 +1,5 @@
 package experiment;
 
-import java.awt.DisplayMode;
 import java.util.HashSet;
 
 import org.junit.Before;
@@ -275,7 +274,8 @@ public class ExperimentUnB {
 	@Test
 	public void findAchievableScenarios() {
 		HashSet<Context> fullContext;
-
+		long startTimeMs = System.currentTimeMillis();
+		int count = 0;
 		for (int t1 = 0; t1 < 2; t1++) {
 			for (int t2 = 0; t2 < 2; t2++) {
 				for (int t3 = 0; t3 < 2; t3++) {
@@ -288,14 +288,13 @@ public class ExperimentUnB {
 											for (int t10 = 0; t10 < 2; t10++) {
 												for (int t11 = 0; t11 < 2; t11++) {
 													for (int t12 = 0; t12 < 2; t12++) {
-														for (int t13 = 0; t13 < 2; t13++) {
-															fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7,
-																	t8, t9, t10, t11, t12, t13);
-															if (cgm.isAchievable(fullContext, null) != null) {
-																System.out.println("Achievable");
-															} else
-																System.out.println("Not achievable");
-														}
+														fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7, t8,
+																t9, t10, t11, t12);
+														count++;
+														if (cgm.isAchievable(fullContext, null) != null) {
+															System.out.println("Achievable");
+														} else
+															System.out.println("Not achievable");
 													}
 												}
 											}
@@ -308,10 +307,13 @@ public class ExperimentUnB {
 				}
 			}
 		}
+
+		System.out.println("Elapsed time: " + (System.currentTimeMillis() - startTimeMs) + "ms for " + count
+				+ " context sets.");
 	}
 
 	private HashSet<Context> createFullContext(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,
-			int t10, int t11, int t12, int t13) {
+			int t10, int t11, int t12) {
 		HashSet<Context> fullContext = new HashSet<Context>();
 
 		System.out.print("Contexto: [");
@@ -362,10 +364,6 @@ public class ExperimentUnB {
 		if (t12 == 0) {
 			fullContext.add(c12);
 			System.out.print("c12 ");
-		}
-		if (t13 == 0) {
-			fullContext.add(c13);
-			System.out.print("c13 ");
 		}
 		System.out.println("]");
 		return fullContext;
