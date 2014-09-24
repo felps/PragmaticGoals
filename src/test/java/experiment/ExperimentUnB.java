@@ -334,7 +334,6 @@ public class ExperimentUnB {
 										for (int t9 = 0; t9 < 2; t9++) {
 											for (int t10 = 0; t10 < 2; t10++) {
 												for (int t11 = 0; t11 < 2; t11++) {
-													System.out.println("========================================");
 													for (int t12 = 0; t12 < 2; t12++) {
 														fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7, t8,
 																t9, t10, t11, t12);
@@ -350,7 +349,6 @@ public class ExperimentUnB {
 														} else
 															System.out.println("Not achievable");
 													}
-													System.out.println("========================================");
 												}
 											}
 										}
