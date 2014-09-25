@@ -5,64 +5,64 @@
 Task1
 
 Contexto: [c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 ]
-Elapsed time: 174ms
+Elapsed time: 199ms
+Elapsed time: 46ms
 Elapsed time: 36ms
-Elapsed time: 38ms
-Elapsed time: 31ms
-Elapsed time: 32ms
-Elapsed time: 38ms
 Elapsed time: 30ms
-Elapsed time: 29ms
-Elapsed time: 36ms
-Elapsed time: 32ms
+Elapsed time: 30ms
+Elapsed time: 39ms
+Elapsed time: 30ms
+Elapsed time: 31ms
+Elapsed time: 35ms
+Elapsed time: 30ms
 
 
 
 
 Task2
 
-Contexto: [c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 ]
-Elapsed time: 181ms
-Elapsed time: 51ms
-Elapsed time: 51ms
-Elapsed time: 50ms
-Elapsed time: 58ms
-Elapsed time: 54ms
-Elapsed time: 51ms
-Elapsed time: 52ms
-Elapsed time: 50ms
-Elapsed time: 60ms
+Contexto: [c9 c10 c11 ]
+Elapsed time: 18ms
+Elapsed time: 18ms
+Elapsed time: 16ms
+Elapsed time: 12ms
+Elapsed time: 11ms
+Elapsed time: 9ms
+Elapsed time: 10ms
+Elapsed time: 9ms
+Elapsed time: 9ms
+Elapsed time: 10ms
 
 
 
 
 Task3
 
-Contexto: [c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 ]
-Elapsed time: 41ms
-Elapsed time: 40ms
-Elapsed time: 42ms
-Elapsed time: 43ms
-Elapsed time: 42ms
-Elapsed time: 42ms
-Elapsed time: 43ms
-Elapsed time: 41ms
-Elapsed time: 43ms
-Elapsed time: 47ms
+Contexto: [c4 c8 c11 ]
+Elapsed time: 10ms
+Elapsed time: 9ms
+Elapsed time: 11ms
+Elapsed time: 10ms
+Elapsed time: 9ms
+Elapsed time: 9ms
+Elapsed time: 9ms
+Elapsed time: 9ms
+Elapsed time: 9ms
+Elapsed time: 12ms
 
 
 
 
 Task4
 
-Contexto: [c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 ]
-Elapsed time: 40ms
-Elapsed time: 17ms
-Elapsed time: 17ms
-Elapsed time: 17ms
-Elapsed time: 17ms
-Elapsed time: 17ms
-Elapsed time: 18ms
-Elapsed time: 17ms
-Elapsed time: 17ms
-Elapsed time: 19ms
+Contexto: [c1 c2 c3 c6 c7 ]
+Elapsed time: 16ms
+Elapsed time: 13ms
+Elapsed time: 12ms
+Elapsed time: 14ms
+Elapsed time: 13ms
+Elapsed time: 14ms
+Elapsed time: 13ms
+Elapsed time: 14ms
+Elapsed time: 14ms
+Elapsed time: 13ms
