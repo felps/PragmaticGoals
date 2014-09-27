@@ -34,16 +34,20 @@ public class Interpretation {
 
 	public Set<QualityConstraint> getQualityConstraints(Set<Context> current) {
 		HashSet<QualityConstraint> allQCs = new HashSet<QualityConstraint>();
-		for (Context context : current) {
-			if (contextDependentInterpretation.containsKey(context)) {
-				allQCs.addAll(contextDependentInterpretation.get(context));
+		if (current != null)
+			for (Context context : current) {
+				if (contextDependentInterpretation.containsKey(context)) {
+					allQCs.addAll(contextDependentInterpretation.get(context));
+				}
 			}
+		else if (contextDependentInterpretation.containsKey(null)) {
+			allQCs.addAll(contextDependentInterpretation.get(null));
 		}
 		return allQCs;
 	}
 
 	public void merge(Interpretation interp) {
-		if(interp==null)
+		if (interp == null)
 			return;
 		for (QualityConstraint qualityConstraint : interp.getAllQualityConstraints()) {
 			addQualityConstraint(qualityConstraint);

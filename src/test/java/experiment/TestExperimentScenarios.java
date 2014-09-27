@@ -27,7 +27,7 @@ public class TestExperimentScenarios {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (Task task : tasks.getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("acceptEmergency"))
 				found = 1;
@@ -64,6 +64,17 @@ public class TestExperimentScenarios {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
+
+		if (cgm.isAchievable(fullContext, null) != null) {
+			System.out.println("Achievable");
+			System.out.print("[");
+			for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+				System.out.print(task.getIdentifier() + " ");
+			}
+			System.out.println("]");
+		} else
+			System.out.println("Not achievable");
+
 		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
@@ -97,8 +108,6 @@ public class TestExperimentScenarios {
 		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("acceptEmergency"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
 				found = 1;
 			if (task.getIdentifier().contentEquals("centralCallsP"))
 				found = 1;
@@ -349,8 +358,8 @@ public class TestExperimentScenarios {
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 45, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 30, Comparison.LESS_OR_EQUAL_TO);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc1);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc2);
 		}

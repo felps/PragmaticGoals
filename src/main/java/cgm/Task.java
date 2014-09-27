@@ -44,7 +44,6 @@ public class Task extends Refinement {
 			myQuality = providedQualityLevels.get(metric).get(null);
 			set = true;
 		}
-
 		for (Context context : current) {
 			if (providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).get(context) != null) {
 				if (!set) {
@@ -73,11 +72,26 @@ public class Task extends Refinement {
 		for (QualityConstraint qc : interp.getQualityConstraints(current)) {
 			try {
 				if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
+					System.out.println("TASK: " + getIdentifier() + "\nCANNOT PROVIDE: " + qc.getThreshold() + " "
+							+ qc.getMetric() + "\nWITH: " + myProvidedQuality(qc.getMetric(), current));
+
 					feasible = false;
 				}
 			} catch (MetricNotFoundException e) {
 			}
 		}
+		if (interp.getQualityConstraints(null) != null)
+			for (QualityConstraint qc : interp.getQualityConstraints(null)) {
+				try {
+					if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
+						System.out.println("TASK: " + getIdentifier() + "\nCANNOT PROVIDE: " + qc.getThreshold() + " "
+								+ qc.getMetric() + "\nWITH: " + myProvidedQuality(qc.getMetric(), current));
+
+						feasible = false;
+					}
+				} catch (MetricNotFoundException e) {
+				}
+			}
 		return feasible;
 	}
 
