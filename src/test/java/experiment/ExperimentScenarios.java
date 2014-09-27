@@ -18,7 +18,7 @@ import cgm.Pragmatic;
 import cgm.QualityConstraint;
 import cgm.Task;
 
-public class TestExperimentScenarios {
+public class ExperimentScenarios {
 
 	@Test
 	public void contextSet1() {
