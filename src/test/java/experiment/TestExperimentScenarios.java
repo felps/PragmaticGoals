@@ -60,7 +60,7 @@ public class TestExperimentScenarios {
 	@Test
 	public void contextSet3() {
 		System.out.println("=========== Experiment Context Set 3 ================");
-		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0);
+		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
@@ -69,6 +69,8 @@ public class TestExperimentScenarios {
 			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
 				found = 1;
 			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("getInfoFromResponsible"))
 				found = 1;
 			if (task.getIdentifier().contentEquals("notifyBySoundAlert"))
 				found = 1;
@@ -79,12 +81,6 @@ public class TestExperimentScenarios {
 			if (task.getIdentifier().contentEquals("notifyByMobileVibrationTask"))
 				found = 1;
 			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("accessLocationFromTriangulation"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("accessLocationFromGPS"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("considerLastKnownLocation"))
 				found = 1;
 
 			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
