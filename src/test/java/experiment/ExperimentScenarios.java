@@ -65,16 +65,6 @@ public class ExperimentScenarios {
 
 		assertTrue(tasks != null);
 
-		if (cgm.isAchievable(fullContext, null) != null) {
-			System.out.println("Achievable");
-			System.out.print("[");
-			for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
-				System.out.print(task.getIdentifier() + " ");
-			}
-			System.out.println("]");
-		} else
-			System.out.println("Not achievable");
-
 		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
