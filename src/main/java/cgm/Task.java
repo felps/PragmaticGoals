@@ -72,8 +72,10 @@ public class Task extends Refinement {
 		for (QualityConstraint qc : interp.getQualityConstraints(current)) {
 			try {
 				if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
-					System.out.println("TASK: " + getIdentifier() + "\nCANNOT PROVIDE: " + qc.getThreshold() + " "
-							+ qc.getMetric() + "\nWITH: " + myProvidedQuality(qc.getMetric(), current));
+					// System.out.println("TASK: " + getIdentifier() +
+					// "\nCANNOT PROVIDE: " + qc.getThreshold() + " "
+					// + qc.getMetric() + "\nWITH: " +
+					// myProvidedQuality(qc.getMetric(), current));
 
 					feasible = false;
 				}
@@ -84,8 +86,10 @@ public class Task extends Refinement {
 			for (QualityConstraint qc : interp.getQualityConstraints(null)) {
 				try {
 					if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
-						System.out.println("TASK: " + getIdentifier() + "\nCANNOT PROVIDE: " + qc.getThreshold() + " "
-								+ qc.getMetric() + "\nWITH: " + myProvidedQuality(qc.getMetric(), current));
+						// System.out.println("TASK: " + getIdentifier() +
+						// "\nCANNOT PROVIDE: " + qc.getThreshold() + " "
+						// + qc.getMetric() + "\nWITH: " +
+						// myProvidedQuality(qc.getMetric(), current));
 
 						feasible = false;
 					}
