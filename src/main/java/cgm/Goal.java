@@ -55,7 +55,10 @@ public class Goal extends Refinement {
 					return null;
 				}
 			}
-			return complete;
+			if (complete.getTasks().size() > 0)
+				return complete;
+			else
+				return null;
 		}
 		return null;
 	}

@@ -315,7 +315,7 @@ public class TestEachContext {
 
 	// @Test
 	public void testC1() {
-		System.out.println("=========== Teste C1 ================");
+		System.out.println("=========== Test C1 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -332,7 +332,7 @@ public class TestEachContext {
 
 	@Test
 	public void testC2() {
-		System.out.println("=========== Teste C2 ================");
+		System.out.println("=========== Test C2 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -350,26 +350,14 @@ public class TestEachContext {
 
 	@Test
 	public void testC3() {
-		System.out.println("=========== Teste C3 ================");
-		HashSet<Context> fullContext = createFullContext(1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1);
+		System.out.println("=========== Test C3 ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
 		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
-			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("identifyLocationByVoiceCall"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("accessLocationFromTriangulation"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("accessLocationFromGPS"))
+			if (task.getIdentifier().contentEquals("acceptEmergency"))
 				found = 1;
 
 			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
@@ -378,7 +366,7 @@ public class TestEachContext {
 
 	@Test
 	public void testC4() {
-		System.out.println("=========== Teste C4 ================");
+		System.out.println("=========== Test C4 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 		assertTrue(tasks != null);
@@ -402,7 +390,7 @@ public class TestEachContext {
 
 	@Test
 	public void testC5() {
-		System.out.println("=========== Teste C5 ================");
+		System.out.println("=========== Test C5 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -423,8 +411,8 @@ public class TestEachContext {
 
 	@Test
 	public void testC6() {
-		System.out.println("=========== Teste C6 ================");
-		HashSet<Context> fullContext = createFullContext(1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1);
+		System.out.println("=========== Test C6 ================");
+		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 		assertTrue(tasks != null);
 		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
@@ -441,8 +429,8 @@ public class TestEachContext {
 
 	@Test
 	public void testC7() {
-		System.out.println("=========== Teste C7 ================");
-		HashSet<Context> fullContext = createFullContext(0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0);
+		System.out.println("=========== Test C7 ================");
+		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
@@ -458,8 +446,6 @@ public class TestEachContext {
 				found = 1;
 			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
 				found = 1;
-			if (task.getIdentifier().contentEquals("acceptEmergency"))
-				found = 1;
 			if (task.getIdentifier().contentEquals("identifyLocationByVoiceCall"))
 				found = 1;
 			if (task.getIdentifier().contentEquals("accessLocationFromTriangulation"))
@@ -472,7 +458,7 @@ public class TestEachContext {
 
 	@Test
 	public void testC8() {
-		System.out.println("=========== Teste C8 ================");
+		System.out.println("=========== Test C8 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -497,37 +483,24 @@ public class TestEachContext {
 
 	@Test
 	public void testC9() {
-		System.out.println("=========== Teste C9 ================");
-		HashSet<Context> fullContext = createFullContext(1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0);
+		System.out.println("=========== Test C9 ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
 		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
-			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
-				found = 1;
 			if (task.getIdentifier().contentEquals("notifyByLightAlert"))
 				found = 1;
-			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
+			if (task.getIdentifier().contentEquals("acceptsEmergency"))
 				found = 1;
-			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("acceptEmergency"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("identifyLocationByVoiceCall"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("accessLocationFromTriangulation"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
-				found = 1;
-
 			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
 		}
 	}
 
 	@Test
 	public void testC10() {
-		System.out.println("=========== Teste C10 ================");
+		System.out.println("=========== Test C10 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -544,7 +517,7 @@ public class TestEachContext {
 
 	@Test
 	public void testC11() {
-		System.out.println("=========== Teste C11 ================");
+		System.out.println("=========== Test C11 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -565,7 +538,7 @@ public class TestEachContext {
 
 	@Test
 	public void testC12() {
-		System.out.println("=========== Teste C12 ================");
+		System.out.println("=========== Test C12 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -580,6 +553,30 @@ public class TestEachContext {
 				found = 1;
 			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
 		}
+	}
+
+	@Test
+	public void testAll() {
+		System.out.println("=========== Test All ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("acceptEmergency"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testNone() {
+		System.out.println("=========== Test None ================");
+		HashSet<Context> fullContext = createFullContext(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks == null);
 	}
 
 	private HashSet<Context> createFullContext(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,
