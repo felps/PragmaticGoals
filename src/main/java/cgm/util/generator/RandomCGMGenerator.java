@@ -91,4 +91,8 @@ public class RandomCGMGenerator extends CGMGenerator{
 		return goal;
 	}
 
+	protected int getRefinementsAmount(int maxRefinements) {
+		return (int) Math.floor(Math.random() * (maxRefinements - 1)) + 1;
+	}
+
 }

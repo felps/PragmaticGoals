@@ -33,7 +33,7 @@ public abstract class CGMGenerator {
 	}
 
 	public Refinement generateDeps(int refinementsAmount, Set<Context> possibleContexts) {
-		int depAmount = (int) Math.floor(Math.random() * (refinementsAmount - 1)) + 1;
+		int depAmount = getRefinementsAmount(refinementsAmount);
 		if (refinementsAmount == 0)
 			return null;
 
@@ -59,6 +59,8 @@ public abstract class CGMGenerator {
 
 		return root;
 	}
+
+	protected abstract int getRefinementsAmount(int maxRefinements) ;
 
 	protected abstract Task generateTask() ;
 	protected abstract Goal generateGoal(Set<Context> possibleContexts);

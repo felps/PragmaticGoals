@@ -31,4 +31,10 @@ public class WorstCaseCGMGenerator extends CGMGenerator {
 		return pragmaticGoal;
 	}
 
+	@Override
+	protected int getRefinementsAmount(int maxRefinements) {
+		return 2;
+	}
+
 }
+
