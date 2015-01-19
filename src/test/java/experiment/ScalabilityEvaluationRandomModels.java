@@ -12,7 +12,7 @@ import cgm.CGM;
 import cgm.Context;
 import cgm.util.generator.RandomCGMGenerator;
 
-public class ScalabilityEvaluation {
+public class ScalabilityEvaluationRandomModels {
 
 	RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 
@@ -51,6 +51,7 @@ public class ScalabilityEvaluation {
 	private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
 		{
 			long accumulated = 0;
+			boolean achievable = false;
 
 			RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 
@@ -58,7 +59,7 @@ public class ScalabilityEvaluation {
 				// Setup Model
 				CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
 
-				Set<Context> current = generateRandomContextSet(contextAmount);
+				Set<Context> current = generateCompleteContextSet(contextAmount);
 
 				long start = System.nanoTime();
 				for (int j = 0; j < 1000; j++) {
@@ -67,9 +68,16 @@ public class ScalabilityEvaluation {
 				}
 				accumulated += (System.nanoTime() - start);
 
+				if(cgm.isAchievable(current, null) != null){
+					achievable = true;
+				};
 				// Print result
 			}
-
+			if(achievable){
+				System.out.println("achievable");
+				achievable = false;
+			} else
+				System.out.println("unachievable");
 			System.out.println("Experiment " + experimentId + " ; " + modelSize + "; " + contextAmount + "; "
 					+ (accumulated));
 		}
@@ -82,9 +90,21 @@ public class ScalabilityEvaluation {
 
 		while (contexts.size() < randomAmount) {
 			int contextIndex = ((int) (Math.random() * contextAmount)) + 1;
-			contexts.add(new Context("C" + contextIndex));
+			contexts.add(new Context("c" + contextIndex));
 		}
 
+		return contexts;
+	}
+
+
+	private Set<Context> generateCompleteContextSet(int contextAmount) {
+		HashSet<Context> contexts = new HashSet<Context>();
+
+		for( int contextIndex=1; contextIndex< contexts.size(); contextAmount++) {
+			contexts.add(new Context("c" + contextIndex));
+		}
+
+		contexts.add(null);
 		return contexts;
 	}
 }
