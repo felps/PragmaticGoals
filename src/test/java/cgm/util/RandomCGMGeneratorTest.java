@@ -10,6 +10,7 @@ import org.junit.Test;
 import cgm.CGM;
 import cgm.Context;
 import cgm.Refinement;
+import cgm.util.generator.RandomCGMGenerator;
 
 public class RandomCGMGeneratorTest {
 

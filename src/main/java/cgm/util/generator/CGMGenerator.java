@@ -1,4 +1,4 @@
-package cgm.util;
+package cgm.util.generator;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import cgm.CGM;
 import cgm.Context;
-import cgm.util.RandomCGMGenerator;
+import cgm.util.generator.RandomCGMGenerator;
 
 public class ScalabilityEvaluation {
 
