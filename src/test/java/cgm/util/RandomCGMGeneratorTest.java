@@ -17,7 +17,7 @@ public class RandomCGMGeneratorTest {
 	public void shouldCreateASingleTask() {
 		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 		
-		CGM cgm  = cgmFactory.generateRandomCGM(1, 2);
+		CGM cgm  = cgmFactory.generateCGM(1, 2);
 		
 		assertTrue(cgm.getRoot().myType() == Refinement.TASK);
 	}
@@ -26,7 +26,7 @@ public class RandomCGMGeneratorTest {
 	public void shouldCreateASingleGoalWithASingleTask() {
 		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 		
-		CGM cgm  = cgmFactory.generateRandomCGM(2, 2);
+		CGM cgm  = cgmFactory.generateCGM(2, 2);
 		
 		assertTrue(cgm.getRoot().myType() == Refinement.GOAL);
 		
@@ -39,7 +39,7 @@ public class RandomCGMGeneratorTest {
 	public void shouldCreateASingleCGMWithTwoLevels() {
 		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 		
-		CGM cgm  = cgmFactory.generateRandomCGM(3, 2);
+		CGM cgm  = cgmFactory.generateCGM(3, 2);
 		
 		assertEquals(3, countRefinements(cgm.getRoot()));
 	}
@@ -50,7 +50,7 @@ public class RandomCGMGeneratorTest {
 		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 		
 		for(int i = 1;i<100;i++){
-			CGM cgm  = cgmFactory.generateRandomCGM(3*i, 1);
+			CGM cgm  = cgmFactory.generateCGM(3*i, 1);
 			assertEquals(3*i, countRefinements(cgm.getRoot()));
 		}
 	}
@@ -60,7 +60,7 @@ public class RandomCGMGeneratorTest {
 	public void shouldCreateAVeryLargeCGM() {
 		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 		
-		CGM cgm  = cgmFactory.generateRandomCGM(3000, 1);
+		CGM cgm  = cgmFactory.generateCGM(3000, 1);
 		assertEquals(3000, countRefinements(cgm.getRoot()));
 	}
 	
@@ -70,7 +70,7 @@ public class RandomCGMGeneratorTest {
 
 		boolean successHistory = false;
 		for (int i = 0; i < 100; i++) {
-			CGM cgm  = cgmFactory.generateRandomCGM(1000, 30);
+			CGM cgm  = cgmFactory.generateCGM(1000, 30);
 			
 			if(30 == collectContexts(cgm.getRoot()).size()){
 				successHistory = true;
@@ -103,7 +103,5 @@ public class RandomCGMGeneratorTest {
 		}
 		return amount;
 	}
-	
-	
 
 }

@@ -13,54 +13,13 @@ import cgm.QualityConstraint;
 import cgm.Refinement;
 import cgm.Task;
 
-public class RandomCGMGenerator {
+public class RandomCGMGenerator extends CGMGenerator{
 
 	public CGM generateRandomCGM(int refinementsAmount, int contextAmount) {
-		int i, j;
-
-		HashSet<Context> possibleContexts = new HashSet<Context>();
-
-		for (i = 1; i <= contextAmount; i++) {
-			possibleContexts.add(new Context("c" + i));
-		}
-
-		CGM cgm = new CGM();
-
-		Refinement cgmRoot = generateRandomDeps(refinementsAmount, possibleContexts);
-		cgm.setRoot(cgmRoot);
-
-		return cgm;
+		return generateCGM(refinementsAmount, contextAmount);
 	}
 
-	public Refinement generateRandomDeps(int refinementsAmount, Set<Context> possibleContexts) {
-		int depAmount = (int) Math.floor(Math.random() * (refinementsAmount - 1)) + 1;
-		if (refinementsAmount == 0)
-			return null;
-
-		if (refinementsAmount == 1) {
-			return generateRandomTask();
-		}
-
-		Goal root = generateRandomGoal(possibleContexts);
-
-		int fraction = (int) Math.floor((refinementsAmount - 1) / depAmount);
-
-		for (int i = 0; i < depAmount; i++) {
-			int temp = fraction;
-			if (i == 0)
-				temp = fraction + ((refinementsAmount - 1) - fraction * depAmount);
-			if (temp != 0) {
-				Refinement dependency;
-				dependency = generateRandomDeps(temp, possibleContexts);
-				root.addDependency(dependency);
-			}
-
-		}
-
-		return root;
-	}
-
-	private Task generateRandomTask() {
+	protected Task generateTask() {
 		int metric;
 		double random = Math.random();
 		if (random >= 0.1) {
@@ -86,7 +45,8 @@ public class RandomCGMGenerator {
 		
 		return task;
 	}
-	private Goal generateRandomGoal(Set<Context> possibleContexts) {
+	
+	protected Goal generateGoal(Set<Context> possibleContexts) {
 		double isOrDecomposition = Math.random();
 		Goal goal;
 		if (isOrDecomposition >= 0.5)
