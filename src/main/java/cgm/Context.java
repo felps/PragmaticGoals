@@ -27,4 +27,8 @@ public class Context {
 		this.name = name;
 	}
 
+	@Override
+	public int hashCode() {
+		return this.name.toLowerCase().hashCode();
+	}
 }
