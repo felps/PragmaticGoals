@@ -23,21 +23,21 @@ public class RandomCGMGenerator extends CGMGenerator{
 		int metric;
 		double random = Math.random();
 		if (random >= 0.1) {
-			metric = 10;
+			metric = 99;
 		} else if (random >= 0.2) {
-			metric = 20;
+			metric = 80;
 		} else if (random >= 0.3) {
-			metric = 30;
+			metric = 70;
 		} else if (random >= 0.4) {
-			metric = 40;
+			metric = 60;
 		} else if (random >= 0.5) {
 			metric = 50;
 		} else if (random >= 0.6) {
-			metric = 60;
+			metric = 40;
 		} else if (random >= 0.7) {
-			metric = 70;
+			metric = 30;
 		} else{
-			metric = 100;
+			metric = 9;
 		}
 		
 		Task task = new Task();
@@ -48,7 +48,7 @@ public class RandomCGMGenerator extends CGMGenerator{
 	
 	protected Goal generateGoal(Set<Context> possibleContexts) {
 		double isOrDecomposition = Math.random();
-		Goal goal;
+		Pragmatic goal;
 		if (isOrDecomposition >= 0.5)
 			goal = new Pragmatic(true);
 		else
@@ -67,26 +67,24 @@ public class RandomCGMGenerator extends CGMGenerator{
 		int metric;
 		double random = Math.random();
 		if (random >= 0.1) {
-			metric = 10;
+			metric = 99;
 		} else if (random >= 0.2) {
-			metric = 20;
+			metric = 89;
 		} else if (random >= 0.3) {
-			metric = 30;
+			metric = 79;
 		} else if (random >= 0.4) {
-			metric = 40;
+			metric = 69;
 		} else if (random >= 0.5) {
-			metric = 50;
+			metric = 59;
 		} else if (random >= 0.6) {
-			metric = 60;
+			metric = 49;
 		} else if (random >= 0.7) {
-			metric = 70;
+			metric = 39;
 		} else{
-			metric = 100;
+			metric = 9;
 		}
-		
-		Pragmatic representation = (Pragmatic) goal;
-		QualityConstraint qc = new QualityConstraint(null, Metric.SECONDS, metric, Comparison.LESS_THAN);
-		representation.getInterpretation().addQualityConstraint(qc);
+		QualityConstraint qc = new QualityConstraint(null, Metric.SECONDS, metric, Comparison.GREATER_OR_EQUAL_TO);
+		goal.getInterpretation().addQualityConstraint(qc);
 		
 		return goal;
 	}

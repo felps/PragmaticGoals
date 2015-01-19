@@ -23,10 +23,18 @@ public class WorstCaseCGMGenerator extends CGMGenerator {
 	@Override
 	protected Goal generateGoal(Set<Context> possibleContexts) {
 
-		Pragmatic pragmaticGoal= new Pragmatic(Goal.AND);
+		QualityConstraint qc;
 		
-		QualityConstraint qc = new QualityConstraint(null, Metric.SECONDS, 100, Comparison.LESS_THAN);
+		Pragmatic pragmaticGoal= new Pragmatic(Goal.AND);
+		for (Context context : possibleContexts) {
+			pragmaticGoal.addApplicableContext(context);
+			qc = new QualityConstraint(context, Metric.SECONDS, 100, Comparison.LESS_THAN);
+			pragmaticGoal.getInterpretation().addQualityConstraint(qc);
+		}
+		
+		qc = new QualityConstraint(null, Metric.SECONDS, 100, Comparison.LESS_THAN);
 		pragmaticGoal.getInterpretation().addQualityConstraint(qc);
+		
 		
 		return pragmaticGoal;
 	}
