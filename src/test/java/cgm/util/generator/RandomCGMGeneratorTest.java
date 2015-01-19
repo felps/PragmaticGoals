@@ -107,6 +107,53 @@ public class RandomCGMGeneratorTest {
 	}
 
 	@Test
+	public void allGoalsMayBeAchievable() {
+		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
+
+		Set<Context> current = new HashSet<Context>();
+		current.add(new Context("c1"));
+		current.add(new Context("c2"));
+		System.out.println("Contexts available:");
+		for (Context context : current) {
+			System.out.println(">" + context.getName() + "<");
+		}
+
+		boolean isAchievable = false;
+		for (int i = 0; i < 10; i++) {
+			CGM cgm = cgmFactory.generateCGM(2, 2);
+			if (cgm.getRoot().isAchievable(current, null) != null)
+				isAchievable = true;
+		}
+
+		assertTrue(isAchievable);
+	}
+
+	
+	@Test
+	public void allGoalsMayBeAchievableEvenWithLotsOfGoals() {
+		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
+
+		Set<Context> current = new HashSet<Context>();
+		current.add(new Context("c1"));
+		current.add(new Context("c2"));
+		System.out.println("Contexts available:");
+		for (Context context : current) {
+			System.out.println(">" + context.getName() + "<");
+		}
+
+		for (int modelSize = 1;modelSize<100;modelSize++){
+			boolean isAchievable = false;
+			for (int i = 0; i < 10; i++) {
+				CGM cgm = cgmFactory.generateCGM(2*modelSize, 2);
+				if (cgm.getRoot().isAchievable(current, null) != null)
+					isAchievable = true;
+			}
+			assertTrue(isAchievable);
+		}
+
+	}
+
+	@Test
 	public void shouldCreateASingleCGMWithTwoLevels() {
 		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 

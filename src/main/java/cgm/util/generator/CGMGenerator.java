@@ -38,7 +38,7 @@ public abstract class CGMGenerator {
 			return null;
 
 		if (refinementsAmount == 1) {
-			return generateTask();
+			return generateTask(possibleContexts);
 		}
 
 		Goal root = generateGoal(possibleContexts);
@@ -62,6 +62,6 @@ public abstract class CGMGenerator {
 
 	protected abstract int getRefinementsAmount(int maxRefinements) ;
 
-	protected abstract Task generateTask() ;
+	protected abstract Task generateTask(Set<Context> possibleContexts);
 	protected abstract Goal generateGoal(Set<Context> possibleContexts);
 }

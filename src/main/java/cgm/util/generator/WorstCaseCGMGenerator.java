@@ -13,10 +13,12 @@ import cgm.Task;
 public class WorstCaseCGMGenerator extends CGMGenerator {
 
 	@Override
-	protected Task generateTask() {
+	protected Task generateTask(Set<Context> possibleContexts) {
 		Task task = new Task();
 		task.setProvidedQuality(null, Metric.SECONDS, 10);
-		
+		for (Context context : possibleContexts) {
+			task.addApplicableContext(context);
+		}
 		return task;
 	}
 
