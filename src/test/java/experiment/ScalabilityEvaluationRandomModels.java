@@ -36,11 +36,70 @@ public class ScalabilityEvaluationRandomModels {
 	}
 
 	@Test
+	public void shouldGenerateCompleteSetOfContextsWith1Context(){
+		Set<Context> current = generateCompleteContextSet(1);
+		assertEquals(2, current.size());
+		assertTrue(current.contains(new Context("c1")));
+		assertTrue(current.contains(new Context("C1")));
+	}
+	
+	@Test
+	public void shouldGenerateCompleteSetOfContextsWith2Context(){
+		Set<Context> current = generateCompleteContextSet(2);
+		assertEquals(3, current.size());
+		assertTrue(current.contains(new Context("c1")));
+		assertTrue(current.contains(new Context("C1")));
+		assertTrue(current.contains(new Context("c2")));
+		assertTrue(current.contains(new Context("C2")));
+		
+	}
+	
+	@Test
+	public void shouldGenerateCompleteSetOfContextsWith4Context(){
+		Set<Context> current = generateCompleteContextSet(4);
+		assertEquals(5, current.size());
+		assertTrue(current.contains(new Context("c1")));
+		assertTrue(current.contains(new Context("C1")));	
+		assertTrue(current.contains(new Context("c2")));
+		assertTrue(current.contains(new Context("C2")));
+		assertTrue(current.contains(new Context("c3")));
+		assertTrue(current.contains(new Context("C3")));
+		assertTrue(current.contains(new Context("c4")));
+		assertTrue(current.contains(new Context("C4")));
+	}
+	
+	@Test
+	public void shouldGenerateCompleteSetOfContextsWith10Context(){
+		Set<Context> current = generateCompleteContextSet(10);
+		assertEquals(11, current.size());
+		assertTrue(current.contains(new Context("c1")));
+		assertTrue(current.contains(new Context("C1")));	
+		assertTrue(current.contains(new Context("c2")));
+		assertTrue(current.contains(new Context("C2")));
+		assertTrue(current.contains(new Context("c3")));
+		assertTrue(current.contains(new Context("C3")));
+		assertTrue(current.contains(new Context("c4")));
+		assertTrue(current.contains(new Context("C4")));
+		assertTrue(current.contains(new Context("c5")));
+		assertTrue(current.contains(new Context("C5")));
+		assertTrue(current.contains(new Context("c6")));
+		assertTrue(current.contains(new Context("C6")));
+		assertTrue(current.contains(new Context("c7")));
+		assertTrue(current.contains(new Context("C7")));
+		assertTrue(current.contains(new Context("c8")));
+		assertTrue(current.contains(new Context("C8")));
+		assertTrue(current.contains(new Context("c9")));
+		assertTrue(current.contains(new Context("C9")));
+		assertTrue(current.contains(new Context("c10")));
+		assertTrue(current.contains(new Context("C10")));
+	}
+	
+	@Test
 	public void scalabilityTestModelAndContextSize() {
 
 		System.out.println("Scalability Evaluation - Varying Model and Context amounts");
 		System.out.println("Experiment executed on " + (new Date()).toString());
-		
+
 		int round = 1;
 		for (int contexts = 1; contexts < 30; contexts++) {
 			for (int model = 100; model < 10000; model += 100) {
@@ -48,59 +107,82 @@ public class ScalabilityEvaluationRandomModels {
 			}
 		}
 	}
+
 	private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
 		{
 			long accumulated = 0;
 			boolean achievable = false;
 
 			RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
+			Set<Context> current = generateCompleteContextSet(contextAmount);
+
+			if (current == null) {
+				System.out.println("NULL");
+				fail();
+			}
 
 			for (int i = 0; i < 100; i++) {
 				// Setup Model
 				CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
 
-				Set<Context> current = generateCompleteContextSet(contextAmount);
-
 				long start = System.nanoTime();
-				for (int j = 0; j < 1000; j++) {
+				for (int j = 0; j < 100; j++) {
 					// Execute test
 					cgm.isAchievable(current, null);
 				}
 				accumulated += (System.nanoTime() - start);
 
-				if(cgm.isAchievable(current, null) != null){
+				if (cgm.isAchievable(current, null) != null) {
 					achievable = true;
-				};
-				// Print result
+				}/* else {
+					System.out.println("=====");
+					System.out.println("Applicable:");
+					for (Context context : cgm.getRoot().getApplicableContext()) {
+						System.out.println(context.getName());
+					}
+					System.out.println("Current:");
+					for (Context context : current) {
+						if (context != null)
+							System.out.println(context.getName());
+					}
+					System.out.println("=====");
+				}*/
+
 			}
-			if(achievable){
-				System.out.println("achievable");
+
+			// Print result
+			
+			long timePerExecutionInNs = accumulated/10000; // Time in nanosseconds for each execution
+			//long timeInMs = accumulated/1000; // Time in milliseconds
+			
+			System.out.print(experimentId + " ");
+			
+			if (achievable) {
+				System.out.print("achievable ");
 				achievable = false;
 			} else
-				System.out.println("unachievable");
-			System.out.println("Experiment " + experimentId + " ; " + modelSize + "; " + contextAmount + "; "
-					+ (accumulated));
+				System.out.print("unachievable ");
+			
+			System.out.println(modelSize + " " + contextAmount + " "+ timePerExecutionInNs);
 		}
 	}
 
-	private Set<Context> generateRandomContextSet(int contextAmount) {
-		int randomAmount = (int) Math.floor(Math.random() * (contextAmount + 1));
-
-		HashSet<Context> contexts = new HashSet<Context>();
-
-		while (contexts.size() < randomAmount) {
-			int contextIndex = ((int) (Math.random() * contextAmount)) + 1;
-			contexts.add(new Context("c" + contextIndex));
-		}
-
-		return contexts;
-	}
-
-
+	/*
+	 * private Set<Context> generateRandomContextSet(int contextAmount) { int
+	 * randomAmount = (int) Math.floor(Math.random() * (contextAmount + 1));
+	 * 
+	 * HashSet<Context> contexts = new HashSet<Context>();
+	 * 
+	 * while (contexts.size() < randomAmount) { int contextIndex = ((int)
+	 * (Math.random() * contextAmount)) + 1; contexts.add(new Context("c" +
+	 * contextIndex)); }
+	 * 
+	 * return contexts; }
+	 */
 	private Set<Context> generateCompleteContextSet(int contextAmount) {
 		HashSet<Context> contexts = new HashSet<Context>();
 
-		for( int contextIndex=1; contextIndex< contexts.size(); contextAmount++) {
+		for (int contextIndex = 1; contextIndex <= contextAmount; contextIndex++) {
 			contexts.add(new Context("c" + contextIndex));
 		}
 
