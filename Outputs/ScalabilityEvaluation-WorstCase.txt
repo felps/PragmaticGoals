@@ -1,0 +1,116 @@
+Scalability Evaluation - Worst Case Model and Varying Context amounts
+Experiment executed on Tue Jan 20 20:37:09 BRST 2015
+achievable
+ ; 100; 1; 212007308
+achievable
+ ; 200; 1; 137084411
+achievable
+ ; 300; 1; 160337354
+achievable
+ ; 400; 1; 203338502
+achievable
+ ; 500; 1; 208910500
+achievable
+ ; 600; 1; 201368177
+achievable
+ ; 700; 1; 189131442
+achievable
+ ; 800; 1; 251733214
+achievable
+ ; 900; 1; 282762086
+achievable
+ ; 1000; 1; 301565359
+achievable
+ ; 1100; 1; 407306679
+achievable
+ ; 1200; 1; 423205878
+achievable
+ ; 1300; 1; 462045561
+achievable
+ ; 1400; 1; 442890950
+achievable
+ ; 1500; 1; 669798907
+achievable
+ ; 1600; 1; 508703387
+achievable
+ ; 1700; 1; 566095200
+achievable
+ ; 1800; 1; 613669794
+achievable
+ ; 1900; 1; 621730976
+achievable
+ ; 2000; 1; 723691029
+achievable
+ ; 2100; 1; 762604589
+achievable
+ ; 2200; 1; 759594938
+achievable
+ ; 2300; 1; 831904705
+achievable
+ ; 2400; 1; 796781195
+achievable
+ ; 2500; 1; 829305365
+achievable
+ ; 2600; 1; 923168982
+achievable
+ ; 2700; 1; 985433617
+achievable
+ ; 2800; 1; 1040862802
+achievable
+ ; 2900; 1; 1052218067
+achievable
+ ; 3000; 1; 1080443067
+achievable
+ ; 3100; 1; 1079340940
+achievable
+ ; 3200; 1; 1031821880
+achievable
+ ; 3300; 1; 1077266931
+achievable
+ ; 3400; 1; 1124520226
+achievable
+ ; 3500; 1; 1144247011
+achievable
+ ; 3600; 1; 1194322194
+achievable
+ ; 3700; 1; 1377523959
+achievable
+ ; 3800; 1; 1423562222
+achievable
+ ; 3900; 1; 1456427278
+achievable
+ ; 4000; 1; 1385366470
+achievable
+ ; 4100; 1; 1557280662
+achievable
+ ; 4200; 1; 1865850452
+achievable
+ ; 4300; 1; 1598745090
+achievable
+ ; 4400; 1; 1986754940
+achievable
+ ; 4500; 1; 1898689931
+achievable
+ ; 4600; 1; 1906181465
+achievable
+ ; 4700; 1; 1694792770
+achievable
+ ; 4800; 1; 1750659288
+achievable
+ ; 4900; 1; 1730832191
+achievable
+ ; 5000; 1; 1722604507
+achievable
+ ; 5100; 1; 1760414818
+achievable
+ ; 5200; 1; 1943783802
+achievable
+ ; 5300; 1; 2281667898
+achievable
+ ; 5400; 1; 2188205286
+achievable
+ ; 5500; 1; 1991162808
+achievable
+ ; 5600; 1; 2011878837
+achievable
+ ; 5700; 1; 1986670475
