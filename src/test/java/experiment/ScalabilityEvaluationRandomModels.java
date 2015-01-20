@@ -100,10 +100,11 @@ public class ScalabilityEvaluationRandomModels {
 		System.out.println("Scalability Evaluation - Varying Model and Context amounts");
 		System.out.println("Experiment executed on " + (new Date()).toString());
 
-		int round = 1;
+		executeScientificalEvaluation("", 1, 10);
+		
 		for (int contexts = 1; contexts < 30; contexts++) {
 			for (int model = 100; model < 10000; model += 100) {
-				executeScientificalEvaluation("" + 3, contexts, model);
+				executeScientificalEvaluation("", contexts, model);
 			}
 		}
 	}
@@ -134,19 +135,7 @@ public class ScalabilityEvaluationRandomModels {
 
 				if (cgm.isAchievable(current, null) != null) {
 					achievable = true;
-				}/* else {
-					System.out.println("=====");
-					System.out.println("Applicable:");
-					for (Context context : cgm.getRoot().getApplicableContext()) {
-						System.out.println(context.getName());
-					}
-					System.out.println("Current:");
-					for (Context context : current) {
-						if (context != null)
-							System.out.println(context.getName());
-					}
-					System.out.println("=====");
-				}*/
+				}
 
 			}
 
@@ -167,18 +156,7 @@ public class ScalabilityEvaluationRandomModels {
 		}
 	}
 
-	/*
-	 * private Set<Context> generateRandomContextSet(int contextAmount) { int
-	 * randomAmount = (int) Math.floor(Math.random() * (contextAmount + 1));
-	 * 
-	 * HashSet<Context> contexts = new HashSet<Context>();
-	 * 
-	 * while (contexts.size() < randomAmount) { int contextIndex = ((int)
-	 * (Math.random() * contextAmount)) + 1; contexts.add(new Context("c" +
-	 * contextIndex)); }
-	 * 
-	 * return contexts; }
-	 */
+
 	private Set<Context> generateCompleteContextSet(int contextAmount) {
 		HashSet<Context> contexts = new HashSet<Context>();
 
