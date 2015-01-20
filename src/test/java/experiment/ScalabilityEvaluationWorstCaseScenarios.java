@@ -1,7 +1,5 @@
 package experiment;
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +9,6 @@ import org.junit.Test;
 import cgm.CGM;
 import cgm.Context;
 import cgm.util.generator.CGMGenerator;
-import cgm.util.generator.RandomCGMGenerator;
 import cgm.util.generator.WorstCaseCGMGenerator;
 
 public class ScalabilityEvaluationWorstCaseScenarios {
@@ -58,27 +55,26 @@ public class ScalabilityEvaluationWorstCaseScenarios {
 
 			CGMGenerator cgmFactory = new WorstCaseCGMGenerator();
 
-			for (int i = 0; i < 100; i++) {
-				// Setup Model
-				CGM cgm = cgmFactory.generateCGM(modelSize, contextAmount);
+			// Setup Model
+			CGM cgm = cgmFactory.generateCGM(modelSize, contextAmount);
 
-				Set<Context> current = generateContextSet(contextAmount);
+			Set<Context> current = generateContextSet(contextAmount);
 
-				long start = System.nanoTime();
-				for (int j = 0; j < 1000; j++) {
-					// Execute test
-					cgm.isAchievable(current, null);
-				}
-				accumulated += (System.nanoTime() - start);
-				
-				if(cgm.isAchievable(current, null) != null){
-					achievable = true;
-				};
-				
-				if (accumulated<0)
-					throw new ArithmeticException("Time evaluation Overflow");
-				// Print result
+			long start = System.nanoTime();
+			for (int j = 0; j < 100; j++) {
+				// Execute test
+				cgm.isAchievable(current, null);
 			}
+			accumulated += (System.nanoTime() - start);
+			
+			if(cgm.isAchievable(current, null) != null){
+				achievable = true;
+			};
+				
+			if (accumulated<0)
+				throw new ArithmeticException("Time evaluation Overflow");
+			// Print result
+		
 			if(achievable){
 				System.out.println("achievable");
 				achievable = false;
