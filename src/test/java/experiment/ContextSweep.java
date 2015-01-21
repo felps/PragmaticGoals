@@ -15,7 +15,7 @@ import cgm.util.generator.RandomCGMGenerator;
 public class ContextSweep {
 
 	private int contextSet;
-	private long limit;
+	
 
 	@Test
 	public void shouldPrintAllContextSets() {
@@ -34,33 +34,34 @@ public class ContextSweep {
 	// @Test
 	public void scalabilityTestModelAndContextSize() {
 
-		System.out.println("Scalability Evaluation - Varying Model and Context amounts");
+		int contextAmount = 30;
+		System.out.println("Scalability Evaluation - Context sweep capability with 20 context set");
 		System.out.println("Experiment executed on " + (new Date()).toString());
 
 		executeScientificalEvaluation("", 1, 10);
 
-		for (int contexts = 1; contexts < 30; contexts++) {
-			for (int model = 100; model < 10000; model += 100) {
-				executeScientificalEvaluation("", contexts, model);
-			}
+		for (int model = 100; model < 10001; model += 100) {
+			executeScientificalEvaluation("", contextAmount, model);
 		}
 	}
 
 	private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
 		{
-			int executions = 0;
+			int models = 100;
+			long oneSecond = 1000000000l; // one second equals 10^9 ns
+			double totalPossibleContextSets = Math.pow(2, contextAmount) - 1;
+			long executions = 0;
 
 			RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 
 			contextSet = 1;
-			for (int j = 0; j < 100; j++) {
-				long limit = (long) Math.pow(2, contextAmount);
+			for (int j = 0; j < models; j++) {
 				executions = 0;
 				// Setup Model
 				CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
 
 				long start = System.nanoTime();
-				for (long i = 0; i < limit; i++) {
+				for (long i = 0; i < totalPossibleContextSets; i++) {
 					// To disregard the time of setting up the next context, we
 					// calculate the time it took to do so and add it to the
 					// start time
@@ -71,7 +72,7 @@ public class ContextSweep {
 
 					// Execute test
 					cgm.isAchievable(current, null);
-					if ((System.nanoTime() - start) > 60000000000l) {
+					if ((System.nanoTime() - start) > oneSecond) {
 						break;
 					}
 					executions++;
@@ -79,9 +80,11 @@ public class ContextSweep {
 				// Reset the context set index
 				contextSet = 0;
 			}
-			double totalPossibleContextSets = Math.pow(2, 50) - 1;
-			// Executions performed over the amount of context sets times 100
-			double parameterSweepCoverage = (executions / totalPossibleContextSets) * 100;  
+			//Average executions per second through all models
+			double avgExecutions = executions / models ;
+			
+			// Average coverage of the context sets per second
+			double parameterSweepCoverage = (avgExecutions / totalPossibleContextSets) * 100;  
 
 			// Print result
 			System.out.print(experimentId + " ");
@@ -90,6 +93,7 @@ public class ContextSweep {
 	}
 
 	private Set<Context> generateNextContextSet(int contextAmount) {
+		long limit;
 		HashSet<Context> contexts = new HashSet<Context>();
 		limit = (long) Math.pow(2, contextAmount);
 		for (long i = 2; i <= limit; i *= 2) {
