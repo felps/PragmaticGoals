@@ -34,7 +34,7 @@ public class ContextSweep {
 	// @Test
 	public void scalabilityTestModelAndContextSize() {
 
-		int contextAmount = 30;
+		int contextAmount = 20;
 		System.out.println("Scalability Evaluation - Context sweep capability with 20 context set");
 		System.out.println("Experiment executed on " + (new Date()).toString());
 

@@ -1,0 +1,42 @@
+Scalability Evaluation - Worst Case Model and Varying Context amounts
+Experiment executed on Wed Jan 21 14:47:20 BRST 2015
+achievable
+ 100 1 2019520
+achievable
+ 200 1 1422069
+achievable
+ 300 1 1419110
+achievable
+ 400 1 1871682
+achievable
+ 500 1 2088117
+achievable
+ 600 1 1759190
+achievable
+ 700 1 1924805
+achievable
+ 800 1 2221795
+achievable
+ 900 1 2792110
+achievable
+ 1000 1 2836417
+achievable
+ 1100 1 3728026
+achievable
+ 1200 1 4034567
+achievable
+ 1300 1 3677518
+achievable
+ 1400 1 3927135
+achievable
+ 1500 1 4290081
+achievable
+ 1600 1 4808431
+achievable
+ 1700 1 5062567
+achievable
+ 1800 1 5600824
+achievable
+ 1900 1 5923890
+achievable
+ 2000 1 6448846
