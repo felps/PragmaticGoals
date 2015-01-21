@@ -1,116 +1,3558 @@
 Scalability Evaluation - Worst Case Model and Varying Context amounts
-Experiment executed on Tue Jan 20 20:37:09 BRST 2015
+Experiment executed on Tue Jan 20 23:05:47 BRST 2015
 achievable
- ; 100; 1; 212007308
+ 100 1 2103962
 achievable
- ; 200; 1; 137084411
+ 200 1 1408098
 achievable
- ; 300; 1; 160337354
+ 300 1 1471755
 achievable
- ; 400; 1; 203338502
+ 400 1 1930977
 achievable
- ; 500; 1; 208910500
+ 500 1 1807307
 achievable
- ; 600; 1; 201368177
+ 600 1 1717087
 achievable
- ; 700; 1; 189131442
+ 700 1 1894858
 achievable
- ; 800; 1; 251733214
+ 800 1 2119645
 achievable
- ; 900; 1; 282762086
+ 900 1 2387506
 achievable
- ; 1000; 1; 301565359
+ 1000 1 3044825
 achievable
- ; 1100; 1; 407306679
+ 1100 1 3120589
 achievable
- ; 1200; 1; 423205878
+ 1200 1 3353609
 achievable
- ; 1300; 1; 462045561
+ 1300 1 3602839
 achievable
- ; 1400; 1; 442890950
+ 1400 1 3873563
 achievable
- ; 1500; 1; 669798907
+ 1500 1 4065354
 achievable
- ; 1600; 1; 508703387
+ 1600 1 4503358
 achievable
- ; 1700; 1; 566095200
+ 1700 1 4821646
 achievable
- ; 1800; 1; 613669794
+ 1800 1 5364416
 achievable
- ; 1900; 1; 621730976
+ 1900 1 7384530
 achievable
- ; 2000; 1; 723691029
+ 2000 1 7930380
 achievable
- ; 2100; 1; 762604589
+ 2100 1 6471111
 achievable
- ; 2200; 1; 759594938
+ 2200 1 7029724
 achievable
- ; 2300; 1; 831904705
+ 2300 1 7693908
 achievable
- ; 2400; 1; 796781195
+ 2400 1 7427955
 achievable
- ; 2500; 1; 829305365
+ 2500 1 8572246
 achievable
- ; 2600; 1; 923168982
+ 2600 1 8518248
 achievable
- ; 2700; 1; 985433617
+ 2700 1 9942133
 achievable
- ; 2800; 1; 1040862802
+ 2800 1 11825432
 achievable
- ; 2900; 1; 1052218067
+ 2900 1 9560349
 achievable
- ; 3000; 1; 1080443067
+ 3000 1 9531092
 achievable
- ; 3100; 1; 1079340940
+ 3100 1 9806647
 achievable
- ; 3200; 1; 1031821880
+ 3200 1 10694173
 achievable
- ; 3300; 1; 1077266931
+ 3300 1 11984925
 achievable
- ; 3400; 1; 1124520226
+ 3400 1 10721486
 achievable
- ; 3500; 1; 1144247011
+ 3500 1 11310357
 achievable
- ; 3600; 1; 1194322194
+ 3600 1 11545978
 achievable
- ; 3700; 1; 1377523959
+ 3700 1 12248069
 achievable
- ; 3800; 1; 1423562222
+ 3800 1 13321665
 achievable
- ; 3900; 1; 1456427278
+ 3900 1 12909032
 achievable
- ; 4000; 1; 1385366470
+ 4000 1 14693997
 achievable
- ; 4100; 1; 1557280662
+ 4100 1 14888133
 achievable
- ; 4200; 1; 1865850452
+ 4200 1 16795509
 achievable
- ; 4300; 1; 1598745090
+ 4300 1 15847972
 achievable
- ; 4400; 1; 1986754940
+ 4400 1 15525817
 achievable
- ; 4500; 1; 1898689931
+ 4500 1 14772442
 achievable
- ; 4600; 1; 1906181465
+ 4600 1 15232015
 achievable
- ; 4700; 1; 1694792770
+ 4700 1 15671941
 achievable
- ; 4800; 1; 1750659288
+ 4800 1 15877954
 achievable
- ; 4900; 1; 1730832191
+ 4900 1 16124912
 achievable
- ; 5000; 1; 1722604507
+ 5000 1 17329720
 achievable
- ; 5100; 1; 1760414818
+ 5100 1 20224459
 achievable
- ; 5200; 1; 1943783802
+ 5200 1 23180281
 achievable
- ; 5300; 1; 2281667898
+ 5300 1 18373461
 achievable
- ; 5400; 1; 2188205286
+ 5400 1 20123374
 achievable
- ; 5500; 1; 1991162808
+ 5500 1 21567593
 achievable
- ; 5600; 1; 2011878837
+ 5600 1 19299025
 achievable
- ; 5700; 1; 1986670475
+ 5700 1 19278100
+achievable
+ 5800 1 19269956
+achievable
+ 5900 1 20932093
+achievable
+ 6000 1 21582590
+achievable
+ 6100 1 21257082
+achievable
+ 6200 1 21312283
+achievable
+ 6300 1 21893069
+achievable
+ 6400 1 21582776
+achievable
+ 6500 1 22689550
+achievable
+ 6600 1 23226324
+achievable
+ 6700 1 25089004
+achievable
+ 6800 1 23882576
+achievable
+ 6900 1 25537632
+achievable
+ 7000 1 25119602
+achievable
+ 7100 1 24380364
+achievable
+ 7200 1 25658071
+achievable
+ 7300 1 26960743
+achievable
+ 7400 1 26965445
+achievable
+ 7500 1 26919925
+achievable
+ 7600 1 26933075
+achievable
+ 7700 1 27681118
+achievable
+ 7800 1 29003592
+achievable
+ 7900 1 28209897
+achievable
+ 8000 1 28421049
+achievable
+ 8100 1 28572808
+achievable
+ 8200 1 29953704
+achievable
+ 8300 1 30595923
+achievable
+ 8400 1 31888676
+achievable
+ 8500 1 31338033
+achievable
+ 8600 1 32545742
+achievable
+ 8700 1 35941508
+achievable
+ 8800 1 36017793
+achievable
+ 8900 1 36551738
+achievable
+ 9000 1 37055267
+achievable
+ 9100 1 40560951
+achievable
+ 9200 1 41901854
+achievable
+ 9300 1 36931998
+achievable
+ 9400 1 36445666
+achievable
+ 9500 1 37198480
+achievable
+ 9600 1 37139129
+achievable
+ 9700 1 38146760
+achievable
+ 9800 1 41442759
+achievable
+ 9900 1 38194086
+achievable
+ 100 2 446331
+achievable
+ 200 2 792201
+achievable
+ 300 2 1100275
+achievable
+ 400 2 1561936
+achievable
+ 500 2 2052206
+achievable
+ 600 2 2477564
+achievable
+ 700 2 2988809
+achievable
+ 800 2 3334877
+achievable
+ 900 2 3913100
+achievable
+ 1000 2 4559122
+achievable
+ 1100 2 5153602
+achievable
+ 1200 2 5666162
+achievable
+ 1300 2 6122946
+achievable
+ 1400 2 6937165
+achievable
+ 1500 2 7023574
+achievable
+ 1600 2 7526585
+achievable
+ 1700 2 8495386
+achievable
+ 1800 2 9798704
+achievable
+ 1900 2 9645527
+achievable
+ 2000 2 10139045
+achievable
+ 2100 2 11286974
+achievable
+ 2200 2 11802794
+achievable
+ 2300 2 13219184
+achievable
+ 2400 2 12489554
+achievable
+ 2500 2 13186043
+achievable
+ 2600 2 14235043
+achievable
+ 2700 2 14523476
+achievable
+ 2800 2 15004461
+achievable
+ 2900 2 15192065
+achievable
+ 3000 2 16617699
+achievable
+ 3100 2 16600930
+achievable
+ 3200 2 18022914
+achievable
+ 3300 2 18096316
+achievable
+ 3400 2 18791820
+achievable
+ 3500 2 20684547
+achievable
+ 3600 2 21108734
+achievable
+ 3700 2 24622405
+achievable
+ 3800 2 21800940
+achievable
+ 3900 2 23531527
+achievable
+ 4000 2 24383189
+achievable
+ 4100 2 24073785
+achievable
+ 4200 2 25545155
+achievable
+ 4300 2 24073597
+achievable
+ 4400 2 25454120
+achievable
+ 4500 2 25636685
+achievable
+ 4600 2 28356121
+achievable
+ 4700 2 30335838
+achievable
+ 4800 2 26640756
+achievable
+ 4900 2 28790728
+achievable
+ 5000 2 28476804
+achievable
+ 5100 2 28708242
+achievable
+ 5200 2 28420346
+achievable
+ 5300 2 29165666
+achievable
+ 5400 2 30135236
+achievable
+ 5500 2 30780041
+achievable
+ 5600 2 31994610
+achievable
+ 5700 2 31912704
+achievable
+ 5800 2 31440104
+achievable
+ 5900 2 32978511
+achievable
+ 6000 2 34635297
+achievable
+ 6100 2 36396547
+achievable
+ 6200 2 34231363
+achievable
+ 6300 2 33843669
+achievable
+ 6400 2 36000340
+achievable
+ 6500 2 40795822
+achievable
+ 6600 2 37215643
+achievable
+ 6700 2 37503635
+achievable
+ 6800 2 39257098
+achievable
+ 6900 2 40232922
+achievable
+ 7000 2 39992918
+achievable
+ 7100 2 40443665
+achievable
+ 7200 2 41875978
+achievable
+ 7300 2 42805774
+achievable
+ 7400 2 43769326
+achievable
+ 7500 2 45011556
+achievable
+ 7600 2 45991874
+achievable
+ 7700 2 46019401
+achievable
+ 7800 2 48168743
+achievable
+ 7900 2 46387623
+achievable
+ 8000 2 48701480
+achievable
+ 8100 2 48025951
+achievable
+ 8200 2 50980012
+achievable
+ 8300 2 48893122
+achievable
+ 8400 2 51094131
+achievable
+ 8500 2 50406493
+achievable
+ 8600 2 53349897
+achievable
+ 8700 2 52647780
+achievable
+ 8800 2 53483928
+achievable
+ 8900 2 53167373
+achievable
+ 9000 2 54694625
+achievable
+ 9100 2 55535397
+achievable
+ 9200 2 56234179
+achievable
+ 9300 2 56028912
+achievable
+ 9400 2 60523080
+achievable
+ 9500 2 60481369
+achievable
+ 9600 2 57590450
+achievable
+ 9700 2 63991137
+achievable
+ 9800 2 65456976
+achievable
+ 9900 2 60628939
+achievable
+ 100 3 411205
+achievable
+ 200 3 966075
+achievable
+ 300 3 1631550
+achievable
+ 400 3 2187984
+achievable
+ 500 3 2921012
+achievable
+ 600 3 4073702
+achievable
+ 700 3 4087429
+achievable
+ 800 3 4805257
+achievable
+ 900 3 5935656
+achievable
+ 1000 3 6761575
+achievable
+ 1100 3 7223469
+achievable
+ 1200 3 8420129
+achievable
+ 1300 3 8886207
+achievable
+ 1400 3 9322397
+achievable
+ 1500 3 9818110
+achievable
+ 1600 3 11713426
+achievable
+ 1700 3 13507792
+achievable
+ 1800 3 13368749
+achievable
+ 1900 3 14030831
+achievable
+ 2000 3 15152707
+achievable
+ 2100 3 15972479
+achievable
+ 2200 3 17094204
+achievable
+ 2300 3 17490070
+achievable
+ 2400 3 17561747
+achievable
+ 2500 3 18812898
+achievable
+ 2600 3 18795645
+achievable
+ 2700 3 19596053
+achievable
+ 2800 3 19936357
+achievable
+ 2900 3 21010605
+achievable
+ 3000 3 21058405
+achievable
+ 3100 3 21964282
+achievable
+ 3200 3 23244732
+achievable
+ 3300 3 24789920
+achievable
+ 3400 3 25623516
+achievable
+ 3500 3 26157651
+achievable
+ 3600 3 29193706
+achievable
+ 3700 3 29388628
+achievable
+ 3800 3 30942203
+achievable
+ 3900 3 31097410
+achievable
+ 4000 3 32374362
+achievable
+ 4100 3 34725266
+achievable
+ 4200 3 36620623
+achievable
+ 4300 3 34971535
+achievable
+ 4400 3 35147636
+achievable
+ 4500 3 35830023
+achievable
+ 4600 3 36233893
+achievable
+ 4700 3 38540388
+achievable
+ 4800 3 37900156
+achievable
+ 4900 3 38633434
+achievable
+ 5000 3 39347609
+achievable
+ 5100 3 40859396
+achievable
+ 5200 3 40529158
+achievable
+ 5300 3 41725367
+achievable
+ 5400 3 41987379
+achievable
+ 5500 3 42985423
+achievable
+ 5600 3 43007761
+achievable
+ 5700 3 43886763
+achievable
+ 5800 3 45885678
+achievable
+ 5900 3 45314396
+achievable
+ 6000 3 45808944
+achievable
+ 6100 3 50128665
+achievable
+ 6200 3 49723737
+achievable
+ 6300 3 48812021
+achievable
+ 6400 3 49883594
+achievable
+ 6500 3 51700185
+achievable
+ 6600 3 52932948
+achievable
+ 6700 3 52935275
+achievable
+ 6800 3 54516869
+achievable
+ 6900 3 54255243
+achievable
+ 7000 3 57621228
+achievable
+ 7100 3 59433549
+achievable
+ 7200 3 58860444
+achievable
+ 7300 3 59486559
+achievable
+ 7400 3 61182645
+achievable
+ 7500 3 62357243
+achievable
+ 7600 3 63122012
+achievable
+ 7700 3 65492557
+achievable
+ 7800 3 65434774
+achievable
+ 7900 3 70533366
+achievable
+ 8000 3 68954774
+achievable
+ 8100 3 71445125
+achievable
+ 8200 3 73654107
+achievable
+ 8300 3 73321545
+achievable
+ 8400 3 75010570
+achievable
+ 8500 3 74726382
+achievable
+ 8600 3 75647204
+achievable
+ 8700 3 76401006
+achievable
+ 8800 3 77358448
+achievable
+ 8900 3 77963418
+achievable
+ 9000 3 79696859
+achievable
+ 9100 3 79927784
+achievable
+ 9200 3 80097201
+achievable
+ 9300 3 82279816
+achievable
+ 9400 3 83289368
+achievable
+ 9500 3 83700666
+achievable
+ 9600 3 84941238
+achievable
+ 9700 3 85813375
+achievable
+ 9800 3 86570311
+achievable
+ 9900 3 89272935
+achievable
+ 100 4 580039
+achievable
+ 200 4 1302088
+achievable
+ 300 4 2251237
+achievable
+ 400 4 3006738
+achievable
+ 500 4 4172145
+achievable
+ 600 4 5022324
+achievable
+ 700 4 5699623
+achievable
+ 800 4 6971437
+achievable
+ 900 4 7821442
+achievable
+ 1000 4 9242890
+achievable
+ 1100 4 9983169
+achievable
+ 1200 4 11077122
+achievable
+ 1300 4 12115945
+achievable
+ 1400 4 12472088
+achievable
+ 1500 4 13650605
+achievable
+ 1600 4 14828013
+achievable
+ 1700 4 16688213
+achievable
+ 1800 4 17566707
+achievable
+ 1900 4 19280885
+achievable
+ 2000 4 20294040
+achievable
+ 2100 4 21220134
+achievable
+ 2200 4 22158860
+achievable
+ 2300 4 23458665
+achievable
+ 2400 4 24112852
+achievable
+ 2500 4 25420010
+achievable
+ 2600 4 25854106
+achievable
+ 2700 4 26484136
+achievable
+ 2800 4 27470090
+achievable
+ 2900 4 29072502
+achievable
+ 3000 4 29029743
+achievable
+ 3100 4 30758274
+achievable
+ 3200 4 37938445
+achievable
+ 3300 4 34706165
+achievable
+ 3400 4 36195955
+achievable
+ 3500 4 36633574
+achievable
+ 3600 4 37655398
+achievable
+ 3700 4 39524109
+achievable
+ 3800 4 40546490
+achievable
+ 3900 4 42698872
+achievable
+ 4000 4 44094711
+achievable
+ 4100 4 45440723
+achievable
+ 4200 4 46063954
+achievable
+ 4300 4 48068670
+achievable
+ 4400 4 48257131
+achievable
+ 4500 4 49510745
+achievable
+ 4600 4 49653732
+achievable
+ 4700 4 51354494
+achievable
+ 4800 4 53183995
+achievable
+ 4900 4 52437426
+achievable
+ 5000 4 55428357
+achievable
+ 5100 4 56222327
+achievable
+ 5200 4 56123649
+achievable
+ 5300 4 57899186
+achievable
+ 5400 4 57850479
+achievable
+ 5500 4 58315700
+achievable
+ 5600 4 58837165
+achievable
+ 5700 4 60124887
+achievable
+ 5800 4 62657568
+achievable
+ 5900 4 62168283
+achievable
+ 6000 4 63652206
+achievable
+ 6100 4 64229560
+achievable
+ 6200 4 66226029
+achievable
+ 6300 4 67025643
+achievable
+ 6400 4 68346000
+achievable
+ 6500 4 69387055
+achievable
+ 6600 4 72317827
+achievable
+ 6700 4 72796198
+achievable
+ 6800 4 75146803
+achievable
+ 6900 4 76575480
+achievable
+ 7000 4 78761704
+achievable
+ 7100 4 79569448
+achievable
+ 7200 4 80972334
+achievable
+ 7300 4 84050276
+achievable
+ 7400 4 84272525
+achievable
+ 7500 4 84180307
+achievable
+ 7600 4 87906465
+achievable
+ 7700 4 98329606
+achievable
+ 7800 4 96496990
+achievable
+ 7900 4 89969731
+achievable
+ 8000 4 93099889
+achievable
+ 8100 4 94172098
+achievable
+ 8200 4 97663013
+achievable
+ 8300 4 102225721
+achievable
+ 8400 4 104736950
+achievable
+ 8500 4 104975648
+achievable
+ 8600 4 102860471
+achievable
+ 8700 4 105338065
+achievable
+ 8800 4 104561733
+achievable
+ 8900 4 105314288
+achievable
+ 9000 4 111171528
+achievable
+ 9100 4 105291601
+achievable
+ 9200 4 107308316
+achievable
+ 9300 4 106837029
+achievable
+ 9400 4 109456012
+achievable
+ 9500 4 110275573
+achievable
+ 9600 4 110770597
+achievable
+ 9700 4 112369189
+achievable
+ 9800 4 114818277
+achievable
+ 9900 4 113837831
+achievable
+ 100 5 702992
+achievable
+ 200 5 1593197
+achievable
+ 300 5 2714442
+achievable
+ 400 5 3454697
+achievable
+ 500 5 4963379
+achievable
+ 600 5 5786925
+achievable
+ 700 5 7674150
+achievable
+ 800 5 8614999
+achievable
+ 900 5 11218473
+achievable
+ 1000 5 14383750
+achievable
+ 1100 5 14722480
+achievable
+ 1200 5 15023935
+achievable
+ 1300 5 15516646
+achievable
+ 1400 5 17650119
+achievable
+ 1500 5 19819177
+achievable
+ 1600 5 19199204
+achievable
+ 1700 5 21600463
+achievable
+ 1800 5 22849753
+achievable
+ 1900 5 24838876
+achievable
+ 2000 5 26591140
+achievable
+ 2100 5 28358845
+achievable
+ 2200 5 29512304
+achievable
+ 2300 5 31339554
+achievable
+ 2400 5 31876304
+achievable
+ 2500 5 33151077
+achievable
+ 2600 5 34724349
+achievable
+ 2700 5 35455209
+achievable
+ 2800 5 35340896
+achievable
+ 2900 5 36355147
+achievable
+ 3000 5 37741938
+achievable
+ 3100 5 38307003
+achievable
+ 3200 5 39900455
+achievable
+ 3300 5 42600422
+achievable
+ 3400 5 45280623
+achievable
+ 3500 5 45799923
+achievable
+ 3600 5 48419780
+achievable
+ 3700 5 49852368
+achievable
+ 3800 5 51302037
+achievable
+ 3900 5 54011041
+achievable
+ 4000 5 56190350
+achievable
+ 4100 5 57195040
+achievable
+ 4200 5 58855026
+achievable
+ 4300 5 59742678
+achievable
+ 4400 5 61295595
+achievable
+ 4500 5 63246503
+achievable
+ 4600 5 63375445
+achievable
+ 4700 5 65964021
+achievable
+ 4800 5 66007223
+achievable
+ 4900 5 66137845
+achievable
+ 5000 5 67954370
+achievable
+ 5100 5 69798709
+achievable
+ 5200 5 70920946
+achievable
+ 5300 5 74173278
+achievable
+ 5400 5 74578058
+achievable
+ 5500 5 74967007
+achievable
+ 5600 5 76068151
+achievable
+ 5700 5 77995494
+achievable
+ 5800 5 80800617
+achievable
+ 5900 5 80108639
+achievable
+ 6000 5 79419686
+achievable
+ 6100 5 80715452
+achievable
+ 6200 5 81698907
+achievable
+ 6300 5 85435976
+achievable
+ 6400 5 86131413
+achievable
+ 6500 5 86377964
+achievable
+ 6600 5 90810368
+achievable
+ 6700 5 93215667
+achievable
+ 6800 5 94922746
+achievable
+ 6900 5 98912495
+achievable
+ 7000 5 98661474
+achievable
+ 7100 5 102864045
+achievable
+ 7200 5 103974776
+achievable
+ 7300 5 114596667
+achievable
+ 7400 5 109985751
+achievable
+ 7500 5 110609934
+achievable
+ 7600 5 113162683
+achievable
+ 7700 5 115898610
+achievable
+ 7800 5 116780876
+achievable
+ 7900 5 119605134
+achievable
+ 8000 5 121487293
+achievable
+ 8100 5 123028992
+achievable
+ 8200 5 125856315
+achievable
+ 8300 5 127367613
+achievable
+ 8400 5 127924110
+achievable
+ 8500 5 126876026
+achievable
+ 8600 5 128564302
+achievable
+ 8700 5 130558969
+achievable
+ 8800 5 135763649
+achievable
+ 8900 5 133301382
+achievable
+ 9000 5 133905895
+achievable
+ 9100 5 133455474
+achievable
+ 9200 5 137153368
+achievable
+ 9300 5 136631265
+achievable
+ 9400 5 138724764
+achievable
+ 9500 5 141000278
+achievable
+ 9600 5 143043013
+achievable
+ 9700 5 144770137
+achievable
+ 9800 5 143666731
+achievable
+ 9900 5 149359318
+achievable
+ 100 6 857746
+achievable
+ 200 6 2028304
+achievable
+ 300 6 3332527
+achievable
+ 400 6 4414876
+achievable
+ 500 6 6231539
+achievable
+ 600 6 7523656
+achievable
+ 700 6 8771118
+achievable
+ 800 6 10445166
+achievable
+ 900 6 12853254
+achievable
+ 1000 6 14611631
+achievable
+ 1100 6 15860873
+achievable
+ 1200 6 16770832
+achievable
+ 1300 6 18017842
+achievable
+ 1400 6 19328253
+achievable
+ 1500 6 20567624
+achievable
+ 1600 6 23154024
+achievable
+ 1700 6 26031323
+achievable
+ 1800 6 27035147
+achievable
+ 1900 6 29669510
+achievable
+ 2000 6 31749024
+achievable
+ 2100 6 33386379
+achievable
+ 2200 6 34343038
+achievable
+ 2300 6 35678875
+achievable
+ 2400 6 36528486
+achievable
+ 2500 6 38297850
+achievable
+ 2600 6 39692972
+achievable
+ 2700 6 40891611
+achievable
+ 2800 6 41418558
+achievable
+ 2900 6 43219857
+achievable
+ 3000 6 44186218
+achievable
+ 3100 6 45939339
+achievable
+ 3200 6 48793742
+achievable
+ 3300 6 50801442
+achievable
+ 3400 6 53101293
+achievable
+ 3500 6 55481812
+achievable
+ 3600 6 58114512
+achievable
+ 3700 6 60788121
+achievable
+ 3800 6 63052942
+achievable
+ 3900 6 66142023
+achievable
+ 4000 6 68679519
+achievable
+ 4100 6 71192820
+achievable
+ 4200 6 71800141
+achievable
+ 4300 6 74435848
+achievable
+ 4400 6 74865269
+achievable
+ 4500 6 76752183
+achievable
+ 4600 6 76806499
+achievable
+ 4700 6 78202003
+achievable
+ 4800 6 80612608
+achievable
+ 4900 6 81305890
+achievable
+ 5000 6 85957459
+achievable
+ 5100 6 85697488
+achievable
+ 5200 6 85528716
+achievable
+ 5300 6 86143880
+achievable
+ 5400 6 87498743
+achievable
+ 5500 6 89271591
+achievable
+ 5600 6 90658337
+achievable
+ 5700 6 91278899
+achievable
+ 5800 6 93059500
+achievable
+ 5900 6 94167121
+achievable
+ 6000 6 94769826
+achievable
+ 6100 6 96265451
+achievable
+ 6200 6 97855332
+achievable
+ 6300 6 101191649
+achievable
+ 6400 6 103339420
+achievable
+ 6500 6 106970166
+achievable
+ 6600 6 108827709
+achievable
+ 6700 6 112001250
+achievable
+ 6800 6 114839335
+achievable
+ 6900 6 120352367
+achievable
+ 7000 6 120893571
+achievable
+ 7100 6 123330811
+achievable
+ 7200 6 125956985
+achievable
+ 7300 6 128289172
+achievable
+ 7400 6 132675819
+achievable
+ 7500 6 133669111
+achievable
+ 7600 6 137650071
+achievable
+ 7700 6 139171286
+achievable
+ 7800 6 142342161
+achievable
+ 7900 6 144092702
+achievable
+ 8000 6 147596758
+achievable
+ 8100 6 151939543
+achievable
+ 8200 6 156750696
+achievable
+ 8300 6 153623291
+achievable
+ 8400 6 155113000
+achievable
+ 8500 6 159208125
+achievable
+ 8600 6 158640804
+achievable
+ 8700 6 162133616
+achievable
+ 8800 6 161906368
+achievable
+ 8900 6 161893099
+achievable
+ 9000 6 166342835
+achievable
+ 9100 6 169814219
+achievable
+ 9200 6 167667140
+achievable
+ 9300 6 173197048
+achievable
+ 9400 6 174163419
+achievable
+ 9500 6 172919765
+achievable
+ 9600 6 173478988
+achievable
+ 9700 6 174796113
+achievable
+ 9800 6 177900721
+achievable
+ 9900 6 177884374
+achievable
+ 100 7 1033264
+achievable
+ 200 7 2381425
+achievable
+ 300 7 4156259
+achievable
+ 400 7 5352037
+achievable
+ 500 7 7814534
+achievable
+ 600 7 9141877
+achievable
+ 700 7 10623700
+achievable
+ 800 7 12366058
+achievable
+ 900 7 14858442
+achievable
+ 1000 7 17341017
+achievable
+ 1100 7 19350698
+achievable
+ 1200 7 21071341
+achievable
+ 1300 7 21648209
+achievable
+ 1400 7 23056420
+achievable
+ 1500 7 24734858
+achievable
+ 1600 7 27408101
+achievable
+ 1700 7 29125293
+achievable
+ 1800 7 31938421
+achievable
+ 1900 7 35489342
+achievable
+ 2000 7 37853999
+achievable
+ 2100 7 40125122
+achievable
+ 2200 7 42187845
+achievable
+ 2300 7 44053767
+achievable
+ 2400 7 44488966
+achievable
+ 2500 7 45388237
+achievable
+ 2600 7 46573036
+achievable
+ 2700 7 47863320
+achievable
+ 2800 7 52585463
+achievable
+ 2900 7 51027590
+achievable
+ 3000 7 52365151
+achievable
+ 3100 7 55121458
+achievable
+ 3200 7 58836067
+achievable
+ 3300 7 60794424
+achievable
+ 3400 7 63526159
+achievable
+ 3500 7 67024868
+achievable
+ 3600 7 70643926
+achievable
+ 3700 7 72838142
+achievable
+ 3800 7 76568958
+achievable
+ 3900 7 79996881
+achievable
+ 4000 7 83340478
+achievable
+ 4100 7 86854605
+achievable
+ 4200 7 87842478
+achievable
+ 4300 7 89368483
+achievable
+ 4400 7 89337814
+achievable
+ 4500 7 90924618
+achievable
+ 4600 7 93222917
+achievable
+ 4700 7 97010013
+achievable
+ 4800 7 96946565
+achievable
+ 4900 7 97696893
+achievable
+ 5000 7 105176101
+achievable
+ 5100 7 103232597
+achievable
+ 5200 7 104328916
+achievable
+ 5300 7 106246073
+achievable
+ 5400 7 106243836
+achievable
+ 5500 7 107654619
+achievable
+ 5600 7 107285468
+achievable
+ 5700 7 108844980
+achievable
+ 5800 7 112556161
+achievable
+ 5900 7 112315955
+achievable
+ 6000 7 113229610
+achievable
+ 6100 7 115689532
+achievable
+ 6200 7 116998500
+achievable
+ 6300 7 120652959
+achievable
+ 6400 7 125062082
+achievable
+ 6500 7 128383474
+achievable
+ 6600 7 131891313
+achievable
+ 6700 7 136934052
+achievable
+ 6800 7 139195420
+achievable
+ 6900 7 141419004
+achievable
+ 7000 7 143829097
+achievable
+ 7100 7 146220287
+achievable
+ 7200 7 153054770
+achievable
+ 7300 7 154608226
+achievable
+ 7400 7 162615017
+achievable
+ 7500 7 169969088
+achievable
+ 7600 7 176651470
+achievable
+ 7700 7 175130030
+achievable
+ 7800 7 177048469
+achievable
+ 7900 7 185334026
+achievable
+ 8000 7 191788619
+achievable
+ 8100 7 189198723
+achievable
+ 8200 7 188745434
+achievable
+ 8300 7 189564491
+achievable
+ 8400 7 188888256
+achievable
+ 8500 7 187911013
+achievable
+ 8600 7 188981358
+achievable
+ 8700 7 194340421
+achievable
+ 8800 7 193719866
+achievable
+ 8900 7 197938125
+achievable
+ 9000 7 198863427
+achievable
+ 9100 7 199783973
+achievable
+ 9200 7 200262540
+achievable
+ 9300 7 204247594
+achievable
+ 9400 7 205455284
+achievable
+ 9500 7 211486191
+achievable
+ 9600 7 212313405
+achievable
+ 9700 7 210916257
+achievable
+ 9800 7 214966530
+achievable
+ 9900 7 216630618
+achievable
+ 100 8 1198624
+achievable
+ 200 8 3005199
+achievable
+ 300 8 4887487
+achievable
+ 400 8 6430121
+achievable
+ 500 8 9196215
+achievable
+ 600 8 10602677
+achievable
+ 700 8 12506136
+achievable
+ 800 8 14955281
+achievable
+ 900 8 17454225
+achievable
+ 1000 8 20272207
+achievable
+ 1100 8 22842228
+achievable
+ 1200 8 24581685
+achievable
+ 1300 8 25390323
+achievable
+ 1400 8 27116649
+achievable
+ 1500 8 28157671
+achievable
+ 1600 8 31550487
+achievable
+ 1700 8 35218060
+achievable
+ 1800 8 38415823
+achievable
+ 1900 8 43112524
+achievable
+ 2000 8 45485258
+achievable
+ 2100 8 47784801
+achievable
+ 2200 8 50288395
+achievable
+ 2300 8 51127483
+achievable
+ 2400 8 52941949
+achievable
+ 2500 8 55071430
+achievable
+ 2600 8 56762641
+achievable
+ 2700 8 57020826
+achievable
+ 2800 8 58085574
+achievable
+ 2900 8 61836792
+achievable
+ 3000 8 62272650
+achievable
+ 3100 8 64583206
+achievable
+ 3200 8 70007830
+achievable
+ 3300 8 72185878
+achievable
+ 3400 8 74349717
+achievable
+ 3500 8 80198838
+achievable
+ 3600 8 83448891
+achievable
+ 3700 8 86945035
+achievable
+ 3800 8 93752936
+achievable
+ 3900 8 94475150
+achievable
+ 4000 8 98242438
+achievable
+ 4100 8 101748680
+achievable
+ 4200 8 105241203
+achievable
+ 4300 8 105480787
+achievable
+ 4400 8 107528301
+achievable
+ 4500 8 109473016
+achievable
+ 4600 8 111205523
+achievable
+ 4700 8 113709716
+achievable
+ 4800 8 117242850
+achievable
+ 4900 8 117328575
+achievable
+ 5000 8 120390942
+achievable
+ 5100 8 119521741
+achievable
+ 5200 8 122128855
+achievable
+ 5300 8 125267112
+achievable
+ 5400 8 125930571
+achievable
+ 5500 8 130631012
+achievable
+ 5600 8 128312435
+achievable
+ 5700 8 132860466
+achievable
+ 5800 8 132733605
+achievable
+ 5900 8 134041118
+achievable
+ 6000 8 135868103
+achievable
+ 6100 8 137616064
+achievable
+ 6200 8 142164902
+achievable
+ 6300 8 145235042
+achievable
+ 6400 8 146331755
+achievable
+ 6500 8 154995943
+achievable
+ 6600 8 157494961
+achievable
+ 6700 8 160475563
+achievable
+ 6800 8 163750961
+achievable
+ 6900 8 169186483
+achievable
+ 7000 8 174089239
+achievable
+ 7100 8 178494607
+achievable
+ 7200 8 181205271
+achievable
+ 7300 8 192887990
+achievable
+ 7400 8 190864809
+achievable
+ 7500 8 195204643
+achievable
+ 7600 8 202884961
+achievable
+ 7700 8 205054544
+achievable
+ 7800 8 204978898
+achievable
+ 7900 8 212508430
+achievable
+ 8000 8 214046385
+achievable
+ 8100 8 223934224
+achievable
+ 8200 8 223875478
+achievable
+ 8300 8 227433524
+achievable
+ 8400 8 229136681
+achievable
+ 8500 8 233186964
+achievable
+ 8600 8 234494390
+achievable
+ 8700 8 234414139
+achievable
+ 8800 8 235913146
+achievable
+ 8900 8 239780744
+achievable
+ 9000 8 240650152
+achievable
+ 9100 8 240737048
+achievable
+ 9200 8 242462386
+achievable
+ 9300 8 250508797
+achievable
+ 9400 8 249717421
+achievable
+ 9500 8 251546588
+achievable
+ 9600 8 252239605
+achievable
+ 9700 8 255599525
+achievable
+ 9800 8 258243403
+achievable
+ 9900 8 261022641
+achievable
+ 100 9 1416987
+achievable
+ 200 9 3337301
+achievable
+ 300 9 5544275
+achievable
+ 400 9 7838526
+achievable
+ 500 9 11341513
+achievable
+ 600 9 12877489
+achievable
+ 700 9 13945437
+achievable
+ 800 9 16872691
+achievable
+ 900 9 19940798
+achievable
+ 1000 9 23429212
+achievable
+ 1100 9 26640854
+achievable
+ 1200 9 27902040
+achievable
+ 1300 9 29317286
+achievable
+ 1400 9 31342900
+achievable
+ 1500 9 34957034
+achievable
+ 1600 9 36716965
+achievable
+ 1700 9 40892107
+achievable
+ 1800 9 44301439
+achievable
+ 1900 9 49533577
+achievable
+ 2000 9 52532517
+achievable
+ 2100 9 56664131
+achievable
+ 2200 9 60267822
+achievable
+ 2300 9 59897104
+achievable
+ 2400 9 61254172
+achievable
+ 2500 9 65515317
+achievable
+ 2600 9 65758764
+achievable
+ 2700 9 67745288
+achievable
+ 2800 9 70362847
+achievable
+ 2900 9 72386759
+achievable
+ 3000 9 74194227
+achievable
+ 3100 9 77774038
+achievable
+ 3200 9 80980407
+achievable
+ 3300 9 86375899
+achievable
+ 3400 9 91068225
+achievable
+ 3500 9 95989934
+achievable
+ 3600 9 100874095
+achievable
+ 3700 9 104159901
+achievable
+ 3800 9 109786164
+achievable
+ 3900 9 114496839
+achievable
+ 4000 9 117487783
+achievable
+ 4100 9 123187105
+achievable
+ 4200 9 124578813
+achievable
+ 4300 9 128083959
+achievable
+ 4400 9 129907876
+achievable
+ 4500 9 130452265
+achievable
+ 4600 9 135153832
+achievable
+ 4700 9 136553186
+achievable
+ 4800 9 137408251
+achievable
+ 4900 9 138543846
+achievable
+ 5000 9 143275453
+achievable
+ 5100 9 143627243
+achievable
+ 5200 9 143700383
+achievable
+ 5300 9 146363529
+achievable
+ 5400 9 149650837
+achievable
+ 5500 9 150898094
+achievable
+ 5600 9 152632314
+achievable
+ 5700 9 157616094
+achievable
+ 5800 9 156318850
+achievable
+ 5900 9 158512061
+achievable
+ 6000 9 162138046
+achievable
+ 6100 9 163462558
+achievable
+ 6200 9 166573788
+achievable
+ 6300 9 174940717
+achievable
+ 6400 9 176060104
+achievable
+ 6500 9 181348467
+achievable
+ 6600 9 187206363
+achievable
+ 6700 9 192479124
+achievable
+ 6800 9 199183401
+achievable
+ 6900 9 204352560
+achievable
+ 7000 9 206632315
+achievable
+ 7100 9 210596750
+achievable
+ 7200 9 217549819
+achievable
+ 7300 9 222855548
+achievable
+ 7400 9 228013640
+achievable
+ 7500 9 230461175
+achievable
+ 7600 9 236449640
+achievable
+ 7700 9 241930782
+achievable
+ 7800 9 246078598
+achievable
+ 7900 9 251851291
+achievable
+ 8000 9 256522537
+achievable
+ 8100 9 265566290
+achievable
+ 8200 9 270148223
+achievable
+ 8300 9 269675614
+achievable
+ 8400 9 275859807
+achievable
+ 8500 9 274464629
+achievable
+ 8600 9 276560449
+achievable
+ 8700 9 277452377
+achievable
+ 8800 9 282780466
+achievable
+ 8900 9 281546776
+achievable
+ 9000 9 286918936
+achievable
+ 9100 9 287344176
+achievable
+ 9200 9 371290358
+achievable
+ 9300 9 297150915
+achievable
+ 9400 9 297484737
+achievable
+ 9500 9 301240973
+achievable
+ 9600 9 305958678
+achievable
+ 9700 9 318371992
+achievable
+ 9800 9 349720630
+achievable
+ 9900 9 350347242
+achievable
+ 100 10 1767171
+achievable
+ 200 10 3885306
+achievable
+ 300 10 6804414
+achievable
+ 400 10 9110654
+achievable
+ 500 10 12754948
+achievable
+ 600 10 15209708
+achievable
+ 700 10 16811015
+achievable
+ 800 10 19787312
+achievable
+ 900 10 24439684
+achievable
+ 1000 10 30830817
+achievable
+ 1100 10 32113828
+achievable
+ 1200 10 34930487
+achievable
+ 1300 10 37506468
+achievable
+ 1400 10 38264308
+achievable
+ 1500 10 40428734
+achievable
+ 1600 10 44117746
+achievable
+ 1700 10 52432231
+achievable
+ 1800 10 56156492
+achievable
+ 1900 10 61762742
+achievable
+ 2000 10 115387732
+achievable
+ 2100 10 117414057
+achievable
+ 2200 10 121217671
+achievable
+ 2300 10 124763659
+achievable
+ 2400 10 127659435
+achievable
+ 2500 10 132332651
+achievable
+ 2600 10 136122512
+achievable
+ 2700 10 139563609
+achievable
+ 2800 10 141771073
+achievable
+ 2900 10 145137943
+achievable
+ 3000 10 147464607
+achievable
+ 3100 10 94047910
+achievable
+ 3200 10 96971858
+achievable
+ 3300 10 102882673
+achievable
+ 3400 10 108102386
+achievable
+ 3500 10 113311863
+achievable
+ 3600 10 150834509
+achievable
+ 3700 10 126790415
+achievable
+ 3800 10 135662684
+achievable
+ 3900 10 166912255
+achievable
+ 4000 10 144742506
+achievable
+ 4100 10 184461396
+achievable
+ 4200 10 149083768
+achievable
+ 4300 10 152356629
+achievable
+ 4400 10 159603049
+achievable
+ 4500 10 159563033
+achievable
+ 4600 10 158708967
+achievable
+ 4700 10 196347877
+achievable
+ 4800 10 171296779
+achievable
+ 4900 10 192998598
+achievable
+ 5000 10 173826543
+achievable
+ 5100 10 172453918
+achievable
+ 5200 10 250460436
+achievable
+ 5300 10 240231872
+achievable
+ 5400 10 178132744
+achievable
+ 5500 10 180347218
+achievable
+ 5600 10 185367715
+achievable
+ 5700 10 263749285
+achievable
+ 5800 10 191772107
+achievable
+ 5900 10 237845906
+achievable
+ 6000 10 190206238
+achievable
+ 6100 10 194981039
+achievable
+ 6200 10 197992581
+achievable
+ 6300 10 232469805
+achievable
+ 6400 10 211697327
+achievable
+ 6500 10 219732261
+achievable
+ 6600 10 278286022
+achievable
+ 6700 10 262167995
+achievable
+ 6800 10 233342259
+achievable
+ 6900 10 274476465
+achievable
+ 7000 10 252614811
+achievable
+ 7100 10 285088024
+achievable
+ 7200 10 294032981
+achievable
+ 7300 10 273946609
+achievable
+ 7400 10 328510941
+achievable
+ 7500 10 319913334
+achievable
+ 7600 10 282069814
+achievable
+ 7700 10 329746327
+achievable
+ 7800 10 330633274
+achievable
+ 7900 10 335166648
+achievable
+ 8000 10 367540063
+achievable
+ 8100 10 357035045
+achievable
+ 8200 10 363860659
+achievable
+ 8300 10 355606876
+achievable
+ 8400 10 360600802
+achievable
+ 8500 10 360770789
+achievable
+ 8600 10 374270950
+achievable
+ 8700 10 338893342
+achievable
+ 8800 10 374322238
+achievable
+ 8900 10 584495367
+achievable
+ 9000 10 582572988
+achievable
+ 9100 10 456498636
+achievable
+ 9200 10 343266801
+achievable
+ 9300 10 383359769
+achievable
+ 9400 10 361731645
+achievable
+ 9500 10 387795050
+achievable
+ 9600 10 389400632
+achievable
+ 9700 10 420678379
+achievable
+ 9800 10 399680441
+achievable
+ 9900 10 399682462
+achievable
+ 100 11 2004739
+achievable
+ 200 11 4435314
+achievable
+ 300 11 7622333
+achievable
+ 400 11 10112172
+achievable
+ 500 11 15096723
+achievable
+ 600 11 17491924
+achievable
+ 700 11 19685601
+achievable
+ 800 11 24401746
+achievable
+ 900 11 29675864
+achievable
+ 1000 11 34500261
+achievable
+ 1100 11 46361307
+achievable
+ 1200 11 62498606
+achievable
+ 1300 11 46046535
+achievable
+ 1400 11 43702908
+achievable
+ 1500 11 46416184
+achievable
+ 1600 11 50513681
+achievable
+ 1700 11 57317172
+achievable
+ 1800 11 63269385
+achievable
+ 1900 11 93757743
+achievable
+ 2000 11 99963313
+achievable
+ 2100 11 79401300
+achievable
+ 2200 11 83970311
+achievable
+ 2300 11 88492237
+achievable
+ 2400 11 118468703
+achievable
+ 2500 11 88694329
+achievable
+ 2600 11 115702482
+achievable
+ 2700 11 128779394
+achievable
+ 2800 11 96551918
+achievable
+ 2900 11 99151034
+achievable
+ 3000 11 100674810
+achievable
+ 3100 11 103808889
+achievable
+ 3200 11 111164173
+achievable
+ 3300 11 121825319
+achievable
+ 3400 11 127393475
+achievable
+ 3500 11 162119069
+achievable
+ 3600 11 141799912
+achievable
+ 3700 11 176936508
+achievable
+ 3800 11 152695915
+achievable
+ 3900 11 161885570
+achievable
+ 4000 11 204734524
+achievable
+ 4100 11 173040226
+achievable
+ 4200 11 206700796
+achievable
+ 4300 11 209378037
+achievable
+ 4400 11 182067741
+achievable
+ 4500 11 185760266
+achievable
+ 4600 11 217620852
+achievable
+ 4700 11 188456778
+achievable
+ 4800 11 236741233
+achievable
+ 4900 11 260951826
+achievable
+ 5000 11 194512010
+achievable
+ 5100 11 195952390
+achievable
+ 5200 11 198383350
+achievable
+ 5300 11 233803746
+achievable
+ 5400 11 248115401
+achievable
+ 5500 11 206493532
+achievable
+ 5600 11 216919354
+achievable
+ 5700 11 212337861
+achievable
+ 5800 11 245262048
+achievable
+ 5900 11 224149966
+achievable
+ 6000 11 251110429
+achievable
+ 6100 11 248201130
+achievable
+ 6200 11 242785184
+achievable
+ 6300 11 280059031
+achievable
+ 6400 11 239094248
+achievable
+ 6500 11 246395333
+achievable
+ 6600 11 287243888
+achievable
+ 6700 11 261060103
+achievable
+ 6800 11 303649429
+achievable
+ 6900 11 308756717
+achievable
+ 7000 11 292674154
+achievable
+ 7100 11 325716619
+achievable
+ 7200 11 303500710
+achievable
+ 7300 11 340925625
+achievable
+ 7400 11 320957160
+achievable
+ 7500 11 353580077
+achievable
+ 7600 11 362870272
+achievable
+ 7700 11 339038746
+achievable
+ 7800 11 350229866
+achievable
+ 7900 11 383195585
+achievable
+ 8000 11 356680612
+achievable
+ 8100 11 397682646
+achievable
+ 8200 11 379388855
+achievable
+ 8300 11 381322599
+achievable
+ 8400 11 386379815
+achievable
+ 8500 11 412940653
+achievable
+ 8600 11 378038320
+achievable
+ 8700 11 391553107
+achievable
+ 8800 11 395195019
+achievable
+ 8900 11 421234903
+achievable
+ 9000 11 402473550
+achievable
+ 9100 11 406754225
+achievable
+ 9200 11 409574877
+achievable
+ 9300 11 433606027
+achievable
+ 9400 11 453210101
+achievable
+ 9500 11 419016337
+achievable
+ 9600 11 422577426
+achievable
+ 9700 11 418351106
+achievable
+ 9800 11 421208294
+achievable
+ 9900 11 427340512
+achievable
+ 100 12 2380187
+achievable
+ 200 12 5072427
+achievable
+ 300 12 8868536
+achievable
+ 400 12 11628301
+achievable
+ 500 12 17315891
+achievable
+ 600 12 21512406
+achievable
+ 700 12 23611270
+achievable
+ 800 12 26404950
+achievable
+ 900 12 34918940
+achievable
+ 1000 12 39484317
+achievable
+ 1100 12 44567696
+achievable
+ 1200 12 71247884
+achievable
+ 1300 12 52613598
+achievable
+ 1400 12 49928781
+achievable
+ 1500 12 53578386
+achievable
+ 1600 12 60606131
+achievable
+ 1700 12 66474499
+achievable
+ 1800 12 71599671
+achievable
+ 1900 12 78356541
+achievable
+ 2000 12 85632739
+achievable
+ 2100 12 92827451
+achievable
+ 2200 12 92808012
+achievable
+ 2300 12 98237635
+achievable
+ 2400 12 102474371
+achievable
+ 2500 12 110195367
+achievable
+ 2600 12 151952493
+achievable
+ 2700 12 146678103
+achievable
+ 2800 12 150754713
+achievable
+ 2900 12 134762704
+achievable
+ 3000 12 117135969
+achievable
+ 3100 12 122795415
+achievable
+ 3200 12 125837635
+achievable
+ 3300 12 134144361
+achievable
+ 3400 12 140625280
+achievable
+ 3500 12 152905921
+achievable
+ 3600 12 168292719
+achievable
+ 3700 12 192754653
+achievable
+ 3800 12 199669540
+achievable
+ 3900 12 196829101
+achievable
+ 4000 12 230973357
+achievable
+ 4100 12 313497242
+achievable
+ 4200 12 348066847
+achievable
+ 4300 12 342619313
+achievable
+ 4400 12 344325254
+achievable
+ 4500 12 352413620
+achievable
+ 4600 12 354142952
+achievable
+ 4700 12 358103520
+achievable
+ 4800 12 220067745
+achievable
+ 4900 12 222683856
+achievable
+ 5000 12 251154919
+achievable
+ 5100 12 226677043
+achievable
+ 5200 12 232812391
+achievable
+ 5300 12 261712479
+achievable
+ 5400 12 266963434
+achievable
+ 5500 12 270221686
+achievable
+ 5600 12 237376837
+achievable
+ 5700 12 244894959
+achievable
+ 5800 12 274390166
+achievable
+ 5900 12 268984486
+achievable
+ 6000 12 263623921
+achievable
+ 6100 12 353816975
+achievable
+ 6200 12 259405102
+achievable
+ 6300 12 272820579
+achievable
+ 6400 12 328213739
+achievable
+ 6500 12 304552094
+achievable
+ 6600 12 300960135
+achievable
+ 6700 12 331862088
+achievable
+ 6800 12 346557720
+achievable
+ 6900 12 348029906
+achievable
+ 7000 12 357736127
+achievable
+ 7100 12 371600497
+achievable
+ 7200 12 398958092
+achievable
+ 7300 12 382417215
+achievable
+ 7400 12 395237543
+achievable
+ 7500 12 428382183
+achievable
+ 7600 12 404030805
+achievable
+ 7700 12 422476730
+achievable
+ 7800 12 483339354
+achievable
+ 7900 12 433457629
+achievable
+ 8000 12 438229749
+achievable
+ 8100 12 480887199
+achievable
+ 8200 12 486802326
+achievable
+ 8300 12 433275997
+achievable
+ 8400 12 527352248
+achievable
+ 8500 12 470403995
+achievable
+ 8600 12 446883963
+achievable
+ 8700 12 507611177
+achievable
+ 8800 12 473663607
+achievable
+ 8900 12 537487147
+achievable
+ 9000 12 515069730
+achievable
+ 9100 12 490312002
+achievable
+ 9200 12 604131139
+achievable
+ 9300 12 491579319
+achievable
+ 9400 12 498351770
+achievable
+ 9500 12 563612229
+achievable
+ 9600 12 524011734
+achievable
+ 9700 12 533869664
+achievable
+ 9800 12 539023572
+achievable
+ 9900 12 519911719
+achievable
+ 100 13 2684793
+achievable
+ 200 13 6198469
+achievable
+ 300 13 9962355
+achievable
+ 400 13 13424431
+achievable
+ 500 13 20081663
+achievable
+ 600 13 24721941
+achievable
+ 700 13 26299977
+achievable
+ 800 13 30121303
+achievable
+ 900 13 46152386
+achievable
+ 1000 13 63577068
+achievable
+ 1100 13 50495623
+achievable
+ 1200 13 50169608
+achievable
+ 1300 13 53336679
+achievable
+ 1400 13 72804949
+achievable
+ 1500 13 73522784
+achievable
+ 1600 13 68935754
+achievable
+ 1700 13 83996120
+achievable
+ 1800 13 101996846
+achievable
+ 1900 13 89264280
+achievable
+ 2000 13 99249924
+achievable
+ 2100 13 105998960
+achievable
+ 2200 13 136691251
+achievable
+ 2300 13 107896073
+achievable
+ 2400 13 142381425
+achievable
+ 2500 13 116415482
+achievable
+ 2600 13 149809171
+achievable
+ 2700 13 126387755
+achievable
+ 2800 13 127239224
+achievable
+ 2900 13 158909600
+achievable
+ 3000 13 162260239
+achievable
+ 3100 13 134105762
+achievable
+ 3200 13 173516007
+achievable
+ 3300 13 178852230
+achievable
+ 3400 13 193734515
+achievable
+ 3500 13 170089464
+achievable
+ 3600 13 209205446
+achievable
+ 3700 13 189187824
+achievable
+ 3800 13 200428574
+achievable
+ 3900 13 235205027
+achievable
+ 4000 13 249040121
+achievable
+ 4100 13 280433921
+achievable
+ 4200 13 342323137
+achievable
+ 4300 13 258587286
+achievable
+ 4400 13 229347690
+achievable
+ 4500 13 291653762
+achievable
+ 4600 13 293808745
+achievable
+ 4700 13 246455769
+achievable
+ 4800 13 285497746
+achievable
+ 4900 13 276881158
+achievable
+ 5000 13 279613541
+achievable
+ 5100 13 284079313
+achievable
+ 5200 13 324064551
+achievable
+ 5300 13 305723021
+achievable
+ 5400 13 294024235
+achievable
+ 5500 13 287024449
+achievable
+ 5600 13 274169532
+achievable
+ 5700 13 304186591
+achievable
+ 5800 13 340813284
+achievable
+ 5900 13 305934580
+achievable
+ 6000 13 321981140
+achievable
+ 6100 13 314666562
+achievable
+ 6200 13 326188861
+achievable
+ 6300 13 331863465
+achievable
+ 6400 13 343760189
+achievable
+ 6500 13 358800440
+achievable
+ 6600 13 375006410
+achievable
+ 6700 13 335665859
+achievable
+ 6800 13 437300185
+achievable
+ 6900 13 485109136
+achievable
+ 7000 13 490554305
+achievable
+ 7100 13 369723911
+achievable
+ 7200 13 407475536
+achievable
+ 7300 13 428423396
+achievable
+ 7400 13 405378998
+achievable
+ 7500 13 491098361
+achievable
+ 7600 13 451664030
+achievable
+ 7700 13 466114426
+achievable
+ 7800 13 514691312
+achievable
+ 7900 13 486166011
+achievable
+ 8000 13 531396555
+achievable
+ 8100 13 528318213
+achievable
+ 8200 13 487063030
+achievable
+ 8300 13 698890329
+achievable
+ 8400 13 815997976
+achievable
+ 8500 13 620366306
+achievable
+ 8600 13 635927383
+achievable
+ 8700 13 559333795
+achievable
+ 8800 13 564687287
+achievable
+ 8900 13 568531817
+achievable
+ 9000 13 552776655
+achievable
+ 9100 13 554873987
+achievable
+ 9200 13 546083861
+achievable
+ 9300 13 582937321
+achievable
+ 9400 13 529709145
+achievable
+ 9500 13 595983518
+achievable
+ 9600 13 596521090
+achievable
+ 9700 13 621982622
+achievable
+ 9800 13 568799721
+achievable
+ 9900 13 605322430
+achievable
+ 100 14 3039117
+achievable
+ 200 14 7104044
+achievable
+ 300 14 12631838
+achievable
+ 400 14 16161942
+achievable
+ 500 14 22895265
+achievable
+ 600 14 26121879
+achievable
+ 700 14 28941893
+achievable
+ 800 14 33881706
+achievable
+ 900 14 41835787
+achievable
+ 1000 14 51026591
+achievable
+ 1100 14 54554062
+achievable
+ 1200 14 58387410
+achievable
+ 1300 14 64861778
+achievable
+ 1400 14 66423877
+achievable
+ 1500 14 74113810
+achievable
+ 1600 14 100862553
+achievable
+ 1700 14 83414802
+achievable
+ 1800 14 95612259
+achievable
+ 1900 14 130320837
+achievable
+ 2000 14 141203621
+achievable
+ 2100 14 126170791
+achievable
+ 2200 14 140455288
+achievable
+ 2300 14 137572091
+achievable
+ 2400 14 129152638
+achievable
+ 2500 14 133086038
+achievable
+ 2600 14 153314580
+achievable
+ 2700 14 148580061
+achievable
+ 2800 14 142824684
+achievable
+ 2900 14 173565395
+achievable
+ 3000 14 152395586
+achievable
+ 3100 14 184852219
+achievable
+ 3200 14 166538705
+achievable
+ 3300 14 204775828
+achievable
+ 3400 14 214112629
+achievable
+ 3500 14 194106175
+achievable
+ 3600 14 211725774
+achievable
+ 3700 14 238195890
+achievable
+ 3800 14 251072189
+achievable
+ 3900 14 262801111
+achievable
+ 4000 14 253266502
+achievable
+ 4100 14 287217549
+achievable
+ 4200 14 292779476
+achievable
+ 4300 14 304159337
+achievable
+ 4400 14 360421173
+achievable
+ 4500 14 347569684
+achievable
+ 4600 14 269134887
+achievable
+ 4700 14 272976412
+achievable
+ 4800 14 279536786
+achievable
+ 4900 14 309302401
+achievable
+ 5000 14 327961226
+achievable
+ 5100 14 319889813
+achievable
+ 5200 14 322571745
+achievable
+ 5300 14 329993393
+achievable
+ 5400 14 330568123
+achievable
+ 5500 14 335655617
+achievable
+ 5600 14 334714193
+achievable
+ 5700 14 370935294
+achievable
+ 5800 14 353662424
+achievable
+ 5900 14 350420130
+achievable
+ 6000 14 322109515
+achievable
+ 6100 14 352555268
+achievable
+ 6200 14 359376972
+achievable
+ 6300 14 372808542
+achievable
+ 6400 14 384711496
+achievable
+ 6500 14 422760118
+achievable
+ 6600 14 415340995
+achievable
+ 6700 14 427047066
+achievable
+ 6800 14 431089279
+achievable
+ 6900 14 438679052
+achievable
+ 7000 14 533029555
+achievable
+ 7100 14 655022749
+achievable
+ 7200 14 478117116
+achievable
+ 7300 14 496729940
+achievable
+ 7400 14 564308931
+achievable
+ 7500 14 510608848
+achievable
+ 7600 14 515109854
+achievable
+ 7700 14 557706235
+achievable
+ 7800 14 659710039
+achievable
+ 7900 14 761050288
+achievable
+ 8000 14 599946440
+achievable
+ 8100 14 560610190
+achievable
+ 8200 14 620265577
+achievable
+ 8300 14 702491749
+achievable
+ 8400 14 660077110
+achievable
+ 8500 14 631909342
+achievable
+ 8600 14 633032551
+achievable
+ 8700 14 607158660
+achievable
+ 8800 14 642836625
+achievable
+ 8900 14 677159562
+achievable
+ 9000 14 640789096
+achievable
+ 9100 14 647384855
+achievable
+ 9200 14 633553989
+achievable
+ 9300 14 633591519
+achievable
+ 9400 14 670618033
+achievable
+ 9500 14 662602232
+achievable
+ 9600 14 644852150
+achievable
+ 9700 14 674911521
+achievable
+ 9800 14 732949090
+achievable
+ 9900 14 642810972
+achievable
+ 100 15 3796184
+achievable
+ 200 15 8908386
+achievable
+ 300 15 15505101
+achievable
+ 400 15 18446448
+achievable
+ 500 15 27466466
+achievable
+ 600 15 28767471
+achievable
+ 700 15 32154076
+achievable
+ 800 15 37461496
+achievable
+ 900 15 48442051
+achievable
+ 1000 15 57493303
+achievable
+ 1100 15 86567101
+achievable
+ 1200 15 71005146
+achievable
+ 1300 15 67747146
+achievable
+ 1400 15 70583982
+achievable
+ 1500 15 76015572
+achievable
+ 1600 15 85526013
+achievable
+ 1700 15 136478578
+achievable
+ 1800 15 107115877
+achievable
+ 1900 15 118469529
+achievable
+ 2000 15 153703688
+achievable
+ 2100 15 130526045
+achievable
+ 2200 15 166172895
+achievable
+ 2300 15 138722278
+achievable
+ 2400 15 170902978
+achievable
+ 2500 15 151784724
+achievable
+ 2600 15 152459990
+achievable
+ 2700 15 156124395
+achievable
+ 2800 15 186643725
+achievable
+ 2900 15 165820547
+achievable
+ 3000 15 163735497
+achievable
+ 3100 15 170941731
+achievable
+ 3200 15 211395003
+achievable
+ 3300 15 191207605
+achievable
+ 3400 15 209132903
+achievable
+ 3500 15 246176852
+achievable
+ 3600 15 265529460
+achievable
+ 3700 15 330995108
+achievable
+ 3800 15 251571553
+achievable
+ 3900 15 260020246
+achievable
+ 4000 15 331276934
+achievable
+ 4100 15 316204723
+achievable
+ 4200 15 317720466
+achievable
+ 4300 15 308200020
+achievable
+ 4400 15 304438608
+achievable
+ 4500 15 353268559
+achievable
+ 4600 15 342277456
+achievable
+ 4700 15 303151767
+achievable
+ 4800 15 310511989
+achievable
+ 4900 15 377394049
+achievable
+ 5000 15 351061702
+achievable
+ 5100 15 357807612
+achievable
+ 5200 15 354109244
+achievable
+ 5300 15 364861949
+achievable
+ 5400 15 340157698
+achievable
+ 5500 15 392652837
+achievable
+ 5600 15 371823873
+achievable
+ 5700 15 362910602
+achievable
+ 5800 15 385329838
+achievable
+ 5900 15 378721765
+achievable
+ 6000 15 389894205
+achievable
+ 6100 15 372114948
+achievable
+ 6200 15 410957856
+achievable
+ 6300 15 420562089
+achievable
+ 6400 15 421847473
+achievable
+ 6500 15 433688766
+achievable
+ 6600 15 479190589
+achievable
+ 6700 15 434268654
+achievable
+ 6800 15 506454865
+achievable
+ 6900 15 493689721
+achievable
+ 7000 15 502982444
+achievable
+ 7100 15 531374572
+achievable
+ 7200 15 527680940
+achievable
+ 7300 15 633836022
+achievable
+ 7400 15 573431384
+achievable
+ 7500 15 553095322
+achievable
+ 7600 15 638643392
+achievable
+ 7700 15 639939016
+achievable
+ 7800 15 618460625
+achievable
+ 7900 15 626173303
+achievable
+ 8000 15 679699125
+achievable
+ 8100 15 637471544
+achievable
+ 8200 15 657979733
+achievable
+ 8300 15 683814027
+achievable
+ 8400 15 685768293
+achievable
+ 8500 15 691781213
+achievable
+ 8600 15 708257688
+achievable
+ 8700 15 745263209
+achievable
+ 8800 15 740216807
+achievable
+ 8900 15 750192907
+achievable
+ 9000 15 684528150
+achievable
+ 9100 15 697545599
+achievable
+ 9200 15 734984924
+achievable
+ 9300 15 1143864304
+achievable
+ 9400 15 1118843671
+achievable
+ 9500 15 682317441
+achievable
+ 9600 15 748758284
+achievable
+ 9700 15 750863515
+achievable
+ 9800 15 814365095
+achievable
+ 9900 15 690122935
+achievable
+ 100 16 3491787
+achievable
+ 200 16 8242720
+achievable
+ 300 16 14070316
+achievable
+ 400 16 18552111
+achievable
+ 500 16 28282666
+achievable
+ 600 16 33586874
+achievable
+ 700 16 51718226
+achievable
+ 800 16 56640221
+achievable
+ 900 16 53573942
+achievable
+ 1000 16 62228676
+achievable
+ 1100 16 70096169
+achievable
+ 1200 16 72599305
+achievable
+ 1300 16 104191615
+achievable
+ 1400 16 79183480
+achievable
+ 1500 16 81869789
+achievable
+ 1600 16 89775407
+achievable
+ 1700 16 103803329
+achievable
+ 1800 16 142837683
+achievable
+ 1900 16 128649255
+achievable
+ 2000 16 141928750
+achievable
+ 2100 16 148817002
+achievable
+ 2200 16 179784835
+achievable
+ 2300 16 154183157
+achievable
+ 2400 16 187825752
+achievable
+ 2500 16 164864769
+achievable
+ 2600 16 168033743
+achievable
+ 2700 16 199914741
+achievable
+ 2800 16 173816621
+achievable
+ 2900 16 179036987
+achievable
+ 3000 16 209317409
+achievable
+ 3100 16 217475757
+achievable
+ 3200 16 223438050
+achievable
+ 3300 16 220102208
+achievable
+ 3400 16 254548583
+achievable
+ 3500 16 238899037
+achievable
+ 3600 16 283468976
+achievable
+ 3700 16 293572699
+achievable
+ 3800 16 316942147
+achievable
+ 3900 16 291197513
+achievable
+ 4000 16 306164190
+achievable
+ 4100 16 376209540
+achievable
+ 4200 16 357544426
+achievable
+ 4300 16 328391489
+achievable
+ 4400 16 361060600
+achievable
+ 4500 16 365687549
+achievable
+ 4600 16 370284091
+achievable
+ 4700 16 374253587
+achievable
+ 4800 16 401617328
+achievable
+ 4900 16 349692879
+achievable
+ 5000 16 383761570
+achievable
+ 5100 16 423726349
+achievable
+ 5200 16 367754124
+achievable
+ 5300 16 398208537
+achievable
+ 5400 16 403771915
+achievable
+ 5500 16 422869767
+achievable
+ 5600 16 438280111
+achievable
+ 5700 16 385807167
+achievable
+ 5800 16 421532452
+achievable
+ 5900 16 470667284
+achievable
+ 6000 16 424843054
+achievable
+ 6100 16 402442585
+achievable
+ 6200 16 441338099
+achievable
+ 6300 16 454812986
+achievable
+ 6400 16 493010352
+achievable
+ 6500 16 458157821
+achievable
+ 6600 16 471840804
+achievable
+ 6700 16 563209092
+achievable
+ 6800 16 528022409
+achievable
+ 6900 16 581675860
+achievable
+ 7000 16 580768998
+achievable
+ 7100 16 595272649
+achievable
+ 7200 16 610978462
+achievable
+ 7300 16 655471504
+achievable
+ 7400 16 608857385
+achievable
+ 7500 16 653104676
+achievable
+ 7600 16 694286986
+achievable
+ 7700 16 709114304
+achievable
+ 7800 16 790369112
+achievable
+ 7900 16 716344174
+achievable
+ 8000 16 754459046
+achievable
+ 8100 16 747605213
+achievable
+ 8200 16 748065389
+achievable
+ 8300 16 756953104
+achievable
+ 8400 16 786302192
+achievable
+ 8500 16 814061697
+achievable
+ 8600 16 799656693
+achievable
+ 8700 16 777306472
+achievable
+ 8800 16 786004055
+achievable
+ 8900 16 816689781
+achievable
+ 9000 16 787731420
+achievable
+ 9100 16 834554800
+achievable
+ 9200 16 826863014
+achievable
+ 9300 16 844066630
+achievable
+ 9400 16 826011826
+achievable
+ 9500 16 820836579
+achievable
+ 9600 16 849211386
+achievable
+ 9700 16 907688513
+achievable
+ 9800 16 871082753
+achievable
+ 9900 16 846960141
+achievable
+ 100 17 4245241
+achievable
+ 200 17 9643260
+achievable
+ 300 17 19627937
+achievable
+ 400 17 40038921
+achievable
+ 500 17 42697893
+achievable
+ 600 17 42342937
+achievable
+ 700 17 40307719
+achievable
+ 800 17 46385049
+achievable
+ 900 17 58007806
+achievable
+ 1000 17 95073383
+achievable
+ 1100 17 82734479
+achievable
+ 1200 17 81681622
+achievable
+ 1300 17 111471739
+achievable
+ 1400 17 112206326
+achievable
+ 1500 17 99368308
+achievable
+ 1600 17 130436802
+achievable
+ 1700 17 144237203
+achievable
+ 1800 17 125747551
+achievable
+ 1900 17 156571311
+achievable
+ 2000 17 172497956
+achievable
+ 2100 17 159215427
+achievable
+ 2200 17 170451857
+achievable
+ 2300 17 174965803
+achievable
+ 2400 17 208087715
+achievable
+ 2500 17 201622686
+achievable
+ 2600 17 223342052
+achievable
+ 2700 17 250552376
+achievable
+ 2800 17 188805973
+achievable
+ 2900 17 221761384
+achievable
+ 3000 17 204518594
+achievable
+ 3100 17 237257527
+achievable
+ 3200 17 250848357
+achievable
+ 3300 17 263381760
+achievable
+ 3400 17 251940722
+achievable
+ 3500 17 302062937
+achievable
+ 3600 17 350562206
+achievable
+ 3700 17 301834217
+achievable
+ 3800 17 314307757
+achievable
+ 3900 17 324753750
+achievable
+ 4000 17 343205067
+achievable
+ 4100 17 379033306
+achievable
+ 4200 17 351290847
+achievable
+ 4300 17 362022040
+achievable
+ 4400 17 375935666
+achievable
+ 4500 17 373033404
+achievable
+ 4600 17 393375837
+achievable
+ 4700 17 385374627
+achievable
+ 4800 17 375217881
+achievable
+ 4900 17 401364976
+achievable
+ 5000 17 404171335
+achievable
+ 5100 17 430288966
+achievable
+ 5200 17 452171464
+achievable
+ 5300 17 434276560
+achievable
+ 5400 17 432421310
+achievable
+ 5500 17 501080401
+achievable
+ 5600 17 508994061
+achievable
+ 5700 17 444123372
+achievable
+ 5800 17 501794187
+achievable
+ 5900 17 449256318
+achievable
+ 6000 17 464717680
+achievable
+ 6100 17 491858748
+achievable
+ 6200 17 513001765
+achievable
+ 6300 17 488906431
+achievable
+ 6400 17 537379706
+achievable
+ 6500 17 557894190
+achievable
+ 6600 17 549257806
+achievable
+ 6700 17 614789182
+achievable
+ 6800 17 565681797
+achievable
+ 6900 17 629236373
+achievable
+ 7000 17 638844593
+achievable
+ 7100 17 642693821
+achievable
+ 7200 17 686687507
+achievable
+ 7300 17 680608314
+achievable
+ 7400 17 667758744
+achievable
+ 7500 17 718253235
+achievable
+ 7600 17 754697976
+achievable
+ 7700 17 735686679
+achievable
+ 7800 17 774561982
+achievable
+ 7900 17 748161187
+achievable
+ 8000 17 833310170
+achievable
+ 8100 17 783410032
+achievable
+ 8200 17 844415471
+achievable
+ 8300 17 818432469
+achievable
+ 8400 17 831188201
+achievable
+ 8500 17 862088209
+achievable
+ 8600 17 821655733
+achievable
+ 8700 17 853254589
+achievable
+ 8800 17 807471370
+achievable
+ 8900 17 846116372
+achievable
+ 9000 17 852003693
+achievable
+ 9100 17 829637616
+achievable
+ 9200 17 872548162
+achievable
+ 9300 17 826817136
+achievable
+ 9400 17 876425383
+achievable
+ 9500 17 853673593
+achievable
+ 9600 17 883589469
+achievable
+ 9700 17 906416427
+achievable
+ 9800 17 888078144
+achievable
+ 9900 17 863710930
+achievable
+ 100 18 4265914
+achievable
+ 200 18 9598616
+achievable
+ 300 18 16904770
+achievable
+ 400 18 22802959
+achievable
+ 500 18 32812096
+achievable
+ 600 18 37368476
+achievable
+ 700 18 46464862
+achievable
+ 800 18 48257625
+achievable
+ 900 18 65024719
+achievable
+ 1000 18 73808907
+achievable
+ 1100 18 80464011
+achievable
+ 1200 18 89269639
+achievable
+ 1300 18 96348631
+achievable
+ 1400 18 97907464
+achievable
+ 1500 18 107429438
+achievable
+ 1600 18 110046432
+achievable
+ 1700 18 126576847
+achievable
+ 1800 18 141179093
+achievable
+ 1900 18 152946666
+achievable
+ 2000 18 170625255
+achievable
+ 2100 18 177974566
+achievable
+ 2200 18 215766657
+achievable
+ 2300 18 186074925
+achievable
+ 2400 18 199291406
+achievable
+ 2500 18 202061650
+achievable
+ 2600 18 205177781
+achievable
+ 2700 18 199712689
+achievable
+ 2800 18 227938993
+achievable
+ 2900 18 220773703
+achievable
+ 3000 18 229601999
+achievable
+ 3100 18 265805825
+achievable
+ 3200 18 249158782
+achievable
+ 3300 18 252074898
+achievable
+ 3400 18 281004372
+achievable
+ 3500 18 293775316
+achievable
+ 3600 18 344659265
+achievable
+ 3700 18 327391104
+achievable
+ 3800 18 333454890
+achievable
+ 3900 18 383712611
+achievable
+ 4000 18 381552270
+achievable
+ 4100 18 392974430
+achievable
+ 4200 18 394801949
+achievable
+ 4300 18 411241197
+achievable
+ 4400 18 419086864
+achievable
+ 4500 18 440286262
+achievable
+ 4600 18 416623034
+achievable
+ 4700 18 407475074
+achievable
+ 4800 18 442160086
+achievable
+ 4900 18 453366684
+achievable
+ 5000 18 433197396
+achievable
+ 5100 18 440513225
+achievable
+ 5200 18 456696338
+achievable
+ 5300 18 441909480
+achievable
+ 5400 18 455988525
+achievable
+ 5500 18 460829903
+achievable
+ 5600 18 469750574
+achievable
+ 5700 18 463019195
+achievable
+ 5800 18 468351323
+achievable
+ 5900 18 528145922
+achievable
+ 6000 18 504139882
+achievable
+ 6100 18 527725288
+achievable
+ 6200 18 509489481
+achievable
+ 6300 18 518924229
+achievable
+ 6400 18 559966497
+achievable
+ 6500 18 562631936
+achievable
+ 6600 18 567856001
+achievable
+ 6700 18 621718745
+achievable
+ 6800 18 605472767
+achievable
+ 6900 18 630565239
+achievable
+ 7000 18 635829212
+achievable
+ 7100 18 650009665
+achievable
+ 7200 18 661690960
+achievable
+ 7300 18 696291217
+achievable
+ 7400 18 714322668
+achievable
+ 7500 18 717611559
+achievable
+ 7600 18 749538880
+achievable
+ 7700 18 798143303
+achievable
+ 7800 18 767817832
+achievable
+ 7900 18 775641124
+achievable
+ 8000 18 829413406
+achievable
+ 8100 18 826548807
+achievable
+ 8200 18 840761922
+achievable
+ 8300 18 839609799
+achievable
+ 8400 18 848386502
+achievable
+ 8500 18 865814214
+achievable
+ 8600 18 864609273
+achievable
+ 8700 18 859066866
+achievable
+ 8800 18 877496827
+achievable
+ 8900 18 888582609
+achievable
+ 9000 18 886629377
+achievable
+ 9100 18 906965507
+achievable
+ 9200 18 893926618
+achievable
+ 9300 18 895530788
+achievable
+ 9400 18 900081869
+achievable
+ 9500 18 947395679
