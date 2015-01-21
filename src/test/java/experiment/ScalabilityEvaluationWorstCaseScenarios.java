@@ -81,8 +81,8 @@ public class ScalabilityEvaluationWorstCaseScenarios {
 			} else
 				System.out.println("unachievable");	
 			
-			System.out.println(experimentId + " ; " + modelSize + "; " + contextAmount + "; "
-					+ (accumulated));
+			System.out.println(experimentId + " " + modelSize + " " + contextAmount + " "
+					+ (accumulated/100));
 		}
 	}
 
