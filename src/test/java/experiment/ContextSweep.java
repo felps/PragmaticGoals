@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+import org.omg.CORBA.Current;
 
 import cgm.CGM;
 import cgm.Context;
@@ -14,53 +15,48 @@ import cgm.util.generator.RandomCGMGenerator;
 
 public class ContextSweep {
 
-	private int contextSet;
+	private int contextSet = 1;
+
+//	@Test
+//	public void printAllContexts() throws Exception {
+//		for(int i = 0;i<Math.pow(2, 4)-1; i++){
+//			System.out.println("Context Set: " + contextSet);
+//			Set<Context> set = generateNextContextSet(4);
+//		}
+//	}
 	
-
 	@Test
-	public void shouldPrintAllContextSets() {
-		for (Context context : generateNextContextSet(4)) {
-			System.out.println(context.getName());
-		}
-	}
+	public void scalabilityTestContextSweep() {
 
-	@Test
-	public void shouldGenerateAllContextSetsForSeveralContextSetSizes() {
-		for (int i = 0; i < 10; i++) {
-			assertEquals(Math.pow(2, i) - 1, generateNextContextSet(i));
-		}
-	}
-
-	// @Test
-	public void scalabilityTestModelAndContextSize() {
-
-		int contextAmount = 20;
+		int contextAmount = 15;
 		System.out.println("Scalability Evaluation - Context sweep capability with 20 context set");
 		System.out.println("Experiment executed on " + (new Date()).toString());
 
 		executeScientificalEvaluation("", 1, 10);
 
-		for (int model = 100; model < 10001; model += 100) {
-			executeScientificalEvaluation("", contextAmount, model);
+		for (int modelSize = 100; modelSize < 10001; modelSize += 100) {
+			executeScientificalEvaluation("", contextAmount, modelSize);
 		}
 	}
 
 	private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
 		{
-			int models = 100;
-			long oneSecond = 1000000000l; // one second equals 10^9 ns
+			int models = 10;
+			long tenSecond = 10000000000l; // one second equals 10^9 ns
 			double totalPossibleContextSets = Math.pow(2, contextAmount) - 1;
-			long executions = 0;
 
 			RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 
-			contextSet = 1;
+			contextSet = 0;
+			long totalExecutions = 0;
 			for (int j = 0; j < models; j++) {
-				executions = 0;
+				long executions = 0;
+				
 				// Setup Model
 				CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
 
 				long start = System.nanoTime();
+				boolean timeout = false;
 				for (long i = 0; i < totalPossibleContextSets; i++) {
 					// To disregard the time of setting up the next context, we
 					// calculate the time it took to do so and add it to the
@@ -72,37 +68,47 @@ public class ContextSweep {
 
 					// Execute test
 					cgm.isAchievable(current, null);
-					if ((System.nanoTime() - start) > oneSecond) {
+					
+					executions++;
+					
+					if ((System.nanoTime() - start) > tenSecond) {
+						System.out.println("\"Executing model "+j+" with "+modelSize + " nodes... Partial sweep: " + ((executions/ totalPossibleContextSets) * 100) + "%\"");
+						timeout = true;
 						break;
 					}
-					executions++;
 				}
+				if(!timeout)
+					System.out.println("\"Executing model "+j+" with "+modelSize + " nodes... Full sweep: " + ((executions/ totalPossibleContextSets) * 100) + "%\"");
+				totalExecutions += executions;
 				// Reset the context set index
 				contextSet = 0;
 			}
-			//Average executions per second through all models
-			double avgExecutions = executions / models ;
+			//Average executions within 10 seconds through all models
+			double avgExecutions = totalExecutions / models ;
 			
-			// Average coverage of the context sets per second
+			// Average coverage of the context sets within ten seconds
 			double parameterSweepCoverage = (avgExecutions / totalPossibleContextSets) * 100;  
 
 			// Print result
 			System.out.print(experimentId + " ");
-			System.out.println(modelSize + " " + contextAmount + " " + parameterSweepCoverage);
+			System.out.println(modelSize + " " + contextAmount + " " + avgExecutions +" "+ parameterSweepCoverage);
 		}
 	}
 
 	private Set<Context> generateNextContextSet(int contextAmount) {
 		long limit;
 		HashSet<Context> contexts = new HashSet<Context>();
+		int currentSet = contextSet;
 		limit = (long) Math.pow(2, contextAmount);
-		for (long i = 2; i <= limit; i *= 2) {
-			if (contextSet % i == 0) {
-				contexts.add(new Context("c" + i));
+		for (int i = 0; i < contextAmount; i++) {
+			if (currentSet % 2 != 0) {
+				contexts.add(new Context("c" + (contextAmount - i)));
+				//System.out.println("c" + (contextAmount - i));
 			}
+			currentSet /= 2;
 		}
 
-		contexts.add(null);
+		//contexts.add(null);
 		contextSet++;
 		return contexts;
 	}
