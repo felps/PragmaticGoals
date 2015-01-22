@@ -24,7 +24,13 @@ public class ExperimentScenarios {
 	public void contextSet1() {
 		System.out.println("=========== Experiment Context Set 1 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0);
-		Plan tasks = cgm.isAchievable(fullContext, null);
+		Plan tasks = null;
+		long startTime = System.nanoTime();
+		for(int i=0;i<1000;i++){
+			tasks = cgm.isAchievable(fullContext, null);
+		}
+		long elapsed = System.nanoTime() - startTime;
+		System.out.println("Average elapsed time:" + elapsed/10000 + " ns...");
 
 		assertTrue(tasks != null);
 		for (Task task : tasks.getTasks()) {
@@ -52,7 +58,13 @@ public class ExperimentScenarios {
 	public void contextSet2() {
 		System.out.println("=========== Experiment Context Set 2 ================");
 		HashSet<Context> fullContext = createFullContext(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0);
-		Plan tasks = cgm.isAchievable(fullContext, null);
+		Plan tasks = null;
+		long startTime = System.nanoTime();
+		for(int i=0;i<10000;i++){
+			tasks = cgm.isAchievable(fullContext, null);
+		}
+		long elapsed = System.nanoTime() - startTime;
+		System.out.println("Average elapsed time:" + elapsed/10000 + " ns...");
 		assertTrue(tasks == null);
 
 	}
@@ -61,7 +73,13 @@ public class ExperimentScenarios {
 	public void contextSet3() {
 		System.out.println("=========== Experiment Context Set 3 ================");
 		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0);
-		Plan tasks = cgm.isAchievable(fullContext, null);
+		Plan tasks = null;
+		long startTime = System.nanoTime();
+		for(int i=0;i<10000;i++){
+			tasks = cgm.isAchievable(fullContext, null);
+		}
+		long elapsed = System.nanoTime() - startTime;
+		System.out.println("Average elapsed time:" + elapsed/10000 + " ns...");
 
 		assertTrue(tasks != null);
 
@@ -92,7 +110,13 @@ public class ExperimentScenarios {
 	public void contextSet4() {
 		System.out.println("=========== Experiment Context Set 4 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0);
-		Plan tasks = cgm.isAchievable(fullContext, null);
+		Plan tasks = null;
+		long startTime = System.nanoTime();
+		for(int i=0;i<10000;i++){
+			tasks = cgm.isAchievable(fullContext, null);
+		}
+		long elapsed = System.nanoTime() - startTime;
+		System.out.println("Average elapsed time:" + elapsed/10000 + " ms...");
 
 		assertTrue(tasks != null);
 		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
