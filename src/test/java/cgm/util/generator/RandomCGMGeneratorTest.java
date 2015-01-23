@@ -143,7 +143,7 @@ public class RandomCGMGeneratorTest {
 
 		for (int modelSize = 1;modelSize<100;modelSize++){
 			boolean isAchievable = false;
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 100; i++) {
 				CGM cgm = cgmFactory.generateCGM(2*modelSize, 2);
 				if (cgm.getRoot().isAchievable(current, null) != null)
 					isAchievable = true;
