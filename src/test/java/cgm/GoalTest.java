@@ -65,4 +65,35 @@ public class GoalTest {
 		assertTrue(and.isAndDecomposition());
 	}
 
+	@Test
+	public void shouldBeAchievable(){
+		
+		Refinement root = new Goal(Goal.AND);
+
+		Context context = new Context("c1");
+		HashSet<Context> current = new HashSet<Context>();
+		current.add(context);
+		
+		Task task1 = new Task();
+		
+		Task task2 = new Task();
+		
+		task1.addApplicableContext(context);
+
+		root.addDependency(task1);
+		root.addDependency(task2);
+
+		HashSet<Refinement> deps = new HashSet<Refinement>();
+		deps.add(task1);
+		deps.add(task2);
+
+		Plan plan = root.isAchievable(current, null);
+		assertNotEquals(null, plan);
+		
+		assertTrue(plan.getTasks().contains(task1));
+		assertTrue(plan.getTasks().contains(task2));
+		
+		
+
+	}
 }
