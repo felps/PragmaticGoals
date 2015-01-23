@@ -19,9 +19,6 @@ public class CGM {
 		return rootGoal.isAchievable(current, interp);
 	}
 
-	public void parseFromYamlFile() {
-
-	}
 
 	// public void dumpToYamlFile(){
 	// YamlHandler yaml = new YamlHandler();

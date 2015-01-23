@@ -16,22 +16,18 @@ public class Goal extends Refinement {
 
 	@Override
 	public int myType() {
-		return Refinement.GOAL;
-	}
+		return Refinement.GOAL;	}
 
 	public boolean isOrDecomposition() {
-		return isOrDecomposition;
-	}
+		return isOrDecomposition;	}
 
 	public boolean isAndDecomposition() {
-		return !isOrDecomposition;
-	}
+		return !isOrDecomposition;	}
 
 	@Override
 	public Plan isAchievable(Set<Context> current, Interpretation interp) {
 		if (!this.isApplicable(current)) {
-			return null;
-		}
+			return null;}
 
 		if (isOrDecomposition()) {
 			Plan plan;
@@ -42,9 +38,7 @@ public class Goal extends Refinement {
 				}
 			}
 			return null;
-		}
-
-		if (isAndDecomposition()) {
+		} else {
 			Plan complete, plan;
 			complete = new Plan();
 			for (Refinement dep : getApplicableDependencies(current)) {
@@ -60,17 +54,5 @@ public class Goal extends Refinement {
 			else
 				return null;
 		}
-		return null;
 	}
-
-	public void parseFromYamlFile() {
-
-	}
-
-	// public void dumpToYamlFile(){
-	// YamlHandler yaml = new YamlHandler();
-	// yaml.dumpToYamlFile(this);
-	//
-	// }
-
 }
