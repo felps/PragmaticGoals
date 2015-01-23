@@ -438,26 +438,21 @@ public class RefinementTest {
 		assertEquals(1, goal.isAchievable(current, interp).getTasks().size());
 
 	}
-	/*
-	 * @Test public void shouldCloneAGoal() throws Exception { Goal goal = new
-	 * Goal(false);
-	 * 
-	 * Task task = new Task(); Context context = new Context(); HashSet<Context>
-	 * current = new HashSet<Context>(); current.add(context);
-	 * 
-	 * QualityConstraint qc = new QualityConstraint(context,
-	 * Metric.SECONDS,15,Comparison.LESS_OR_EQUAL_TO);
-	 * 
-	 * task.setApplicableContext(context); task.setProvidedQuality(context,
-	 * Metric.SECONDS, 13);
-	 * 
-	 * goal.addDependency(task); goal.setIdentifier("Root");
-	 * goal.setApplicableContext(context); goal.setQualityConstraint(qc);
-	 * 
-	 * Refinement clonedGoal = goal.cloneWithoutDependencies();
-	 * 
-	 * assertEquals(qc, clonedGoal.getQualityConstraint(current));
-	 * assertEquals(current, clonedGoal.getApplicableContext());
-	 * assertTrue("Root".contentEquals(clonedGoal.getIdentifier())); }
-	 */
+
+	@Test
+	public void shouldAddSeveralContextsAtOnce(){
+		Context context1 = new Context("C1");
+		Context context2 = new Context("C2");
+		
+		Task task = new Task();
+		int originalSize = task.getApplicableContext().size();
+		HashSet<Context> set = new HashSet<Context>();
+		
+		set.add(context1);
+		set.add(context2);
+		
+		task.addApplicableContext(set);
+		// null is always an applicable context
+		assertEquals(2, task.getApplicableContext().size() - originalSize);
+	}
 }

@@ -46,4 +46,9 @@ public class TaskTest {
 
 		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
 	}
+	
+	@Test
+	public void shouldUseLessIsMoreQC(){
+		Task t1= new Task(true);
+	}
 }
