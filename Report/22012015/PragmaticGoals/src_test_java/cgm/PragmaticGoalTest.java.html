@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>PragmaticGoalTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">CgmFullTest (Jan 23, 2015 3:34:45 PM)</a> &gt; <a href="../../index.html" class="el_group">PragmaticGoals</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">cgm</a> &gt; <span class="el_source">PragmaticGoalTest.java</span></div><h1>PragmaticGoalTest.java</h1><pre class="source lang-java linenums">package cgm;
+
+import static org.junit.Assert.*;
+
+import java.util.HashSet;
+
+import org.junit.Test;
+
+<span class="fc" id="L9">public class PragmaticGoalTest {</span>
+
+	@Test
+	public void shouldGetDifferentQualityConstraintsForDifferentContexts() {
+<span class="fc" id="L13">		Context aContext = new Context(&quot;c1&quot;);</span>
+<span class="fc" id="L14">		Context anotherContext = new Context(&quot;c2&quot;);</span>
+
+<span class="fc" id="L16">		QualityConstraint aQC = new QualityConstraint(aContext, Metric.METERS, 30, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L17">		QualityConstraint anotherQC = new QualityConstraint(anotherContext, Metric.METERS, 60,</span>
+<span class="fc" id="L18">				Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L20">		Pragmatic goal = new Pragmatic(false);</span>
+
+<span class="fc" id="L22">		goal.getInterpretation().addQualityConstraint(aQC);</span>
+<span class="fc" id="L23">		goal.getInterpretation().addQualityConstraint(anotherQC);</span>
+
+<span class="fc" id="L25">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L26">		fullContext.add(aContext);</span>
+<span class="fc" id="L27">		assertTrue(goal.getInterpretation().getQualityConstraints(fullContext).contains(aQC));</span>
+
+<span class="fc" id="L29">		HashSet&lt;Context&gt; anotherFullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L30">		anotherFullContext.add(anotherContext);</span>
+<span class="fc" id="L31">		assertTrue(goal.getInterpretation().getQualityConstraints(anotherFullContext).contains(anotherQC));</span>
+
+<span class="fc" id="L33">		assertFalse(goal.getInterpretation().getQualityConstraints(fullContext).contains(anotherQC));</span>
+<span class="fc" id="L34">		assertFalse(goal.getInterpretation().getQualityConstraints(anotherFullContext).contains(aQC));</span>
+
+<span class="fc" id="L36">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>CgmFullTest (Jan 23, 2015 3:34:45 PM)</div></body></html>

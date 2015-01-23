@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>RefinementTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">CgmFullTest (Jan 23, 2015 3:34:45 PM)</a> &gt; <a href="../../index.html" class="el_group">PragmaticGoals</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">cgm</a> &gt; <span class="el_source">RefinementTest.java</span></div><h1>RefinementTest.java</h1><pre class="source lang-java linenums">package cgm;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+
+import org.junit.Test;
+
+<span class="fc" id="L11">public class RefinementTest {</span>
+
+	@Test
+	public void shouldReturnMyType() {
+<span class="fc" id="L15">		Refinement goal = new Goal(false);</span>
+<span class="fc" id="L16">		Task task = new Task();</span>
+<span class="fc" id="L17">		Delegation delegation = new Delegation();</span>
+
+<span class="fc" id="L19">		assertEquals(Refinement.GOAL, goal.myType());</span>
+
+<span class="fc" id="L21">		assertEquals(Refinement.TASK, task.myType());</span>
+
+<span class="fc" id="L23">		assertEquals(Refinement.DELEGATION, delegation.myType());</span>
+<span class="fc" id="L24">	}</span>
+
+	@Test
+	public void shouldBeApplicable() throws Exception {
+<span class="fc" id="L28">		Refinement goal = new Goal(false);</span>
+<span class="fc" id="L29">		Task task = new Task();</span>
+<span class="fc" id="L30">		Delegation delegation = new Delegation();</span>
+
+<span class="fc" id="L32">		Context current = new Context(&quot;c1&quot;);</span>
+<span class="fc" id="L33">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L34">		fullContext.add(current);</span>
+
+<span class="fc" id="L36">		task.addApplicableContext(current);</span>
+<span class="fc" id="L37">		goal.addApplicableContext(current);</span>
+<span class="fc" id="L38">		delegation.addApplicableContext(current);</span>
+
+<span class="fc" id="L40">		assertTrue(goal.isApplicable(fullContext));</span>
+<span class="fc" id="L41">		assertTrue(task.isApplicable(fullContext));</span>
+<span class="fc" id="L42">		assertTrue(delegation.isApplicable(fullContext));</span>
+<span class="fc" id="L43">	}</span>
+
+	@Test
+	public void shouldBeNotApplicable() throws Exception {
+<span class="fc" id="L47">		Refinement goal = new Goal(false);</span>
+<span class="fc" id="L48">		Task task = new Task();</span>
+<span class="fc" id="L49">		Delegation delegation = new Delegation();</span>
+
+<span class="fc" id="L51">		Context context = new Context(&quot;C1&quot;);</span>
+
+<span class="fc" id="L53">		task.addApplicableContext(context);</span>
+<span class="fc" id="L54">		goal.addApplicableContext(context);</span>
+<span class="fc" id="L55">		delegation.addApplicableContext(context);</span>
+
+<span class="fc" id="L57">		Context wrongContext = new Context(&quot;C2&quot;);</span>
+<span class="fc" id="L58">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L59">		fullContext.add(wrongContext);</span>
+
+<span class="fc" id="L61">		assertFalse(goal.isApplicable(fullContext));</span>
+<span class="fc" id="L62">		assertFalse(task.isApplicable(fullContext));</span>
+<span class="fc" id="L63">		assertFalse(delegation.isApplicable(fullContext));</span>
+<span class="fc" id="L64">	}</span>
+
+	@Test
+	public void aTaskShouldBeAchievable() throws Exception {
+<span class="fc" id="L68">		Task task = new Task();</span>
+
+<span class="fc" id="L70">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L71">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L72">		fullContext.add(current);</span>
+
+<span class="fc" id="L74">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L76">		task.addApplicableContext(current);</span>
+<span class="fc" id="L77">		task.setProvidedQuality(current, Metric.SECONDS, 12);</span>
+
+<span class="fc" id="L79">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L80">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L82">		assertTrue(task.isAchievable(fullContext, interp).getTasks().contains(task));</span>
+<span class="fc" id="L83">	}</span>
+
+	@Test
+	public void aTaskMayNotBeAchievable() throws Exception {
+<span class="fc" id="L87">		Task task = new Task();</span>
+
+<span class="fc" id="L89">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L90">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L91">		fullContext.add(current);</span>
+
+<span class="fc" id="L93">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L95">		task.addApplicableContext(current);</span>
+<span class="fc" id="L96">		task.setProvidedQuality(current, Metric.SECONDS, 16);</span>
+
+<span class="fc" id="L98">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L99">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L101">		assertEquals(null, task.isAchievable(fullContext, interp));</span>
+<span class="fc" id="L102">	}</span>
+
+	@Test
+	public void aNonApplicableRootGoalIsNotAchievable() throws Exception {
+<span class="fc" id="L106">		Goal goal = new Goal(false);</span>
+<span class="fc" id="L107">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L108">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+
+<span class="fc" id="L110">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L111">		goal.addApplicableContext((new Context(&quot;C2&quot;)));</span>
+
+<span class="fc" id="L113">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L114">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L116">		assertEquals(null, goal.isAchievable(fullContext, interp));</span>
+<span class="fc" id="L117">	}</span>
+
+	@Test
+	public void aGoalWithATaskMayBeAchievable() throws Exception {
+<span class="fc" id="L121">		Goal goal = new Goal(false);</span>
+
+<span class="fc" id="L123">		Task task = new Task();</span>
+
+<span class="fc" id="L125">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L126">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L127">		fullContext.add(current);</span>
+
+<span class="fc" id="L129">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L130">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L131">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L133">		task.addApplicableContext(current);</span>
+<span class="fc" id="L134">		task.setProvidedQuality(current, Metric.SECONDS, 13);</span>
+
+<span class="fc" id="L136">		goal.addDependency(task);</span>
+<span class="fc" id="L137">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L138">		goal.addApplicableContext(current);</span>
+
+<span class="fc" id="L140">		Plan plan = goal.isAchievable(fullContext, interp);</span>
+<span class="fc" id="L141">		assertEquals(1, plan.getTasks().size());</span>
+<span class="fc" id="L142">	}</span>
+
+	@Test
+	public void aGoalAndDecomposedWithTwoTasksMayBeAchievable() throws Exception {
+<span class="fc" id="L146">		Goal goal = new Goal(false);</span>
+<span class="fc" id="L147">		assertTrue(goal.isAndDecomposition());</span>
+
+<span class="fc" id="L149">		Task task1 = new Task();</span>
+<span class="fc" id="L150">		Task task2 = new Task();</span>
+
+<span class="fc" id="L152">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L153">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L154">		fullContext.add(current);</span>
+
+<span class="fc" id="L156">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L158">		task1.addApplicableContext(current);</span>
+<span class="fc" id="L159">		task1.setProvidedQuality(current, Metric.SECONDS, 13);</span>
+
+<span class="fc" id="L161">		task2.addApplicableContext(current);</span>
+<span class="fc" id="L162">		task2.setProvidedQuality(current, Metric.SECONDS, 11);</span>
+
+<span class="fc" id="L164">		goal.addDependency(task1);</span>
+<span class="fc" id="L165">		goal.addDependency(task2);</span>
+
+<span class="fc" id="L167">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L168">		goal.addApplicableContext(current);</span>
+
+<span class="fc" id="L170">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L171">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L173">		Plan plan = goal.isAchievable(fullContext, interp);</span>
+<span class="fc" id="L174">		assertEquals(2, plan.getTasks().size());</span>
+<span class="fc" id="L175">	}</span>
+
+	@Test
+	public void aGoalAndDecomposedWithTwoTasksMayNotBeAchievable() throws Exception {
+<span class="fc" id="L179">		Goal goal = new Goal(false);</span>
+<span class="fc" id="L180">		assertTrue(goal.isAndDecomposition());</span>
+
+<span class="fc" id="L182">		Task task1 = new Task();</span>
+<span class="fc" id="L183">		Task task2 = new Task();</span>
+
+<span class="fc" id="L185">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L186">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L187">		fullContext.add(current);</span>
+
+<span class="fc" id="L189">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L191">		task1.addApplicableContext(current);</span>
+<span class="fc" id="L192">		task1.setProvidedQuality(current, Metric.SECONDS, 16);</span>
+
+<span class="fc" id="L194">		task2.addApplicableContext(current);</span>
+<span class="fc" id="L195">		task2.setProvidedQuality(current, Metric.SECONDS, 11);</span>
+
+<span class="fc" id="L197">		goal.addDependency(task1);</span>
+<span class="fc" id="L198">		goal.addDependency(task2);</span>
+
+<span class="fc" id="L200">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L201">		goal.addApplicableContext(current);</span>
+
+<span class="fc" id="L203">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L204">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L206">		Plan plan = goal.isAchievable(fullContext, interp);</span>
+<span class="fc" id="L207">		assertEquals(null, plan);</span>
+<span class="fc" id="L208">	}</span>
+
+	@Test
+	public void aGoalOrDecomposedWithTwoTasksMayBeAchievable() throws Exception {
+<span class="fc" id="L212">		Goal goal = new Goal(true);</span>
+<span class="fc" id="L213">		assertTrue(goal.isOrDecomposition());</span>
+
+<span class="fc" id="L215">		Task task1 = new Task();</span>
+<span class="fc" id="L216">		Task task2 = new Task();</span>
+
+<span class="fc" id="L218">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L219">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L220">		fullContext.add(current);</span>
+
+<span class="fc" id="L222">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L224">		task1.addApplicableContext(current);</span>
+<span class="fc" id="L225">		task1.setProvidedQuality(current, Metric.SECONDS, 13);</span>
+
+<span class="fc" id="L227">		task2.addApplicableContext(current);</span>
+<span class="fc" id="L228">		task2.setProvidedQuality(current, Metric.SECONDS, 11);</span>
+
+<span class="fc" id="L230">		goal.addDependency(task1);</span>
+<span class="fc" id="L231">		goal.addDependency(task2);</span>
+
+<span class="fc" id="L233">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L234">		goal.addApplicableContext(current);</span>
+
+<span class="fc" id="L236">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L237">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L239">		Plan plan = goal.isAchievable(fullContext, interp);</span>
+<span class="fc" id="L240">		assertEquals(1, plan.getTasks().size());</span>
+<span class="fc" id="L241">	}</span>
+
+	@Test
+	public void aGoalOrDecomposedWithTwoTasksMayBeAchievableAtOnlyOneBranch() throws Exception {
+<span class="fc" id="L245">		Goal goal = new Goal(true);</span>
+<span class="fc" id="L246">		assertTrue(goal.isOrDecomposition());</span>
+
+<span class="fc" id="L248">		Task task1 = new Task();</span>
+<span class="fc" id="L249">		Task task2 = new Task();</span>
+
+<span class="fc" id="L251">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L252">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L253">		fullContext.add(current);</span>
+
+<span class="fc" id="L255">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L257">		task1.addApplicableContext(current);</span>
+<span class="fc" id="L258">		task1.setProvidedQuality(current, Metric.SECONDS, 16);</span>
+
+<span class="fc" id="L260">		task2.addApplicableContext(current);</span>
+<span class="fc" id="L261">		task2.setProvidedQuality(current, Metric.SECONDS, 11);</span>
+
+<span class="fc" id="L263">		goal.addDependency(task1);</span>
+<span class="fc" id="L264">		goal.addDependency(task2);</span>
+
+<span class="fc" id="L266">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L267">		goal.addApplicableContext(current);</span>
+
+<span class="fc" id="L269">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L270">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L272">		Plan plan = goal.isAchievable(fullContext, interp);</span>
+<span class="fc" id="L273">		assertTrue(plan.getTasks().contains(task2));</span>
+<span class="pc bpc" id="L274" title="1 of 2 branches missed.">		assertTrue(!plan.getTasks().contains(task1));</span>
+<span class="fc" id="L275">	}</span>
+
+	@Test
+	public void aGoalOrDecomposedWithTwoTasksMayNotBeAchievable() throws Exception {
+<span class="fc" id="L279">		Goal goal = new Goal(true);</span>
+
+<span class="fc" id="L281">		Task task1 = new Task();</span>
+<span class="fc" id="L282">		Task task2 = new Task();</span>
+<span class="fc" id="L283">		Context current = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L284">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L285">		fullContext.add(current);</span>
+
+<span class="fc" id="L287">		QualityConstraint qc = new QualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L289">		task1.addApplicableContext(current);</span>
+<span class="fc" id="L290">		task1.setProvidedQuality(current, Metric.SECONDS, 16);</span>
+
+<span class="fc" id="L292">		task2.addApplicableContext(current);</span>
+<span class="fc" id="L293">		task2.setProvidedQuality(current, Metric.SECONDS, 17);</span>
+
+<span class="fc" id="L295">		goal.addDependency(task1);</span>
+<span class="fc" id="L296">		goal.addDependency(task2);</span>
+
+<span class="fc" id="L298">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L299">		goal.addApplicableContext(current);</span>
+
+<span class="fc" id="L301">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L302">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L304">		Plan plan = goal.isAchievable(fullContext, interp);</span>
+<span class="fc" id="L305">		assertTrue(goal.isOrDecomposition());</span>
+<span class="fc" id="L306">		assertEquals(null, plan);</span>
+<span class="fc" id="L307">	}</span>
+
+	@Test
+	public void testApplicableDeps() {
+<span class="fc" id="L311">		Pragmatic goal = new Pragmatic(false);</span>
+
+<span class="fc" id="L313">		Task task = new Task();</span>
+<span class="fc" id="L314">		Context context = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L315">		Context wrongContext = new Context(&quot;C2&quot;);</span>
+<span class="fc" id="L316">		HashSet&lt;Context&gt; current = new HashSet&lt;Context&gt;();</span>
+
+<span class="fc" id="L318">		QualityConstraint qc = new QualityConstraint(context, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L320">		task.addApplicableContext(context);</span>
+<span class="fc" id="L321">		task.setProvidedQuality(context, Metric.SECONDS, 13);</span>
+
+<span class="fc" id="L323">		goal.addDependency(task);</span>
+<span class="fc" id="L324">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L325">		goal.addApplicableContext(context);</span>
+<span class="fc" id="L326">		goal.getInterpretation().addQualityConstraint(qc);</span>
+
+<span class="fc" id="L328">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L329">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L331">		current.add(wrongContext);</span>
+<span class="fc" id="L332">		assertEquals(null, goal.isAchievable(current, interp));</span>
+
+<span class="fc" id="L334">		current.add(context);</span>
+<span class="fc" id="L335">		assertEquals(1, goal.isAchievable(current, interp).getTasks().size());</span>
+
+<span class="fc" id="L337">	}</span>
+
+	@Test
+	public void testGetApplicableQC() {
+<span class="fc" id="L341">		Pragmatic goal = new Pragmatic(false);</span>
+
+<span class="fc" id="L343">		Task task = new Task();</span>
+<span class="fc" id="L344">		Context context = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L345">		Context anotherContext = new Context(&quot;C2&quot;);</span>
+
+<span class="fc" id="L347">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+
+<span class="fc" id="L349">		QualityConstraint qc = new QualityConstraint(context, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L350">		QualityConstraint stricter = new QualityConstraint(anotherContext, Metric.SECONDS, 10,</span>
+<span class="fc" id="L351">				Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L353">		goal.addDependency(task);</span>
+<span class="fc" id="L354">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L355">		goal.addApplicableContext(context);</span>
+<span class="fc" id="L356">		goal.getInterpretation().addQualityConstraint(qc);</span>
+<span class="fc" id="L357">		goal.getInterpretation().addQualityConstraint(stricter);</span>
+
+<span class="fc" id="L359">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L360">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L362">		fullContext.add(context);</span>
+		// assertEquals(null, goal.isAchievable(fullContext, interp));
+
+<span class="fc" id="L365">		assertTrue(goal.getInterpretation().getQualityConstraints(fullContext).contains(qc));</span>
+
+<span class="fc" id="L367">		fullContext.add(anotherContext);</span>
+<span class="fc" id="L368">		assertTrue(goal.getInterpretation().getQualityConstraints(fullContext).contains(qc));</span>
+<span class="fc" id="L369">		assertTrue(goal.getInterpretation().getQualityConstraints(fullContext).contains(stricter));</span>
+
+<span class="fc" id="L371">		fullContext.remove(context);</span>
+<span class="pc bpc" id="L372" title="1 of 2 branches missed.">		assertTrue(!goal.getInterpretation().getQualityConstraints(fullContext).contains(qc));</span>
+<span class="fc" id="L373">		assertTrue(goal.getInterpretation().getQualityConstraints(fullContext).contains(stricter));</span>
+
+<span class="fc" id="L375">	}</span>
+
+	@Test
+	public void shouldThereBeMoreThanOneApplicableQCreturnTheStricterOne() throws DifferentMetricsException {
+<span class="fc" id="L379">		Pragmatic goal = new Pragmatic(false);</span>
+
+<span class="fc" id="L381">		Task task = new Task();</span>
+<span class="fc" id="L382">		Context context = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L383">		Context anotherContext = new Context(&quot;C2&quot;);</span>
+
+<span class="fc" id="L385">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+
+<span class="fc" id="L387">		QualityConstraint qc = new QualityConstraint(context, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L388">		QualityConstraint stricter = new QualityConstraint(anotherContext, Metric.SECONDS, 10,</span>
+<span class="fc" id="L389">				Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L391">		goal.addDependency(task);</span>
+<span class="fc" id="L392">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L393">		goal.addApplicableContext(context);</span>
+<span class="fc" id="L394">		goal.getInterpretation().addQualityConstraint(qc);</span>
+<span class="fc" id="L395">		goal.getInterpretation().addQualityConstraint(stricter);</span>
+
+<span class="fc" id="L397">		assertEquals(stricter, qc.stricterQC(stricter));</span>
+
+<span class="fc" id="L399">		fullContext.add(context);</span>
+<span class="fc" id="L400">		assertTrue(goal.getInterpretation().getQualityConstraints(fullContext).contains(qc));</span>
+
+<span class="fc" id="L402">		fullContext.add(anotherContext);</span>
+<span class="fc" id="L403">		assertTrue(goal.getInterpretation().getQualityConstraints(fullContext).contains(stricter));</span>
+
+<span class="fc" id="L405">	}</span>
+
+	@Test
+	public void shouldIncludeNonApplicableContexts() {
+<span class="fc" id="L409">		Pragmatic goal = new Pragmatic(false);</span>
+
+<span class="fc" id="L411">		Task task = new Task();</span>
+<span class="fc" id="L412">		Context context = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L413">		Context wrongContext = new Context(&quot;C2&quot;);</span>
+<span class="fc" id="L414">		HashSet&lt;Context&gt; current = new HashSet&lt;Context&gt;();</span>
+
+<span class="fc" id="L416">		QualityConstraint qc = new QualityConstraint(context, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);</span>
+
+<span class="fc" id="L418">		task.addApplicableContext(context);</span>
+<span class="fc" id="L419">		task.setProvidedQuality(context, Metric.SECONDS, 13);</span>
+
+<span class="fc" id="L421">		goal.addDependency(task);</span>
+<span class="fc" id="L422">		goal.setIdentifier(&quot;Root&quot;);</span>
+<span class="fc" id="L423">		goal.addNonApplicableContext(wrongContext);</span>
+<span class="fc" id="L424">		goal.getInterpretation().addQualityConstraint(qc);</span>
+
+<span class="fc" id="L426">		Interpretation interp = new Interpretation();</span>
+<span class="fc" id="L427">		interp.addQualityConstraint(qc);</span>
+
+<span class="fc" id="L429">		current.add(wrongContext);</span>
+<span class="fc" id="L430">		assertEquals(null, goal.isAchievable(current, interp));</span>
+
+<span class="fc" id="L432">		current.add(context);</span>
+<span class="fc" id="L433">		assertEquals(null, goal.isAchievable(current, interp));</span>
+
+<span class="fc" id="L435">		current.remove(wrongContext);</span>
+<span class="pc bpc" id="L436" title="1 of 2 branches missed.">		assertTrue(goal.isAchievable(current, interp) != null);</span>
+<span class="pc bpc" id="L437" title="1 of 2 branches missed.">		assertTrue(goal.isAchievable(current, interp).getTasks() != null);</span>
+<span class="fc" id="L438">		assertEquals(1, goal.isAchievable(current, interp).getTasks().size());</span>
+
+<span class="fc" id="L440">	}</span>
+
+	@Test
+	public void shouldAddSeveralContextsAtOnce(){
+<span class="fc" id="L444">		Context context1 = new Context(&quot;C1&quot;);</span>
+<span class="fc" id="L445">		Context context2 = new Context(&quot;C2&quot;);</span>
+		
+<span class="fc" id="L447">		Task task = new Task();</span>
+<span class="fc" id="L448">		int originalSize = task.getApplicableContext().size();</span>
+<span class="fc" id="L449">		HashSet&lt;Context&gt; set = new HashSet&lt;Context&gt;();</span>
+		
+<span class="fc" id="L451">		set.add(context1);</span>
+<span class="fc" id="L452">		set.add(context2);</span>
+		
+<span class="fc" id="L454">		task.addApplicableContext(set);</span>
+		// null is always an applicable context
+<span class="fc" id="L456">		assertEquals(2, task.getApplicableContext().size() - originalSize);</span>
+<span class="fc" id="L457">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>CgmFullTest (Jan 23, 2015 3:34:45 PM)</div></body></html>

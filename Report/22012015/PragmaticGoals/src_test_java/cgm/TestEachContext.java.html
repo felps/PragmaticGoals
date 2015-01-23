@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>TestEachContext.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">CgmFullTest (Jan 23, 2015 3:34:45 PM)</a> &gt; <a href="../../index.html" class="el_group">PragmaticGoals</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">cgm</a> &gt; <span class="el_source">TestEachContext.java</span></div><h1>TestEachContext.java</h1><pre class="source lang-java linenums">package cgm;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+
+import org.junit.Before;
+import org.junit.Test;
+
+<span class="fc" id="L11">public class TestEachContext {</span>
+	CGM cgm;
+
+	/* Contexts */
+<span class="fc" id="L15">	Context c1 = new Context(&quot;c1&quot;);</span>
+<span class="fc" id="L16">	Context c2 = new Context(&quot;c2&quot;);</span>
+<span class="fc" id="L17">	Context c3 = new Context(&quot;c3&quot;);</span>
+<span class="fc" id="L18">	Context c4 = new Context(&quot;c4&quot;);</span>
+<span class="fc" id="L19">	Context c5 = new Context(&quot;c5&quot;);</span>
+<span class="fc" id="L20">	Context c6 = new Context(&quot;c6&quot;);</span>
+<span class="fc" id="L21">	Context c7 = new Context(&quot;c7&quot;);</span>
+<span class="fc" id="L22">	Context c8 = new Context(&quot;c8&quot;);</span>
+<span class="fc" id="L23">	Context c9 = new Context(&quot;c9&quot;);</span>
+<span class="fc" id="L24">	Context c10 = new Context(&quot;c10&quot;);</span>
+<span class="fc" id="L25">	Context c11 = new Context(&quot;c11&quot;);</span>
+<span class="fc" id="L26">	Context c12 = new Context(&quot;c12&quot;);</span>
+
+	// Context c13 = new Context(&quot;c13&quot;);
+
+	@Before
+	public void setUp() {
+<span class="fc" id="L32">		cgm = new CGM();</span>
+
+		/* Goals */
+<span class="fc" id="L35">		Pragmatic respondToEmergencyGoal = new Pragmatic(Goal.AND);</span>
+<span class="fc" id="L36">		Pragmatic emergencyIsDetectedGoal = new Pragmatic(Goal.OR);</span>
+<span class="fc" id="L37">		Pragmatic centralReceivesInfoGoal = new Pragmatic(Goal.AND);</span>
+<span class="fc" id="L38">		Pragmatic locationIsIdentifiedGoal = new Pragmatic(Goal.OR);</span>
+<span class="fc" id="L39">		Pragmatic infoIsPreparedGoal = new Pragmatic(Goal.OR);</span>
+<span class="fc" id="L40">		Pragmatic isNotifiedAboutEmergencyGoal = new Pragmatic(Goal.OR);</span>
+<span class="fc" id="L41">		Goal callForHelpIsAcceptedGoal = new Goal(Goal.AND);</span>
+<span class="fc" id="L42">		Goal falseAlarmIsCheckedGoal = new Goal(Goal.OR);</span>
+<span class="fc" id="L43">		Goal pIsContacted = new Goal(Goal.AND);</span>
+<span class="fc" id="L44">		Goal receivesEmergencyButtonCallGoal = new Goal(Goal.OR);</span>
+<span class="fc" id="L45">		Goal situationsAreIdentifiedGoal = new Goal(Goal.AND);</span>
+<span class="fc" id="L46">		Goal vitalSignsAreMonitoredGoal = new Goal(Goal.AND);</span>
+<span class="fc" id="L47">		Goal infoIsSentToEmergencyGoal = new Goal(Goal.OR);</span>
+<span class="fc" id="L48">		Goal setupAutomatedInfoGoal = new Goal(Goal.AND);</span>
+<span class="fc" id="L49">		Goal situationDataIsRecoveredGoal = new Goal(Goal.AND);</span>
+<span class="fc" id="L50">		Goal contactResponsibleGoal = new Goal(Goal.AND);</span>
+<span class="fc" id="L51">		Goal medicalCareReachesGoal = new Goal(Goal.AND);</span>
+<span class="fc" id="L52">		Goal ambulanceIsDispatchedToLocationGoal = new Goal(Goal.AND);</span>
+
+		/* Tasks */
+<span class="fc" id="L55">		Task notifyCentralBySMSTask = new Task();</span>
+<span class="fc" id="L56">		notifyCentralBySMSTask.setIdentifier(&quot;notifyCentralBySMS&quot;);</span>
+
+<span class="fc" id="L58">		Task notifyCentralByInternetTask = new Task();</span>
+<span class="fc" id="L59">		notifyCentralByInternetTask.setIdentifier(&quot;notifyCentralByInternet&quot;);</span>
+
+<span class="fc" id="L61">		Task acceptEmergencyTask = new Task();</span>
+<span class="fc" id="L62">		acceptEmergencyTask.setIdentifier(&quot;acceptEmergency&quot;);</span>
+
+<span class="fc" id="L64">		Task confirmEmergencyByCallTask = new Task();</span>
+<span class="fc" id="L65">		confirmEmergencyByCallTask.setIdentifier(&quot;confirmEmergencyByCall&quot;);</span>
+
+<span class="fc" id="L67">		Task processDataFromSensorsTask = new Task();</span>
+<span class="fc" id="L68">		processDataFromSensorsTask.setIdentifier(&quot;processDataFromSensors&quot;);</span>
+
+<span class="fc" id="L70">		Task identifySituationTask = new Task();</span>
+<span class="fc" id="L71">		identifySituationTask.setIdentifier(&quot;identifySituationTask&quot;);</span>
+
+<span class="fc" id="L73">		Task collectDataFromSensorsTask = new Task();</span>
+<span class="fc" id="L74">		collectDataFromSensorsTask.setIdentifier(&quot;collectDataFromSensorsTask&quot;);</span>
+
+<span class="fc" id="L76">		Task persistDataToDatabaseTask = new Task();</span>
+<span class="fc" id="L77">		persistDataToDatabaseTask.setIdentifier(&quot;persistDataToDatabaseTask&quot;);</span>
+
+<span class="fc" id="L79">		Task notifyByMobileVibrationTask = new Task();</span>
+<span class="fc" id="L80">		notifyByMobileVibrationTask.setIdentifier(&quot;notifyByMobileVibrationTask&quot;);</span>
+
+<span class="fc" id="L82">		Task notifyBySoundAlertTask = new Task();</span>
+<span class="fc" id="L83">		notifyBySoundAlertTask.setIdentifier(&quot;notifyBySoundAlert&quot;);</span>
+
+<span class="fc" id="L85">		Task notifyByLightAlertTask = new Task();</span>
+<span class="fc" id="L86">		notifyByLightAlertTask.setIdentifier(&quot;notifyByLightAlert&quot;);</span>
+
+<span class="fc" id="L88">		Task centralCallTask = new Task();</span>
+<span class="fc" id="L89">		centralCallTask.setIdentifier(&quot;centralCallsP&quot;);</span>
+
+<span class="fc" id="L91">		Task sendInfoBySMSTask = new Task();</span>
+<span class="fc" id="L92">		sendInfoBySMSTask.setIdentifier(&quot;sendInfoBySMS&quot;);</span>
+
+<span class="fc" id="L94">		Task sendInfoByInternetTask = new Task();</span>
+<span class="fc" id="L95">		sendInfoByInternetTask.setIdentifier(&quot;sendInfoByInternet&quot;);</span>
+
+<span class="fc" id="L97">		Task considerLastKnownLocationTask = new Task();</span>
+<span class="fc" id="L98">		considerLastKnownLocationTask.setIdentifier(&quot;considerLastKnownLocation&quot;);</span>
+
+<span class="fc" id="L100">		Task identifyLocationByVoiceCallTask = new Task();</span>
+<span class="fc" id="L101">		identifyLocationByVoiceCallTask.setIdentifier(&quot;identifyLocationByVoiceCall&quot;);</span>
+
+<span class="fc" id="L103">		Task accessLocationFromTriangulationTask = new Task();</span>
+<span class="fc" id="L104">		accessLocationFromTriangulationTask.setIdentifier(&quot;accessLocationFromTriangulation&quot;);</span>
+
+<span class="fc" id="L106">		Task accessLocationFromGPSTask = new Task();</span>
+<span class="fc" id="L107">		accessLocationFromGPSTask.setIdentifier(&quot;accessLocationFromGPS&quot;);</span>
+
+<span class="fc" id="L109">		Task accessDataFromDatabaseTask = new Task();</span>
+<span class="fc" id="L110">		accessDataFromDatabaseTask.setIdentifier(&quot;accessDataFromDatabase&quot;);</span>
+
+<span class="fc" id="L112">		Task getInfoFromResponsibleTask = new Task();</span>
+<span class="fc" id="L113">		getInfoFromResponsibleTask.setIdentifier(&quot;getInfoFromResponsible&quot;);</span>
+
+<span class="fc" id="L115">		Task ambulanceDispatchDelegation = new Task();</span>
+<span class="fc" id="L116">		ambulanceDispatchDelegation.setIdentifier(&quot;ambulanceDispatchDelegation&quot;);</span>
+
+<span class="fc" id="L118">		cgm.setRoot(respondToEmergencyGoal);</span>
+
+		/* Refinements */
+
+<span class="fc" id="L122">		respondToEmergencyGoal.addDependency(emergencyIsDetectedGoal);</span>
+<span class="fc" id="L123">		respondToEmergencyGoal.addDependency(isNotifiedAboutEmergencyGoal);</span>
+<span class="fc" id="L124">		respondToEmergencyGoal.addDependency(centralReceivesInfoGoal);</span>
+<span class="fc" id="L125">		respondToEmergencyGoal.addDependency(medicalCareReachesGoal);</span>
+
+<span class="fc" id="L127">		emergencyIsDetectedGoal.addDependency(callForHelpIsAcceptedGoal);</span>
+<span class="fc" id="L128">		emergencyIsDetectedGoal.addDependency(situationsAreIdentifiedGoal);</span>
+
+<span class="fc" id="L130">		callForHelpIsAcceptedGoal.addDependency(receivesEmergencyButtonCallGoal);</span>
+<span class="fc" id="L131">		callForHelpIsAcceptedGoal.addDependency(falseAlarmIsCheckedGoal);</span>
+
+<span class="fc" id="L133">		receivesEmergencyButtonCallGoal.addDependency(notifyCentralBySMSTask);</span>
+<span class="fc" id="L134">		receivesEmergencyButtonCallGoal.addDependency(notifyCentralByInternetTask);</span>
+
+<span class="fc" id="L136">		falseAlarmIsCheckedGoal.addDependency(acceptEmergencyTask);</span>
+<span class="fc" id="L137">		falseAlarmIsCheckedGoal.addDependency(pIsContacted);</span>
+
+<span class="fc" id="L139">		pIsContacted.addDependency(confirmEmergencyByCallTask);</span>
+
+<span class="fc" id="L141">		situationsAreIdentifiedGoal.addDependency(processDataFromSensorsTask);</span>
+<span class="fc" id="L142">		situationsAreIdentifiedGoal.addDependency(vitalSignsAreMonitoredGoal);</span>
+<span class="fc" id="L143">		situationsAreIdentifiedGoal.addDependency(identifySituationTask);</span>
+
+<span class="fc" id="L145">		vitalSignsAreMonitoredGoal.addDependency(collectDataFromSensorsTask);</span>
+<span class="fc" id="L146">		vitalSignsAreMonitoredGoal.addDependency(persistDataToDatabaseTask);</span>
+
+<span class="fc" id="L148">		isNotifiedAboutEmergencyGoal.addDependency(notifyByMobileVibrationTask);</span>
+<span class="fc" id="L149">		isNotifiedAboutEmergencyGoal.addDependency(notifyBySoundAlertTask);</span>
+<span class="fc" id="L150">		isNotifiedAboutEmergencyGoal.addDependency(notifyByLightAlertTask);</span>
+<span class="fc" id="L151">		isNotifiedAboutEmergencyGoal.addDependency(centralCallTask);</span>
+
+<span class="fc" id="L153">		centralReceivesInfoGoal.addDependency(infoIsSentToEmergencyGoal);</span>
+<span class="fc" id="L154">		centralReceivesInfoGoal.addDependency(infoIsPreparedGoal);</span>
+
+<span class="fc" id="L156">		infoIsSentToEmergencyGoal.addDependency(sendInfoBySMSTask);</span>
+<span class="fc" id="L157">		infoIsSentToEmergencyGoal.addDependency(sendInfoByInternetTask);</span>
+
+<span class="fc" id="L159">		infoIsPreparedGoal.addDependency(setupAutomatedInfoGoal);</span>
+<span class="fc" id="L160">		infoIsPreparedGoal.addDependency(contactResponsibleGoal);</span>
+
+<span class="fc" id="L162">		setupAutomatedInfoGoal.addDependency(locationIsIdentifiedGoal);</span>
+<span class="fc" id="L163">		setupAutomatedInfoGoal.addDependency(situationDataIsRecoveredGoal);</span>
+
+<span class="fc" id="L165">		locationIsIdentifiedGoal.addDependency(considerLastKnownLocationTask);</span>
+<span class="fc" id="L166">		locationIsIdentifiedGoal.addDependency(identifyLocationByVoiceCallTask);</span>
+<span class="fc" id="L167">		locationIsIdentifiedGoal.addDependency(accessLocationFromGPSTask);</span>
+<span class="fc" id="L168">		locationIsIdentifiedGoal.addDependency(accessLocationFromTriangulationTask);</span>
+
+<span class="fc" id="L170">		situationDataIsRecoveredGoal.addDependency(accessDataFromDatabaseTask);</span>
+
+<span class="fc" id="L172">		contactResponsibleGoal.addDependency(getInfoFromResponsibleTask);</span>
+
+<span class="fc" id="L174">		medicalCareReachesGoal.addDependency(ambulanceIsDispatchedToLocationGoal);</span>
+
+<span class="fc" id="L176">		ambulanceIsDispatchedToLocationGoal.addDependency(ambulanceDispatchDelegation);</span>
+
+		/* Applicable Contexts */
+
+<span class="fc" id="L180">		notifyCentralBySMSTask.addApplicableContext(c2);</span>
+
+<span class="fc" id="L182">		notifyCentralByInternetTask.addApplicableContext(c3);</span>
+<span class="fc" id="L183">		notifyCentralByInternetTask.addApplicableContext(c4);</span>
+
+<span class="fc" id="L185">		acceptEmergencyTask.addNonApplicableContext(c2);</span>
+
+<span class="fc" id="L187">		confirmEmergencyByCallTask.addApplicableContext(c2);</span>
+
+<span class="fc" id="L189">		notifyByMobileVibrationTask.addApplicableContext(c1);</span>
+
+<span class="fc" id="L191">		notifyBySoundAlertTask.addApplicableContext(c6);</span>
+
+<span class="fc" id="L193">		notifyByLightAlertTask.addApplicableContext(c7);</span>
+
+<span class="fc" id="L195">		centralCallTask.addApplicableContext(c8);</span>
+
+<span class="fc" id="L197">		sendInfoBySMSTask.addApplicableContext(c2);</span>
+
+<span class="fc" id="L199">		sendInfoByInternetTask.addApplicableContext(c3);</span>
+<span class="fc" id="L200">		sendInfoByInternetTask.addApplicableContext(c4);</span>
+
+<span class="fc" id="L202">		identifyLocationByVoiceCallTask.addApplicableContext(c2);</span>
+
+<span class="fc" id="L204">		accessLocationFromTriangulationTask.addApplicableContext(c2);</span>
+
+<span class="fc" id="L206">		accessLocationFromGPSTask.addApplicableContext(c5);</span>
+
+		/* Goal interpretations */
+		{
+<span class="fc" id="L210">			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 180, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L211">			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 90, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L212">			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 240, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L213">			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc1);</span>
+<span class="fc" id="L214">			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc2);</span>
+<span class="fc" id="L215">			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc3);</span>
+		}
+
+		{
+<span class="fc" id="L219">			QualityConstraint qc1 = new QualityConstraint(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30,</span>
+<span class="fc" id="L220">					Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L221">			QualityConstraint qc2 = new QualityConstraint(c3, Metric.FALSE_NEGATIVE_PERCENTAGE, 10,</span>
+<span class="fc" id="L222">					Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L223">			QualityConstraint qc3 = new QualityConstraint(c9, Metric.FALSE_NEGATIVE_PERCENTAGE, 5,</span>
+<span class="fc" id="L224">					Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L225">			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc1);</span>
+<span class="fc" id="L226">			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc2);</span>
+<span class="fc" id="L227">			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc3);</span>
+		}
+
+		{
+<span class="fc" id="L231">			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 60, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L232">			centralReceivesInfoGoal.getInterpretation().addQualityConstraint(qc1);</span>
+		}
+
+		{
+<span class="fc" id="L236">			QualityConstraint qc4 = new QualityConstraint(null, Metric.DISTANCE_ERROR, 1000,</span>
+<span class="fc" id="L237">					Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L238">			QualityConstraint qc6 = new QualityConstraint(c5, Metric.DISTANCE_ERROR, 20, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L239">			QualityConstraint qc5 = new QualityConstraint(c10, Metric.DISTANCE_ERROR, 200, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L240">			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 120, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L241">			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 240, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L242">			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 20, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L243">			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);</span>
+<span class="fc" id="L244">			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);</span>
+<span class="fc" id="L245">			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);</span>
+<span class="fc" id="L246">			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc4);</span>
+<span class="fc" id="L247">			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc5);</span>
+<span class="fc" id="L248">			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc6);</span>
+		}
+
+		{
+<span class="fc" id="L252">			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L253">			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L254">			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc1);</span>
+<span class="fc" id="L255">			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc2);</span>
+		}
+
+		{
+<span class="fc" id="L259">			QualityConstraint qc1 = new QualityConstraint(null, Metric.NOISE, 10, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L260">			QualityConstraint qc2 = new QualityConstraint(c1, Metric.NOISE, 3, Comparison.LESS_OR_EQUAL_TO);</span>
+<span class="fc" id="L261">			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc1);</span>
+<span class="fc" id="L262">			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc2);</span>
+		}
+
+		/* Provided Task QoS */
+<span class="fc" id="L266">		notifyCentralBySMSTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 10);</span>
+
+<span class="fc" id="L268">		notifyCentralByInternetTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);</span>
+
+<span class="fc" id="L270">		acceptEmergencyTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30);</span>
+
+<span class="fc" id="L272">		confirmEmergencyByCallTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);</span>
+
+<span class="fc" id="L274">		processDataFromSensorsTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 15);</span>
+
+<span class="fc" id="L276">		collectDataFromSensorsTask.setProvidedQuality(null, Metric.SECONDS, 120);</span>
+<span class="fc" id="L277">		collectDataFromSensorsTask.setProvidedQuality(c3, Metric.SECONDS, 60);</span>
+
+<span class="fc" id="L279">		persistDataToDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 5);</span>
+
+<span class="fc" id="L281">		identifySituationTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 20);</span>
+
+<span class="fc" id="L283">		notifyByMobileVibrationTask.setProvidedQuality(null, Metric.NOISE, 2);</span>
+<span class="fc" id="L284">		notifyBySoundAlertTask.setProvidedQuality(null, Metric.NOISE, 9);</span>
+<span class="fc" id="L285">		notifyByLightAlertTask.setProvidedQuality(null, Metric.NOISE, 0);</span>
+<span class="fc" id="L286">		centralCallTask.setProvidedQuality(null, Metric.NOISE, 7);</span>
+
+<span class="fc" id="L288">		sendInfoBySMSTask.setProvidedQuality(null, Metric.SECONDS, 65);</span>
+<span class="fc" id="L289">		sendInfoBySMSTask.setProvidedQuality(c8, Metric.SECONDS, 45);</span>
+
+<span class="fc" id="L291">		sendInfoByInternetTask.setProvidedQuality(null, Metric.SECONDS, 40);</span>
+
+<span class="fc" id="L293">		considerLastKnownLocationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 900);</span>
+<span class="fc" id="L294">		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 15);</span>
+
+<span class="fc" id="L296">		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 100);</span>
+<span class="fc" id="L297">		identifyLocationByVoiceCallTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 300);</span>
+<span class="fc" id="L298">		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.SECONDS, 45);</span>
+
+<span class="fc" id="L300">		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 40);</span>
+<span class="fc" id="L301">		accessLocationFromTriangulationTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 400);</span>
+<span class="fc" id="L302">		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.SECONDS, 30);</span>
+
+<span class="fc" id="L304">		accessLocationFromGPSTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 20);</span>
+<span class="fc" id="L305">		accessLocationFromGPSTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 30);</span>
+<span class="fc" id="L306">		accessLocationFromGPSTask.setProvidedQuality(null, Metric.SECONDS, 50);</span>
+
+<span class="fc" id="L308">		accessDataFromDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 20);</span>
+
+<span class="fc" id="L310">		getInfoFromResponsibleTask.setProvidedQuality(null, Metric.SECONDS, 25);</span>
+<span class="fc" id="L311">		getInfoFromResponsibleTask.setProvidedQuality(c11, Metric.SECONDS, 50);</span>
+
+<span class="fc" id="L313">		ambulanceDispatchDelegation.setProvidedQuality(null, Metric.SECONDS, 30);</span>
+<span class="fc" id="L314">	}</span>
+
+	// @Test
+	public void testC1() {
+<span class="nc" id="L318">		System.out.println(&quot;=========== Test C1 ================&quot;);</span>
+<span class="nc" id="L319">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);</span>
+<span class="nc" id="L320">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="nc bnc" id="L322" title="All 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="nc bnc" id="L323" title="All 2 branches missed.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="nc" id="L324">			int found = 0;</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;accessLocationFromGPS&quot;))</span>
+<span class="nc" id="L326">				found = 1;</span>
+<span class="nc bnc" id="L327" title="All 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;centralCallsP&quot;))</span>
+<span class="nc" id="L328">				found = 1;</span>
+<span class="nc" id="L329">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="nc" id="L331">	}</span>
+
+	@Test
+	public void testC2() {
+<span class="fc" id="L335">		System.out.println(&quot;=========== Test C2 ================&quot;);</span>
+<span class="fc" id="L336">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);</span>
+<span class="fc" id="L337">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L339" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L340" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L341">			int found = 0;</span>
+<span class="pc bpc" id="L342" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;acceptEmergency&quot;))</span>
+<span class="nc" id="L343">				found = 1;</span>
+<span class="pc bpc" id="L344" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyBySoundAlert&quot;))</span>
+<span class="nc" id="L345">				found = 1;</span>
+
+<span class="fc" id="L347">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L349">	}</span>
+
+	@Test
+	public void testC3() {
+<span class="fc" id="L353">		System.out.println(&quot;=========== Test C3 ================&quot;);</span>
+<span class="fc" id="L354">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0);</span>
+<span class="fc" id="L355">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L357" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L358" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L359">			int found = 0;</span>
+<span class="pc bpc" id="L360" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;acceptEmergency&quot;))</span>
+<span class="nc" id="L361">				found = 1;</span>
+
+<span class="fc" id="L363">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L365">	}</span>
+
+	@Test
+	public void testC4() {
+<span class="fc" id="L369">		System.out.println(&quot;=========== Test C4 ================&quot;);</span>
+<span class="fc" id="L370">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);</span>
+<span class="fc" id="L371">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+<span class="pc bpc" id="L372" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L373" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L374">			int found = 0;</span>
+<span class="pc bpc" id="L375" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyCentralBySMS&quot;))</span>
+<span class="nc" id="L376">				found = 1;</span>
+<span class="pc bpc" id="L377" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;confirmEmergencyByCall&quot;))</span>
+<span class="nc" id="L378">				found = 1;</span>
+<span class="pc bpc" id="L379" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyBySoundAlert&quot;))</span>
+<span class="nc" id="L380">				found = 1;</span>
+<span class="pc bpc" id="L381" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;sendInfoBySMS&quot;))</span>
+<span class="nc" id="L382">				found = 1;</span>
+<span class="pc bpc" id="L383" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;identifyLocationByVoiceCall&quot;))</span>
+<span class="nc" id="L384">				found = 1;</span>
+<span class="pc bpc" id="L385" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;accessLocationFromTriangulation&quot;))</span>
+<span class="nc" id="L386">				found = 1;</span>
+<span class="fc" id="L387">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L389">	}</span>
+
+	@Test
+	public void testC5() {
+<span class="fc" id="L393">		System.out.println(&quot;=========== Test C5 ================&quot;);</span>
+<span class="fc" id="L394">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);</span>
+<span class="fc" id="L395">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L397" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L398" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L399">			int found = 0;</span>
+<span class="pc bpc" id="L400" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyCentralBySMS&quot;))</span>
+<span class="nc" id="L401">				found = 1;</span>
+<span class="pc bpc" id="L402" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyBySoundAlert&quot;))</span>
+<span class="nc" id="L403">				found = 1;</span>
+<span class="pc bpc" id="L404" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;sendInfoBySMS&quot;))</span>
+<span class="nc" id="L405">				found = 1;</span>
+<span class="pc bpc" id="L406" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;confirmEmergencyByCall&quot;))</span>
+<span class="nc" id="L407">				found = 1;</span>
+<span class="fc" id="L408">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L410">	}</span>
+
+	@Test
+	public void testC6() {
+<span class="fc" id="L414">		System.out.println(&quot;=========== Test C6 ================&quot;);</span>
+<span class="fc" id="L415">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1);</span>
+<span class="fc" id="L416">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+<span class="pc bpc" id="L417" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L418" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L419">			int found = 0;</span>
+<span class="pc bpc" id="L420" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyCentralBySMS&quot;))</span>
+<span class="nc" id="L421">				found = 1;</span>
+<span class="pc bpc" id="L422" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;sendInfoBySMS&quot;))</span>
+<span class="nc" id="L423">				found = 1;</span>
+<span class="pc bpc" id="L424" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;confirmEmergencyByCall&quot;))</span>
+<span class="nc" id="L425">				found = 1;</span>
+<span class="fc" id="L426">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L428">	}</span>
+
+	@Test
+	public void testC7() {
+<span class="fc" id="L432">		System.out.println(&quot;=========== Test C7 ================&quot;);</span>
+<span class="fc" id="L433">		HashSet&lt;Context&gt; fullContext = createFullContext(0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0);</span>
+<span class="fc" id="L434">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L436" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L437" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L438">			int found = 0;</span>
+<span class="pc bpc" id="L439" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyCentralBySMS&quot;))</span>
+<span class="nc" id="L440">				found = 1;</span>
+<span class="pc bpc" id="L441" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyByMobileVibrationTask&quot;))</span>
+<span class="nc" id="L442">				found = 1;</span>
+<span class="pc bpc" id="L443" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyBySoundAlert&quot;))</span>
+<span class="nc" id="L444">				found = 1;</span>
+<span class="pc bpc" id="L445" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;sendInfoBySMS&quot;))</span>
+<span class="nc" id="L446">				found = 1;</span>
+<span class="pc bpc" id="L447" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;confirmEmergencyByCall&quot;))</span>
+<span class="nc" id="L448">				found = 1;</span>
+<span class="pc bpc" id="L449" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;identifyLocationByVoiceCall&quot;))</span>
+<span class="nc" id="L450">				found = 1;</span>
+<span class="pc bpc" id="L451" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;accessLocationFromTriangulation&quot;))</span>
+<span class="nc" id="L452">				found = 1;</span>
+<span class="pc bpc" id="L453" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;accessLocationFromGPS&quot;))</span>
+<span class="nc" id="L454">				found = 1;</span>
+<span class="fc" id="L455">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L457">	}</span>
+
+	@Test
+	public void testC8() {
+<span class="fc" id="L461">		System.out.println(&quot;=========== Test C8 ================&quot;);</span>
+<span class="fc" id="L462">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);</span>
+<span class="fc" id="L463">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L465" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L466" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L467">			int found = 0;</span>
+<span class="pc bpc" id="L468" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyCentralBySMS&quot;))</span>
+<span class="nc" id="L469">				found = 1;</span>
+<span class="pc bpc" id="L470" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;identifyLocationByVoiceCall&quot;))</span>
+<span class="nc" id="L471">				found = 1;</span>
+<span class="pc bpc" id="L472" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;accessLocationFromTriangulation&quot;))</span>
+<span class="nc" id="L473">				found = 1;</span>
+<span class="pc bpc" id="L474" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyBySoundAlert&quot;))</span>
+<span class="nc" id="L475">				found = 1;</span>
+<span class="pc bpc" id="L476" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;sendInfoBySMS&quot;))</span>
+<span class="nc" id="L477">				found = 1;</span>
+<span class="pc bpc" id="L478" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;confirmEmergencyByCall&quot;))</span>
+<span class="nc" id="L479">				found = 1;</span>
+<span class="fc" id="L480">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L482">	}</span>
+
+	@Test
+	public void testC9() {
+<span class="fc" id="L486">		System.out.println(&quot;=========== Test C9 ================&quot;);</span>
+<span class="fc" id="L487">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0);</span>
+<span class="fc" id="L488">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L490" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L491" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L492">			int found = 0;</span>
+<span class="pc bpc" id="L493" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyByLightAlert&quot;))</span>
+<span class="nc" id="L494">				found = 1;</span>
+<span class="pc bpc" id="L495" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;acceptsEmergency&quot;))</span>
+<span class="nc" id="L496">				found = 1;</span>
+<span class="fc" id="L497">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L499">	}</span>
+
+	@Test
+	public void testC10() {
+<span class="fc" id="L503">		System.out.println(&quot;=========== Test C10 ================&quot;);</span>
+<span class="fc" id="L504">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1);</span>
+<span class="fc" id="L505">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L507" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L508" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L509">			int found = 0;</span>
+<span class="pc bpc" id="L510" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyByLightAlert&quot;))</span>
+<span class="nc" id="L511">				found = 1;</span>
+<span class="pc bpc" id="L512" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;acceptEmergency&quot;))</span>
+<span class="nc" id="L513">				found = 1;</span>
+<span class="fc" id="L514">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L516">	}</span>
+
+	@Test
+	public void testC11() {
+<span class="fc" id="L520">		System.out.println(&quot;=========== Test C11 ================&quot;);</span>
+<span class="fc" id="L521">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1);</span>
+<span class="fc" id="L522">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L524" title="1 of 2 branches missed.">		assertTrue(&quot;CGM is unachievable&quot;, tasks != null);</span>
+<span class="fc bfc" id="L525" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L526">			int found = 0;</span>
+<span class="pc bpc" id="L527" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyCentralBySMS&quot;))</span>
+<span class="nc" id="L528">				found = 1;</span>
+<span class="pc bpc" id="L529" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyByLightAlert&quot;))</span>
+<span class="nc" id="L530">				found = 1;</span>
+<span class="pc bpc" id="L531" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;sendInfoBySMS&quot;))</span>
+<span class="nc" id="L532">				found = 1;</span>
+<span class="pc bpc" id="L533" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;confirmEmergencyByCall&quot;))</span>
+<span class="nc" id="L534">				found = 1;</span>
+<span class="fc" id="L535">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L537">	}</span>
+
+	@Test
+	public void testC12() {
+<span class="fc" id="L541">		System.out.println(&quot;=========== Test C12 ================&quot;);</span>
+<span class="fc" id="L542">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);</span>
+<span class="fc" id="L543">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L545" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L546" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L547">			int found = 0;</span>
+<span class="pc bpc" id="L548" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;notifyCentralBySMS&quot;))</span>
+<span class="nc" id="L549">				found = 1;</span>
+<span class="pc bpc" id="L550" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;sendInfoBySMS&quot;))</span>
+<span class="nc" id="L551">				found = 1;</span>
+<span class="pc bpc" id="L552" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;confirmEmergencyByCall&quot;))</span>
+<span class="nc" id="L553">				found = 1;</span>
+<span class="fc" id="L554">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L556">	}</span>
+
+	@Test
+	public void testAll() {
+<span class="fc" id="L560">		System.out.println(&quot;=========== Test All ================&quot;);</span>
+<span class="fc" id="L561">		HashSet&lt;Context&gt; fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);</span>
+<span class="fc" id="L562">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L564" title="1 of 2 branches missed.">		assertTrue(tasks != null);</span>
+<span class="fc bfc" id="L565" title="All 2 branches covered.">		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {</span>
+<span class="fc" id="L566">			int found = 0;</span>
+<span class="pc bpc" id="L567" title="1 of 2 branches missed.">			if (task.getIdentifier().contentEquals(&quot;acceptEmergency&quot;))</span>
+<span class="nc" id="L568">				found = 1;</span>
+<span class="fc" id="L569">			assertEquals(&quot;Task &quot; + task.getIdentifier() + &quot; not expected&quot;, 0, found);</span>
+		}
+<span class="fc" id="L571">	}</span>
+
+	@Test
+	public void testNone() {
+<span class="fc" id="L575">		System.out.println(&quot;=========== Test None ================&quot;);</span>
+<span class="fc" id="L576">		HashSet&lt;Context&gt; fullContext = createFullContext(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);</span>
+<span class="fc" id="L577">		Plan tasks = cgm.isAchievable(fullContext, null);</span>
+
+<span class="pc bpc" id="L579" title="1 of 2 branches missed.">		assertTrue(tasks == null);</span>
+<span class="fc" id="L580">	}</span>
+
+	private HashSet&lt;Context&gt; createFullContext(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,
+			int t10, int t11, int t12) {
+<span class="fc" id="L584">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+
+<span class="fc" id="L586">		System.out.print(&quot;Contexto: [&quot;);</span>
+<span class="fc bfc" id="L587" title="All 2 branches covered.">		if (t1 == 1) {</span>
+<span class="fc" id="L588">			fullContext.add(c1);</span>
+<span class="fc" id="L589">			System.out.print(&quot;c1 &quot;);</span>
+		}
+<span class="fc bfc" id="L591" title="All 2 branches covered.">		if (t2 == 1) {</span>
+<span class="fc" id="L592">			fullContext.add(c2);</span>
+<span class="fc" id="L593">			System.out.print(&quot;c2 &quot;);</span>
+		}
+<span class="fc bfc" id="L595" title="All 2 branches covered.">		if (t3 == 1) {</span>
+<span class="fc" id="L596">			fullContext.add(c3);</span>
+<span class="fc" id="L597">			System.out.print(&quot;c3 &quot;);</span>
+		}
+<span class="fc bfc" id="L599" title="All 2 branches covered.">		if (t4 == 1) {</span>
+<span class="fc" id="L600">			fullContext.add(c4);</span>
+<span class="fc" id="L601">			System.out.print(&quot;c4 &quot;);</span>
+		}
+<span class="fc bfc" id="L603" title="All 2 branches covered.">		if (t5 == 1) {</span>
+<span class="fc" id="L604">			fullContext.add(c5);</span>
+<span class="fc" id="L605">			System.out.print(&quot;c5 &quot;);</span>
+		}
+<span class="fc bfc" id="L607" title="All 2 branches covered.">		if (t6 == 1) {</span>
+<span class="fc" id="L608">			fullContext.add(c6);</span>
+<span class="fc" id="L609">			System.out.print(&quot;c6 &quot;);</span>
+		}
+<span class="fc bfc" id="L611" title="All 2 branches covered.">		if (t7 == 1) {</span>
+<span class="fc" id="L612">			fullContext.add(c7);</span>
+<span class="fc" id="L613">			System.out.print(&quot;c7 &quot;);</span>
+		}
+<span class="fc bfc" id="L615" title="All 2 branches covered.">		if (t8 == 1) {</span>
+<span class="fc" id="L616">			fullContext.add(c8);</span>
+<span class="fc" id="L617">			System.out.print(&quot;c8 &quot;);</span>
+		}
+<span class="fc bfc" id="L619" title="All 2 branches covered.">		if (t9 == 1) {</span>
+<span class="fc" id="L620">			fullContext.add(c9);</span>
+<span class="fc" id="L621">			System.out.print(&quot;c9 &quot;);</span>
+		}
+<span class="fc bfc" id="L623" title="All 2 branches covered.">		if (t10 == 1) {</span>
+<span class="fc" id="L624">			fullContext.add(c10);</span>
+<span class="fc" id="L625">			System.out.print(&quot;c10 &quot;);</span>
+		}
+<span class="fc bfc" id="L627" title="All 2 branches covered.">		if (t11 == 1) {</span>
+<span class="fc" id="L628">			fullContext.add(c11);</span>
+<span class="fc" id="L629">			System.out.print(&quot;c11 &quot;);</span>
+		}
+<span class="fc bfc" id="L631" title="All 2 branches covered.">		if (t12 == 1) {</span>
+<span class="fc" id="L632">			fullContext.add(c12);</span>
+<span class="fc" id="L633">			System.out.print(&quot;c12 &quot;);</span>
+		}
+<span class="fc" id="L635">		System.out.println(&quot;]&quot;);</span>
+<span class="fc" id="L636">		return fullContext;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>CgmFullTest (Jan 23, 2015 3:34:45 PM)</div></body></html>
