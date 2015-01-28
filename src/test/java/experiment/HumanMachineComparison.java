@@ -2,6 +2,12 @@ package experiment;
 
 import java.util.HashSet;
 
+import metrics.DistanceErrorMargin;
+import metrics.EnvironmentNoise;
+import metrics.ExecutionTimeSec;
+import metrics.FalseNegativePercentage;
+import metrics.Metric;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +15,6 @@ import cgm.CGM;
 import cgm.Comparison;
 import cgm.Context;
 import cgm.Goal;
-import cgm.Metric;
 import cgm.Pragmatic;
 import cgm.QualityConstraint;
 import cgm.Task;
@@ -214,37 +219,37 @@ public class HumanMachineComparison {
 
 		/* Goal interpretations */
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 180, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 90, Comparison.LESS_THAN);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 240, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 180, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 90, Comparison.LESS_THAN);
+			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240, Comparison.LESS_THAN);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc3);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30,
+			QualityConstraint qc1 = new QualityConstraint(null, (new FalseNegativePercentage()), 30,
 					Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c3, Metric.FALSE_NEGATIVE_PERCENTAGE, 10,
+			QualityConstraint qc2 = new QualityConstraint(c3, (new FalseNegativePercentage()), 10,
 					Comparison.LESS_THAN);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.FALSE_NEGATIVE_PERCENTAGE, 5, Comparison.LESS_THAN);
+			QualityConstraint qc3 = new QualityConstraint(c9, (new FalseNegativePercentage()), 5, Comparison.LESS_THAN);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc1);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc2);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc3);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 60, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 60, Comparison.LESS_THAN);
 			centralReceivesInfoGoal.getInterpretation().addQualityConstraint(qc1);
 		}
 
 		{
-			QualityConstraint qc4 = new QualityConstraint(null, Metric.DISTANCE_ERROR, 1000, Comparison.LESS_THAN);
-			QualityConstraint qc6 = new QualityConstraint(c5, Metric.DISTANCE_ERROR, 20, Comparison.LESS_THAN);
-			QualityConstraint qc5 = new QualityConstraint(c10, Metric.DISTANCE_ERROR, 200, Comparison.LESS_THAN);
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 120, Comparison.LESS_THAN);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 240, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 20, Comparison.LESS_THAN);
+			QualityConstraint qc4 = new QualityConstraint(null, (new DistanceErrorMargin()), 1000, Comparison.LESS_THAN);
+			QualityConstraint qc6 = new QualityConstraint(c5, (new DistanceErrorMargin()), 20, Comparison.LESS_THAN);
+			QualityConstraint qc5 = new QualityConstraint(c10, (new DistanceErrorMargin()), 200, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 120, Comparison.LESS_THAN);
+			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 20, Comparison.LESS_THAN);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);
@@ -254,68 +259,68 @@ public class HumanMachineComparison {
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 900, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 600, Comparison.LESS_THAN);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc1);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.NOISE, 10, Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c1, Metric.NOISE, 3, Comparison.LESS_THAN);
+			QualityConstraint qc1 = new QualityConstraint(null, (new EnvironmentNoise()), 10, Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c1, (new EnvironmentNoise()), 3, Comparison.LESS_THAN);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 
 		/* Provided Task QoS */
-		notifyCentralBySMSTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 10);
+		notifyCentralBySMSTask.setProvidedQuality(null, (new FalseNegativePercentage()), 10);
 
-		notifyCentralByInternetTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);
+		notifyCentralByInternetTask.setProvidedQuality(null, (new FalseNegativePercentage()), 5);
 
-		acceptEmergencyTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30);
+		acceptEmergencyTask.setProvidedQuality(null, (new FalseNegativePercentage()), 30);
 
-		confirmEmergencyByCallTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);
+		confirmEmergencyByCallTask.setProvidedQuality(null, (new FalseNegativePercentage()), 5);
 
-		processDataFromSensorsTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 15);
+		processDataFromSensorsTask.setProvidedQuality(null, (new FalseNegativePercentage()), 15);
 
-		collectDataFromSensorsTask.setProvidedQuality(null, Metric.SECONDS, 120);
-		collectDataFromSensorsTask.setProvidedQuality(c3, Metric.SECONDS, 60);
+		collectDataFromSensorsTask.setProvidedQuality(null, (new ExecutionTimeSec()), 120);
+		collectDataFromSensorsTask.setProvidedQuality(c3, (new ExecutionTimeSec()), 60);
 
-		persistDataToDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 5);
+		persistDataToDatabaseTask.setProvidedQuality(null, (new ExecutionTimeSec()), 5);
 
-		identifySituationTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 20);
+		identifySituationTask.setProvidedQuality(null, (new FalseNegativePercentage()), 20);
 
-		notifyByMobileVibrationTask.setProvidedQuality(null, Metric.NOISE, 2);
-		notifyBySoundAlertTask.setProvidedQuality(null, Metric.NOISE, 9);
-		notifyByLightAlertTask.setProvidedQuality(null, Metric.NOISE, 0);
-		centralCallTask.setProvidedQuality(null, Metric.NOISE, 7);
+		notifyByMobileVibrationTask.setProvidedQuality(null, (new EnvironmentNoise()), 2);
+		notifyBySoundAlertTask.setProvidedQuality(null, (new EnvironmentNoise()), 9);
+		notifyByLightAlertTask.setProvidedQuality(null, (new EnvironmentNoise()), 0);
+		centralCallTask.setProvidedQuality(null, (new EnvironmentNoise()), 7);
 
-		sendInfoBySMSTask.setProvidedQuality(null, Metric.SECONDS, 65);
-		sendInfoBySMSTask.setProvidedQuality(c8, Metric.SECONDS, 45);
+		sendInfoBySMSTask.setProvidedQuality(null, (new ExecutionTimeSec()), 65);
+		sendInfoBySMSTask.setProvidedQuality(c8, (new ExecutionTimeSec()), 45);
 
-		sendInfoByInternetTask.setProvidedQuality(null, Metric.SECONDS, 40);
+		sendInfoByInternetTask.setProvidedQuality(null, (new ExecutionTimeSec()), 40);
 
-		considerLastKnownLocationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 900);
-		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 15);
+		considerLastKnownLocationTask.setProvidedQuality(null, (new DistanceErrorMargin()), 900);
+		considerLastKnownLocationTask.setProvidedQuality(null, (new ExecutionTimeSec()), 15);
 
-		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 100);
-		identifyLocationByVoiceCallTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 300);
-		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.SECONDS, 45);
+		identifyLocationByVoiceCallTask.setProvidedQuality(null, (new DistanceErrorMargin()), 100);
+		identifyLocationByVoiceCallTask.setProvidedQuality(c11, (new DistanceErrorMargin()), 300);
+		identifyLocationByVoiceCallTask.setProvidedQuality(null, (new ExecutionTimeSec()), 45);
 
-		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 40);
-		accessLocationFromTriangulationTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 400);
-		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.SECONDS, 30);
+		accessLocationFromTriangulationTask.setProvidedQuality(null, (new DistanceErrorMargin()), 40);
+		accessLocationFromTriangulationTask.setProvidedQuality(c11, (new DistanceErrorMargin()), 400);
+		accessLocationFromTriangulationTask.setProvidedQuality(null, (new ExecutionTimeSec()), 30);
 
-		accessLocationFromGPSTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 20);
-		accessLocationFromGPSTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 30);
-		accessLocationFromGPSTask.setProvidedQuality(null, Metric.SECONDS, 50);
+		accessLocationFromGPSTask.setProvidedQuality(null, (new DistanceErrorMargin()), 20);
+		accessLocationFromGPSTask.setProvidedQuality(c11, (new DistanceErrorMargin()), 30);
+		accessLocationFromGPSTask.setProvidedQuality(null, (new ExecutionTimeSec()), 50);
 
-		accessDataFromDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 20);
+		accessDataFromDatabaseTask.setProvidedQuality(null, (new ExecutionTimeSec()), 20);
 
-		getInfoFromResponsibleTask.setProvidedQuality(null, Metric.SECONDS, 25);
-		getInfoFromResponsibleTask.setProvidedQuality(c11, Metric.SECONDS, 50);
+		getInfoFromResponsibleTask.setProvidedQuality(null, (new ExecutionTimeSec()), 25);
+		getInfoFromResponsibleTask.setProvidedQuality(c11, (new ExecutionTimeSec()), 50);
 
-		ambulanceDispatchDelegation.setProvidedQuality(null, Metric.SECONDS, 30);
+		ambulanceDispatchDelegation.setProvidedQuality(null, (new ExecutionTimeSec()), 30);
 	}
 
 	@Test

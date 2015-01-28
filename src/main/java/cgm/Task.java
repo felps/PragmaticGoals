@@ -3,9 +3,11 @@ package cgm;
 import java.util.HashMap;
 import java.util.Set;
 
+import metrics.Metric;
+
 public class Task extends Refinement {
 
-	private HashMap<String, HashMap<Context, Float>> providedQualityLevels;
+	private HashMap<Metric, HashMap<Context, Float>> providedQualityLevels;
 	private boolean lessIsMore;
 
 	@Override
@@ -14,16 +16,16 @@ public class Task extends Refinement {
 	}
 
 	public Task(boolean lessIsMore) {
-		providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
+		providedQualityLevels = new HashMap<Metric, HashMap<Context, Float>>();
 		this.lessIsMore = lessIsMore;
 	}
 
 	public Task() {
-		providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
+		providedQualityLevels = new HashMap<Metric, HashMap<Context, Float>>();
 		this.lessIsMore = false;
 	}
 
-	public void setProvidedQuality(Context context, String metric, double value) {
+	public void setProvidedQuality(Context context, Metric metric, double value) {
 		HashMap<Context, Float> map;
 
 		if (providedQualityLevels.containsKey(metric)) {
@@ -36,7 +38,7 @@ public class Task extends Refinement {
 		}
 	}
 
-	public float myProvidedQuality(String metric, Set<Context> current) throws MetricNotFoundException {
+	public float myProvidedQuality(Metric metric, Set<Context> current) throws MetricNotFoundException {
 		float myQuality = 0;
 		boolean set = false;
 

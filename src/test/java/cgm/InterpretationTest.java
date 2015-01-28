@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Set;
 
+import metrics.ExecutionTimeSec;
+import metrics.Metric;
+
 import org.junit.Test;
 
 public class InterpretationTest {
@@ -13,7 +16,7 @@ public class InterpretationTest {
 	public void shouldStoreInterpretationsPerApplicableContext() {
 		Interpretation interp = new Interpretation();
 		Context context = new Context("C1");
-		QualityConstraint qc = new QualityConstraint(context , Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+		QualityConstraint qc = new QualityConstraint(context , (new ExecutionTimeSec()), 15, Comparison.LESS_OR_EQUAL_TO);
 
 		interp.addQualityConstraint(qc);
 		HashMap<Context, Set<QualityConstraint>> map =interp.getContextDependentInterpretation();

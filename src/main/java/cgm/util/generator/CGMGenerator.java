@@ -3,11 +3,11 @@ package cgm.util.generator;
 import java.util.HashSet;
 import java.util.Set;
 
+import metrics.Metric;
 import cgm.CGM;
 import cgm.Comparison;
 import cgm.Context;
 import cgm.Goal;
-import cgm.Metric;
 import cgm.Pragmatic;
 import cgm.QualityConstraint;
 import cgm.Refinement;

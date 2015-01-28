@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import java.util.HashSet;
 
+import metrics.DistanceErrorMargin;
+import metrics.ExecutionTimeSec;
+import metrics.Metric;
+
 import org.junit.Test;
 
 public class TaskTest {
@@ -16,9 +20,9 @@ public class TaskTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-		task.setProvidedQuality(current, Metric.METERS, 30.0);
+		task.setProvidedQuality(current, (new DistanceErrorMargin()), 30.0);
 
-		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
+		assertEquals(30.0, task.myProvidedQuality((new DistanceErrorMargin()), fullContext), 0);
 	}
 
 	@Test
@@ -29,9 +33,9 @@ public class TaskTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-		task.setProvidedQuality(null, Metric.METERS, 30.0);
+		task.setProvidedQuality(null, (new DistanceErrorMargin()), 30.0);
 
-		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
+		assertEquals(30.0, task.myProvidedQuality((new DistanceErrorMargin()), fullContext), 0);
 	}
 
 	@Test(expected = MetricNotFoundException.class)
@@ -42,9 +46,9 @@ public class TaskTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-		task.setProvidedQuality(null, Metric.SECONDS, 30.0);
+		task.setProvidedQuality(null, (new ExecutionTimeSec()), 30.0);
 
-		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
+		assertEquals(30.0, task.myProvidedQuality((new DistanceErrorMargin()), fullContext), 0);
 	}
 	
 	@Test

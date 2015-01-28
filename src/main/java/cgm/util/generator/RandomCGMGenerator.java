@@ -3,11 +3,12 @@ package cgm.util.generator;
 import java.util.HashSet;
 import java.util.Set;
 
+import metrics.ExecutionTimeSec;
+import metrics.Metric;
 import cgm.CGM;
 import cgm.Comparison;
 import cgm.Context;
 import cgm.Goal;
-import cgm.Metric;
 import cgm.Pragmatic;
 import cgm.QualityConstraint;
 import cgm.Refinement;
@@ -49,7 +50,7 @@ public class RandomCGMGenerator extends CGMGenerator{
 				task.addApplicableContext(context);
 		}
 		
-		task.setProvidedQuality(null, Metric.SECONDS, metric);
+		task.setProvidedQuality(null, (new ExecutionTimeSec()), metric);
 		
 		return task;
 	}
@@ -92,7 +93,7 @@ public class RandomCGMGenerator extends CGMGenerator{
 			metric = 9;
 		}
 		
-		QualityConstraint qc = new QualityConstraint(null, Metric.SECONDS, metric, Comparison.LESS_THAN);
+		QualityConstraint qc = new QualityConstraint(null, (new ExecutionTimeSec()), metric, Comparison.LESS_THAN);
 		goal.getInterpretation().addQualityConstraint(qc);
 		
 		return goal;

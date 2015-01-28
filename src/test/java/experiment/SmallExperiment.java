@@ -2,6 +2,9 @@ package experiment;
 
 import java.util.HashSet;
 
+import metrics.ExecutionTimeSec;
+import metrics.Metric;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +12,6 @@ import cgm.CGM;
 import cgm.Comparison;
 import cgm.Context;
 import cgm.Goal;
-import cgm.Metric;
 import cgm.Pragmatic;
 import cgm.QualityConstraint;
 import cgm.Task;
@@ -46,15 +48,15 @@ public class SmallExperiment {
 		locationIsIdentifiedGoal.addDependency(accessLocationFromGPSTask);
 		locationIsIdentifiedGoal.addDependency(accessLocationFromTriangulationTask);
 
-		QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 150, Comparison.LESS_THAN);
-		QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 60, Comparison.LESS_THAN);
-		// QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS,
+		QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 150, Comparison.LESS_THAN);
+		QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 60, Comparison.LESS_THAN);
+		// QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()),
 		// 1800, Comparison.LESS_THAN);
-		// QualityConstraint qc4 = new QualityConstraint(null, Metric.SECONDS,
+		// QualityConstraint qc4 = new QualityConstraint(null, (new ExecutionTimeSec()),
 		// 900, Comparison.LESS_THAN);
-		// QualityConstraint qc5 = new QualityConstraint(c10, Metric.SECONDS,
+		// QualityConstraint qc5 = new QualityConstraint(c10, (new ExecutionTimeSec()),
 		// 600, Comparison.LESS_THAN);
-		// QualityConstraint qc6 = new QualityConstraint(c9, Metric.SECONDS,
+		// QualityConstraint qc6 = new QualityConstraint(c9, (new ExecutionTimeSec()),
 		// 1800, Comparison.LESS_THAN);
 		locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);
 		locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);
@@ -68,10 +70,10 @@ public class SmallExperiment {
 		accessLocationFromTriangulationTask.addApplicableContext(c2);
 		accessLocationFromGPSTask.addApplicableContext(c5);
 
-		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 120);
-		identifyLocationByVoiceCallTask.setProvidedQuality(c2, Metric.SECONDS, 90);
-		accessLocationFromTriangulationTask.setProvidedQuality(c2, Metric.SECONDS, 120);
-		accessLocationFromGPSTask.setProvidedQuality(c5, Metric.SECONDS, 50);
+		considerLastKnownLocationTask.setProvidedQuality(null, (new ExecutionTimeSec()), 120);
+		identifyLocationByVoiceCallTask.setProvidedQuality(c2, (new ExecutionTimeSec()), 90);
+		accessLocationFromTriangulationTask.setProvidedQuality(c2, (new ExecutionTimeSec()), 120);
+		accessLocationFromGPSTask.setProvidedQuality(c5, (new ExecutionTimeSec()), 50);
 	}
 
 	@Test
