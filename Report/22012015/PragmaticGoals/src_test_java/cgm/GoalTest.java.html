@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>GoalTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">CgmFullTest (Jan 23, 2015 3:34:45 PM)</a> &gt; <a href="../../index.html" class="el_group">PragmaticGoals</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">cgm</a> &gt; <span class="el_source">GoalTest.java</span></div><h1>GoalTest.java</h1><pre class="source lang-java linenums">package cgm;
+
+import static org.junit.Assert.*;
+
+import java.util.HashSet;
+
+import org.junit.Test;
+
+<span class="fc" id="L9">public class GoalTest {</span>
+
+	@Test
+	public void shouldGetDependencies() {
+<span class="fc" id="L13">		Refinement root = new Goal(false);</span>
+
+<span class="fc" id="L15">		Task task = new Task();</span>
+<span class="fc" id="L16">		Refinement goal = new Goal(false);</span>
+<span class="fc" id="L17">		Delegation delegation = new Delegation();</span>
+
+<span class="fc" id="L19">		root.addDependency(task);</span>
+<span class="fc" id="L20">		root.addDependency(goal);</span>
+<span class="fc" id="L21">		root.addDependency(delegation);</span>
+
+<span class="fc" id="L23">		HashSet&lt;Refinement&gt; deps = new HashSet&lt;Refinement&gt;();</span>
+<span class="fc" id="L24">		deps.add(delegation);</span>
+<span class="fc" id="L25">		deps.add(goal);</span>
+<span class="fc" id="L26">		deps.add(task);</span>
+
+<span class="fc" id="L28">		assertTrue(deps.containsAll(root.getDependencies()));</span>
+<span class="fc" id="L29">		assertTrue(root.getDependencies().containsAll(deps));</span>
+<span class="fc" id="L30">	}</span>
+
+	@Test
+	public void shouldGetApplicableDependencies() {
+<span class="fc" id="L34">		Refinement root = new Goal(false);</span>
+
+<span class="fc" id="L36">		Context context = new Context(&quot;c1&quot;);</span>
+<span class="fc" id="L37">		HashSet&lt;Context&gt; current = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L38">		current.add(context);</span>
+<span class="fc" id="L39">		Task task = new Task();</span>
+<span class="fc" id="L40">		Refinement goal = new Goal(false);</span>
+<span class="fc" id="L41">		Delegation delegation = new Delegation();</span>
+
+<span class="fc" id="L43">		task.addApplicableContext(context);</span>
+
+<span class="fc" id="L45">		root.addDependency(task);</span>
+<span class="fc" id="L46">		root.addDependency(goal);</span>
+<span class="fc" id="L47">		root.addDependency(delegation);</span>
+
+<span class="fc" id="L49">		HashSet&lt;Refinement&gt; deps = new HashSet&lt;Refinement&gt;();</span>
+<span class="fc" id="L50">		deps.add(task);</span>
+
+<span class="fc" id="L52">		assertEquals(1, deps.size());</span>
+<span class="fc" id="L53">		assertTrue(deps.contains(task));</span>
+<span class="fc" id="L54">	}</span>
+
+	@Test
+	public void shouldBeOrDecompositionOrAndDecomposition() throws Exception {
+<span class="fc" id="L58">		Goal or = new Goal(Goal.OR);</span>
+<span class="fc" id="L59">		Goal and = new Goal(Goal.AND);</span>
+
+<span class="fc" id="L61">		assertTrue(or.isOrDecomposition());</span>
+<span class="fc" id="L62">		assertFalse(or.isAndDecomposition());</span>
+
+<span class="fc" id="L64">		assertFalse(and.isOrDecomposition());</span>
+<span class="fc" id="L65">		assertTrue(and.isAndDecomposition());</span>
+<span class="fc" id="L66">	}</span>
+
+	@Test
+	public void shouldBeAchievable(){
+		
+<span class="fc" id="L71">		Refinement root = new Goal(Goal.AND);</span>
+
+<span class="fc" id="L73">		Context context = new Context(&quot;c1&quot;);</span>
+<span class="fc" id="L74">		HashSet&lt;Context&gt; current = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L75">		current.add(context);</span>
+		
+<span class="fc" id="L77">		Task task1 = new Task();</span>
+		
+<span class="fc" id="L79">		Task task2 = new Task();</span>
+		
+<span class="fc" id="L81">		task1.addApplicableContext(context);</span>
+
+<span class="fc" id="L83">		root.addDependency(task1);</span>
+<span class="fc" id="L84">		root.addDependency(task2);</span>
+
+<span class="fc" id="L86">		HashSet&lt;Refinement&gt; deps = new HashSet&lt;Refinement&gt;();</span>
+<span class="fc" id="L87">		deps.add(task1);</span>
+<span class="fc" id="L88">		deps.add(task2);</span>
+
+<span class="fc" id="L90">		Plan plan = root.isAchievable(current, null);</span>
+<span class="fc" id="L91">		assertNotEquals(null, plan);</span>
+		
+<span class="fc" id="L93">		assertTrue(plan.getTasks().contains(task1));</span>
+<span class="fc" id="L94">		assertTrue(plan.getTasks().contains(task2));</span>
+		
+		
+
+<span class="fc" id="L98">	}</span>
+
+
+
+	@Test
+	public void shouldBeUnachievable(){
+		
+<span class="fc" id="L105">		Refinement root = new Goal(Goal.AND);</span>
+
+<span class="fc" id="L107">		Context context1 = new Context(&quot;c1&quot;);</span>
+<span class="fc" id="L108">		Context context2 = new Context(&quot;c2&quot;);</span>
+		
+<span class="fc" id="L110">		HashSet&lt;Context&gt; current = new HashSet&lt;Context&gt;();</span>
+<span class="fc" id="L111">		current.add(context1);</span>
+		
+<span class="fc" id="L113">		Task task1 = new Task();</span>
+		
+<span class="fc" id="L115">		Task task2 = new Task();</span>
+		
+<span class="fc" id="L117">		task1.addApplicableContext(context2);</span>
+<span class="fc" id="L118">		task2.addApplicableContext(context2);</span>
+
+<span class="fc" id="L120">		root.addDependency(task1);</span>
+<span class="fc" id="L121">		root.addDependency(task2);</span>
+
+<span class="fc" id="L123">		HashSet&lt;Refinement&gt; deps = new HashSet&lt;Refinement&gt;();</span>
+<span class="fc" id="L124">		deps.add(task1);</span>
+<span class="fc" id="L125">		deps.add(task2);</span>
+
+<span class="fc" id="L127">		Plan plan = root.isAchievable(current, null);</span>
+<span class="fc" id="L128">		assertEquals(null, plan);</span>
+<span class="fc" id="L129">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>CgmFullTest (Jan 23, 2015 3:34:45 PM)</div></body></html>

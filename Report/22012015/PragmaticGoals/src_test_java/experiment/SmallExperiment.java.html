@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>SmallExperiment.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">CgmFullTest (Jan 23, 2015 3:34:45 PM)</a> &gt; <a href="../../index.html" class="el_group">PragmaticGoals</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">experiment</a> &gt; <span class="el_source">SmallExperiment.java</span></div><h1>SmallExperiment.java</h1><pre class="source lang-java linenums">package experiment;
+
+import java.util.HashSet;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import cgm.CGM;
+import cgm.Comparison;
+import cgm.Context;
+import cgm.Goal;
+import cgm.Metric;
+import cgm.Pragmatic;
+import cgm.QualityConstraint;
+import cgm.Task;
+
+<span class="nc" id="L17">public class SmallExperiment {</span>
+
+	CGM cgm;
+
+	/* Contexts */
+<span class="nc" id="L22">	Context c2 = new Context(&quot;c2&quot;);</span>
+<span class="nc" id="L23">	Context c5 = new Context(&quot;c5&quot;);</span>
+<span class="nc" id="L24">	Context c9 = new Context(&quot;c9&quot;);</span>
+<span class="nc" id="L25">	Context c10 = new Context(&quot;c10&quot;);</span>
+
+	/* Goals */
+<span class="nc" id="L28">	Pragmatic locationIsIdentifiedGoal = new Pragmatic(Goal.OR);</span>
+
+	/* Tasks */
+<span class="nc" id="L31">	Task considerLastKnownLocationTask = new Task();</span>
+<span class="nc" id="L32">	Task identifyLocationByVoiceCallTask = new Task();</span>
+<span class="nc" id="L33">	Task accessLocationFromTriangulationTask = new Task();</span>
+<span class="nc" id="L34">	Task accessLocationFromGPSTask = new Task();</span>
+
+	@Before
+	public void setUp() {
+<span class="nc" id="L38">		cgm = new CGM();</span>
+
+<span class="nc" id="L40">		cgm.setRoot(locationIsIdentifiedGoal);</span>
+
+		/* Refinements */
+
+<span class="nc" id="L44">		locationIsIdentifiedGoal.addDependency(considerLastKnownLocationTask);</span>
+<span class="nc" id="L45">		locationIsIdentifiedGoal.addDependency(identifyLocationByVoiceCallTask);</span>
+<span class="nc" id="L46">		locationIsIdentifiedGoal.addDependency(accessLocationFromGPSTask);</span>
+<span class="nc" id="L47">		locationIsIdentifiedGoal.addDependency(accessLocationFromTriangulationTask);</span>
+
+<span class="nc" id="L49">		QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 150, Comparison.LESS_THAN);</span>
+<span class="nc" id="L50">		QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 60, Comparison.LESS_THAN);</span>
+		// QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS,
+		// 1800, Comparison.LESS_THAN);
+		// QualityConstraint qc4 = new QualityConstraint(null, Metric.SECONDS,
+		// 900, Comparison.LESS_THAN);
+		// QualityConstraint qc5 = new QualityConstraint(c10, Metric.SECONDS,
+		// 600, Comparison.LESS_THAN);
+		// QualityConstraint qc6 = new QualityConstraint(c9, Metric.SECONDS,
+		// 1800, Comparison.LESS_THAN);
+<span class="nc" id="L59">		locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);</span>
+<span class="nc" id="L60">		locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);</span>
+
+		// locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);
+		// locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc4);
+		// locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc5);
+		// locationIsIdentifiedGoal.getInterpretatioln().addQualityConstraint(qc6);
+
+<span class="nc" id="L67">		identifyLocationByVoiceCallTask.addApplicableContext(c2);</span>
+<span class="nc" id="L68">		accessLocationFromTriangulationTask.addApplicableContext(c2);</span>
+<span class="nc" id="L69">		accessLocationFromGPSTask.addApplicableContext(c5);</span>
+
+<span class="nc" id="L71">		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 120);</span>
+<span class="nc" id="L72">		identifyLocationByVoiceCallTask.setProvidedQuality(c2, Metric.SECONDS, 90);</span>
+<span class="nc" id="L73">		accessLocationFromTriangulationTask.setProvidedQuality(c2, Metric.SECONDS, 120);</span>
+<span class="nc" id="L74">		accessLocationFromGPSTask.setProvidedQuality(c5, Metric.SECONDS, 50);</span>
+<span class="nc" id="L75">	}</span>
+
+	@Test
+	public void findAchievableScenarios() {
+		HashSet&lt;Context&gt; fullContext;
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">		for (int t2 = 0; t2 &lt; 2; t2++) {</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">			for (int t5 = 0; t5 &lt; 2; t5++) {</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">				for (int t9 = 0; t9 &lt; 2; t9++) {</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">					for (int t10 = 0; t10 &lt; 2; t10++) {</span>
+<span class="nc" id="L85">						fullContext = createFullContext(t2, t5, t9, t10);</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">						if (cgm.isAchievable(fullContext, locationIsIdentifiedGoal.getInterpretation()) != null) {</span>
+<span class="nc" id="L87">							System.out.println(&quot;Achievable&quot;);</span>
+<span class="nc" id="L88">						} else</span>
+<span class="nc" id="L89">							System.out.println(&quot;Not achievable&quot;);</span>
+					}
+				}
+			}
+		}
+<span class="nc" id="L94">	}</span>
+
+	private HashSet&lt;Context&gt; createFullContext(int t2, int t5, int t9, int t10) {
+<span class="nc" id="L97">		HashSet&lt;Context&gt; fullContext = new HashSet&lt;Context&gt;();</span>
+
+<span class="nc" id="L99">		System.out.print(&quot;Contexto: [&quot;);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">		if (t2 == 0) {</span>
+<span class="nc" id="L101">			fullContext.add(c2);</span>
+<span class="nc" id="L102">			System.out.print(&quot;c2 &quot;);</span>
+		}
+<span class="nc bnc" id="L104" title="All 2 branches missed.">		if (t5 == 0) {</span>
+<span class="nc" id="L105">			fullContext.add(c5);</span>
+<span class="nc" id="L106">			System.out.print(&quot;c5 &quot;);</span>
+		}
+<span class="nc bnc" id="L108" title="All 2 branches missed.">		if (t9 == 0) {</span>
+<span class="nc" id="L109">			fullContext.add(c9);</span>
+<span class="nc" id="L110">			System.out.print(&quot;c9 &quot;);</span>
+		}
+<span class="nc bnc" id="L112" title="All 2 branches missed.">		if (t10 == 0) {</span>
+<span class="nc" id="L113">			fullContext.add(c10);</span>
+<span class="nc" id="L114">			System.out.print(&quot;c10 &quot;);</span>
+		}
+
+<span class="nc" id="L117">		System.out.println(&quot;]&quot;);</span>
+<span class="nc" id="L118">		return fullContext;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>CgmFullTest (Jan 23, 2015 3:34:45 PM)</div></body></html>

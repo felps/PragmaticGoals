@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>QualityConstraint.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">CgmFullTest (Jan 23, 2015 3:34:45 PM)</a> &gt; <a href="../../index.html" class="el_group">PragmaticGoals</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">cgm</a> &gt; <span class="el_source">QualityConstraint.java</span></div><h1>QualityConstraint.java</h1><pre class="source lang-java linenums">package cgm;
+
+public class QualityConstraint {
+	private Context applicableContext;
+
+	public Context getApplicableContext() {
+<span class="fc" id="L7">		return applicableContext;</span>
+	}
+
+	public String getMetric() {
+<span class="fc" id="L11">		return metric;</span>
+	}
+
+	public double getThreshold() {
+<span class="fc" id="L15">		return this.threshold;</span>
+	}
+
+	public int getComparison() {
+<span class="fc" id="L19">		return comparison;</span>
+	}
+
+	private String metric;
+	private double threshold;
+	private int comparison;
+
+<span class="fc" id="L26">	public QualityConstraint(Context applicable, String metric, double value, int comparison) {</span>
+<span class="fc" id="L27">		this.applicableContext = applicable;</span>
+<span class="fc" id="L28">		this.metric = metric;</span>
+<span class="fc" id="L29">		this.threshold = value;</span>
+<span class="fc" id="L30">		this.comparison = comparison;</span>
+<span class="fc" id="L31">	}</span>
+
+	public boolean abidesByQC(float value, String metric) {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">		if (metric.contentEquals(this.metric)) {</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">			if (!compare(value)) {</span>
+<span class="fc" id="L36">				return false;</span>
+			}
+		}
+<span class="fc" id="L39">		return true;</span>
+	}
+
+	private boolean compare(double value) {
+<span class="pc bpc" id="L43" title="1 of 6 branches missed.">		switch (this.comparison) {</span>
+		case Comparison.GREATER_THAN:
+<span class="fc bfc" id="L45" title="All 2 branches covered.">			if (value &gt; this.threshold)</span>
+<span class="fc" id="L46">				return true;</span>
+			else
+<span class="fc" id="L48">				return false;</span>
+		case Comparison.GREATER_OR_EQUAL_TO:
+<span class="fc bfc" id="L50" title="All 2 branches covered.">			if (value &gt;= this.threshold)</span>
+<span class="fc" id="L51">				return true;</span>
+			else
+<span class="fc" id="L53">				return false;</span>
+		case Comparison.EQUAL_TO:
+<span class="fc bfc" id="L55" title="All 2 branches covered.">			if (value == this.threshold)</span>
+<span class="fc" id="L56">				return true;</span>
+			else
+<span class="fc" id="L58">				return false;</span>
+		case Comparison.LESS_OR_EQUAL_TO:
+<span class="fc bfc" id="L60" title="All 2 branches covered.">			if (value &lt;= this.threshold)</span>
+<span class="fc" id="L61">				return true;</span>
+			else
+<span class="fc" id="L63">				return false;</span>
+		case Comparison.LESS_THAN:
+<span class="fc bfc" id="L65" title="All 2 branches covered.">			if (value &lt; this.threshold)</span>
+<span class="fc" id="L66">				return true;</span>
+			else
+<span class="fc" id="L68">				return false;</span>
+
+		}
+<span class="nc" id="L71">		return false;</span>
+	}
+
+	public QualityConstraint stricterQC(QualityConstraint qualityConstraint) throws DifferentMetricsException {
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">		if (qualityConstraint.comparison == this.comparison) {</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">			if (qualityConstraint.metric.contentEquals(this.metric)) {</span>
+
+<span class="fc bfc" id="L79" title="All 2 branches covered.">				if (qualityConstraint.compare(this.threshold))</span>
+<span class="fc" id="L80">					return this;</span>
+				else
+<span class="fc" id="L82">					return qualityConstraint;</span>
+			} else
+<span class="fc" id="L84">				throw (new DifferentMetricsException());</span>
+		} 
+<span class="nc" id="L86">		return null;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>CgmFullTest (Jan 23, 2015 3:34:45 PM)</div></body></html>

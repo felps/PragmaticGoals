@@ -69,6 +69,9 @@ public class Task extends Refinement {
 	public boolean abidesByInterpretation(Interpretation interp, Set<Context> current) {
 		boolean feasible = true;
 
+		if (interp==null){
+			return true;
+		}
 		for (QualityConstraint qc : interp.getQualityConstraints(current)) {
 			try {
 				if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {

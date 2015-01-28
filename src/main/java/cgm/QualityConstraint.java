@@ -32,11 +32,11 @@ public class QualityConstraint {
 
 	public boolean abidesByQC(float value, String metric) {
 		if (metric.contentEquals(this.metric)) {
-			if (compare(value)) {
-				return true;
+			if (!compare(value)) {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	private boolean compare(double value) {
@@ -80,9 +80,9 @@ public class QualityConstraint {
 					return this;
 				else
 					return qualityConstraint;
-			}
-		} else
-			throw (new DifferentMetricsException());
+			} else
+				throw (new DifferentMetricsException());
+		} 
 		return null;
 	}
 }

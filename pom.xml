@@ -38,6 +38,13 @@
 					<target />
 				</configuration>
 			</plugin>
-		</plugins>
+			
+			<plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                  <version>0.7.2</version>
+            </plugin>
+		
+	    </plugins>
 	</build>
 </project>

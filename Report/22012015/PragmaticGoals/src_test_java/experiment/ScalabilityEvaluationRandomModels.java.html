@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>ScalabilityEvaluationRandomModels.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">CgmFullTest (Jan 23, 2015 3:34:45 PM)</a> &gt; <a href="../../index.html" class="el_group">PragmaticGoals</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">experiment</a> &gt; <span class="el_source">ScalabilityEvaluationRandomModels.java</span></div><h1>ScalabilityEvaluationRandomModels.java</h1><pre class="source lang-java linenums">package experiment;
+
+import static org.junit.Assert.*;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Test;
+
+import cgm.CGM;
+import cgm.Context;
+import cgm.util.generator.RandomCGMGenerator;
+
+<span class="nc" id="L15">public class ScalabilityEvaluationRandomModels {</span>
+
+<span class="nc" id="L17">	RandomCGMGenerator cgmFactory = new RandomCGMGenerator();</span>
+
+	// @Test
+	public void scalabilityTestModelSize() {
+
+<span class="nc" id="L22">		int round = 1;</span>
+<span class="nc" id="L23">		int contexts = 10;</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">		for (int model = 10; model &lt; 10000; model += 100) {</span>
+<span class="nc" id="L25">			executeScientificalEvaluation(&quot;&quot; + 1, contexts, model);</span>
+		}
+<span class="nc" id="L27">	}</span>
+
+	// @Test
+	public void scalabilityTestContextSize() {
+
+<span class="nc" id="L32">		int round = 1, model = 1000;</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">		for (int contexts = 10; contexts &lt; 10000; contexts += 100) {</span>
+<span class="nc" id="L34">			executeScientificalEvaluation(&quot;&quot; + 2, contexts, model);</span>
+		}
+<span class="nc" id="L36">	}</span>
+
+	@Test
+	public void shouldGenerateCompleteSetOfContextsWith1Context(){
+<span class="nc" id="L40">		Set&lt;Context&gt; current = generateCompleteContextSet(1);</span>
+<span class="nc" id="L41">		assertEquals(2, current.size());</span>
+<span class="nc" id="L42">		assertTrue(current.contains(new Context(&quot;c1&quot;)));</span>
+<span class="nc" id="L43">		assertTrue(current.contains(new Context(&quot;C1&quot;)));</span>
+<span class="nc" id="L44">	}</span>
+	
+	@Test
+	public void shouldGenerateCompleteSetOfContextsWith2Context(){
+<span class="nc" id="L48">		Set&lt;Context&gt; current = generateCompleteContextSet(2);</span>
+<span class="nc" id="L49">		assertEquals(3, current.size());</span>
+<span class="nc" id="L50">		assertTrue(current.contains(new Context(&quot;c1&quot;)));</span>
+<span class="nc" id="L51">		assertTrue(current.contains(new Context(&quot;C1&quot;)));</span>
+<span class="nc" id="L52">		assertTrue(current.contains(new Context(&quot;c2&quot;)));</span>
+<span class="nc" id="L53">		assertTrue(current.contains(new Context(&quot;C2&quot;)));</span>
+		
+<span class="nc" id="L55">	}</span>
+	
+	@Test
+	public void shouldGenerateCompleteSetOfContextsWith4Context(){
+<span class="nc" id="L59">		Set&lt;Context&gt; current = generateCompleteContextSet(4);</span>
+<span class="nc" id="L60">		assertEquals(5, current.size());</span>
+<span class="nc" id="L61">		assertTrue(current.contains(new Context(&quot;c1&quot;)));</span>
+<span class="nc" id="L62">		assertTrue(current.contains(new Context(&quot;C1&quot;)));	</span>
+<span class="nc" id="L63">		assertTrue(current.contains(new Context(&quot;c2&quot;)));</span>
+<span class="nc" id="L64">		assertTrue(current.contains(new Context(&quot;C2&quot;)));</span>
+<span class="nc" id="L65">		assertTrue(current.contains(new Context(&quot;c3&quot;)));</span>
+<span class="nc" id="L66">		assertTrue(current.contains(new Context(&quot;C3&quot;)));</span>
+<span class="nc" id="L67">		assertTrue(current.contains(new Context(&quot;c4&quot;)));</span>
+<span class="nc" id="L68">		assertTrue(current.contains(new Context(&quot;C4&quot;)));</span>
+<span class="nc" id="L69">	}</span>
+	
+	@Test
+	public void shouldGenerateCompleteSetOfContextsWith10Context(){
+<span class="nc" id="L73">		Set&lt;Context&gt; current = generateCompleteContextSet(10);</span>
+<span class="nc" id="L74">		assertEquals(11, current.size());</span>
+<span class="nc" id="L75">		assertTrue(current.contains(new Context(&quot;c1&quot;)));</span>
+<span class="nc" id="L76">		assertTrue(current.contains(new Context(&quot;C1&quot;)));	</span>
+<span class="nc" id="L77">		assertTrue(current.contains(new Context(&quot;c2&quot;)));</span>
+<span class="nc" id="L78">		assertTrue(current.contains(new Context(&quot;C2&quot;)));</span>
+<span class="nc" id="L79">		assertTrue(current.contains(new Context(&quot;c3&quot;)));</span>
+<span class="nc" id="L80">		assertTrue(current.contains(new Context(&quot;C3&quot;)));</span>
+<span class="nc" id="L81">		assertTrue(current.contains(new Context(&quot;c4&quot;)));</span>
+<span class="nc" id="L82">		assertTrue(current.contains(new Context(&quot;C4&quot;)));</span>
+<span class="nc" id="L83">		assertTrue(current.contains(new Context(&quot;c5&quot;)));</span>
+<span class="nc" id="L84">		assertTrue(current.contains(new Context(&quot;C5&quot;)));</span>
+<span class="nc" id="L85">		assertTrue(current.contains(new Context(&quot;c6&quot;)));</span>
+<span class="nc" id="L86">		assertTrue(current.contains(new Context(&quot;C6&quot;)));</span>
+<span class="nc" id="L87">		assertTrue(current.contains(new Context(&quot;c7&quot;)));</span>
+<span class="nc" id="L88">		assertTrue(current.contains(new Context(&quot;C7&quot;)));</span>
+<span class="nc" id="L89">		assertTrue(current.contains(new Context(&quot;c8&quot;)));</span>
+<span class="nc" id="L90">		assertTrue(current.contains(new Context(&quot;C8&quot;)));</span>
+<span class="nc" id="L91">		assertTrue(current.contains(new Context(&quot;c9&quot;)));</span>
+<span class="nc" id="L92">		assertTrue(current.contains(new Context(&quot;C9&quot;)));</span>
+<span class="nc" id="L93">		assertTrue(current.contains(new Context(&quot;c10&quot;)));</span>
+<span class="nc" id="L94">		assertTrue(current.contains(new Context(&quot;C10&quot;)));</span>
+<span class="nc" id="L95">	}</span>
+	
+	@Test
+	public void scalabilityTestModelAndContextSize() {
+
+<span class="nc" id="L100">		System.out.println(&quot;Scalability Evaluation - Varying Model and Context amounts&quot;);</span>
+<span class="nc" id="L101">		System.out.println(&quot;Experiment executed on &quot; + (new Date()).toString());</span>
+
+<span class="nc" id="L103">		executeScientificalEvaluation(&quot;&quot;, 1, 10);</span>
+		
+<span class="nc bnc" id="L105" title="All 2 branches missed.">		for (int contexts = 1; contexts &lt; 30; contexts++) {</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">			for (int model = 100; model &lt; 10000; model += 100) {</span>
+<span class="nc" id="L107">				executeScientificalEvaluation(&quot;&quot;, contexts, model);</span>
+			}
+		}
+<span class="nc" id="L110">	}</span>
+
+	private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
+		{
+<span class="nc" id="L114">			long accumulated = 0;</span>
+<span class="nc" id="L115">			boolean achievable = false;</span>
+
+<span class="nc" id="L117">			RandomCGMGenerator cgmFactory = new RandomCGMGenerator();</span>
+<span class="nc" id="L118">			Set&lt;Context&gt; current = generateCompleteContextSet(contextAmount);</span>
+
+<span class="nc bnc" id="L120" title="All 2 branches missed.">			if (current == null) {</span>
+<span class="nc" id="L121">				System.out.println(&quot;NULL&quot;);</span>
+<span class="nc" id="L122">				fail();</span>
+			}
+
+<span class="nc bnc" id="L125" title="All 2 branches missed.">			for (int i = 0; i &lt; 100; i++) {</span>
+				// Setup Model
+<span class="nc" id="L127">				CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);</span>
+
+<span class="nc" id="L129">				long start = System.nanoTime();</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">				for (int j = 0; j &lt; 100; j++) {</span>
+					// Execute test
+<span class="nc" id="L132">					cgm.isAchievable(current, null);</span>
+				}
+<span class="nc" id="L134">				accumulated += (System.nanoTime() - start);</span>
+
+<span class="nc bnc" id="L136" title="All 2 branches missed.">				if (cgm.isAchievable(current, null) != null) {</span>
+<span class="nc" id="L137">					achievable = true;</span>
+				}
+
+			}
+
+			// Print result
+			
+<span class="nc" id="L144">			long timePerExecutionInNs = accumulated/10000; // Time in nanosseconds for each execution</span>
+			//long timeInMs = accumulated/1000; // Time in milliseconds
+			
+<span class="nc" id="L147">			System.out.print(experimentId + &quot; &quot;);</span>
+			
+<span class="nc bnc" id="L149" title="All 2 branches missed.">			if (achievable) {</span>
+<span class="nc" id="L150">				System.out.print(&quot;achievable &quot;);</span>
+<span class="nc" id="L151">				achievable = false;</span>
+<span class="nc" id="L152">			} else</span>
+<span class="nc" id="L153">				System.out.print(&quot;unachievable &quot;);</span>
+			
+<span class="nc" id="L155">			System.out.println(modelSize + &quot; &quot; + contextAmount + &quot; &quot;+ timePerExecutionInNs);</span>
+		}
+<span class="nc" id="L157">	}</span>
+
+
+	private Set&lt;Context&gt; generateCompleteContextSet(int contextAmount) {
+<span class="nc" id="L161">		HashSet&lt;Context&gt; contexts = new HashSet&lt;Context&gt;();</span>
+
+<span class="nc bnc" id="L163" title="All 2 branches missed.">		for (int contextIndex = 1; contextIndex &lt;= contextAmount; contextIndex++) {</span>
+<span class="nc" id="L164">			contexts.add(new Context(&quot;c&quot; + contextIndex));</span>
+		}
+
+<span class="nc" id="L167">		contexts.add(null);</span>
+<span class="nc" id="L168">		return contexts;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>CgmFullTest (Jan 23, 2015 3:34:45 PM)</div></body></html>
