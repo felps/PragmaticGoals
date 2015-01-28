@@ -58,9 +58,9 @@ public class RandomCGMGenerator extends CGMGenerator{
 		double isOrDecomposition = Math.random();
 		Pragmatic goal;
 		if (isOrDecomposition >= 0.8)
-			goal = new Pragmatic(true);
+			goal = new Pragmatic(Goal.OR_DECOMPOSITION);
 		else
-			goal = new Pragmatic(false);
+			goal = new Pragmatic(Goal.SERIAL_AND_DECOMPOSITION);
 
 		int randomIndex = (int) (Math.random() * possibleContexts.size());
 		int run = 0;

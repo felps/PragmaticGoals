@@ -68,7 +68,7 @@ public class GoalTest {
 	@Test
 	public void shouldBeAchievable(){
 		
-		Refinement root = new Goal(Goal.AND);
+		Refinement root = new Goal(Goal.SERIAL_AND_DECOMPOSITION);
 
 		Context context = new Context("c1");
 		HashSet<Context> current = new HashSet<Context>();
@@ -102,7 +102,7 @@ public class GoalTest {
 	@Test
 	public void shouldBeUnachievable(){
 		
-		Refinement root = new Goal(Goal.AND);
+		Refinement root = new Goal(Goal.SERIAL_AND_DECOMPOSITION);
 
 		Context context1 = new Context("c1");
 		Context context2 = new Context("c2");

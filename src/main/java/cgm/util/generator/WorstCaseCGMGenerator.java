@@ -27,7 +27,7 @@ public class WorstCaseCGMGenerator extends CGMGenerator {
 
 		QualityConstraint qc;
 		
-		Pragmatic pragmaticGoal= new Pragmatic(Goal.AND);
+		Pragmatic pragmaticGoal= new Pragmatic(Goal.SERIAL_AND_DECOMPOSITION);
 		for (Context context : possibleContexts) {
 			pragmaticGoal.addApplicableContext(context);
 			qc = new QualityConstraint(context, Metric.SECONDS, 100, Comparison.LESS_THAN);
