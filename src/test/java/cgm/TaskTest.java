@@ -1,12 +1,11 @@
 package cgm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 
 import metrics.DistanceErrorMargin;
 import metrics.ExecutionTimeSec;
-import metrics.Metric;
 
 import org.junit.Test;
 
@@ -49,10 +48,5 @@ public class TaskTest {
 		task.setProvidedQuality(null, (new ExecutionTimeSec()), 30.0);
 
 		assertEquals(30.0, task.myProvidedQuality((new DistanceErrorMargin()), fullContext), 0);
-	}
-	
-	@Test
-	public void shouldUseLessIsMoreQC(){
-		Task t1= new Task(true);
 	}
 }

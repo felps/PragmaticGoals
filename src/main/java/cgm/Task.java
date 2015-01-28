@@ -8,21 +8,14 @@ import metrics.Metric;
 public class Task extends Refinement {
 
 	private HashMap<Metric, HashMap<Context, Float>> providedQualityLevels;
-	private boolean lessIsMore;
 
 	@Override
 	public int myType() {
 		return Refinement.TASK;
 	}
 
-	public Task(boolean lessIsMore) {
-		providedQualityLevels = new HashMap<Metric, HashMap<Context, Float>>();
-		this.lessIsMore = lessIsMore;
-	}
-
 	public Task() {
 		providedQualityLevels = new HashMap<Metric, HashMap<Context, Float>>();
-		this.lessIsMore = false;
 	}
 
 	public void setProvidedQuality(Context context, Metric metric, double value) {
@@ -51,18 +44,12 @@ public class Task extends Refinement {
 				if (!set) {
 					myQuality = providedQualityLevels.get(metric).get(context).floatValue();
 					set = true;
-				} else {
-					if (lessIsMore) {
-						if (myQuality > providedQualityLevels.get(metric).get(context).floatValue()) {
-							myQuality = providedQualityLevels.get(metric).get(context).floatValue();
-						}
-					} else if (myQuality < providedQualityLevels.get(metric).get(context).floatValue()) {
-						myQuality = providedQualityLevels.get(metric).get(context).floatValue();
-					}
+				} else if (myQuality < providedQualityLevels.get(metric).get(context).floatValue()) {
+					myQuality = providedQualityLevels.get(metric).get(context).floatValue();
 				}
 			}
-
 		}
+
 		if (!set)
 			throw (new MetricNotFoundException());
 		return myQuality;
@@ -71,7 +58,7 @@ public class Task extends Refinement {
 	public boolean abidesByInterpretation(Interpretation interp, Set<Context> current) {
 		boolean feasible = true;
 
-		if (interp==null){
+		if (interp == null) {
 			return true;
 		}
 		for (QualityConstraint qc : interp.getQualityConstraints(current)) {
