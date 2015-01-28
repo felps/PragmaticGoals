@@ -9,8 +9,6 @@ import metrics.DistanceErrorMargin;
 import metrics.EnvironmentNoise;
 import metrics.ExecutionTimeSec;
 import metrics.FalseNegativePercentage;
-import metrics.Metric;
-
 import org.junit.Before;
 import org.junit.Test;
 

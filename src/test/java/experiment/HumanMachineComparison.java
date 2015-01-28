@@ -6,7 +6,6 @@ import metrics.DistanceErrorMargin;
 import metrics.EnvironmentNoise;
 import metrics.ExecutionTimeSec;
 import metrics.FalseNegativePercentage;
-import metrics.Metric;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -230,8 +229,7 @@ public class HumanMachineComparison {
 		{
 			QualityConstraint qc1 = new QualityConstraint(null, (new FalseNegativePercentage()), 30,
 					Comparison.LESS_THAN);
-			QualityConstraint qc2 = new QualityConstraint(c3, (new FalseNegativePercentage()), 10,
-					Comparison.LESS_THAN);
+			QualityConstraint qc2 = new QualityConstraint(c3, (new FalseNegativePercentage()), 10, Comparison.LESS_THAN);
 			QualityConstraint qc3 = new QualityConstraint(c9, (new FalseNegativePercentage()), 5, Comparison.LESS_THAN);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc1);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc2);
@@ -333,7 +331,6 @@ public class HumanMachineComparison {
 			int t12) {
 		HashSet<Context> fullContext;
 		long startTimeMs;
-		int count = 0;
 		fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
 		for (int i = 0; i < 10; i++) {
 			startTimeMs = System.currentTimeMillis();

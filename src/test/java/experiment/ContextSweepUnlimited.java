@@ -1,13 +1,10 @@
 package experiment;
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.omg.CORBA.Current;
 
 import cgm.CGM;
 import cgm.Context;
@@ -17,14 +14,14 @@ public class ContextSweepUnlimited {
 
 	private int contextSet = 1;
 
-//	@Test
-//	public void printAllContexts() throws Exception {
-//		for(int i = 0;i<Math.pow(2, 4)-1; i++){
-//			System.out.println("Context Set: " + contextSet);
-//			Set<Context> set = generateNextContextSet(4);
-//		}
-//	}
-	
+	// @Test
+	// public void printAllContexts() throws Exception {
+	// for(int i = 0;i<Math.pow(2, 4)-1; i++){
+	// System.out.println("Context Set: " + contextSet);
+	// Set<Context> set = generateNextContextSet(4);
+	// }
+	// }
+
 	@Test
 	public void scalabilityTestContextSweep() {
 
@@ -57,7 +54,7 @@ public class ContextSweepUnlimited {
 		for (int modelSize = 100; modelSize < 10001; modelSize += 100) {
 			executeScientificalEvaluation("", contextAmount, modelSize);
 		}
-		
+
 		contextAmount = 20;
 		System.out.println("Scalability Evaluation - Context sweep capability with 20 context set");
 		System.out.println("Experiment executed on " + (new Date()).toString());
@@ -68,7 +65,7 @@ public class ContextSweepUnlimited {
 			executeScientificalEvaluation("", contextAmount, modelSize);
 		}
 
-}
+	}
 
 	private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
 		{
@@ -82,7 +79,7 @@ public class ContextSweepUnlimited {
 			long totalExecutions = 0;
 			for (int j = 0; j < models; j++) {
 				long executions = 0;
-				
+
 				// Setup Model
 				CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
 
@@ -99,47 +96,48 @@ public class ContextSweepUnlimited {
 
 					// Execute test
 					cgm.isAchievable(current, null);
-					
+
 					executions++;
-					
+
 					if ((System.nanoTime() - start) > tenSecond) {
-						System.out.println("\"Executing model "+j+" with "+modelSize + " nodes... Partial sweep: " + ((executions/ totalPossibleContextSets) * 100) + "%\"");
+						System.out
+								.println("\"Executing model " + j + " with " + modelSize + " nodes... Partial sweep: "
+										+ ((executions / totalPossibleContextSets) * 100) + "%\"");
 						timeout = true;
 						break;
 					}
 				}
-				if(!timeout)
-					System.out.println("\"Executing model "+j+" with "+modelSize + " nodes... Full sweep: " + ((executions/ totalPossibleContextSets) * 100) + "%\"");
+				if (!timeout)
+					System.out.println("\"Executing model " + j + " with " + modelSize + " nodes... Full sweep: "
+							+ ((executions / totalPossibleContextSets) * 100) + "%\"");
 				totalExecutions += executions;
 				// Reset the context set index
 				contextSet = 0;
 			}
-			//Average executions within 10 seconds through all models
-			double avgExecutions = totalExecutions / models ;
-			
+			// Average executions within 10 seconds through all models
+			double avgExecutions = totalExecutions / models;
+
 			// Average coverage of the context sets within ten seconds
-			double parameterSweepCoverage = (avgExecutions / totalPossibleContextSets) * 100;  
+			double parameterSweepCoverage = (avgExecutions / totalPossibleContextSets) * 100;
 
 			// Print result
 			System.out.print(experimentId + " ");
-			System.out.println(modelSize + " " + contextAmount + " " + avgExecutions +" "+ parameterSweepCoverage);
+			System.out.println(modelSize + " " + contextAmount + " " + avgExecutions + " " + parameterSweepCoverage);
 		}
 	}
 
 	private Set<Context> generateNextContextSet(int contextAmount) {
-		long limit;
 		HashSet<Context> contexts = new HashSet<Context>();
 		int currentSet = contextSet;
-		limit = (long) Math.pow(2, contextAmount);
 		for (int i = 0; i < contextAmount; i++) {
 			if (currentSet % 2 != 0) {
 				contexts.add(new Context("c" + (contextAmount - i)));
-				//System.out.println("c" + (contextAmount - i));
+				// System.out.println("c" + (contextAmount - i));
 			}
 			currentSet /= 2;
 		}
 
-		//contexts.add(null);
+		// contexts.add(null);
 		contextSet++;
 		return contexts;
 	}

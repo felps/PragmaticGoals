@@ -3,8 +3,6 @@ package experiment;
 import java.util.HashSet;
 
 import metrics.ExecutionTimeSec;
-import metrics.Metric;
-
 import org.junit.Before;
 import org.junit.Test;
 

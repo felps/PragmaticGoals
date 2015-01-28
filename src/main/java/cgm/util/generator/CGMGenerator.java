@@ -3,20 +3,16 @@ package cgm.util.generator;
 import java.util.HashSet;
 import java.util.Set;
 
-import metrics.Metric;
 import cgm.CGM;
-import cgm.Comparison;
 import cgm.Context;
 import cgm.Goal;
-import cgm.Pragmatic;
-import cgm.QualityConstraint;
 import cgm.Refinement;
 import cgm.Task;
 
 public abstract class CGMGenerator {
 
 	public CGM generateCGM(int refinementsAmount, int contextAmount) {
-		int i, j;
+		int i;
 
 		HashSet<Context> possibleContexts = new HashSet<Context>();
 
@@ -60,7 +56,7 @@ public abstract class CGMGenerator {
 		return root;
 	}
 
-	protected abstract int getRefinementsAmount(int maxRefinements) ;
+	protected abstract int getRefinementsAmount(int maxRefinements);
 
 	protected abstract Task generateTask(Set<Context> possibleContexts);
 	protected abstract Goal generateGoal(Set<Context> possibleContexts);

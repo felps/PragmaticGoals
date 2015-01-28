@@ -9,7 +9,6 @@ import metrics.DistanceErrorMargin;
 import metrics.EnvironmentNoise;
 import metrics.ExecutionTimeSec;
 import metrics.FalseNegativePercentage;
-import metrics.Metric;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,11 +30,11 @@ public class ExperimentScenarios {
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0);
 		Plan tasks = null;
 		long startTime = System.nanoTime();
-		for(int i=0;i<1000;i++){
+		for (int i = 0; i < 1000; i++) {
 			tasks = cgm.isAchievable(fullContext, null);
 		}
 		long elapsed = System.nanoTime() - startTime;
-		System.out.println("Average elapsed time:" + elapsed/10000 + " ns...");
+		System.out.println("Average elapsed time:" + elapsed / 10000 + " ns...");
 
 		assertTrue(tasks != null);
 		for (Task task : tasks.getTasks()) {
@@ -65,11 +64,11 @@ public class ExperimentScenarios {
 		HashSet<Context> fullContext = createFullContext(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0);
 		Plan tasks = null;
 		long startTime = System.nanoTime();
-		for(int i=0;i<10000;i++){
+		for (int i = 0; i < 10000; i++) {
 			tasks = cgm.isAchievable(fullContext, null);
 		}
 		long elapsed = System.nanoTime() - startTime;
-		System.out.println("Average elapsed time:" + elapsed/10000 + " ns...");
+		System.out.println("Average elapsed time:" + elapsed / 10000 + " ns...");
 		assertTrue(tasks == null);
 
 	}
@@ -80,11 +79,11 @@ public class ExperimentScenarios {
 		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0);
 		Plan tasks = null;
 		long startTime = System.nanoTime();
-		for(int i=0;i<10000;i++){
+		for (int i = 0; i < 10000; i++) {
 			tasks = cgm.isAchievable(fullContext, null);
 		}
 		long elapsed = System.nanoTime() - startTime;
-		System.out.println("Average elapsed time:" + elapsed/10000 + " ns...");
+		System.out.println("Average elapsed time:" + elapsed / 10000 + " ns...");
 
 		assertTrue(tasks != null);
 
@@ -117,11 +116,11 @@ public class ExperimentScenarios {
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0);
 		Plan tasks = null;
 		long startTime = System.nanoTime();
-		for(int i=0;i<10000;i++){
+		for (int i = 0; i < 10000; i++) {
 			tasks = cgm.isAchievable(fullContext, null);
 		}
 		long elapsed = System.nanoTime() - startTime;
-		System.out.println("Average elapsed time:" + elapsed/10000 + " ms...");
+		System.out.println("Average elapsed time:" + elapsed / 10000 + " ms...");
 
 		assertTrue(tasks != null);
 		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
@@ -335,20 +334,23 @@ public class ExperimentScenarios {
 
 		/* Goal interpretations */
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 180, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 90, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 180,
+					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 90,
+					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240,
+					Comparison.LESS_OR_EQUAL_TO);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc3);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null,(new FalseNegativePercentage()), 30,
+			QualityConstraint qc1 = new QualityConstraint(null, (new FalseNegativePercentage()), 30,
 					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c3,(new FalseNegativePercentage()), 10,
+			QualityConstraint qc2 = new QualityConstraint(c3, (new FalseNegativePercentage()), 10,
 					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc3 = new QualityConstraint(c9,(new FalseNegativePercentage()), 5,
+			QualityConstraint qc3 = new QualityConstraint(c9, (new FalseNegativePercentage()), 5,
 					Comparison.LESS_OR_EQUAL_TO);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc1);
 			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc2);
@@ -356,18 +358,24 @@ public class ExperimentScenarios {
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 60, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 60,
+					Comparison.LESS_OR_EQUAL_TO);
 			centralReceivesInfoGoal.getInterpretation().addQualityConstraint(qc1);
 		}
 
 		{
 			QualityConstraint qc4 = new QualityConstraint(null, (new DistanceErrorMargin()), 1000,
 					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc6 = new QualityConstraint(c5, (new DistanceErrorMargin()), 20, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc5 = new QualityConstraint(c10, (new DistanceErrorMargin()), 200, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 120, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 20, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc6 = new QualityConstraint(c5, (new DistanceErrorMargin()), 20,
+					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc5 = new QualityConstraint(c10, (new DistanceErrorMargin()), 200,
+					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 120,
+					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240,
+					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 20,
+					Comparison.LESS_OR_EQUAL_TO);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);
@@ -377,36 +385,39 @@ public class ExperimentScenarios {
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 45, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 30, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 45,
+					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 30,
+					Comparison.LESS_OR_EQUAL_TO);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc1);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, (new EnvironmentNoise()), 10, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new EnvironmentNoise()), 10,
+					Comparison.LESS_OR_EQUAL_TO);
 			QualityConstraint qc2 = new QualityConstraint(c1, (new EnvironmentNoise()), 3, Comparison.LESS_OR_EQUAL_TO);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 
 		/* Provided Task QoS */
-		notifyCentralBySMSTask.setProvidedQuality(null,(new FalseNegativePercentage()), 10);
+		notifyCentralBySMSTask.setProvidedQuality(null, (new FalseNegativePercentage()), 10);
 
-		notifyCentralByInternetTask.setProvidedQuality(null,(new FalseNegativePercentage()), 5);
+		notifyCentralByInternetTask.setProvidedQuality(null, (new FalseNegativePercentage()), 5);
 
-		acceptEmergencyTask.setProvidedQuality(null,(new FalseNegativePercentage()), 30);
+		acceptEmergencyTask.setProvidedQuality(null, (new FalseNegativePercentage()), 30);
 
-		confirmEmergencyByCallTask.setProvidedQuality(null,(new FalseNegativePercentage()), 5);
+		confirmEmergencyByCallTask.setProvidedQuality(null, (new FalseNegativePercentage()), 5);
 
-		processDataFromSensorsTask.setProvidedQuality(null,(new FalseNegativePercentage()), 15);
+		processDataFromSensorsTask.setProvidedQuality(null, (new FalseNegativePercentage()), 15);
 
 		collectDataFromSensorsTask.setProvidedQuality(null, (new ExecutionTimeSec()), 120);
 		collectDataFromSensorsTask.setProvidedQuality(c3, (new ExecutionTimeSec()), 60);
 
 		persistDataToDatabaseTask.setProvidedQuality(null, (new ExecutionTimeSec()), 5);
 
-		identifySituationTask.setProvidedQuality(null,(new FalseNegativePercentage()), 20);
+		identifySituationTask.setProvidedQuality(null, (new FalseNegativePercentage()), 20);
 
 		notifyByMobileVibrationTask.setProvidedQuality(null, (new EnvironmentNoise()), 2);
 		notifyBySoundAlertTask.setProvidedQuality(null, (new EnvironmentNoise()), 9);

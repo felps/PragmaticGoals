@@ -29,11 +29,4 @@ public abstract class Metric {
 	public int hashCode() {
 		return name.toLowerCase().hashCode();
 	}
-
-	public static final String METERS = "METERS";
-	public static final String SECONDS = "SECONDS";
-	public static final String DISTANCE_ERROR = "DISTANCE";
-	public static final String FALSE_NEGATIVE_PERCENTAGE = "False Negative";
-	public static final String NOISE = "NOISE";
-
 }

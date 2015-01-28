@@ -18,7 +18,6 @@ public class ScalabilityEvaluationWorstCaseScenarios {
 	// @Test
 	public void scalabilityTestModelSize() {
 
-		int round = 1;
 		int contexts = 10;
 		for (int model = 10; model < 10000; model += 100) {
 			executeScientificalEvaluation("" + 1, contexts, model);
@@ -28,7 +27,7 @@ public class ScalabilityEvaluationWorstCaseScenarios {
 	// @Test
 	public void scalabilityTestContextSize() {
 
-		int round = 1, model = 1000;
+		int model = 1000;
 		for (int contexts = 10; contexts < 10000; contexts += 100) {
 			executeScientificalEvaluation("" + 2, contexts, model);
 		}
@@ -40,7 +39,6 @@ public class ScalabilityEvaluationWorstCaseScenarios {
 		System.out.println("Scalability Evaluation - Worst Case Model and Varying Context amounts");
 		System.out.println("Experiment executed on " + (new Date()).toString());
 		
-		int round = 1;
 		for (int contexts = 1; contexts < 30; contexts++) {
 			for (int model = 100; model < 10000; model += 100) {
 				executeScientificalEvaluation("", contexts, model);

@@ -1,11 +1,11 @@
 package cgm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 
 import metrics.DistanceErrorMargin;
-import metrics.Metric;
 
 import org.junit.Test;
 
@@ -16,7 +16,8 @@ public class PragmaticGoalTest {
 		Context aContext = new Context("c1");
 		Context anotherContext = new Context("c2");
 
-		QualityConstraint aQC = new QualityConstraint(aContext, (new DistanceErrorMargin()), 30, Comparison.LESS_OR_EQUAL_TO);
+		QualityConstraint aQC = new QualityConstraint(aContext, (new DistanceErrorMargin()), 30,
+				Comparison.LESS_OR_EQUAL_TO);
 		QualityConstraint anotherQC = new QualityConstraint(anotherContext, (new DistanceErrorMargin()), 60,
 				Comparison.LESS_OR_EQUAL_TO);
 

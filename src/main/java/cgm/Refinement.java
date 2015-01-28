@@ -47,14 +47,14 @@ public abstract class Refinement {
 
 	public boolean isApplicable(Set<Context> current) {
 		boolean returnValue = false;
-		int unapplicableContextsFound = 0;
+
 		if (applicableContexts.contains(null)) {
 			returnValue = true;
 		}
-		if(nonApplicableContexts.size()>0){
-			 returnValue = true;
+		if (nonApplicableContexts.size() > 0) {
+			returnValue = true;
 		}
-		
+
 		for (Context context : current) {
 			if (nonApplicableContexts.contains(context))
 				return false;

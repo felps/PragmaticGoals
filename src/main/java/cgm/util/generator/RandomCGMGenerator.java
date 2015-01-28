@@ -1,20 +1,17 @@
 package cgm.util.generator;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import metrics.ExecutionTimeSec;
-import metrics.Metric;
 import cgm.CGM;
 import cgm.Comparison;
 import cgm.Context;
 import cgm.Goal;
 import cgm.Pragmatic;
 import cgm.QualityConstraint;
-import cgm.Refinement;
 import cgm.Task;
 
-public class RandomCGMGenerator extends CGMGenerator{
+public class RandomCGMGenerator extends CGMGenerator {
 
 	public CGM generateRandomCGM(int refinementsAmount, int contextAmount) {
 		return generateCGM(refinementsAmount, contextAmount);
@@ -37,24 +34,21 @@ public class RandomCGMGenerator extends CGMGenerator{
 			metric = 40;
 		} else if (random >= 0.7) {
 			metric = 30;
-		} else{
+		} else {
 			metric = 9;
 		}
-		
+
 		Task task = new Task();
-		
-		int randomIndex = (int) (Math.random() * possibleContexts.size());
-		int run = 0;
-		
+
 		for (Context context : possibleContexts) {
-				task.addApplicableContext(context);
+			task.addApplicableContext(context);
 		}
-		
+
 		task.setProvidedQuality(null, (new ExecutionTimeSec()), metric);
-		
+
 		return task;
 	}
-	
+
 	protected Goal generateGoal(Set<Context> possibleContexts) {
 		double isOrDecomposition = Math.random();
 		Pragmatic goal;
@@ -89,13 +83,13 @@ public class RandomCGMGenerator extends CGMGenerator{
 			metric = 189;
 		} else if (random >= 0.7) {
 			metric = 199;
-		} else{
+		} else {
 			metric = 9;
 		}
-		
+
 		QualityConstraint qc = new QualityConstraint(null, (new ExecutionTimeSec()), metric, Comparison.LESS_THAN);
 		goal.getInterpretation().addQualityConstraint(qc);
-		
+
 		return goal;
 	}
 

@@ -3,7 +3,6 @@ package cgm.util.generator;
 import java.util.Set;
 
 import metrics.ExecutionTimeSec;
-import metrics.Metric;
 import cgm.Comparison;
 import cgm.Context;
 import cgm.Goal;
