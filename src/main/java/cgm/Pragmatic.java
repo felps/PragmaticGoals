@@ -6,7 +6,7 @@ public class Pragmatic extends Goal {
 
 	private Interpretation interp;
 
-	public Pragmatic(boolean isOrDecomposition) {
+	public Pragmatic(int isOrDecomposition) {
 		super(isOrDecomposition);
 		interp = new Interpretation();
 	}

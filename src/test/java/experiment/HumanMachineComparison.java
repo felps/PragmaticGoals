@@ -39,24 +39,24 @@ public class HumanMachineComparison {
 		cgm = new CGM();
 
 		/* Goals */
-		Pragmatic respondToEmergencyGoal = new Pragmatic(Goal.AND);
-		Pragmatic emergencyIsDetectedGoal = new Pragmatic(Goal.OR);
-		Pragmatic centralReceivesInfoGoal = new Pragmatic(Goal.AND);
-		Pragmatic locationIsIdentifiedGoal = new Pragmatic(Goal.OR);
-		Pragmatic infoIsPreparedGoal = new Pragmatic(Goal.OR);
-		Pragmatic isNotifiedAboutEmergencyGoal = new Pragmatic(Goal.OR);
-		Goal callForHelpIsAcceptedGoal = new Goal(Goal.AND);
-		Goal falseAlarmIsCheckedGoal = new Goal(Goal.OR);
-		Goal pIsContacted = new Goal(Goal.AND);
-		Goal receivesEmergencyButtonCallGoal = new Goal(Goal.OR);
-		Goal situationsAreIdentifiedGoal = new Goal(Goal.AND);
-		Goal vitalSignsAreMonitoredGoal = new Goal(Goal.AND);
-		Goal infoIsSentToEmergencyGoal = new Goal(Goal.OR);
-		Goal setupAutomatedInfoGoal = new Goal(Goal.AND);
-		Goal situationDataIsRecoveredGoal = new Goal(Goal.AND);
-		Goal contactResponsibleGoal = new Goal(Goal.AND);
-		Goal medicalCareReachesGoal = new Goal(Goal.AND);
-		Goal ambulanceIsDispatchedToLocationGoal = new Goal(Goal.AND);
+		Pragmatic respondToEmergencyGoal = new Pragmatic(Goal.PARALLEL_AND_DECOMPOSITION);
+		Pragmatic emergencyIsDetectedGoal = new Pragmatic(Goal.OR_DECOMPOSITION);
+		Pragmatic centralReceivesInfoGoal = new Pragmatic(Goal.PARALLEL_AND_DECOMPOSITION);
+		Pragmatic locationIsIdentifiedGoal = new Pragmatic(Goal.OR_DECOMPOSITION);
+		Pragmatic infoIsPreparedGoal = new Pragmatic(Goal.OR_DECOMPOSITION);
+		Pragmatic isNotifiedAboutEmergencyGoal = new Pragmatic(Goal.OR_DECOMPOSITION);
+		Goal callForHelpIsAcceptedGoal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		Goal falseAlarmIsCheckedGoal = new Goal(Goal.OR_DECOMPOSITION);
+		Goal pIsContacted = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		Goal receivesEmergencyButtonCallGoal = new Goal(Goal.OR_DECOMPOSITION);
+		Goal situationsAreIdentifiedGoal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		Goal vitalSignsAreMonitoredGoal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		Goal infoIsSentToEmergencyGoal = new Goal(Goal.OR_DECOMPOSITION);
+		Goal setupAutomatedInfoGoal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		Goal situationDataIsRecoveredGoal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		Goal contactResponsibleGoal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		Goal medicalCareReachesGoal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		Goal ambulanceIsDispatchedToLocationGoal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 
 		/* Tasks */
 		Task notifyCentralBySMSTask = new Task();

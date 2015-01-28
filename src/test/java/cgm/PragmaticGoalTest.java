@@ -17,7 +17,7 @@ public class PragmaticGoalTest {
 		QualityConstraint anotherQC = new QualityConstraint(anotherContext, Metric.METERS, 60,
 				Comparison.LESS_OR_EQUAL_TO);
 
-		Pragmatic goal = new Pragmatic(false);
+		Pragmatic goal = new Pragmatic(Goal.PARALLEL_AND_DECOMPOSITION);
 
 		goal.getInterpretation().addQualityConstraint(aQC);
 		goal.getInterpretation().addQualityConstraint(anotherQC);

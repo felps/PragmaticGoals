@@ -5,29 +5,49 @@ import java.util.Set;
 
 public class Goal extends Refinement {
 
+	public final static int OR_DECOMPOSITION = 0;
+	public final static int SERIAL_AND_DECOMPOSITION = 1;
+	public final static int PARALLEL_AND_DECOMPOSITION = 2;
+	
 	public final static boolean OR = true;
 	public final static boolean AND = false;
-
-	public Goal(boolean isOrDecomposition) {
+	protected int decompositionType;
+	
+	public Goal(int decompositionType) {
 		super();
 		dependencies = new HashSet<Refinement>();
-		this.isOrDecomposition = isOrDecomposition;
+		this.decompositionType = decompositionType;
 	}
 
 	@Override
 	public int myType() {
-		return Refinement.GOAL;	}
+		return Refinement.GOAL;
+	}
 
 	public boolean isOrDecomposition() {
-		return isOrDecomposition;	}
+		if (decompositionType==OR_DECOMPOSITION)
+			return true;
+		else
+			return false;
+	}
 
 	public boolean isAndDecomposition() {
-		return !isOrDecomposition;	}
+		return !isOrDecomposition();
+	}
+	
+	public boolean isSerialAndDecomposition(){
+		return(decompositionType==SERIAL_AND_DECOMPOSITION);
+	}
 
+	public boolean isParallelAndDecomposition(){
+		return(decompositionType==PARALLEL_AND_DECOMPOSITION);
+	}
+	
 	@Override
 	public Plan isAchievable(Set<Context> current, Interpretation interp) {
 		if (!this.isApplicable(current)) {
-			return null;}
+			return null;
+		}
 
 		if (isOrDecomposition()) {
 			Plan plan;

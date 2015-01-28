@@ -25,7 +25,7 @@ public class SmallExperiment {
 	Context c10 = new Context("c10");
 
 	/* Goals */
-	Pragmatic locationIsIdentifiedGoal = new Pragmatic(Goal.OR);
+	Pragmatic locationIsIdentifiedGoal = new Pragmatic(Goal.OR_DECOMPOSITION);
 
 	/* Tasks */
 	Task considerLastKnownLocationTask = new Task();

@@ -9,7 +9,7 @@ public class CGMTest {
 	@Test
 	public void shouldReturnRootNode() {
 		CGM cgm = new CGM();
-		Refinement root = new Goal(false);
+		Refinement root = new Goal(Goal.OR_DECOMPOSITION);
 		cgm.setRoot(root);
 		assertEquals(cgm.getRoot(), root);
 	}

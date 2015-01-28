@@ -12,7 +12,7 @@ public class RefinementTest {
 
 	@Test
 	public void shouldReturnMyType() {
-		Refinement goal = new Goal(false);
+		Refinement goal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 		Task task = new Task();
 		Delegation delegation = new Delegation();
 
@@ -25,7 +25,7 @@ public class RefinementTest {
 
 	@Test
 	public void shouldBeApplicable() throws Exception {
-		Refinement goal = new Goal(false);
+		Refinement goal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 		Task task = new Task();
 		Delegation delegation = new Delegation();
 
@@ -44,7 +44,7 @@ public class RefinementTest {
 
 	@Test
 	public void shouldBeNotApplicable() throws Exception {
-		Refinement goal = new Goal(false);
+		Refinement goal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 		Task task = new Task();
 		Delegation delegation = new Delegation();
 
@@ -103,7 +103,7 @@ public class RefinementTest {
 
 	@Test
 	public void aNonApplicableRootGoalIsNotAchievable() throws Exception {
-		Goal goal = new Goal(false);
+		Goal goal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
 
@@ -118,7 +118,7 @@ public class RefinementTest {
 
 	@Test
 	public void aGoalWithATaskMayBeAchievable() throws Exception {
-		Goal goal = new Goal(false);
+		Goal goal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 
 		Task task = new Task();
 
@@ -143,7 +143,7 @@ public class RefinementTest {
 
 	@Test
 	public void aGoalAndDecomposedWithTwoTasksMayBeAchievable() throws Exception {
-		Goal goal = new Goal(false);
+		Goal goal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 		assertTrue(goal.isAndDecomposition());
 
 		Task task1 = new Task();
@@ -176,7 +176,7 @@ public class RefinementTest {
 
 	@Test
 	public void aGoalAndDecomposedWithTwoTasksMayNotBeAchievable() throws Exception {
-		Goal goal = new Goal(false);
+		Goal goal = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 		assertTrue(goal.isAndDecomposition());
 
 		Task task1 = new Task();
@@ -209,7 +209,7 @@ public class RefinementTest {
 
 	@Test
 	public void aGoalOrDecomposedWithTwoTasksMayBeAchievable() throws Exception {
-		Goal goal = new Goal(true);
+		Goal goal = new Goal(Goal.OR_DECOMPOSITION);
 		assertTrue(goal.isOrDecomposition());
 
 		Task task1 = new Task();
@@ -242,7 +242,7 @@ public class RefinementTest {
 
 	@Test
 	public void aGoalOrDecomposedWithTwoTasksMayBeAchievableAtOnlyOneBranch() throws Exception {
-		Goal goal = new Goal(true);
+		Goal goal = new Goal(Goal.OR_DECOMPOSITION);
 		assertTrue(goal.isOrDecomposition());
 
 		Task task1 = new Task();
@@ -276,7 +276,7 @@ public class RefinementTest {
 
 	@Test
 	public void aGoalOrDecomposedWithTwoTasksMayNotBeAchievable() throws Exception {
-		Goal goal = new Goal(true);
+		Goal goal = new Goal(Goal.OR_DECOMPOSITION);
 
 		Task task1 = new Task();
 		Task task2 = new Task();
@@ -308,7 +308,7 @@ public class RefinementTest {
 
 	@Test
 	public void testApplicableDeps() {
-		Pragmatic goal = new Pragmatic(false);
+		Pragmatic goal = new Pragmatic(Goal.PARALLEL_AND_DECOMPOSITION);
 
 		Task task = new Task();
 		Context context = new Context("C1");
@@ -338,7 +338,7 @@ public class RefinementTest {
 
 	@Test
 	public void testGetApplicableQC() {
-		Pragmatic goal = new Pragmatic(false);
+		Pragmatic goal = new Pragmatic(Goal.PARALLEL_AND_DECOMPOSITION);
 
 		Task task = new Task();
 		Context context = new Context("C1");
@@ -376,7 +376,7 @@ public class RefinementTest {
 
 	@Test
 	public void shouldThereBeMoreThanOneApplicableQCreturnTheStricterOne() throws DifferentMetricsException {
-		Pragmatic goal = new Pragmatic(false);
+		Pragmatic goal = new Pragmatic(Goal.PARALLEL_AND_DECOMPOSITION);
 
 		Task task = new Task();
 		Context context = new Context("C1");
@@ -406,7 +406,7 @@ public class RefinementTest {
 
 	@Test
 	public void shouldIncludeNonApplicableContexts() {
-		Pragmatic goal = new Pragmatic(false);
+		Pragmatic goal = new Pragmatic(Goal.PARALLEL_AND_DECOMPOSITION);
 
 		Task task = new Task();
 		Context context = new Context("C1");
