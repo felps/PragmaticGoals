@@ -1,4 +1,4 @@
-package gm.cgm;
+package gm;
 
 public class GMTest {
 
