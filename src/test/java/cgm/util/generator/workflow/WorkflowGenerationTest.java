@@ -5,8 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import cgm.util.generator.workflow.datatypes.Workflow;
-import cgm.util.generator.workflow.datatypes.WorkflowNode;
+import workflow.WorkflowFactory;
+import workflow.datatypes.Workflow;
+import workflow.datatypes.WorkflowNode;
 
 public class WorkflowGenerationTest {
 

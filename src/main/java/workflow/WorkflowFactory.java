@@ -1,7 +1,7 @@
-package cgm.util.generator.workflow;
+package workflow;
 
-import cgm.util.generator.workflow.datatypes.Workflow;
-import cgm.util.generator.workflow.datatypes.WorkflowNode;
+import workflow.datatypes.Workflow;
+import workflow.datatypes.WorkflowNode;
 
 public class WorkflowFactory {
 
@@ -17,7 +17,7 @@ public class WorkflowFactory {
 			WorkflowNode newNode = new WorkflowNode("Node" + i);
 			wf.addNode(newNode);
 
-			for (int j = 1; j < (edgesPerNode) && j < (wf.getNodes().size() - 1); j++) {
+			for (int j = 0; j < (edgesPerNode) && j < (wf.getNodes().size() - 1); j++) {
 				// System.out.println("Adding edge #" + j + 1);
 				int newEdgeIndex = (int) (Math.random() * (wf.getNodes().size()));
 				WorkflowNode originalNode = wf.getNodes().get(newEdgeIndex);
@@ -26,14 +26,15 @@ public class WorkflowFactory {
 							// as
 							// an edge, pick again
 				} else {
-					System.out.println("Including edge #" + (j + 1) + " from node " + newEdgeIndex + " to node "
-							+ newNode.getName());
+					// System.out.println("Including edge #" + (j + 1) +
+					// " from node " + newEdgeIndex + " to node "
+					// + newNode.getName());
 					originalNode.addEdge(newNode);
 				}
 			}
-
 		}
 
 		return wf;
 	}
+
 }

@@ -1,4 +1,4 @@
-package cgm.util.generator.workflow.datatypes;
+package workflow.datatypes;
 
 import java.util.HashSet;
 import java.util.Set;

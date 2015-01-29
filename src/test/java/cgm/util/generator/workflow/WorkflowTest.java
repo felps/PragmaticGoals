@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import cgm.util.generator.workflow.datatypes.Workflow;
-import cgm.util.generator.workflow.datatypes.WorkflowNode;
+import workflow.datatypes.Workflow;
+import workflow.datatypes.WorkflowNode;
 
 public class WorkflowTest {
 
