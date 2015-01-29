@@ -35,6 +35,29 @@ public class CGMTest {
 	}
 
 	@Test
+	public void shouldConvertAnOrDecompositionIntoASingleNodeWorkflow() throws EmptyWorkflow {
+		CGM cgm = new CGM();
+		Task task1 = new Task();
+		task1.setIdentifier("Task 1");
+
+		Task task2 = new Task();
+		task2.setIdentifier("Task 2");
+
+		Goal goal = new Goal(Goal.OR_DECOMPOSITION);
+		goal.addDependency(task1);
+		goal.addDependency(task2);
+
+		cgm.setRoot(goal);
+
+		Workflow wf = cgm.convertToWorkflow(null);
+
+		assertEquals(1, wf.getStart().getEdges().size());
+		assertEquals(1, wf.getLastNodes().size());
+		assertEquals(1, wf.getNodes().size());
+		assertTrue("Task 1".equals(wf.getNodes().get(0).getName()) || "Task 2".equals(wf.getNodes().get(0).getName()));
+	}
+
+	@Test
 	public void shouldCreateALinearAWorkflow() throws EmptyWorkflow {
 		CGM cgm = new CGM();
 		Task task1 = new Task();

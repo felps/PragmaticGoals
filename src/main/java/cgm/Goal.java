@@ -120,11 +120,10 @@ public class Goal extends Refinement {
 			return wf;
 
 		} else if (isOrDecomposition()) {
-			if (getApplicableDependencies(context).size() >= 1) {
-				Refinement[] array = (Refinement[]) getApplicableDependencies(context).toArray();
-				return array[0].workflow(context);
+			for (Refinement dep : getApplicableDependencies(context)) {
+				wf = wf.parallel(dep.workflow(context));
+				return wf;
 			}
-			return wf;
 		}
 
 		throw new EmptyWorkflow();
