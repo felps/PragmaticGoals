@@ -9,6 +9,12 @@ import metrics.DistanceErrorMargin;
 
 import org.junit.Test;
 
+import cgm.Comparison;
+import cgm.Context;
+import cgm.Goal;
+import cgm.Pragmatic;
+import cgm.QualityConstraint;
+
 public class PragmaticGoalTest {
 
 	@Test

@@ -9,6 +9,13 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
+import cgm.Context;
+import cgm.Delegation;
+import cgm.Goal;
+import cgm.Plan;
+import cgm.Refinement;
+import cgm.Task;
+
 public class GoalTest {
 
 	@Test

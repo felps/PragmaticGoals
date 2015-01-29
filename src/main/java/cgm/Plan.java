@@ -1,26 +1,41 @@
 package cgm;
 
-import java.util.HashSet;
+import java.util.Set;
+
+import workflow.datatypes.Workflow;
 
 public class Plan {
 
-	private HashSet<Task> tasks;
-
+	GM gm;
 	public Plan(Task task) {
-		tasks = new HashSet<Task>();
-		tasks.add(task);
+		gm = new GM();
+		gm.setRoot(new Goal(Goal.OR_DECOMPOSITION));
+		((Goal) gm.getRoot()).addDependency(task);
 	}
 
 	public Plan() {
-		tasks = new HashSet<Task>();
+		gm = new GM();
+		gm.setRoot(new Goal(Goal.OR_DECOMPOSITION));
 	}
 
 	public void add(Plan plan) {
-		tasks.addAll(plan.getTasks());
+		((Goal) gm.getRoot()).addDependency(plan.getGM().getRoot());
 	}
 
-	public HashSet<Task> getTasks() {
-		return tasks;
+	public void add(Refinement dependency) {
+		((Goal) gm.getRoot()).addDependency(dependency);
+	}
+
+	public GM getGM() {
+		return gm;
+	}
+
+	public Set<Task> getTasks() {
+		return gm.getRoot().getTasks();
+	}
+
+	public Workflow convertToWorkflow() throws EmptyWorkflow {
+		return gm.getRoot().workflow(null);
 	}
 
 }

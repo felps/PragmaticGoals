@@ -105,6 +105,10 @@ public class Goal extends Refinement {
 
 	@Override
 	public Workflow workflow(Set<Context> context) throws EmptyWorkflow {
+		if (context == null) {
+			context = setUpNullContext();
+		}
+
 		Workflow wf = new Workflow();
 
 		if (isParallelAndDecomposition()) {
@@ -144,5 +148,14 @@ public class Goal extends Refinement {
 			returnList.add(dependencies.get(i));
 		}
 		return returnList;
+	}
+
+	@Override
+	public Set<Task> getTasks() {
+		HashSet<Task> tasks = new HashSet<Task>();
+		for (Refinement dep : dependencies.values()) {
+			tasks.addAll(dep.getTasks());
+		}
+		return tasks;
 	}
 }

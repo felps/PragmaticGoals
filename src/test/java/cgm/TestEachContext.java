@@ -9,8 +9,18 @@ import metrics.DistanceErrorMargin;
 import metrics.EnvironmentNoise;
 import metrics.ExecutionTimeSec;
 import metrics.FalseNegativePercentage;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import cgm.CGM;
+import cgm.Comparison;
+import cgm.Context;
+import cgm.Goal;
+import cgm.Plan;
+import cgm.Pragmatic;
+import cgm.QualityConstraint;
+import cgm.Task;
 
 public class TestEachContext {
 	CGM cgm;

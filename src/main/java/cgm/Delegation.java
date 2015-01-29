@@ -20,4 +20,9 @@ public class Delegation extends Refinement {
 	public Workflow workflow(Set<Context> context) {
 		return null;
 	}
+
+	@Override
+	public Set<Task> getTasks() {
+		return null;
+	}
 }

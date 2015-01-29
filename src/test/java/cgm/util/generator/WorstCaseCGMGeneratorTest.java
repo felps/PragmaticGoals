@@ -8,8 +8,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import cgm.CGM;
 import cgm.Context;
+import cgm.GM;
 import cgm.Goal;
 import cgm.Refinement;
 
@@ -18,7 +18,7 @@ public class WorstCaseCGMGeneratorTest {
 
 	@Test
 	public void shouldCreateASingleTask() {
-		CGM cgm = cgmFactory.generateCGM(1, 2);
+		GM cgm = cgmFactory.generateCGM(1, 2);
 
 		assertTrue(cgm.getRoot().myType() == Refinement.TASK);
 		assertEquals(1, countTreeLevels(cgm.getRoot(), 0));
@@ -26,7 +26,7 @@ public class WorstCaseCGMGeneratorTest {
 
 	@Test
 	public void shouldCreateASingleGoalWithASingleTask() {
-		CGM cgm = cgmFactory.generateCGM(2, 2);
+		GM cgm = cgmFactory.generateCGM(2, 2);
 
 		assertTrue(cgm.getRoot().myType() == Refinement.GOAL);
 
@@ -39,7 +39,7 @@ public class WorstCaseCGMGeneratorTest {
 	@Test
 	public void shouldCreateASingleCGMWithTwoLevels() {
 
-		CGM cgm = cgmFactory.generateCGM(3, 2);
+		GM cgm = cgmFactory.generateCGM(3, 2);
 
 		assertEquals(3, countRefinements(cgm.getRoot()));
 		assertEquals(2, countTreeLevels(cgm.getRoot(), 0));
@@ -49,7 +49,7 @@ public class WorstCaseCGMGeneratorTest {
 	public void shouldCreateLargerCGMs() {
 
 		for (int i = 1; i < 100; i++) {
-			CGM cgm = cgmFactory.generateCGM(3 * i, 1);
+			GM cgm = cgmFactory.generateCGM(3 * i, 1);
 			assertEquals(3 * i, countRefinements(cgm.getRoot()));
 		}
 	}
@@ -57,7 +57,7 @@ public class WorstCaseCGMGeneratorTest {
 	@Test
 	public void shouldCreateAVeryLargeCGM() {
 
-		CGM cgm = cgmFactory.generateCGM(4095, 1);
+		GM cgm = cgmFactory.generateCGM(4095, 1);
 		assertEquals(4095, countRefinements(cgm.getRoot()));
 		assertEquals(12, countTreeLevels(cgm.getRoot(), 0));
 	}
@@ -65,7 +65,7 @@ public class WorstCaseCGMGeneratorTest {
 	@Test
 	public void shouldCreateCGMWithManyContexts() {
 
-		CGM cgm = cgmFactory.generateCGM(1000, 30);
+		GM cgm = cgmFactory.generateCGM(1000, 30);
 
 		assertEquals(30, collectContexts(cgm.getRoot()).size());
 	}

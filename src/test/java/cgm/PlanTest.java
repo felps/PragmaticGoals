@@ -5,34 +5,49 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import cgm.CGM;
 import cgm.EmptyWorkflow;
-import cgm.GM;
 import cgm.Goal;
-import cgm.Refinement;
+import cgm.Plan;
 import cgm.Task;
 import workflow.datatypes.Workflow;
 import workflow.datatypes.WorkflowNode;
 
-public class CGMTest {
+public class PlanTest {
 
 	@Test
-	public void shouldReturnRootNode() {
-		GM cgm = new CGM();
-		Refinement root = new Goal(Goal.OR_DECOMPOSITION);
-		cgm.setRoot(root);
-		assertEquals(cgm.getRoot(), root);
+	public void shouldAddOneTaskAsDependencyOnConstructor() {
+		Task task = new Task();
+		task.setIdentifier("Task 1");
+		Plan plan = new Plan(task);
+
+		assertTrue(plan.getTasks().contains(task));
+	}
+
+	@Test
+	public void shouldConcatTwoPlans() {
+		Task task1 = new Task();
+		task1.setIdentifier("Task 1");
+		Plan plan1 = new Plan(task1);
+
+		Task task2 = new Task();
+		task2.setIdentifier("Task 2");
+		Plan plan2 = new Plan(task2);
+
+		plan1.add(plan2);
+		assertTrue(plan1.getTasks().contains(task1));
+		assertTrue(plan1.getTasks().contains(task2));
+		assertEquals(2, plan1.getTasks().size());
 	}
 
 	@Test
 	public void shouldConvertASingleTaskToSimpleWorkflow() throws EmptyWorkflow {
-		CGM cgm = new CGM();
+
 		Task task = new Task();
 		task.setIdentifier("Task 1");
 
-		cgm.setRoot(task);
+		Plan plan = new Plan(task);
 
-		Workflow wf = cgm.convertToWorkflow(null);
+		Workflow wf = plan.convertToWorkflow();
 
 		assertEquals(1, wf.getStart().getEdges().size());
 		assertEquals(1, wf.getLastNodes().size());
@@ -41,31 +56,27 @@ public class CGMTest {
 	}
 
 	@Test
-	public void shouldConvertAnOrDecompositionIntoASingleNodeWorkflow() throws EmptyWorkflow {
-		CGM cgm = new CGM();
+	public void shouldConvertSerialAndDecompositionIntoASingleNodeWorkflow() throws EmptyWorkflow {
+
 		Task task1 = new Task();
 		task1.setIdentifier("Task 1");
 
-		Task task2 = new Task();
-		task2.setIdentifier("Task 2");
-
-		Goal goal = new Goal(Goal.OR_DECOMPOSITION);
+		Goal goal = new Goal(Goal.SERIAL_AND_DECOMPOSITION);
 		goal.addDependency(task1);
-		goal.addDependency(task2);
 
-		cgm.setRoot(goal);
+		Plan plan = new Plan();
+		plan.add(goal);
 
-		Workflow wf = cgm.convertToWorkflow(null);
+		Workflow wf = plan.convertToWorkflow();
 
 		assertEquals(1, wf.getStart().getEdges().size());
 		assertEquals(1, wf.getLastNodes().size());
 		assertEquals(1, wf.getNodes().size());
-		assertTrue("Task 1".equals(wf.getNodes().get(0).getName()) || "Task 2".equals(wf.getNodes().get(0).getName()));
+		assertEquals("Task 1", wf.getNodes().get(0).getName());
 	}
 
 	@Test
 	public void shouldCreateALinearAWorkflow() throws EmptyWorkflow {
-		CGM cgm = new CGM();
 		Task task1 = new Task();
 		task1.setIdentifier("Task 1");
 
@@ -76,10 +87,10 @@ public class CGMTest {
 		goal.addDependency(task1);
 		goal.addDependency(task2);
 
-		cgm.setRoot(goal);
+		Plan plan = new Plan();
+		plan.add(goal);
 
-		assertTrue(cgm.isAchievable(null, null) != null);
-		Workflow wf = cgm.convertToWorkflow(null);
+		Workflow wf = plan.convertToWorkflow();
 
 		wf.printWorkflow();
 		assertEquals(1, wf.getStart().getEdges().size());
@@ -94,7 +105,8 @@ public class CGMTest {
 
 	@Test
 	public void shouldCreateAParallelWorkflow() throws EmptyWorkflow {
-		CGM cgm = new CGM();
+		Plan plan = new Plan();
+
 		Task task1 = new Task();
 		task1.setIdentifier("Task 1");
 
@@ -105,10 +117,9 @@ public class CGMTest {
 		goal.addDependency(task1);
 		goal.addDependency(task2);
 
-		cgm.setRoot(goal);
+		plan.add(goal);
 
-		assertTrue(cgm.isAchievable(null, null) != null);
-		Workflow wf = cgm.convertToWorkflow(null);
+		Workflow wf = plan.convertToWorkflow();
 
 		wf.printWorkflow();
 		assertEquals(2, wf.getStart().getEdges().size());
@@ -121,7 +132,7 @@ public class CGMTest {
 
 	@Test
 	public void shouldCreateALinearFollowedByAParallelWorkflow() throws EmptyWorkflow {
-		CGM cgm = new CGM();
+		Plan plan = new Plan();
 		Goal goal1 = new Goal(Goal.SERIAL_AND_DECOMPOSITION);
 		Goal goal2 = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
 		Task task1 = new Task();
@@ -141,10 +152,9 @@ public class CGMTest {
 		goal2.addDependency(task3);
 		goal2.addDependency(task4);
 
-		cgm.setRoot(goal1);
-		assertTrue(cgm.isAchievable(null, null) != null);
+		plan.add(goal1);
 
-		Workflow wf = cgm.convertToWorkflow(null);
+		Workflow wf = plan.convertToWorkflow();
 
 		wf.printWorkflow();
 		assertEquals(1, wf.getStart().getEdges().size());

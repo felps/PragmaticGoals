@@ -85,4 +85,6 @@ public abstract class Refinement {
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
+
+	public abstract Set<Task> getTasks();
 }

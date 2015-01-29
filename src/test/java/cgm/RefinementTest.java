@@ -10,6 +10,18 @@ import metrics.ExecutionTimeSec;
 
 import org.junit.Test;
 
+import cgm.Comparison;
+import cgm.Context;
+import cgm.Delegation;
+import cgm.DifferentMetricsException;
+import cgm.Goal;
+import cgm.Interpretation;
+import cgm.Plan;
+import cgm.Pragmatic;
+import cgm.QualityConstraint;
+import cgm.Refinement;
+import cgm.Task;
+
 public class RefinementTest {
 
 	@Test

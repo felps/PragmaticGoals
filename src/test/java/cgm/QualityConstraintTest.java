@@ -8,6 +8,11 @@ import metrics.ExecutionTimeSec;
 
 import org.junit.Test;
 
+import cgm.Comparison;
+import cgm.Context;
+import cgm.DifferentMetricsException;
+import cgm.QualityConstraint;
+
 public class QualityConstraintTest {
 
 	@Test

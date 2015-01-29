@@ -4,18 +4,7 @@ import java.util.Set;
 
 import workflow.datatypes.Workflow;
 
-public class CGM {
-
-	private Refinement rootGoal;
-
-	public void setRoot(Refinement root) {
-		this.rootGoal = root;
-
-	}
-
-	public Refinement getRoot() {
-		return rootGoal;
-	}
+public class CGM extends GM {
 
 	public Plan isAchievable(Set<Context> current, Interpretation interp) {
 		return rootGoal.isAchievable(current, interp);

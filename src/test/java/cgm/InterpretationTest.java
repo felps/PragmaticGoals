@@ -9,6 +9,11 @@ import metrics.ExecutionTimeSec;
 
 import org.junit.Test;
 
+import cgm.Comparison;
+import cgm.Context;
+import cgm.Interpretation;
+import cgm.QualityConstraint;
+
 public class InterpretationTest {
 
 	@Test

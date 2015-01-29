@@ -9,6 +9,10 @@ import metrics.ExecutionTimeSec;
 
 import org.junit.Test;
 
+import cgm.Context;
+import cgm.MetricNotFoundException;
+import cgm.Task;
+
 public class TaskTest {
 
 	@Test
