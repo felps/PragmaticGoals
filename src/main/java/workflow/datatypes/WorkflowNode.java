@@ -20,6 +20,10 @@ public class WorkflowNode {
 		edges.add(node);
 	}
 
+	public void addEdges(Set<WorkflowNode> newEdges) {
+		edges.addAll(newEdges);
+	}
+
 	public Set<WorkflowNode> getEdges() {
 		return edges;
 	}
