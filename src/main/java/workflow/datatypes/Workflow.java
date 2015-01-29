@@ -7,17 +7,16 @@ import java.util.List;
 public class Workflow {
 
 	private WorkflowNode startNode;
-	private WorkflowNode endNode;
+	private HashSet<WorkflowNode> lastNodes;
 
 	private ArrayList<WorkflowNode> nodes;
 
 	public Workflow(WorkflowNode node1) {
 		startNode = new WorkflowNode("start");
-		endNode = new WorkflowNode("end");
+		lastNodes = new HashSet<WorkflowNode>();
 		nodes = new ArrayList<WorkflowNode>();
 		nodes.add(node1);
 	}
-
 	public List<WorkflowNode> getNodes() {
 		return nodes;
 	}
@@ -30,8 +29,6 @@ public class Workflow {
 	}
 
 	private void setEndEdges() {
-		HashSet<WorkflowNode> lastNodes = new HashSet<WorkflowNode>();
-
 		for (WorkflowNode node : getNodes()) {
 			if (node.getEdges().size() == 0)
 				lastNodes.add(node);
@@ -39,13 +36,13 @@ public class Workflow {
 
 	}
 
+	public HashSet<WorkflowNode> getLastNodes() {
+		return lastNodes;
+	}
+
 	public WorkflowNode getStart() {
 		return startNode;
 
-	}
-
-	public WorkflowNode getEnd() {
-		return endNode;
 	}
 
 	private void setStartEdges() {
@@ -62,5 +59,4 @@ public class Workflow {
 			startNode.addEdge(unconnectedNode);
 		}
 	}
-
 }
