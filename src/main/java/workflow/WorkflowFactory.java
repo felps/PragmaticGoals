@@ -26,9 +26,6 @@ public class WorkflowFactory {
 							// as
 							// an edge, pick again
 				} else {
-					// System.out.println("Including edge #" + (j + 1) +
-					// " from node " + newEdgeIndex + " to node "
-					// + newNode.getName());
 					originalNode.addEdge(newNode);
 				}
 			}
