@@ -4,11 +4,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import workflow.WorkflowGenerationTest;
+import workflow.datatypes.WorkflowNodesTest;
+import workflow.datatypes.WorkflowTest;
 import cgm.util.generator.RandomCGMGeneratorTest;
 import cgm.util.generator.WorstCaseCGMGeneratorTest;
-import cgm.util.generator.workflow.WorkflowGenerationTest;
-import cgm.util.generator.workflow.WorkflowNodesTest;
-import cgm.util.generator.workflow.WorkflowTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({CGMTest.class, GoalTest.class, PragmaticGoalTest.class, QualityConstraintTest.class,
