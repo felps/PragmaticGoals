@@ -12,7 +12,7 @@ import cgm.util.generator.WorstCaseCGMGeneratorTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({CGMTest.class, GoalTest.class, PragmaticGoalTest.class, QualityConstraintTest.class,
-		RefinementTest.class, TaskTest.class, ContextTest.class, TestEachContext.class, RandomCGMGeneratorTest.class,
+		RefinementTest.class, TaskTest.class, ContextTest.class, RandomCGMGeneratorTest.class,
 		WorstCaseCGMGeneratorTest.class, InterpretationTest.class, WorkflowGenerationTest.class,
 		WorkflowNodesTest.class, WorkflowTest.class})
 public class CgmFullTest {

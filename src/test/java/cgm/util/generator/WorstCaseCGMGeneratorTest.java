@@ -1,6 +1,7 @@
 package cgm.util.generator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,12 +10,12 @@ import org.junit.Test;
 
 import cgm.CGM;
 import cgm.Context;
+import cgm.Goal;
 import cgm.Refinement;
-import cgm.util.generator.WorstCaseCGMGenerator;
 
 public class WorstCaseCGMGeneratorTest {
 	WorstCaseCGMGenerator cgmFactory = new WorstCaseCGMGenerator();
-	
+
 	@Test
 	public void shouldCreateASingleTask() {
 		CGM cgm = cgmFactory.generateCGM(1, 2);
@@ -29,7 +30,7 @@ public class WorstCaseCGMGeneratorTest {
 
 		assertTrue(cgm.getRoot().myType() == Refinement.GOAL);
 
-		for (Refinement dep : cgm.getRoot().getDependencies()) {
+		for (Refinement dep : ((Goal) cgm.getRoot()).getDependencies()) {
 			assertTrue(dep.myType() == Refinement.TASK);
 		}
 		assertEquals(2, countTreeLevels(cgm.getRoot(), 0));
@@ -66,16 +67,17 @@ public class WorstCaseCGMGeneratorTest {
 
 		CGM cgm = cgmFactory.generateCGM(1000, 30);
 
-		assertEquals(30, collectContexts(cgm.getRoot()).size()); 	
+		assertEquals(30, collectContexts(cgm.getRoot()).size());
 	}
-	
+
 	private Set<Context> collectContexts(Refinement root) {
 		HashSet<Context> contextSet = new HashSet<Context>();
 
 		contextSet.addAll(root.getApplicableContext());
-		for (Refinement dep : root.getDependencies()) {
-			contextSet.addAll(collectContexts(dep));
-		}
+		if (root.myType() == Refinement.GOAL)
+			for (Refinement dep : ((Goal) root).getDependencies()) {
+				contextSet.addAll(collectContexts(dep));
+			}
 		contextSet.remove(null);
 		return contextSet;
 	}
@@ -83,21 +85,23 @@ public class WorstCaseCGMGeneratorTest {
 	private int countRefinements(Refinement refinement) {
 		int amount = 1;
 
-		for (Refinement dep : refinement.getDependencies()) {
-			amount = amount + countRefinements(dep);
-		}
+		if (refinement.myType() == Refinement.GOAL)
+			for (Refinement dep : ((Goal) refinement).getDependencies()) {
+				amount = amount + countRefinements(dep);
+			}
 		return amount;
 	}
 
 	private int countTreeLevels(Refinement refinement, int currentLevel) {
 		int amount = 1;
 		int maxLevels = 0;
+		if (refinement.myType() == Refinement.GOAL)
+			for (Refinement dep : ((Goal) refinement).getDependencies()) {
 
-		for (Refinement dep : refinement.getDependencies()) {
-			int levelsBelow = countTreeLevels(dep, currentLevel++);
-			if (maxLevels < levelsBelow)
-				maxLevels = levelsBelow;
-		}
+				int levelsBelow = countTreeLevels(dep, currentLevel++);
+				if (maxLevels < levelsBelow)
+					maxLevels = levelsBelow;
+			}
 
 		return amount + maxLevels;
 	}

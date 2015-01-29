@@ -2,6 +2,8 @@ package cgm;
 
 import java.util.Set;
 
+import workflow.datatypes.Workflow;
+
 public class CGM {
 
 	private Refinement rootGoal;
@@ -19,6 +21,9 @@ public class CGM {
 		return rootGoal.isAchievable(current, interp);
 	}
 
+	public Workflow convertToWorkflow(Set<Context> context) throws EmptyWorkflow {
+		return rootGoal.workflow(context);
+	}
 
 	// public void dumpToYamlFile(){
 	// YamlHandler yaml = new YamlHandler();

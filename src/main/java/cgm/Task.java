@@ -1,13 +1,19 @@
 package cgm;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import metrics.Metric;
+import workflow.datatypes.Workflow;
+import workflow.datatypes.WorkflowNode;
 
 public class Task extends Refinement {
 
 	private HashMap<Metric, HashMap<Context, Float>> providedQualityLevels;
+	protected boolean isOrDecomposition = false;
+	protected ArrayList<Refinement> dependencies;
 
 	@Override
 	public int myType() {
@@ -91,5 +97,21 @@ public class Task extends Refinement {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Workflow workflow(Set<Context> context) throws EmptyWorkflow {
+		if (isApplicable(context))
+			return (new Workflow(new WorkflowNode(getIdentifier())));
+		throw (new EmptyWorkflow());
+	}
+
+	public synchronized void addDependency(Refinement refinement) {
+		if (!dependencies.contains(refinement))
+			dependencies.add(refinement);
+	}
+
+	public List<Refinement> getDependencies() {
+		return dependencies;
 	}
 }

@@ -1,6 +1,7 @@
 package cgm.util.generator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,8 +10,8 @@ import org.junit.Test;
 
 import cgm.CGM;
 import cgm.Context;
+import cgm.Goal;
 import cgm.Refinement;
-import cgm.util.generator.RandomCGMGenerator;
 
 public class RandomCGMGeneratorTest {
 
@@ -43,7 +44,7 @@ public class RandomCGMGeneratorTest {
 
 		assertTrue(cgm.getRoot().myType() == Refinement.GOAL);
 
-		for (Refinement dep : cgm.getRoot().getDependencies()) {
+		for (Refinement dep : ((Goal) cgm.getRoot()).getDependencies()) {
 			assertTrue(dep.myType() == Refinement.TASK);
 		}
 	}
@@ -128,7 +129,6 @@ public class RandomCGMGeneratorTest {
 		assertTrue(isAchievable);
 	}
 
-	
 	@Test
 	public void allGoalsMayBeAchievableEvenWithLotsOfGoals() {
 		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
@@ -141,10 +141,10 @@ public class RandomCGMGeneratorTest {
 			System.out.println(">" + context.getName() + "<");
 		}
 
-		for (int modelSize = 1;modelSize<100;modelSize++){
+		for (int modelSize = 1; modelSize < 100; modelSize++) {
 			boolean isAchievable = false;
 			for (int i = 0; i < 100; i++) {
-				CGM cgm = cgmFactory.generateCGM(2*modelSize, 2);
+				CGM cgm = cgmFactory.generateCGM(2 * modelSize, 2);
 				if (cgm.getRoot().isAchievable(current, null) != null)
 					isAchievable = true;
 			}
@@ -202,9 +202,10 @@ public class RandomCGMGeneratorTest {
 		HashSet<Context> contextSet = new HashSet<Context>();
 
 		contextSet.addAll(root.getApplicableContext());
-		for (Refinement dep : root.getDependencies()) {
-			contextSet.addAll(collectContexts(dep));
-		}
+		if (root.myType() == Goal.GOAL)
+			for (Refinement dep : ((Goal) root).getDependencies()) {
+				contextSet.addAll(collectContexts(dep));
+			}
 		contextSet.remove(null);
 		return contextSet;
 	}
@@ -212,9 +213,10 @@ public class RandomCGMGeneratorTest {
 	private int countRefinements(Refinement refinement) {
 		int amount = 1;
 
-		for (Refinement dep : refinement.getDependencies()) {
-			amount = amount + countRefinements(dep);
-		}
+		if (refinement.myType() == Goal.GOAL)
+			for (Refinement dep : ((Goal) refinement).getDependencies()) {
+				amount = amount + countRefinements(dep);
+			}
 		return amount;
 	}
 

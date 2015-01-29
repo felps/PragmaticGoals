@@ -3,6 +3,8 @@ package cgm;
 import java.util.HashSet;
 import java.util.Set;
 
+import workflow.datatypes.Workflow;
+
 public abstract class Refinement {
 
 	public static final int GOAL = 1;
@@ -13,14 +15,12 @@ public abstract class Refinement {
 	private HashSet<Context> nonApplicableContexts;
 
 	protected boolean isOrDecomposition = false;
-	protected HashSet<Refinement> dependencies;
 	private String identifier;
 
 	public Refinement() {
 		applicableContexts = new HashSet<Context>();
 		applicableContexts.add(null);
 		nonApplicableContexts = new HashSet<Context>();
-		dependencies = new HashSet<Refinement>();
 	}
 
 	public void addApplicableContext(Context context) {
@@ -44,13 +44,18 @@ public abstract class Refinement {
 	}
 
 	public abstract int myType();
+	public abstract Workflow workflow(Set<Context> context) throws EmptyWorkflow;
 
 	public boolean isApplicable(Set<Context> current) {
 		boolean returnValue = false;
+		if (current == null) {
+			current = setUpNullContext();
+		}
 
 		if (applicableContexts.contains(null)) {
 			returnValue = true;
 		}
+
 		if (nonApplicableContexts.size() > 0) {
 			returnValue = true;
 		}
@@ -64,28 +69,14 @@ public abstract class Refinement {
 		return returnValue;
 	}
 
+	protected Set<Context> setUpNullContext() {
+		Set<Context> current;
+		current = new HashSet<Context>();
+		current.add(null);
+		return current;
+	}
+
 	public abstract Plan isAchievable(Set<Context> current, Interpretation interp);
-
-	public void addDependency(Refinement goal) {
-		dependencies.add(goal);
-	}
-
-	public Set<Refinement> getDependencies() {
-		return dependencies;
-	}
-
-	public Set<Refinement> getApplicableDependencies(Set<Context> current) {
-
-		HashSet<Refinement> applicableDeps = new HashSet<Refinement>();
-		for (Refinement dep : dependencies) {
-			for (Context context : current) {
-				if (dep.getApplicableContext().contains(context) || dep.getApplicableContext().contains(null)) {
-					applicableDeps.add(dep);
-				}
-			}
-		}
-		return applicableDeps;
-	}
 
 	public String getIdentifier() {
 		return identifier;

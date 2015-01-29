@@ -2,6 +2,8 @@ package cgm;
 
 import java.util.Set;
 
+import workflow.datatypes.Workflow;
+
 public class Delegation extends Refinement {
 
 	@Override
@@ -9,16 +11,13 @@ public class Delegation extends Refinement {
 		return Refinement.DELEGATION;
 	}
 
-	public void parseFromYamlFile() {
-
-	}
-
 	@Override
 	public Plan isAchievable(Set<Context> current, Interpretation interp) {
 		return null;
 	}
-	// public void dumpToYamlFile(){
-	// YamlHandler yaml = new YamlHandler();
-	// yaml.dumpToYamlFile(this);
-	// }
+
+	@Override
+	public Workflow workflow(Set<Context> context) {
+		return null;
+	}
 }

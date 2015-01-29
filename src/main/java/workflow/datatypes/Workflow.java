@@ -110,6 +110,15 @@ public class Workflow {
 		return concat;
 	}
 
+	public Workflow parallel(Workflow wf2) {
+		Workflow parallel = new Workflow();
+
+		parallel.addNodes(getNodes());
+		parallel.addNodes(wf2.getNodes());
+
+		return parallel;
+	}
+
 	public void printWorkflow() {
 		System.out.println("==== Workflow ====\n\n");
 		System.out.println("Starting nodes (" + startNode.getEdges().size() + ") ==>");
