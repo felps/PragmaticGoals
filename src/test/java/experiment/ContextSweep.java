@@ -1,14 +1,14 @@
 package experiment;
 
+import gm.cgm.CGM;
+import gm.cgm.Context;
+import gm.cgm.util.generator.RandomCGMGenerator;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
-import cgm.CGM;
-import cgm.Context;
-import cgm.util.generator.RandomCGMGenerator;
 
 public class ContextSweep {
 

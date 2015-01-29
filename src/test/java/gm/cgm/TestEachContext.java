@@ -1,4 +1,4 @@
-package experiment;
+package gm.cgm;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -21,120 +21,7 @@ import metrics.FalseNegativePercentage;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ExperimentScenarios {
-
-	@Test
-	public void contextSet1() {
-		System.out.println("=========== Experiment Context Set 1 ================");
-		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0);
-		Plan tasks = null;
-		long startTime = System.nanoTime();
-		for (int i = 0; i < 1000; i++) {
-			tasks = cgm.isAchievable(fullContext, null);
-		}
-		long elapsed = System.nanoTime() - startTime;
-		System.out.println("Average elapsed time:" + elapsed / 10000 + " ns...");
-
-		assertTrue(tasks != null);
-		for (Task task : tasks.getTasks()) {
-			int found = 0;
-			if (task.getIdentifier().contentEquals("acceptEmergency"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyBySoundAlert"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("identifyLocationByVoiceCall"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("accessLocationFromTriangulation"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("accessLocationFromGPS"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("considerLastKnownLocation"))
-				found = 1;
-
-			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
-		}
-	}
-
-	@Test
-	public void contextSet2() {
-		System.out.println("=========== Experiment Context Set 2 ================");
-		HashSet<Context> fullContext = createFullContext(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0);
-		Plan tasks = null;
-		long startTime = System.nanoTime();
-		for (int i = 0; i < 10000; i++) {
-			tasks = cgm.isAchievable(fullContext, null);
-		}
-		long elapsed = System.nanoTime() - startTime;
-		System.out.println("Average elapsed time:" + elapsed / 10000 + " ns...");
-		assertTrue(tasks == null);
-
-	}
-
-	@Test
-	public void contextSet3() {
-		System.out.println("=========== Experiment Context Set 3 ================");
-		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0);
-		Plan tasks = null;
-		long startTime = System.nanoTime();
-		for (int i = 0; i < 10000; i++) {
-			tasks = cgm.isAchievable(fullContext, null);
-		}
-		long elapsed = System.nanoTime() - startTime;
-		System.out.println("Average elapsed time:" + elapsed / 10000 + " ns...");
-
-		assertTrue(tasks != null);
-
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
-			int found = 0;
-			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("getInfoFromResponsible"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyBySoundAlert"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyByLightAlert"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyByMobileVibrationTask"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("notifyByMobileVibrationTask"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
-				found = 1;
-
-			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
-		}
-	}
-
-	@Test
-	public void contextSet4() {
-		System.out.println("=========== Experiment Context Set 4 ================");
-		HashSet<Context> fullContext = createFullContext(1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0);
-		Plan tasks = null;
-		long startTime = System.nanoTime();
-		for (int i = 0; i < 10000; i++) {
-			tasks = cgm.isAchievable(fullContext, null);
-		}
-		long elapsed = System.nanoTime() - startTime;
-		System.out.println("Average elapsed time:" + elapsed / 10000 + " ms...");
-
-		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
-			int found = 0;
-			if (task.getIdentifier().contentEquals("acceptEmergency"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("centralCallsP"))
-				found = 1;
-			if (task.getIdentifier().contentEquals("accessLocationFromGPS"))
-				found = 1;
-
-			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
-		}
-	}
-
+public class TestEachContext {
 	CGM cgm;
 
 	/* Contexts */
@@ -333,12 +220,9 @@ public class ExperimentScenarios {
 
 		/* Goal interpretations */
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 180,
-					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 90,
-					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240,
-					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 180, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 90, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240, Comparison.LESS_OR_EQUAL_TO);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
 			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc3);
@@ -357,24 +241,18 @@ public class ExperimentScenarios {
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 60,
-					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 60, Comparison.LESS_OR_EQUAL_TO);
 			centralReceivesInfoGoal.getInterpretation().addQualityConstraint(qc1);
 		}
 
 		{
 			QualityConstraint qc4 = new QualityConstraint(null, (new DistanceErrorMargin()), 1000,
 					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc6 = new QualityConstraint(c5, (new DistanceErrorMargin()), 20,
-					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc5 = new QualityConstraint(c10, (new DistanceErrorMargin()), 200,
-					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 120,
-					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240,
-					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 20,
-					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc6 = new QualityConstraint(c5, (new DistanceErrorMargin()), 20, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc5 = new QualityConstraint(c10, (new DistanceErrorMargin()), 200, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 120, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc3 = new QualityConstraint(c9, (new ExecutionTimeSec()), 240, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 20, Comparison.LESS_OR_EQUAL_TO);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);
 			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);
@@ -384,17 +262,14 @@ public class ExperimentScenarios {
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 45,
-					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 30,
-					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new ExecutionTimeSec()), 900, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, (new ExecutionTimeSec()), 600, Comparison.LESS_OR_EQUAL_TO);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc1);
 			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc2);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, (new EnvironmentNoise()), 10,
-					Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, (new EnvironmentNoise()), 10, Comparison.LESS_OR_EQUAL_TO);
 			QualityConstraint qc2 = new QualityConstraint(c1, (new EnvironmentNoise()), 3, Comparison.LESS_OR_EQUAL_TO);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
 			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
@@ -449,6 +324,272 @@ public class ExperimentScenarios {
 		getInfoFromResponsibleTask.setProvidedQuality(c11, (new ExecutionTimeSec()), 50);
 
 		ambulanceDispatchDelegation.setProvidedQuality(null, (new ExecutionTimeSec()), 30);
+	}
+
+	// @Test
+	public void testC1() {
+		System.out.println("=========== Test C1 ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("accessLocationFromGPS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("centralCallsP"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC2() {
+		System.out.println("=========== Test C2 ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("acceptEmergency"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("notifyBySoundAlert"))
+				found = 1;
+
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC3() {
+		System.out.println("=========== Test C3 ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("acceptEmergency"))
+				found = 1;
+
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC4() {
+		System.out.println("=========== Test C4 ================");
+		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("notifyBySoundAlert"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("identifyLocationByVoiceCall"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("accessLocationFromTriangulation"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC5() {
+		System.out.println("=========== Test C5 ================");
+		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("notifyBySoundAlert"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC6() {
+		System.out.println("=========== Test C6 ================");
+		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC7() {
+		System.out.println("=========== Test C7 ================");
+		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("notifyByMobileVibrationTask"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("notifyBySoundAlert"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("identifyLocationByVoiceCall"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("accessLocationFromTriangulation"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("accessLocationFromGPS"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC8() {
+		System.out.println("=========== Test C8 ================");
+		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("identifyLocationByVoiceCall"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("accessLocationFromTriangulation"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("notifyBySoundAlert"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC9() {
+		System.out.println("=========== Test C9 ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyByLightAlert"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("acceptsEmergency"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC10() {
+		System.out.println("=========== Test C10 ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyByLightAlert"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("acceptEmergency"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC11() {
+		System.out.println("=========== Test C11 ================");
+		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue("CGM is unachievable", tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("notifyByLightAlert"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testC12() {
+		System.out.println("=========== Test C12 ================");
+		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("sendInfoBySMS"))
+				found = 1;
+			if (task.getIdentifier().contentEquals("confirmEmergencyByCall"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testAll() {
+		System.out.println("=========== Test All ================");
+		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks != null);
+		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+			int found = 0;
+			if (task.getIdentifier().contentEquals("acceptEmergency"))
+				found = 1;
+			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+		}
+	}
+
+	@Test
+	public void testNone() {
+		System.out.println("=========== Test None ================");
+		HashSet<Context> fullContext = createFullContext(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		Plan tasks = cgm.isAchievable(fullContext, null);
+
+		assertTrue(tasks == null);
 	}
 
 	private HashSet<Context> createFullContext(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,

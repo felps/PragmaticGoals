@@ -1,15 +1,15 @@
 package experiment;
 
+import gm.cgm.CGM;
+import gm.cgm.Context;
+import gm.cgm.util.generator.CGMGenerator;
+import gm.cgm.util.generator.WorstCaseCGMGenerator;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
-import cgm.CGM;
-import cgm.Context;
-import cgm.util.generator.CGMGenerator;
-import cgm.util.generator.WorstCaseCGMGenerator;
 
 public class ScalabilityEvaluationWorstCaseScenarios {
 

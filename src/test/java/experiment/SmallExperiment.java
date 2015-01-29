@@ -1,18 +1,19 @@
 package experiment;
 
+import gm.cgm.CGM;
+import gm.cgm.Comparison;
+import gm.cgm.Context;
+import gm.cgm.Goal;
+import gm.cgm.Pragmatic;
+import gm.cgm.QualityConstraint;
+import gm.cgm.Task;
+
 import java.util.HashSet;
 
 import metrics.ExecutionTimeSec;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import cgm.CGM;
-import cgm.Comparison;
-import cgm.Context;
-import cgm.Goal;
-import cgm.Pragmatic;
-import cgm.QualityConstraint;
-import cgm.Task;
 
 public class SmallExperiment {
 
