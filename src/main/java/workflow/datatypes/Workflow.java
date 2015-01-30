@@ -1,5 +1,9 @@
 package workflow.datatypes;
 
+import gm.GM;
+import gm.cgm.Goal;
+import gm.cgm.Refinement;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -132,5 +136,20 @@ public class Workflow {
 				System.out.println(" |==> " + edge.getName());
 			}
 		}
+	}
+
+	public GM convertToGM() {
+		GM gm = new GM();
+
+		Goal root = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		gm.setRoot(root);
+		root.setIdentifier("GM root");
+
+		for (WorkflowNode edge : startNode.getEdges()) {
+			Refinement depRoot = edge.convertToGM();
+			root.addDependency(depRoot);
+		}
+
+		return gm;
 	}
 }

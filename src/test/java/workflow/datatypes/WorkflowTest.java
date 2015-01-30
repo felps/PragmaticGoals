@@ -3,6 +3,11 @@ package workflow.datatypes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import gm.GM;
+import gm.cgm.Goal;
+import gm.cgm.Refinement;
+import gm.cgm.Task;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -218,5 +223,81 @@ public class WorkflowTest {
 		assertTrue(concat.getLastNodes().containsAll(wf2.getLastNodes()));
 		assertEquals(1, concat.getLastNodes().size());
 
+	}
+
+	// @Test
+	public void shouldConvertToGMAndKeepAllTasks() throws WorkflowNodeNotFound {
+		Workflow wf = new Workflow();
+
+		WorkflowNode node1 = new WorkflowNode("T1");
+		WorkflowNode node2 = new WorkflowNode("T2");
+		WorkflowNode node3 = new WorkflowNode("T3");
+		WorkflowNode node4 = new WorkflowNode("T4");
+		WorkflowNode node5 = new WorkflowNode("T5");
+
+		wf.addNode(node1);
+		wf.addNode(node2);
+		wf.addNode(node3);
+		wf.addNode(node4);
+		wf.addNode(node5);
+
+		wf.addEdge(node1, node2);
+		wf.addEdge(node2, node3);
+		wf.addEdge(node2, node4);
+		wf.addEdge(node3, node5);
+		wf.addEdge(node4, node5);
+
+		GM gm = wf.convertToGM();
+		gm.getRoot().printCGM();
+
+		for (Task task : gm.getRoot().getTasks()) {
+			System.out.println(task.getIdentifier());
+			if (!("T1".equals(task.getIdentifier()) || "T2".equals(task.getIdentifier())
+					|| "T3".equals(task.getIdentifier()) || "T4".equals(task.getIdentifier()) || "T5".equals(task
+					.getIdentifier()))) {
+				fail("Unforeseen task: " + task.getIdentifier());
+			}
+		}
+
+		assertEquals(5, gm.getRoot().getTasks().size());
+
+	}
+
+	@Test
+	public void shouldConvertTwoLinearTasksToGM() throws WorkflowNodeNotFound {
+		Workflow wf = new Workflow();
+
+		WorkflowNode node1 = new WorkflowNode("T1");
+		WorkflowNode node2 = new WorkflowNode("T2");
+
+		wf.addNode(node1);
+		wf.addNode(node2);
+		wf.addEdge(node1, node2);
+
+		GM gm = wf.convertToGM();
+
+		assertEquals(2, gm.getRoot().getTasks().size());
+
+		assertEquals(Refinement.GOAL, gm.getRoot().myType());
+
+		Goal root = (Goal) gm.getRoot();
+		assertTrue(root.isParallelAndDecomposition());
+
+		assertEquals(1, root.getDependencies().size());
+
+		Goal rootDep = null;
+
+		for (Refinement dep : root.getDependencies()) {
+			assertEquals(Refinement.GOAL, dep.myType());
+			rootDep = (Goal) dep;
+		}
+
+		assertEquals(2, rootDep.getDependencies().size());
+
+		for (Task task : gm.getRoot().getTasks()) {
+			if (!("T1".equals(task.getIdentifier()) || "T2".equals(task.getIdentifier()))) {
+				fail("Unforeseen task");
+			}
+		}
 	}
 }
