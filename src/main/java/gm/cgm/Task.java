@@ -122,4 +122,8 @@ public class Task extends Refinement {
 		tasks.add(this);
 		return tasks;
 	}
+
+	public void printCGM() {
+		System.out.println("Task " + getIdentifier());
+	}
 }

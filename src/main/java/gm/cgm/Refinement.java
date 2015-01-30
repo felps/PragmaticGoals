@@ -87,4 +87,6 @@ public abstract class Refinement {
 	}
 
 	public abstract Set<Task> getTasks();
+
+	public abstract void printCGM();
 }

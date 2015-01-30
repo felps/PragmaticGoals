@@ -25,4 +25,10 @@ public class Delegation extends Refinement {
 	public Set<Task> getTasks() {
 		return null;
 	}
+
+	@Override
+	public void printCGM() {
+		// TODO Auto-generated method stub
+
+	}
 }

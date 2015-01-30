@@ -158,4 +158,12 @@ public class Goal extends Refinement {
 		}
 		return tasks;
 	}
+
+	public void printCGM() {
+		System.out.println("Goal " + getIdentifier() + " { ");
+		for (Refinement dep : getDependencies()) {
+			dep.printCGM();
+		}
+		System.out.println(" }  // Goal " + getIdentifier());
+	}
 }
