@@ -14,7 +14,6 @@ public class Workflow {
 
 	private WorkflowNode startNode;
 	private HashSet<WorkflowNode> lastNodes;
-
 	private ArrayList<WorkflowNode> nodes;
 
 	public Workflow() {

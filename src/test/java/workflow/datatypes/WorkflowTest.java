@@ -225,7 +225,7 @@ public class WorkflowTest {
 
 	}
 
-	// @Test
+	@Test
 	public void shouldConvertToGMAndKeepAllTasks() throws WorkflowNodeNotFound {
 		Workflow wf = new Workflow();
 
@@ -275,7 +275,7 @@ public class WorkflowTest {
 		wf.addEdge(node1, node2);
 
 		GM gm = wf.convertToGM();
-
+		wf.printWorkflow();
 		assertEquals(2, gm.getRoot().getTasks().size());
 
 		assertEquals(Refinement.GOAL, gm.getRoot().myType());
