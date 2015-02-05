@@ -99,17 +99,20 @@ public class Goal extends Refinement {
 					return null;
 				}
 
-				HashMap<Metric, Float> qosSet = plan.getQoS();
-				for (Metric metric : qosSet.keySet()) {
-					accumulateQoS(metric, qosSet.get(metric));
+				HashMap<Metric, Float> qos = plan.getQoS();
+
+				for (Metric metric : qos.keySet()) {
+					accumulateQoS(metric, qos.get(metric));
 				}
 
 				if (interp != null) {
 					for (QualityConstraint qc : interp.getQualityConstraints(current)) {
 						Metric currentMetric = qc.getMetric();
-						float threshold = plan.getQoS().get(currentMetric);
+						// if (myQoS.containsKey(currentMetric)) {
+						float threshold = myQoS.get(currentMetric);
 						if (!qc.abidesByQC(threshold, currentMetric)) {
 							return null;
+							// }
 						}
 					}
 				}
