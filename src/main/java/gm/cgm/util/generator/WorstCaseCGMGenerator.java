@@ -16,6 +16,8 @@ public class WorstCaseCGMGenerator extends CGMGenerator {
 	@Override
 	protected Task generateTask(Set<Context> possibleContexts) {
 		Task task = new Task();
+		task.setIdentifier("" + System.currentTimeMillis() + System.nanoTime());
+
 		task.setProvidedQuality(null, (new ExecutionTimeSec()), 10);
 		for (Context context : possibleContexts) {
 			task.addApplicableContext(context);
@@ -27,18 +29,17 @@ public class WorstCaseCGMGenerator extends CGMGenerator {
 	protected Goal generateGoal(Set<Context> possibleContexts) {
 
 		QualityConstraint qc;
-		
-		Pragmatic pragmaticGoal= new Pragmatic(Goal.SERIAL_AND_DECOMPOSITION);
+
+		Pragmatic pragmaticGoal = new Pragmatic(Goal.SERIAL_AND_DECOMPOSITION);
 		for (Context context : possibleContexts) {
 			pragmaticGoal.addApplicableContext(context);
 			qc = new QualityConstraint(context, (new ExecutionTimeSec()), 100, Comparison.LESS_THAN);
 			pragmaticGoal.getInterpretation().addQualityConstraint(qc);
 		}
-		
+
 		qc = new QualityConstraint(null, (new ExecutionTimeSec()), 100, Comparison.LESS_THAN);
 		pragmaticGoal.getInterpretation().addQualityConstraint(qc);
-		
-		
+
 		return pragmaticGoal;
 	}
 
@@ -48,4 +49,3 @@ public class WorstCaseCGMGenerator extends CGMGenerator {
 	}
 
 }
-

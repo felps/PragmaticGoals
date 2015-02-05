@@ -2,10 +2,7 @@ package gm.cgm;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import gm.cgm.EmptyWorkflow;
-import gm.cgm.Goal;
-import gm.cgm.Plan;
-import gm.cgm.Task;
+import metrics.ExecutionTimeSec;
 
 import org.junit.Test;
 
@@ -173,5 +170,101 @@ public class PlanTest {
 		assertEquals("Task 4", wf.getNodes().get(3).getName());
 		assertEquals(0, wf.getNodes().get(3).getEdges().size());
 
+	}
+
+	@Test
+	public void aSingleTaskShouldReturnQoS() {
+		Task t1 = new Task();
+
+		t1.setIdentifier("T1");
+		t1.setProvidedQuality(null, new ExecutionTimeSec(), 15);
+
+		Plan plan = new Plan(t1);
+
+		assertEquals(15.0, plan.getQoS().get(new ExecutionTimeSec()).floatValue(), 0.01);
+	}
+
+	@Test
+	public void aParallelGoalShouldReturnTheParallelCompositeQos() {
+
+		Task t1 = new Task();
+		t1.setIdentifier("T1");
+		t1.setProvidedQuality(null, new ExecutionTimeSec(), 15);
+
+		Task t2 = new Task();
+		t2.setIdentifier("T2");
+		t2.setProvidedQuality(null, new ExecutionTimeSec(), 13);
+
+		Goal root = new Goal(Goal.PARALLEL_AND_DECOMPOSITION);
+		root.addDependency(t1);
+		root.addDependency(t2);
+
+		Plan plan = new Plan();
+		plan.add(root);
+
+		assertEquals(15.0, plan.getQoS().get(new ExecutionTimeSec()).floatValue(), 0.01);
+	}
+
+	@Test
+	public void aSerialGoalShouldReturnTheParallelCompositeQos() {
+
+		Task t1 = new Task();
+		t1.setIdentifier("T1");
+		t1.setProvidedQuality(null, new ExecutionTimeSec(), 15);
+
+		Task t2 = new Task();
+		t2.setIdentifier("T2");
+		t2.setProvidedQuality(null, new ExecutionTimeSec(), 13);
+
+		Goal root = new Goal(Goal.SERIAL_AND_DECOMPOSITION);
+		root.addDependency(t1);
+		root.addDependency(t2);
+
+		Plan plan = new Plan();
+		plan.add(root);
+
+		assertEquals(28.0, plan.getQoS().get(new ExecutionTimeSec()).floatValue(), 0.01);
+	}
+
+	@Test
+	public void theOrderShouldntMatterToTheQoS() {
+
+		Task t1 = new Task();
+		t1.setIdentifier("T1");
+		t1.setProvidedQuality(null, new ExecutionTimeSec(), 15);
+
+		Task t2 = new Task();
+		t2.setIdentifier("T2");
+		t2.setProvidedQuality(null, new ExecutionTimeSec(), 13);
+
+		Plan plan = new Plan();
+		plan.add(t1);
+		plan.add(t2);
+
+		assertEquals(15.0, plan.getQoS().get(new ExecutionTimeSec()).floatValue(), 0.01);
+
+		plan = new Plan();
+		plan.add(t2);
+		plan.add(t1);
+
+		assertEquals(15.0, plan.getQoS().get(new ExecutionTimeSec()).floatValue(), 0.01);
+	}
+
+	@Test
+	public void refinementsAddedToPlanShouldBeAddedAsAParallelDecompAndThusReturnTheParallelCompositeQos() {
+
+		Task t1 = new Task();
+		t1.setIdentifier("T1");
+		t1.setProvidedQuality(null, new ExecutionTimeSec(), 15);
+
+		Task t2 = new Task();
+		t2.setIdentifier("T2");
+		t2.setProvidedQuality(null, new ExecutionTimeSec(), 13);
+
+		Plan plan = new Plan();
+		plan.add(t1);
+		plan.add(t2);
+
+		assertEquals(15.0, plan.getQoS().get(new ExecutionTimeSec()).floatValue(), 0.01);
 	}
 }

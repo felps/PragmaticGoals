@@ -1,7 +1,9 @@
 package gm.cgm;
 
+import java.util.HashMap;
 import java.util.Set;
 
+import metrics.Metric;
 import workflow.datatypes.Workflow;
 
 public class Delegation extends Refinement {
@@ -30,5 +32,11 @@ public class Delegation extends Refinement {
 	public void printCGM() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public HashMap<Metric, Float> getQoS(Set<Context> context) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

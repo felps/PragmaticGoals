@@ -40,6 +40,7 @@ public class RandomCGMGenerator extends CGMGenerator {
 		}
 
 		Task task = new Task();
+		task.setIdentifier("" + System.currentTimeMillis() + System.nanoTime());
 
 		for (Context context : possibleContexts) {
 			task.addApplicableContext(context);

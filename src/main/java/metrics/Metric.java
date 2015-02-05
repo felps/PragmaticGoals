@@ -11,8 +11,8 @@ public abstract class Metric {
 		name = newName;
 	};
 
-	public abstract double serialComposition(double value1, double value2);
-	public abstract double parallelComposition(double value1, double value2);
+	public abstract float serialComposition(float value1, float value2);
+	public abstract float parallelComposition(float value1, float value2);
 
 	@Override
 	public boolean equals(Object obj) {

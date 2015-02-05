@@ -4,12 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import gm.cgm.Context;
-import gm.cgm.Delegation;
-import gm.cgm.Goal;
-import gm.cgm.Plan;
-import gm.cgm.Refinement;
-import gm.cgm.Task;
 
 import java.util.HashSet;
 
@@ -84,8 +78,10 @@ public class GoalTest {
 		current.add(context);
 
 		Task task1 = new Task();
+		task1.setIdentifier("T1");
 
 		Task task2 = new Task();
+		task2.setIdentifier("T2");
 
 		task1.addApplicableContext(context);
 

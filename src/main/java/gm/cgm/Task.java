@@ -94,7 +94,15 @@ public class Task extends Refinement {
 			return null;
 		}
 		if (abidesByInterpretation(interp, current)) {
-			return new Plan(this);
+			Task newTask = new Task();
+			newTask.setIdentifier(getIdentifier());
+			for (Metric metric : providedQualityLevels.keySet()) {
+				try {
+					newTask.setProvidedQuality(null, metric, myProvidedQuality(metric, current));
+				} catch (MetricNotFoundException e) {
+				}
+			}
+			return new Plan(newTask);
 		} else {
 			return null;
 		}
@@ -125,5 +133,42 @@ public class Task extends Refinement {
 
 	public void printCGM() {
 		System.out.println("Task " + getIdentifier());
+	}
+
+	@Override
+	public HashMap<Metric, Float> getQoS(Set<Context> context) {
+
+		if (context == null) {
+			context = new HashSet<Context>();
+			context.add(null);
+		}
+
+		HashMap<Metric, Float> myQoS = new HashMap<Metric, Float>();
+
+		for (Metric metric : providedQualityLevels.keySet()) {
+			try {
+				float myProvidedQuality = myProvidedQuality(metric, context);
+				myQoS.put(metric, myProvidedQuality);
+			} catch (MetricNotFoundException e) {
+			}
+		}
+
+		return myQoS;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj.getClass() == getClass()) {
+			Task t1 = (Task) obj;
+			if (getIdentifier() != null && t1.getIdentifier() != null) {
+				return getIdentifier().equals(t1.getIdentifier());
+			} else
+				return false;
+		} else
+			return super.equals(obj);
+	}
+	@Override
+	public int hashCode() {
+		return getIdentifier().toLowerCase().hashCode();
 	}
 }

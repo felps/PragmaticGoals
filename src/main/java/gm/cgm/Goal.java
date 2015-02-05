@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import metrics.Metric;
 import workflow.datatypes.Workflow;
 
 public class Goal extends Refinement {
@@ -19,11 +20,13 @@ public class Goal extends Refinement {
 	protected int decompositionType;
 	protected boolean isOrDecomposition = false;
 	protected HashMap<Integer, Refinement> dependencies;
+	private HashMap<Metric, Float> myQoS;
 
 	public Goal(int decompositionType) {
 		super();
 		dependencies = new HashMap<Integer, Refinement>();
 		this.decompositionType = decompositionType;
+		myQoS = new HashMap<Metric, Float>();
 	}
 
 	@Override
@@ -76,8 +79,10 @@ public class Goal extends Refinement {
 			return null;
 		}
 
+		Plan complete, plan;
+		complete = new Plan();
+
 		if (isOrDecomposition()) {
-			Plan plan;
 			for (Refinement dep : getApplicableDependencies(current)) {
 				plan = dep.isAchievable(current, interp);
 				if (plan != null) {
@@ -86,21 +91,55 @@ public class Goal extends Refinement {
 			}
 			return null;
 		} else {
-			Plan complete, plan;
-			complete = new Plan();
 			for (Refinement dep : getApplicableDependencies(current)) {
+
 				plan = dep.isAchievable(current, interp);
-				if (plan != null) {
-					complete.add(plan);
-				} else {
+
+				if (plan == null) {
 					return null;
 				}
+
+				HashMap<Metric, Float> qosSet = plan.getQoS();
+				for (Metric metric : qosSet.keySet()) {
+					accumulateQoS(metric, qosSet.get(metric));
+				}
+
+				if (interp != null) {
+					for (QualityConstraint qc : interp.getQualityConstraints(current)) {
+						Metric currentMetric = qc.getMetric();
+						float threshold = plan.getQoS().get(currentMetric);
+						if (!qc.abidesByQC(threshold, currentMetric)) {
+							return null;
+						}
+					}
+				}
+				complete.add(plan);
 			}
 			if (complete.getTasks().size() > 0)
 				return complete;
 			else
 				return null;
 		}
+	}
+
+	private HashMap<Metric, Float> accumulateQoS(Metric metric, float value) {
+
+		if (!myQoS.containsKey(metric)) {
+			myQoS.put(metric, value);
+		} else {
+			Float oldQoS = myQoS.get(metric);
+			Float newQoS;
+
+			if (isSerialAndDecomposition()) {
+				newQoS = metric.serialComposition(oldQoS, value);
+				myQoS.put(metric, newQoS);
+			} else if (isParallelAndDecomposition()) {
+				newQoS = metric.parallelComposition(oldQoS, value);
+				myQoS.put(metric, newQoS);
+			}
+
+		}
+		return myQoS;
 	}
 
 	@Override
@@ -165,5 +204,33 @@ public class Goal extends Refinement {
 			dep.printCGM();
 		}
 		System.out.println(" }  // Goal " + getIdentifier());
+	}
+
+	@Override
+	public HashMap<Metric, Float> getQoS(Set<Context> context) {
+		boolean set = false;
+		HashMap<Metric, Float> qos = new HashMap<>();
+
+		for (Refinement dep : getApplicableDependencies(context)) {
+			HashMap<Metric, Float> contextualQoS = dep.getQoS(context);
+			for (Metric metric : contextualQoS.keySet()) {
+				if (!qos.containsKey(metric)) {
+					qos.put(metric, contextualQoS.get(metric));
+				} else {
+					float oldQoS = qos.get(metric);
+					float newQoS = contextualQoS.get(metric);
+					float composedQoS;
+					if (isParallelAndDecomposition()) {
+						composedQoS = metric.parallelComposition(oldQoS, newQoS);
+					} else if (isSerialAndDecomposition()) {
+						composedQoS = metric.serialComposition(oldQoS, newQoS);
+					} else { // isOrDecomposition())
+						composedQoS = Math.min(oldQoS, newQoS);
+					}
+					qos.put(metric, composedQoS);
+				}
+			}
+		}
+		return qos;
 	}
 }

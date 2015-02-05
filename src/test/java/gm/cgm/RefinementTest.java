@@ -3,17 +3,6 @@ package gm.cgm;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import gm.cgm.Comparison;
-import gm.cgm.Context;
-import gm.cgm.Delegation;
-import gm.cgm.DifferentMetricsException;
-import gm.cgm.Goal;
-import gm.cgm.Interpretation;
-import gm.cgm.Plan;
-import gm.cgm.Pragmatic;
-import gm.cgm.QualityConstraint;
-import gm.cgm.Refinement;
-import gm.cgm.Task;
 
 import java.util.HashSet;
 
@@ -176,7 +165,9 @@ public class RefinementTest {
 		assertTrue(goal.isAndDecomposition());
 
 		Task task1 = new Task();
+		task1.setIdentifier("T1");
 		Task task2 = new Task();
+		task2.setIdentifier("T2");
 
 		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
@@ -200,6 +191,7 @@ public class RefinementTest {
 		interp.addQualityConstraint(qc);
 
 		Plan plan = goal.isAchievable(fullContext, interp);
+		plan.print();
 		assertEquals(2, plan.getTasks().size());
 	}
 
@@ -331,7 +323,9 @@ public class RefinementTest {
 		assertTrue(goal.isOrDecomposition());
 
 		Task task1 = new Task();
+		task1.setIdentifier("T1");
 		Task task2 = new Task();
+		task2.setIdentifier("T2");
 
 		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
@@ -414,10 +408,12 @@ public class RefinementTest {
 		interp.addQualityConstraint(qc);
 
 		current.add(wrongContext);
-		assertEquals(null, goal.isAchievable(current, interp));
+		Plan plan = goal.isAchievable(current, interp);
+		assertEquals(null, plan);
 
 		current.add(context);
-		assertEquals(1, goal.isAchievable(current, interp).getTasks().size());
+		plan = goal.isAchievable(current, interp);
+		assertEquals(1, plan.getTasks().size());
 
 	}
 

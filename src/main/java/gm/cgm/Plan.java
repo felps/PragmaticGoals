@@ -2,8 +2,10 @@ package gm.cgm;
 
 import gm.GM;
 
+import java.util.HashMap;
 import java.util.Set;
 
+import metrics.Metric;
 import workflow.datatypes.Workflow;
 
 public class Plan {
@@ -11,13 +13,13 @@ public class Plan {
 	GM gm;
 	public Plan(Task task) {
 		gm = new GM();
-		gm.setRoot(new Goal(Goal.OR_DECOMPOSITION));
+		gm.setRoot(new Goal(Goal.PARALLEL_AND_DECOMPOSITION));
 		((Goal) gm.getRoot()).addDependency(task);
 	}
 
 	public Plan() {
 		gm = new GM();
-		gm.setRoot(new Goal(Goal.OR_DECOMPOSITION));
+		gm.setRoot(new Goal(Goal.PARALLEL_AND_DECOMPOSITION));
 	}
 
 	public void add(Plan plan) {
@@ -38,6 +40,14 @@ public class Plan {
 
 	public Workflow convertToWorkflow() throws EmptyWorkflow {
 		return gm.getRoot().workflow(null);
+	}
+
+	public HashMap<Metric, Float> getQoS() {
+		return gm.getRoot().getQoS(null);
+	}
+
+	public void print() {
+		gm.getRoot().printCGM();
 	}
 
 }

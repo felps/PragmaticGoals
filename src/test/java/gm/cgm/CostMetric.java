@@ -10,12 +10,12 @@ public class CostMetric extends Metric {
 	}
 
 	@Override
-	public double serialComposition(double value1, double value2) {
+	public float serialComposition(float value1, float value2) {
 		return value1 + value2;
 	}
 
 	@Override
-	public double parallelComposition(double value1, double value2) {
+	public float parallelComposition(float value1, float value2) {
 		return value1 + value2;
 	}
 

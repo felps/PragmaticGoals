@@ -1,8 +1,10 @@
 package gm.cgm;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import metrics.Metric;
 import workflow.datatypes.Workflow;
 
 public abstract class Refinement {
@@ -15,7 +17,7 @@ public abstract class Refinement {
 	private HashSet<Context> nonApplicableContexts;
 
 	protected boolean isOrDecomposition = false;
-	private String identifier;
+	private String identifier = "";
 
 	public Refinement() {
 		applicableContexts = new HashSet<Context>();
@@ -89,4 +91,6 @@ public abstract class Refinement {
 	public abstract Set<Task> getTasks();
 
 	public abstract void printCGM();
+
+	public abstract HashMap<Metric, Float> getQoS(Set<Context> context);
 }
