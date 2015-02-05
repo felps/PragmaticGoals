@@ -5,15 +5,35 @@ import gm.cgm.Context;
 import gm.cgm.util.generator.RandomCGMGenerator;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ContextSweepFull {
 
 	private int contextSet = 1;
+	private HashMap<Integer, HashMap<Integer, CGM>> models;
 
+	@BeforeClass
+	public void setUpBeforeClass() {
+		RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
+
+		int refinementsAmount = 10;
+		int contextAmount = 1;
+		CGM cgm = cgmFactory.generateRandomCGM(refinementsAmount, contextAmount);
+		storeModel(refinementsAmount, contextAmount, cgm);
+
+		// Setup Model
+		for (refinementsAmount = 200; refinementsAmount < 10000; refinementsAmount += 200) {
+			cgm = cgmFactory.generateRandomCGM(refinementsAmount, contextAmount);
+			storeModel(refinementsAmount, contextAmount, cgm);
+
+		}
+
+	}
 	// @Test
 	// public void printAllContexts() throws Exception {
 	// for(int i = 0;i<Math.pow(2, 4)-1; i++){
@@ -21,6 +41,18 @@ public class ContextSweepFull {
 	// Set<Context> set = generateNextContextSet(4);
 	// }
 	// }
+
+	private void storeModel(int refinementsAmount, int contextAmount, CGM cgm) {
+		HashMap<Integer, CGM> modelsContext = new HashMap<Integer, CGM>();
+		modelsContext.put(contextAmount, cgm);
+		models.put(refinementsAmount, modelsContext);
+	}
+
+	private CGM getModel(int refinementsAmount, int contextAmount) {
+		HashMap<Integer, CGM> contextualModels = models.get(refinementsAmount);
+		CGM cgm = contextualModels.get(contextAmount);
+		return cgm;
+	}
 
 	@Test
 	public void scalabilityTestContextSweep() {
@@ -72,14 +104,12 @@ public class ContextSweepFull {
 			int models = 10;
 			double totalPossibleContextSets = Math.pow(2, contextAmount) - 1;
 
-			RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
-
 			contextSet = 0;
 			float totalTime = 0;
 			for (int j = 0; j < models; j++) {
 
 				// Setup Model
-				CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
+				CGM cgm = getModel(modelSize, contextAmount);
 
 				long start;
 				start = System.currentTimeMillis();
