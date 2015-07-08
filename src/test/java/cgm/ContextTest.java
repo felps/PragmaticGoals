@@ -30,8 +30,8 @@ public class ContextTest {
 		Context c1 = new Context("c1");
 		Context c2 = new Context("C1");
 	
-		assertTrue(c1.equals(c1));
-		assertTrue(c2.equals(c2));
+		assertTrue(c1.equals(c2));
+		assertTrue(c2.equals(c1));
 	}
 	
 	@Test
