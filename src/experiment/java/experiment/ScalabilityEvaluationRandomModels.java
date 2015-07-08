@@ -142,7 +142,7 @@ public class ScalabilityEvaluationRandomModels {
 			// Print result
 			
 			long timePerExecutionInNs = accumulated/10000; // Time in nanosseconds for each execution
-			//long timeInMs = accumulated/1000; // Time in milliseconds
+			long timeInMs = accumulated/1000; // Time in milliseconds
 			
 			System.out.print(experimentId + " ");
 			
@@ -152,7 +152,7 @@ public class ScalabilityEvaluationRandomModels {
 			} else
 				System.out.print("unachievable ");
 			
-			System.out.println(modelSize + " " + contextAmount + " "+ timePerExecutionInNs);
+			System.out.println(modelSize + " " + contextAmount + " "+ timeInMs + " ms " + timePerExecutionInNs + " ns");
 		}
 	}
 

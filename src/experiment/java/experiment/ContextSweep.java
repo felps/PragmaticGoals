@@ -25,7 +25,7 @@ public class ContextSweep {
 //		}
 //	}
 	
-	@Test
+//	@Test
 	public void scalabilityTestContextSweep() {
 
 		int contextAmount = 15;

@@ -13,19 +13,11 @@ import cgm.CGM;
 import cgm.Context;
 import cgm.util.generator.RandomCGMGenerator;
 
-public class ContextSweep {
+public class ContextSweepFull {
 
 	private int contextSet = 1;
 
-//	@Test
-//	public void printAllContexts() throws Exception {
-//		for(int i = 0;i<Math.pow(2, 4)-1; i++){
-//			System.out.println("Context Set: " + contextSet);
-//			Set<Context> set = generateNextContextSet(4);
-//		}
-//	}
-	
-	@Test
+	//@Test
 	public void scalabilityTestContextSweep() {
 
 		int contextAmount = 5;
