@@ -1,12 +1,16 @@
 package cgm;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import cgm.metrics.FilterMetric;
+import cgm.quality.QualityConstraint;
+import cgm.workflow.Plan;
+import cgm.workflow.WorkflowTask;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.HashSet;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestEachContext {
 	CGM cgm;
@@ -207,110 +211,110 @@ public class TestEachContext {
 
 		/* Goal interpretations */
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 180, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 90, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 240, Comparison.LESS_OR_EQUAL_TO);
-			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
-			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
-			respondToEmergencyGoal.getInterpretation().addQualityConstraint(qc3);
+			QualityConstraint qc1 = new QualityConstraint(null, FilterMetric.SECONDS, 180, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, FilterMetric.SECONDS, 90, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc3 = new QualityConstraint(c9, FilterMetric.SECONDS, 240, Comparison.LESS_OR_EQUAL_TO);
+			respondToEmergencyGoal.getInterpretation().addFilterQualityConstraint(qc1);
+			respondToEmergencyGoal.getInterpretation().addFilterQualityConstraint(qc2);
+			respondToEmergencyGoal.getInterpretation().addFilterQualityConstraint(qc3);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30,
+			QualityConstraint qc1 = new QualityConstraint(null, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 30,
 					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c3, Metric.FALSE_NEGATIVE_PERCENTAGE, 10,
+			QualityConstraint qc2 = new QualityConstraint(c3, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 10,
 					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.FALSE_NEGATIVE_PERCENTAGE, 5,
+			QualityConstraint qc3 = new QualityConstraint(c9, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 5,
 					Comparison.LESS_OR_EQUAL_TO);
-			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc1);
-			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc2);
-			emergencyIsDetectedGoal.getInterpretation().addQualityConstraint(qc3);
+			emergencyIsDetectedGoal.getInterpretation().addFilterQualityConstraint(qc1);
+			emergencyIsDetectedGoal.getInterpretation().addFilterQualityConstraint(qc2);
+			emergencyIsDetectedGoal.getInterpretation().addFilterQualityConstraint(qc3);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 60, Comparison.LESS_OR_EQUAL_TO);
-			centralReceivesInfoGoal.getInterpretation().addQualityConstraint(qc1);
+			QualityConstraint qc1 = new QualityConstraint(null, FilterMetric.SECONDS, 60, Comparison.LESS_OR_EQUAL_TO);
+			centralReceivesInfoGoal.getInterpretation().addFilterQualityConstraint(qc1);
 		}
 
 		{
-			QualityConstraint qc4 = new QualityConstraint(null, Metric.DISTANCE_ERROR, 1000,
+			QualityConstraint qc4 = new QualityConstraint(null, FilterMetric.DISTANCE_ERROR, 1000,
 					Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc6 = new QualityConstraint(c5, Metric.DISTANCE_ERROR, 20, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc5 = new QualityConstraint(c10, Metric.DISTANCE_ERROR, 200, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 120, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS, 240, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 20, Comparison.LESS_OR_EQUAL_TO);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc4);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc5);
-			locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc6);
+			QualityConstraint qc6 = new QualityConstraint(c5, FilterMetric.DISTANCE_ERROR, 20, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc5 = new QualityConstraint(c10, FilterMetric.DISTANCE_ERROR, 200, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc1 = new QualityConstraint(null, FilterMetric.SECONDS, 120, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc3 = new QualityConstraint(c9, FilterMetric.SECONDS, 240, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, FilterMetric.SECONDS, 20, Comparison.LESS_OR_EQUAL_TO);
+			locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc1);
+			locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc2);
+			locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc3);
+			locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc4);
+			locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc5);
+			locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc6);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 900, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 600, Comparison.LESS_OR_EQUAL_TO);
-			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc1);
-			infoIsPreparedGoal.getInterpretation().addQualityConstraint(qc2);
+			QualityConstraint qc1 = new QualityConstraint(null, FilterMetric.SECONDS, 900, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c10, FilterMetric.SECONDS, 600, Comparison.LESS_OR_EQUAL_TO);
+			infoIsPreparedGoal.getInterpretation().addFilterQualityConstraint(qc1);
+			infoIsPreparedGoal.getInterpretation().addFilterQualityConstraint(qc2);
 		}
 
 		{
-			QualityConstraint qc1 = new QualityConstraint(null, Metric.NOISE, 10, Comparison.LESS_OR_EQUAL_TO);
-			QualityConstraint qc2 = new QualityConstraint(c1, Metric.NOISE, 3, Comparison.LESS_OR_EQUAL_TO);
-			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc1);
-			isNotifiedAboutEmergencyGoal.getInterpretation().addQualityConstraint(qc2);
+			QualityConstraint qc1 = new QualityConstraint(null, FilterMetric.NOISE, 10, Comparison.LESS_OR_EQUAL_TO);
+			QualityConstraint qc2 = new QualityConstraint(c1, FilterMetric.NOISE, 3, Comparison.LESS_OR_EQUAL_TO);
+			isNotifiedAboutEmergencyGoal.getInterpretation().addFilterQualityConstraint(qc1);
+			isNotifiedAboutEmergencyGoal.getInterpretation().addFilterQualityConstraint(qc2);
 		}
 
 		/* Provided Task QoS */
-		notifyCentralBySMSTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 10);
+		notifyCentralBySMSTask.setProvidedQuality(null, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 10);
 
-		notifyCentralByInternetTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);
+		notifyCentralByInternetTask.setProvidedQuality(null, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 5);
 
-		acceptEmergencyTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 30);
+		acceptEmergencyTask.setProvidedQuality(null, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 30);
 
-		confirmEmergencyByCallTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 5);
+		confirmEmergencyByCallTask.setProvidedQuality(null, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 5);
 
-		processDataFromSensorsTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 15);
+		processDataFromSensorsTask.setProvidedQuality(null, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 15);
 
-		collectDataFromSensorsTask.setProvidedQuality(null, Metric.SECONDS, 120);
-		collectDataFromSensorsTask.setProvidedQuality(c3, Metric.SECONDS, 60);
+		collectDataFromSensorsTask.setProvidedQuality(null, FilterMetric.SECONDS, 120);
+		collectDataFromSensorsTask.setProvidedQuality(c3, FilterMetric.SECONDS, 60);
 
-		persistDataToDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 5);
+		persistDataToDatabaseTask.setProvidedQuality(null, FilterMetric.SECONDS, 5);
 
-		identifySituationTask.setProvidedQuality(null, Metric.FALSE_NEGATIVE_PERCENTAGE, 20);
+		identifySituationTask.setProvidedQuality(null, FilterMetric.FALSE_NEGATIVE_PERCENTAGE, 20);
 
-		notifyByMobileVibrationTask.setProvidedQuality(null, Metric.NOISE, 2);
-		notifyBySoundAlertTask.setProvidedQuality(null, Metric.NOISE, 9);
-		notifyByLightAlertTask.setProvidedQuality(null, Metric.NOISE, 0);
-		centralCallTask.setProvidedQuality(null, Metric.NOISE, 7);
+		notifyByMobileVibrationTask.setProvidedQuality(null, FilterMetric.NOISE, 2);
+		notifyBySoundAlertTask.setProvidedQuality(null, FilterMetric.NOISE, 9);
+		notifyByLightAlertTask.setProvidedQuality(null, FilterMetric.NOISE, 0);
+		centralCallTask.setProvidedQuality(null, FilterMetric.NOISE, 7);
 
-		sendInfoBySMSTask.setProvidedQuality(null, Metric.SECONDS, 65);
-		sendInfoBySMSTask.setProvidedQuality(c8, Metric.SECONDS, 45);
+		sendInfoBySMSTask.setProvidedQuality(null, FilterMetric.SECONDS, 65);
+		sendInfoBySMSTask.setProvidedQuality(c8, FilterMetric.SECONDS, 45);
 
-		sendInfoByInternetTask.setProvidedQuality(null, Metric.SECONDS, 40);
+		sendInfoByInternetTask.setProvidedQuality(null, FilterMetric.SECONDS, 40);
 
-		considerLastKnownLocationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 900);
-		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 15);
+		considerLastKnownLocationTask.setProvidedQuality(null, FilterMetric.DISTANCE_ERROR, 900);
+		considerLastKnownLocationTask.setProvidedQuality(null, FilterMetric.SECONDS, 15);
 
-		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 100);
-		identifyLocationByVoiceCallTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 300);
-		identifyLocationByVoiceCallTask.setProvidedQuality(null, Metric.SECONDS, 45);
+		identifyLocationByVoiceCallTask.setProvidedQuality(null, FilterMetric.DISTANCE_ERROR, 100);
+		identifyLocationByVoiceCallTask.setProvidedQuality(c11, FilterMetric.DISTANCE_ERROR, 300);
+		identifyLocationByVoiceCallTask.setProvidedQuality(null, FilterMetric.SECONDS, 45);
 
-		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 40);
-		accessLocationFromTriangulationTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 400);
-		accessLocationFromTriangulationTask.setProvidedQuality(null, Metric.SECONDS, 30);
+		accessLocationFromTriangulationTask.setProvidedQuality(null, FilterMetric.DISTANCE_ERROR, 40);
+		accessLocationFromTriangulationTask.setProvidedQuality(c11, FilterMetric.DISTANCE_ERROR, 400);
+		accessLocationFromTriangulationTask.setProvidedQuality(null, FilterMetric.SECONDS, 30);
 
-		accessLocationFromGPSTask.setProvidedQuality(null, Metric.DISTANCE_ERROR, 20);
-		accessLocationFromGPSTask.setProvidedQuality(c11, Metric.DISTANCE_ERROR, 30);
-		accessLocationFromGPSTask.setProvidedQuality(null, Metric.SECONDS, 50);
+		accessLocationFromGPSTask.setProvidedQuality(null, FilterMetric.DISTANCE_ERROR, 20);
+		accessLocationFromGPSTask.setProvidedQuality(c11, FilterMetric.DISTANCE_ERROR, 30);
+		accessLocationFromGPSTask.setProvidedQuality(null, FilterMetric.SECONDS, 50);
 
-		accessDataFromDatabaseTask.setProvidedQuality(null, Metric.SECONDS, 20);
+		accessDataFromDatabaseTask.setProvidedQuality(null, FilterMetric.SECONDS, 20);
 
-		getInfoFromResponsibleTask.setProvidedQuality(null, Metric.SECONDS, 25);
-		getInfoFromResponsibleTask.setProvidedQuality(c11, Metric.SECONDS, 50);
+		getInfoFromResponsibleTask.setProvidedQuality(null, FilterMetric.SECONDS, 25);
+		getInfoFromResponsibleTask.setProvidedQuality(c11, FilterMetric.SECONDS, 50);
 
-		ambulanceDispatchDelegation.setProvidedQuality(null, Metric.SECONDS, 30);
+		ambulanceDispatchDelegation.setProvidedQuality(null, FilterMetric.SECONDS, 30);
 	}
 
 	// @Test
@@ -320,13 +324,13 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
-			if (task.getIdentifier().contentEquals("accessLocationFromGPS"))
+			if (task.getId().contentEquals("accessLocationFromGPS"))
 				found = 1;
-			if (task.getIdentifier().contentEquals("centralCallsP"))
+			if (task.getId().contentEquals("centralCallsP"))
 				found = 1;
-			assertEquals("Task " + task.getIdentifier() + " not expected", 0, found);
+			assertEquals("Task " + task.getId() + " not expected", 0, found);
 		}
 	}
 
@@ -337,7 +341,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("acceptEmergency"))
 				found = 1;
@@ -355,7 +359,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("acceptEmergency"))
 				found = 1;
@@ -370,7 +374,7 @@ public class TestEachContext {
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
 				found = 1;
@@ -395,7 +399,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
 				found = 1;
@@ -415,7 +419,7 @@ public class TestEachContext {
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
 				found = 1;
@@ -434,7 +438,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
 				found = 1;
@@ -463,7 +467,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
 				found = 1;
@@ -488,7 +492,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyByLightAlert"))
 				found = 1;
@@ -505,7 +509,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyByLightAlert"))
 				found = 1;
@@ -522,7 +526,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue("CGM is unachievable", tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
 				found = 1;
@@ -543,7 +547,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("notifyCentralBySMS"))
 				found = 1;
@@ -562,7 +566,7 @@ public class TestEachContext {
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
 		assertTrue(tasks != null);
-		for (Task task : cgm.isAchievable(fullContext, null).getTasks()) {
+		for (WorkflowTask task : cgm.isAchievable(fullContext, null).getTasks()) {
 			int found = 0;
 			if (task.getIdentifier().contentEquals("acceptEmergency"))
 				found = 1;

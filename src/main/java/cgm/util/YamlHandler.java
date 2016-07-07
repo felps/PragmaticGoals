@@ -16,7 +16,7 @@
 //import cgm.Context;
 //import cgm.ContextAnnotation;
 //import cgm.Goal;
-//import cgm.QualityConstraint;
+//import cgm.quality.QualityConstraint;
 //import cgm.Refinement;
 //import cgm.Task;
 //

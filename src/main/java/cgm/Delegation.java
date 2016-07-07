@@ -1,5 +1,7 @@
 package cgm;
 
+import cgm.workflow.Plan;
+
 import java.util.Set;
 
 public class Delegation extends Refinement {

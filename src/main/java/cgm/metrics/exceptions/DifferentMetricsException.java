@@ -1,4 +1,4 @@
-package cgm;
+package cgm.metrics.exceptions;
 
 public class DifferentMetricsException extends Exception {
 

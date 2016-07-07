@@ -1,17 +1,10 @@
 package cgm.util.generator;
 
-import java.util.HashSet;
-import java.util.Set;
+import cgm.*;
+import cgm.metrics.FilterMetric;
+import cgm.quality.QualityConstraint;
 
-import cgm.CGM;
-import cgm.Comparison;
-import cgm.Context;
-import cgm.Goal;
-import cgm.Metric;
-import cgm.Pragmatic;
-import cgm.QualityConstraint;
-import cgm.Refinement;
-import cgm.Task;
+import java.util.Set;
 
 public class RandomCGMGenerator extends CGMGenerator{
 
@@ -48,8 +41,8 @@ public class RandomCGMGenerator extends CGMGenerator{
 		for (Context context : possibleContexts) {
 				task.addApplicableContext(context);
 		}
-		
-		task.setProvidedQuality(null, Metric.SECONDS, metric);
+
+		task.setProvidedQuality(null, FilterMetric.SECONDS, metric);
 		
 		return task;
 	}
@@ -91,9 +84,9 @@ public class RandomCGMGenerator extends CGMGenerator{
 		} else{
 			metric = 9;
 		}
-		
-		QualityConstraint qc = new QualityConstraint(null, Metric.SECONDS, metric, Comparison.LESS_THAN);
-		goal.getInterpretation().addQualityConstraint(qc);
+
+		QualityConstraint qc = new QualityConstraint(null, FilterMetric.SECONDS, metric, Comparison.LESS_THAN);
+		goal.getInterpretation().addFilterQualityConstraint(qc);
 		
 		return goal;
 	}

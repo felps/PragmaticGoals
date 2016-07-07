@@ -1,17 +1,9 @@
 package cgm.util.generator;
 
+import cgm.*;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import cgm.CGM;
-import cgm.Comparison;
-import cgm.Context;
-import cgm.Goal;
-import cgm.Metric;
-import cgm.Pragmatic;
-import cgm.QualityConstraint;
-import cgm.Refinement;
-import cgm.Task;
 
 public abstract class CGMGenerator {
 

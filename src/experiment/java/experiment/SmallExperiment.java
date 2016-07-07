@@ -1,18 +1,12 @@
 package experiment;
 
-import java.util.HashSet;
-
+import cgm.*;
+import cgm.metrics.FilterMetric;
+import cgm.quality.QualityConstraint;
 import org.junit.Before;
 import org.junit.Test;
 
-import cgm.CGM;
-import cgm.Comparison;
-import cgm.Context;
-import cgm.Goal;
-import cgm.Metric;
-import cgm.Pragmatic;
-import cgm.QualityConstraint;
-import cgm.Task;
+import java.util.HashSet;
 
 public class SmallExperiment {
 
@@ -46,33 +40,33 @@ public class SmallExperiment {
 		locationIsIdentifiedGoal.addDependency(accessLocationFromGPSTask);
 		locationIsIdentifiedGoal.addDependency(accessLocationFromTriangulationTask);
 
-		QualityConstraint qc1 = new QualityConstraint(null, Metric.SECONDS, 150, Comparison.LESS_THAN);
-		QualityConstraint qc2 = new QualityConstraint(c10, Metric.SECONDS, 60, Comparison.LESS_THAN);
-		// QualityConstraint qc3 = new QualityConstraint(c9, Metric.SECONDS,
-		// 1800, Comparison.LESS_THAN);
-		// QualityConstraint qc4 = new QualityConstraint(null, Metric.SECONDS,
-		// 900, Comparison.LESS_THAN);
-		// QualityConstraint qc5 = new QualityConstraint(c10, Metric.SECONDS,
-		// 600, Comparison.LESS_THAN);
-		// QualityConstraint qc6 = new QualityConstraint(c9, Metric.SECONDS,
-		// 1800, Comparison.LESS_THAN);
-		locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc1);
-		locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc2);
+        QualityConstraint qc1 = new QualityConstraint(null, FilterMetric.SECONDS, 150, Comparison.LESS_THAN);
+        QualityConstraint qc2 = new QualityConstraint(c10, FilterMetric.SECONDS, 60, Comparison.LESS_THAN);
+        // QualityConstraint qc3 = new QualityConstraint(c9, FilterMetric.SECONDS,
+        // 1800, Comparison.LESS_THAN);
+        // QualityConstraint qc4 = new QualityConstraint(null, FilterMetric.SECONDS,
+        // 900, Comparison.LESS_THAN);
+        // QualityConstraint qc5 = new QualityConstraint(c10, FilterMetric.SECONDS,
+        // 600, Comparison.LESS_THAN);
+        // QualityConstraint qc6 = new QualityConstraint(c9, FilterMetric.SECONDS,
+        // 1800, Comparison.LESS_THAN);
+        locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc1);
+        locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc2);
 
-		// locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc3);
-		// locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc4);
-		// locationIsIdentifiedGoal.getInterpretation().addQualityConstraint(qc5);
-		// locationIsIdentifiedGoal.getInterpretatioln().addQualityConstraint(qc6);
+        // locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc3);
+        // locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc4);
+        // locationIsIdentifiedGoal.getInterpretation().addFilterQualityConstraint(qc5);
+        // locationIsIdentifiedGoal.getInterpretatioln().addFilterQualityConstraint(qc6);
 
 		identifyLocationByVoiceCallTask.addApplicableContext(c2);
 		accessLocationFromTriangulationTask.addApplicableContext(c2);
 		accessLocationFromGPSTask.addApplicableContext(c5);
 
-		considerLastKnownLocationTask.setProvidedQuality(null, Metric.SECONDS, 120);
-		identifyLocationByVoiceCallTask.setProvidedQuality(c2, Metric.SECONDS, 90);
-		accessLocationFromTriangulationTask.setProvidedQuality(c2, Metric.SECONDS, 120);
-		accessLocationFromGPSTask.setProvidedQuality(c5, Metric.SECONDS, 50);
-	}
+        considerLastKnownLocationTask.setProvidedQuality(null, FilterMetric.SECONDS, 120);
+        identifyLocationByVoiceCallTask.setProvidedQuality(c2, FilterMetric.SECONDS, 90);
+        accessLocationFromTriangulationTask.setProvidedQuality(c2, FilterMetric.SECONDS, 120);
+        accessLocationFromGPSTask.setProvidedQuality(c5, FilterMetric.SECONDS, 50);
+    }
 
 	@Test
 	public void findAchievableScenarios() {

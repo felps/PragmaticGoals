@@ -1,11 +1,13 @@
 package cgm;
 
-import static org.junit.Assert.*;
+import cgm.metrics.FilterMetric;
+import cgm.quality.QualityConstraint;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Set;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class InterpretationTest {
 
@@ -13,9 +15,9 @@ public class InterpretationTest {
 	public void shouldStoreInterpretationsPerApplicableContext() {
 		Interpretation interp = new Interpretation();
 		Context context = new Context("C1");
-		QualityConstraint qc = new QualityConstraint(context , Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+		QualityConstraint qc = new QualityConstraint(context, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
-		interp.addQualityConstraint(qc);
+		interp.addFilterQualityConstraint(qc);
 		HashMap<Context, Set<QualityConstraint>> map =interp.getContextDependentInterpretation();
 		
 		assertEquals(1, map.keySet().size());

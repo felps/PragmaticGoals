@@ -1,10 +1,11 @@
 package cgm;
 
-import static org.junit.Assert.*;
+import cgm.workflow.Plan;
+import org.junit.Test;
 
 import java.util.HashSet;
 
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class GoalTest {
 

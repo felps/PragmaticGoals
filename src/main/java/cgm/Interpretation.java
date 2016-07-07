@@ -1,5 +1,7 @@
 package cgm;
 
+import cgm.quality.QualityConstraint;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,16 +11,16 @@ public class Interpretation {
 	private HashMap<Context, Set<QualityConstraint>> contextDependentInterpretation;
 	private HashSet<QualityConstraint> qualityConstraints;
 
-	public HashMap<Context, Set<QualityConstraint>> getContextDependentInterpretation() {
-		return contextDependentInterpretation;
-	}
-
 	public Interpretation() {
 		contextDependentInterpretation = new HashMap<Context, Set<QualityConstraint>>();
 		qualityConstraints = new HashSet<QualityConstraint>();
 	}
 
-	public void addQualityConstraint(QualityConstraint constraint) {
+	public HashMap<Context, Set<QualityConstraint>> getContextDependentInterpretation() {
+		return contextDependentInterpretation;
+	}
+
+	public void addFilterQualityConstraint(QualityConstraint constraint) {
 		qualityConstraints.add(constraint);
 
 		Context context = constraint.getApplicableContext();
@@ -50,7 +52,7 @@ public class Interpretation {
 		if (interp == null)
 			return;
 		for (QualityConstraint qualityConstraint : interp.getAllQualityConstraints()) {
-			addQualityConstraint(qualityConstraint);
+			addFilterQualityConstraint(qualityConstraint);
 		}
 	}
 

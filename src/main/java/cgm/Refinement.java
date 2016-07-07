@@ -1,5 +1,7 @@
 package cgm;
 
+import cgm.workflow.Plan;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,12 +10,10 @@ public abstract class Refinement {
 	public static final int GOAL = 1;
 	public static final int TASK = 2;
 	public static final int DELEGATION = 3;
-
-	private HashSet<Context> applicableContexts;
-	private HashSet<Context> nonApplicableContexts;
-
 	protected boolean isOrDecomposition = false;
 	protected HashSet<Refinement> dependencies;
+	private HashSet<Context> applicableContexts;
+	private HashSet<Context> nonApplicableContexts;
 	private String identifier;
 
 	public Refinement() {

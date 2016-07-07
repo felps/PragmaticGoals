@@ -1,5 +1,10 @@
 package cgm;
 
+import cgm.metrics.exceptions.MetricNotFoundException;
+import cgm.quality.QualityConstraint;
+import cgm.workflow.Plan;
+import cgm.workflow.WorkflowTask;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -7,11 +12,6 @@ public class Task extends Refinement {
 
 	private HashMap<String, HashMap<Context, Float>> providedQualityLevels;
 	private boolean lessIsMore;
-
-	@Override
-	public int myType() {
-		return Refinement.TASK;
-	}
 
 	public Task(boolean lessIsMore) {
 		providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
@@ -21,6 +21,11 @@ public class Task extends Refinement {
 	public Task() {
 		providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
 		this.lessIsMore = false;
+	}
+
+	@Override
+	public int myType() {
+		return Refinement.TASK;
 	}
 
 	public void setProvidedQuality(Context context, String metric, double value) {
@@ -102,5 +107,10 @@ public class Task extends Refinement {
 		} else {
 			return null;
 		}
+	}
+
+	public WorkflowTask getWorkflowTask() {
+		WorkflowTask workflowTask = new WorkflowTask(getIdentifier());
+		return workflowTask;
 	}
 }

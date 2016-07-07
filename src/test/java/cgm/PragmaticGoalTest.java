@@ -1,10 +1,13 @@
 package cgm;
 
-import static org.junit.Assert.*;
+import cgm.metrics.FilterMetric;
+import cgm.quality.QualityConstraint;
+import org.junit.Test;
 
 import java.util.HashSet;
 
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class PragmaticGoalTest {
 
@@ -13,14 +16,14 @@ public class PragmaticGoalTest {
 		Context aContext = new Context("c1");
 		Context anotherContext = new Context("c2");
 
-		QualityConstraint aQC = new QualityConstraint(aContext, Metric.METERS, 30, Comparison.LESS_OR_EQUAL_TO);
-		QualityConstraint anotherQC = new QualityConstraint(anotherContext, Metric.METERS, 60,
+		QualityConstraint aQC = new QualityConstraint(aContext, FilterMetric.METERS, 30, Comparison.LESS_OR_EQUAL_TO);
+		QualityConstraint anotherQC = new QualityConstraint(anotherContext, FilterMetric.METERS, 60,
 				Comparison.LESS_OR_EQUAL_TO);
 
 		Pragmatic goal = new Pragmatic(false);
 
-		goal.getInterpretation().addQualityConstraint(aQC);
-		goal.getInterpretation().addQualityConstraint(anotherQC);
+		goal.getInterpretation().addFilterQualityConstraint(aQC);
+		goal.getInterpretation().addFilterQualityConstraint(anotherQC);
 
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(aContext);

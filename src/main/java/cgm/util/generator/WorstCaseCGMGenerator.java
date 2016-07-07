@@ -1,21 +1,17 @@
 package cgm.util.generator;
 
-import java.util.Set;
+import cgm.*;
+import cgm.metrics.FilterMetric;
+import cgm.quality.QualityConstraint;
 
-import cgm.Comparison;
-import cgm.Context;
-import cgm.Goal;
-import cgm.Metric;
-import cgm.Pragmatic;
-import cgm.QualityConstraint;
-import cgm.Task;
+import java.util.Set;
 
 public class WorstCaseCGMGenerator extends CGMGenerator {
 
 	@Override
 	protected Task generateTask(Set<Context> possibleContexts) {
 		Task task = new Task();
-		task.setProvidedQuality(null, Metric.SECONDS, 10);
+		task.setProvidedQuality(null, FilterMetric.SECONDS, 10);
 		for (Context context : possibleContexts) {
 			task.addApplicableContext(context);
 		}
@@ -30,12 +26,12 @@ public class WorstCaseCGMGenerator extends CGMGenerator {
 		Pragmatic pragmaticGoal= new Pragmatic(Goal.AND);
 		for (Context context : possibleContexts) {
 			pragmaticGoal.addApplicableContext(context);
-			qc = new QualityConstraint(context, Metric.SECONDS, 100, Comparison.LESS_THAN);
-			pragmaticGoal.getInterpretation().addQualityConstraint(qc);
+			qc = new QualityConstraint(context, FilterMetric.SECONDS, 100, Comparison.LESS_THAN);
+			pragmaticGoal.getInterpretation().addFilterQualityConstraint(qc);
 		}
-		
-		qc = new QualityConstraint(null, Metric.SECONDS, 100, Comparison.LESS_THAN);
-		pragmaticGoal.getInterpretation().addQualityConstraint(qc);
+
+		qc = new QualityConstraint(null, FilterMetric.SECONDS, 100, Comparison.LESS_THAN);
+		pragmaticGoal.getInterpretation().addFilterQualityConstraint(qc);
 		
 		
 		return pragmaticGoal;
