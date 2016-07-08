@@ -1,16 +1,15 @@
-package experiment;
+package experiment.pragmatic;
 
-import static org.junit.Assert.*;
+import cgm.CGM;
+import cgm.Context;
+import cgm.util.generator.RandomCGMGenerator;
+import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
-
-import cgm.CGM;
-import cgm.Context;
-import cgm.util.generator.RandomCGMGenerator;
+import static org.junit.Assert.*;
 
 public class ScalabilityEvaluationRandomModels {
 

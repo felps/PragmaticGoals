@@ -1,17 +1,12 @@
-package experiment;
-
-import static org.junit.Assert.*;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.Test;
-import org.omg.CORBA.Current;
+package experiment.pragmatic;
 
 import cgm.CGM;
 import cgm.Context;
 import cgm.util.generator.RandomCGMGenerator;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ContextSweepFull {
 

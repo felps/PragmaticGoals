@@ -1,15 +1,14 @@
-package experiment;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.Test;
+package experiment.pragmatic;
 
 import cgm.CGM;
 import cgm.Context;
 import cgm.util.generator.CGMGenerator;
 import cgm.util.generator.WorstCaseCGMGenerator;
+import org.junit.Test;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ScalabilityEvaluationWorstCaseScenarios {
 
@@ -69,8 +68,8 @@ public class ScalabilityEvaluationWorstCaseScenarios {
 			
 			if(cgm.isAchievable(current, null) != null){
 				achievable = true;
-			};
-				
+			}
+
 			if (accumulated<0)
 				throw new ArithmeticException("Time evaluation Overflow");
 			// Print result
