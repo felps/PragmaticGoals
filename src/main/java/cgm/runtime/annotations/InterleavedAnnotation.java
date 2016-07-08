@@ -27,7 +27,7 @@ public class InterleavedAnnotation extends RuntimeAnnotation {
         Time time = new Time();
         Reliability reliability = new Reliability();
 
-        System.out.println("I am the interleaved runtime annotation and I have been given " + approaches.size() + " plans");
+        //System.out.println("I am the interleaved experiment.runtime annotation and I have been given " + approaches.size() + " plans");
         for (Refinement ref : getRefinements()) {
             Plan refinementPlan = approaches.get(ref);
             completePlan.addParallel(refinementPlan);
@@ -35,13 +35,13 @@ public class InterleavedAnnotation extends RuntimeAnnotation {
             completePlan.setTimeConsumed(time.getParallelQuality(completePlan.getTimeConsumed(), refinementPlan.getTimeConsumed()));
             completePlan.setReliability(reliability.getParallelQuality(completePlan.getReliability(), refinementPlan.getReliability()));
 
-            System.out.println("I am the interleaved runtime annotation and I have added the approach for " + ref.getIdentifier() + " dependency");
-            System.out.println("It has " + refinementPlan.getTasks().size() + " tasks");
+            //System.out.println("I am the interleaved experiment.runtime annotation and I have added the approach for " + ref.getIdentifier() + " dependency");
+            //System.out.println("It has " + refinementPlan.getTasks().size() + " tasks");
         }
 
         list.add(completePlan);
 
-        System.out.println("I am the interleaved runtime annotation and I have devised " + list.size() + " plans with " + completePlan.getTasks().size() + " tasks");
+        //System.out.println("I am the interleaved experiment.runtime annotation and I have devised " + list.size() + " plans with " + completePlan.getTasks().size() + " tasks");
         return list;
     }
 

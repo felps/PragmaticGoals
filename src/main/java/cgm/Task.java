@@ -108,7 +108,7 @@ public class Task extends Refinement {
 	}
 
     @Override
-    public Plan isAchievable(Set<Context> current, Interpretation interp, String reliabilty) {
+    public Plan isAchievable(Set<Context> current, Interpretation interp) {
         Plan plan = new Plan(this);
         try {
             plan.setReliability(getReliability());

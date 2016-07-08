@@ -86,11 +86,7 @@ public abstract class Refinement {
 		return returnValue;
 	}
 
-    public abstract Plan isAchievable(Set<Context> current, Interpretation interp, String compositeMetric);
-
-    public Plan isAchievable(Set<Context> current, Interpretation interp) {
-        return isAchievable(current, interp, null);
-    }
+	public abstract Plan isAchievable(Set<Context> current, Interpretation interp);
 
     public abstract void addDependency(Refinement goal);
 

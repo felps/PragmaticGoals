@@ -56,12 +56,13 @@ public class Goal extends Refinement {
 		return !isOrDecomposition;	}
 
 	@Override
-    public Plan isAchievable(Set<Context> current, Interpretation interp, String compositeMetric) {
+    public Plan isAchievable(Set<Context> current, Interpretation interp) {
+
         if (!this.isApplicable(current)) {
             return null;
         } else {
             Plan plan;
-            HashMap<Refinement, Plan> refinementPlans = getRefinementPlans(current, interp, compositeMetric);
+            HashMap<Refinement, Plan> refinementPlans = getRefinementPlans(current, interp);
             List<Plan> approaches = getRuntimeAnnotation().getPossiblePlans(refinementPlans);
 
             Plan chosenApproach = null;
@@ -70,14 +71,18 @@ public class Goal extends Refinement {
                 if (chosenApproach == null || (!chosenApproach.isAchievable() && approach.isAchievable())) {
                     chosenApproach = approach;
                 } else {
-                    CompositeMetric currentMetric = chosenApproach.getQualityMetrics(compositeMetric);
-                    CompositeMetric candidate = approach.getQualityMetrics(compositeMetric);
-                    if (candidate != null) {
-                        if (candidate.isBetterThan(currentMetric))
-                            chosenApproach = approach;
+                    if (interp != null && interp.getCompositeQC() != null) {
+                        String compositeMetric = interp.getCompositeQC().getMetric();
+                        CompositeMetric currentMetric = chosenApproach.getQualityMetrics(compositeMetric);
+                        CompositeMetric candidate = approach.getQualityMetrics(compositeMetric);
+                        if (candidate != null) {
+                            if (candidate.isBetterThan(currentMetric)) {
+                                chosenApproach = approach;
+                            }
+                        }
                     }
                 }
-                if (interp != null && !interp.withinLimits(chosenApproach, compositeMetric)) {
+                if (interp != null && !interp.withinLimits(chosenApproach)) {
                     chosenApproach.setAchievable(false);
                 }
             }
@@ -91,12 +96,12 @@ public class Goal extends Refinement {
         getRuntimeAnnotation().includeRefinement(goal, getRuntimeAnnotation().getRefinements().size());
     }
 
-    private HashMap<Refinement, Plan> getRefinementPlans(Set<Context> current, Interpretation interp, String compositeMetric) {
+    private HashMap<Refinement, Plan> getRefinementPlans(Set<Context> current, Interpretation interp) {
         Plan plan;
         HashMap<Refinement, Plan> approaches = new HashMap<Refinement, Plan>();
 
         for (Refinement dep : getApplicableDependencies(current)) {
-            plan = dep.isAchievable(current, interp, compositeMetric);
+            plan = dep.isAchievable(current, interp);
             if (plan != null)
                 approaches.put(dep, plan);
 //            if(plan.isAchievable())

@@ -1,5 +1,7 @@
 package cgm;
 
+import cgm.metrics.Metric;
+import cgm.quality.CompositeQualityConstraint;
 import cgm.quality.FilterQualityConstraint;
 import cgm.workflow.Plan;
 
@@ -11,14 +13,29 @@ public class Interpretation {
 
     private HashMap<Context, Set<FilterQualityConstraint>> contextDependentInterpretation;
     private HashSet<FilterQualityConstraint> qualityConstraints;
+    private CompositeQualityConstraint compositeQC;
 
 	public Interpretation() {
         contextDependentInterpretation = new HashMap<Context, Set<FilterQualityConstraint>>();
         qualityConstraints = new HashSet<FilterQualityConstraint>();
+        compositeQC = null;
     }
 
     public HashMap<Context, Set<FilterQualityConstraint>> getContextDependentInterpretation() {
         return contextDependentInterpretation;
+    }
+
+    public CompositeQualityConstraint getCompositeQC() {
+        return compositeQC;
+    }
+
+    public void addCompositeQualityConstraint(CompositeQualityConstraint compositeConstraint) throws Exception {
+        if (compositeQC == null) {
+            compositeQC = compositeConstraint;
+        } else {
+            throw new PreviousCompositeConstraintException("Composite exception already set");
+        }
+
     }
 
     public void addFilterQualityConstraint(FilterQualityConstraint constraint) {
@@ -61,8 +78,11 @@ public class Interpretation {
         return qualityConstraints;
     }
 
-    public boolean withinLimits(Plan approach, String qualityMetrics) {
-        // TODO implement this
-        return true;
+    public boolean withinLimits(Plan approach) {
+        if (approach == null)
+            return false;
+        else if (compositeQC == null)
+            return true;
+        else return compositeQC.abidesByQC(approach.getTimeConsumed(), Metric.TIME);
     }
 }

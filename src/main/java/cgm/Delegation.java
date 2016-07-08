@@ -16,7 +16,7 @@ public class Delegation extends Refinement {
 	}
 
 	@Override
-    public Plan isAchievable(Set<Context> current, Interpretation interp, String reliabilty) {
+    public Plan isAchievable(Set<Context> current, Interpretation interp) {
         return null;
     }
 
