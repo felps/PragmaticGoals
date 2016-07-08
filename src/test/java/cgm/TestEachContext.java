@@ -4,6 +4,8 @@ import cgm.metrics.Metric;
 import cgm.quality.FilterQualityConstraint;
 import cgm.workflow.Plan;
 import cgm.workflow.WorkflowTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 
@@ -11,6 +13,7 @@ import static org.junit.Assert.*;
 
 public class TestEachContext {
 	CGM cgm;
+	Logger logger = LogManager.getLogger();
 
 	/* Contexts */
 	Context c1 = new Context("c1");
@@ -316,7 +319,7 @@ public class TestEachContext {
 
 	// //@Test
 	public void testC1() {
-		System.out.println("=========== Test C1 ================");
+		logger.debug("=========== Test C1 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -333,7 +336,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC2() {
-		System.out.println("=========== Test C2 ================");
+		logger.debug("=========== Test C2 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -351,7 +354,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC3() {
-		System.out.println("=========== Test C3 ================");
+		logger.debug("=========== Test C3 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -367,7 +370,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC4() {
-		System.out.println("=========== Test C4 ================");
+		logger.debug("=========== Test C4 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 		assertTrue(tasks != null);
@@ -391,7 +394,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC5() {
-		System.out.println("=========== Test C5 ================");
+		logger.debug("=========== Test C5 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -412,7 +415,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC6() {
-		System.out.println("=========== Test C6 ================");
+		logger.debug("=========== Test C6 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 		assertTrue(tasks != null);
@@ -430,7 +433,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC7() {
-		System.out.println("=========== Test C7 ================");
+		logger.debug("=========== Test C7 ================");
 		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -459,7 +462,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC8() {
-		System.out.println("=========== Test C8 ================");
+		logger.debug("=========== Test C8 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -484,7 +487,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC9() {
-		System.out.println("=========== Test C9 ================");
+		logger.debug("=========== Test C9 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -501,7 +504,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC10() {
-		System.out.println("=========== Test C10 ================");
+		logger.debug("=========== Test C10 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -518,7 +521,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC11() {
-		System.out.println("=========== Test C11 ================");
+		logger.debug("=========== Test C11 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -539,7 +542,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testC12() {
-		System.out.println("=========== Test C12 ================");
+		logger.debug("=========== Test C12 ================");
 		HashSet<Context> fullContext = createFullContext(1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -558,7 +561,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testAll() {
-		System.out.println("=========== Test All ================");
+		logger.debug("=========== Test All ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -573,7 +576,7 @@ public class TestEachContext {
 
 	//@Test
 	public void testNone() {
-		System.out.println("=========== Test None ================");
+		logger.debug("=========== Test None ================");
 		HashSet<Context> fullContext = createFullContext(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		Plan tasks = cgm.isAchievable(fullContext, null);
 
@@ -633,7 +636,7 @@ public class TestEachContext {
 			fullContext.add(c12);
 			System.out.print("c12 ");
 		}
-		System.out.println("]");
+		logger.debug("]");
 		return fullContext;
 	}
 }

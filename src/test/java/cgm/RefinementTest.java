@@ -198,7 +198,7 @@ public class RefinementTest {
 
 	@Test
 	public void aGoalAndDecomposedWithTwoTasksMayNotBeAchievable() throws Exception {
-		Goal goal = new Goal(false);
+		Goal goal = new Goal(Goal.AND);
 		assertTrue(goal.isAndDecomposition());
 
 		Task task1 = new Task();

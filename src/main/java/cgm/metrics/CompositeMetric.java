@@ -14,6 +14,13 @@ public abstract class CompositeMetric extends Metric {
     public double getValue() {
         return value;
     }
+
+    public void setValue(double value) {
+        if (value > 1)
+            System.err.println("reliability cannot be greater than one.");
+        else this.value = value;
+    }
+
     public abstract double getSequentialQuality(double metric1, double metric2);
 
     public double getSequentialQuality(CompositeMetric metric1, CompositeMetric metric2) throws DifferentMetricsException {

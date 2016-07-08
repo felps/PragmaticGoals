@@ -1,8 +1,8 @@
 package cgm.runtime.annotations;
 
 import cgm.Refinement;
-import cgm.metrics.types.Reliability;
-import cgm.metrics.types.Time;
+import cgm.metrics.types.ReliabilityMetric;
+import cgm.metrics.types.TimeMetric;
 import cgm.workflow.Plan;
 
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ public class InterleavedAnnotation extends RuntimeAnnotation {
 
         completePlan.setAchievable(true);
 
-        Time time = new Time();
-        Reliability reliability = new Reliability();
+        TimeMetric time = new TimeMetric();
+        ReliabilityMetric reliability = new ReliabilityMetric();
 
         //System.out.println("I am the interleaved experiment.runtime annotation and I have been given " + approaches.size() + " plans");
         for (Refinement ref : getRefinements()) {

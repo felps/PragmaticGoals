@@ -3,6 +3,8 @@ package cgm.util.generator;
 import cgm.CGM;
 import cgm.Context;
 import cgm.Refinement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -12,6 +14,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RandomCGMGeneratorTest {
+
+	Logger logger = LogManager.getLogger();
 
 	@Test
 	public void shouldCreateASingleTask() {
@@ -55,26 +59,26 @@ public class RandomCGMGeneratorTest {
 		Set<Context> current = new HashSet<Context>();
 		current.add(new Context("c1"));
 		current.add(new Context("c2"));
-		System.out.println("Contexts available:");
+		logger.debug("Contexts available:");
 		for (Context context : current) {
-			System.out.println(">" + context.getName() + "<");
+			logger.debug(">" + context.getName() + "<");
 		}
 
-		System.out.println("Contexts applicable:");
+		logger.debug("Contexts applicable:");
 		for (Context context : cgm.getRoot().getApplicableContext()) {
-			System.out.println(">" + context.getName() + "<");
+			logger.debug(">" + context.getName() + "<");
 		}
 
 		for (Context context : current) {
 			for (Context applicable : cgm.getRoot().getApplicableContext()) {
 				if (applicable.equals(context)) {
-					System.out.println("Context valid");
+					logger.debug("Context valid");
 					if (context.equals(applicable))
-						System.out.println("Equals not reflexive");
+						logger.debug("Equals not reflexive");
 					if (cgm.getRoot().getApplicableContext().contains(context)) {
-						System.out.println("And recognized");
+						logger.debug("And recognized");
 					} else
-						System.out.println("And NOT recognized");
+						logger.debug("And NOT recognized");
 				}
 			}
 
@@ -90,9 +94,9 @@ public class RandomCGMGeneratorTest {
 		Set<Context> current = new HashSet<Context>();
 		current.add(new Context("c1"));
 		current.add(new Context("c2"));
-		System.out.println("Contexts available:");
+		logger.debug("Contexts available:");
 		for (Context context : current) {
-			System.out.println(">" + context.getName() + "<");
+			logger.debug(">" + context.getName() + "<");
 		}
 
 		boolean isAchievable = false;
@@ -112,9 +116,9 @@ public class RandomCGMGeneratorTest {
 		Set<Context> current = new HashSet<Context>();
 		current.add(new Context("c1"));
 		current.add(new Context("c2"));
-		System.out.println("Contexts available:");
+		logger.debug("Contexts available:");
 		for (Context context : current) {
-			System.out.println(">" + context.getName() + "<");
+			logger.debug(">" + context.getName() + "<");
 		}
 
 		boolean isAchievable = false;
@@ -135,9 +139,9 @@ public class RandomCGMGeneratorTest {
 		Set<Context> current = new HashSet<Context>();
 		current.add(new Context("c1"));
 		current.add(new Context("c2"));
-		System.out.println("Contexts available:");
+		logger.debug("Contexts available:");
 		for (Context context : current) {
-			System.out.println(">" + context.getName() + "<");
+			logger.debug(">" + context.getName() + "<");
 		}
 
 		for (int modelSize = 1;modelSize<100;modelSize++){

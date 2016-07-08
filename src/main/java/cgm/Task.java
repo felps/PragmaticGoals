@@ -110,13 +110,6 @@ public class Task extends Refinement {
     @Override
     public Plan isAchievable(Set<Context> current, Interpretation interp) {
         Plan plan = new Plan(this);
-        try {
-            plan.setReliability(getReliability());
-        } catch (Exception e) {
-            System.err.println("cgm.Task Class: Out of Bounds reliability value!");
-            e.printStackTrace();
-        }
-        plan.setTimeConsumed(getTimeConsumed());
 
         if (!this.isApplicable(current)) {
 //            System.out.println("I am " + getIdentifier() + " but i am not achievable!");

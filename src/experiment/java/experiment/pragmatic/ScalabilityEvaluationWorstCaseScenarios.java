@@ -71,7 +71,7 @@ public class ScalabilityEvaluationWorstCaseScenarios {
 			}
 
 			if (accumulated<0)
-				throw new ArithmeticException("Time evaluation Overflow");
+				throw new ArithmeticException("TimeMetric evaluation Overflow");
 			// Print result
 		
 			if(achievable){

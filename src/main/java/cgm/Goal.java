@@ -5,16 +5,16 @@ import cgm.runtime.annotations.AlternativeAnnotation;
 import cgm.runtime.annotations.RuntimeAnnotation;
 import cgm.runtime.annotations.SequentialAnnotation;
 import cgm.workflow.Plan;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Goal extends Refinement {
 
     public final static boolean OR = true;
     public final static boolean AND = false;
+    private static final Logger logger = LogManager.getLogger(Goal.class);
     private final boolean isOrDecomposition;
 
     private RuntimeAnnotation runtimeAnnotation;
@@ -57,7 +57,10 @@ public class Goal extends Refinement {
 
 	@Override
     public Plan isAchievable(Set<Context> current, Interpretation interp) {
-
+        if (current == null) {
+            current = new HashSet<Context>();
+            current.add(null);
+        }
         if (!this.isApplicable(current)) {
             return null;
         } else {
@@ -67,27 +70,46 @@ public class Goal extends Refinement {
 
             Plan chosenApproach = null;
 
-            for (Plan approach : approaches) {
-                if (chosenApproach == null || (!chosenApproach.isAchievable() && approach.isAchievable())) {
-                    chosenApproach = approach;
+            for (Plan currentApproach : approaches) {
+                if (chosenApproach == null) {
+                    chosenApproach = currentApproach;
+                    logger.debug("I am {} and i chose an approach with {} reliability and {} time", getIdentifier(), getReliability(), getTimeConsumed());
                 } else {
-                    if (interp != null && interp.getCompositeQC() != null) {
-                        String compositeMetric = interp.getCompositeQC().getMetric();
-                        CompositeMetric currentMetric = chosenApproach.getQualityMetrics(compositeMetric);
-                        CompositeMetric candidate = approach.getQualityMetrics(compositeMetric);
-                        if (candidate != null) {
-                            if (candidate.isBetterThan(currentMetric)) {
-                                chosenApproach = approach;
-                            }
-                        }
+                    if (!chosenApproach.isAchievable()) {
+                        if (currentApproach.isAchievable())
+                            chosenApproach = currentApproach;
+                        else
+                            chosenApproach = chooseBetterPlan(interp, chosenApproach, currentApproach);
+                    } else if (chosenApproach.isAchievable()) {
+                        chosenApproach = chooseBetterPlan(interp, chosenApproach, currentApproach);
                     }
                 }
+
                 if (interp != null && !interp.withinLimits(chosenApproach)) {
+                    logger.debug("Yet it is unachievable");
                     chosenApproach.setAchievable(false);
-                }
+                } else if (chosenApproach.isAchievable()) {
+                    logger.debug("and it can be achieved!");
+                } else logger.debug("Yet it is unachievable 2");
             }
             return chosenApproach;
         }
+    }
+
+    private Plan chooseBetterPlan(Interpretation interp, Plan chosenApproach, Plan approach) {
+        if (interp != null && interp.getCompositeQC() != null) {
+            String compositeMetric = interp.getCompositeQC().getMetric();
+            CompositeMetric currentMetric = chosenApproach.getQualityMetrics(compositeMetric);
+            CompositeMetric candidate = approach.getQualityMetrics(compositeMetric);
+            if (candidate != null) {
+                if (candidate.isBetterThan(currentMetric)) {
+                    chosenApproach = approach;
+                    logger.debug("I am {} and i switched to an approach with {} reliability and {} time", getIdentifier(), getReliability(), getTimeConsumed());
+                } else
+                    logger.debug("I reviewed my options {} and did not choose an approach with {} reliability and {} time", getIdentifier(), getReliability(), getTimeConsumed());
+            }
+        }
+        return chosenApproach;
     }
 
     @Override
@@ -104,12 +126,12 @@ public class Goal extends Refinement {
             plan = dep.isAchievable(current, interp);
             if (plan != null)
                 approaches.put(dep, plan);
-//            if(plan.isAchievable())
-//                System.out.println("I am " + getIdentifier() + " and i found a way to achieve"+
-//                    " the dependency " + dep.getIdentifier() + " with " + plan.getTasks().size() + " tasks.");
-//            else
-//                System.out.println("I am " + getIdentifier() + " and the best i can do to achieve"+
-//                        " the dependency " + dep.getIdentifier() + " will require" + plan.getTasks().size() + " tasks.");
+            if (plan.isAchievable())
+                logger.debug("I am " + getIdentifier() + " and i found a way to achieve" +
+                        " the dependency " + dep.getIdentifier() + " with " + plan.getTasks().size() + " tasks.");
+            else
+                logger.debug("I am " + getIdentifier() + " and the best i can do to achieve" +
+                        " the dependency " + dep.getIdentifier() + " will require" + plan.getTasks().size() + " tasks.");
         }
 
         return approaches;

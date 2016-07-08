@@ -25,7 +25,6 @@ public abstract class Refinement {
 		applicableContexts.add(null);
 		nonApplicableContexts = new HashSet<Context>();
         dependencies = new ArrayList<Refinement>();
-
     }
 
     public double getTimeConsumed() {
@@ -68,6 +67,7 @@ public abstract class Refinement {
 	public abstract int myType();
 
 	public boolean isApplicable(Set<Context> current) {
+
 		boolean returnValue = false;
 		int unapplicableContextsFound = 0;
 		if (applicableContexts.contains(null)) {

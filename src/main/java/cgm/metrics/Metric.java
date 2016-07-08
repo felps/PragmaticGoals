@@ -10,6 +10,8 @@ public class Metric {
     public static final String METERS = "METERS";
 
     // Composite Metrics - Identified by integer numbers
-    public static final String RELIABILTY = "RELIABILITY";
+    public static final String RELIABILITY = "RELIABILITY";
     public static final String TIME = "TIME";
+
+
 }

@@ -2,22 +2,35 @@ package cgm.workflow;
 
 import cgm.Task;
 import cgm.metrics.CompositeMetric;
+import cgm.metrics.Metric;
+import cgm.metrics.types.ReliabilityMetric;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
 public class Plan {
+
+    Logger logger = LogManager.getLogger();
+
 
     private HashMap<String, WorkflowTask> tasks;
     private List<WorkflowTask> initialTasks;
     private List<WorkflowTask> finalTasks;
     private HashMap<String, CompositeMetric> qualityMeasures;
     private boolean achievable;
-    private double reliability;
-    private double time;
 
     public Plan(Task task) {
         createMaps();
         add(task.getWorkflowTask(), null);
+        try {
+            setReliability(task.getReliability());
+        } catch (Exception e) {
+            logger.error("cgm.Task Class: Out of Bounds reliability value!");
+            e.printStackTrace();
+        }
+        setTimeConsumed(task.getTimeConsumed());
+
     }
 
     public Plan(WorkflowTask task) {
@@ -45,22 +58,47 @@ public class Plan {
     }
 
     public double getTimeConsumed() {
-        return time;
+        try {
+            return getMapValue(Metric.TIME);
+        } catch (NonExistingMetricException e) {
+            logger.warn("Time was not previously set. Inferring 0.");
+            return 0;
+        }
     }
 
     public void setTimeConsumed(double timeConsumedInSeconds) {
-        time = timeConsumedInSeconds;
+        setMapValue(timeConsumedInSeconds, Metric.TIME);
     }
 
     public double getReliability() {
-        return reliability;
+        try {
+            return getMapValue(Metric.RELIABILITY);
+        } catch (NonExistingMetricException e) {
+            logger.warn("Reliability was not previously set. Inferring 100%");
+            return 1;
+        }
     }
 
     public void setReliability(double reliability) {
-        if (reliability > 1)
-            System.err.println("reliability cannot be greater than one.");
-        else
-            this.reliability = reliability;
+        setMapValue(reliability, Metric.RELIABILITY);
+    }
+
+    private void setMapValue(double reliability, String key) {
+        if (qualityMeasures.containsKey(key))
+            qualityMeasures.get(key).setValue(reliability);
+        else {
+            ReliabilityMetric reliabilityMetric = new ReliabilityMetric();
+            reliabilityMetric.setValue(reliability);
+            qualityMeasures.put(key, reliabilityMetric);
+        }
+    }
+
+    private double getMapValue(String key) throws NonExistingMetricException {
+        if (qualityMeasures.containsKey(key))
+            return qualityMeasures.get(key).getValue();
+        else {
+            throw new NonExistingMetricException();
+        }
     }
 
     @Deprecated
@@ -102,8 +140,10 @@ public class Plan {
     }
 
     public synchronized void addSerial(Plan plan) {
+        boolean emptyInitial = this.getTasks().isEmpty();
         if (plan == null)
             return;
+
         for (WorkflowTask task : plan.getInitialTasks()) {
             task.requires(this.getFinalTasks());
         }
