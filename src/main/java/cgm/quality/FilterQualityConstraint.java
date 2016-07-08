@@ -4,13 +4,13 @@ import cgm.Comparison;
 import cgm.Context;
 import cgm.metrics.exceptions.DifferentMetricsException;
 
-public class QualityConstraint {
+public class FilterQualityConstraint {
 	private Context applicableContext;
 	private String metric;
 	private double threshold;
 	private int comparison;
 
-	public QualityConstraint(Context applicable, String metric, double value, int comparison) {
+	public FilterQualityConstraint(Context applicable, String metric, double value, int comparison) {
 		this.applicableContext = applicable;
 		this.metric = metric;
 		this.threshold = value;
@@ -59,15 +59,15 @@ public class QualityConstraint {
 		return false;
 	}
 
-	public QualityConstraint stricterQC(QualityConstraint qualityConstraint) throws DifferentMetricsException {
-		if (qualityConstraint.comparison == this.comparison) {
+	public FilterQualityConstraint stricterQC(FilterQualityConstraint filterQualityConstraint) throws DifferentMetricsException {
+		if (filterQualityConstraint.comparison == this.comparison) {
 
-			if (qualityConstraint.metric.contentEquals(this.metric)) {
+			if (filterQualityConstraint.metric.contentEquals(this.metric)) {
 
-				if (qualityConstraint.compare(this.threshold))
+				if (filterQualityConstraint.compare(this.threshold))
 					return this;
 				else
-					return qualityConstraint;
+					return filterQualityConstraint;
 			} else
 				throw (new DifferentMetricsException());
 		} 

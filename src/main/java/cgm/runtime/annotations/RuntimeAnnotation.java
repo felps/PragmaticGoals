@@ -1,9 +1,12 @@
 package cgm.runtime.annotations;
 
 import cgm.Refinement;
-import cgm.metrics.FilterMetric;
+import cgm.workflow.Plan;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Felipe on 29/06/2016.
@@ -18,22 +21,22 @@ public abstract class RuntimeAnnotation {
     public static final int Alternative = 5;
     public static final int skip = 6;
 
-
-    private HashMap<Integer, Refinement> sequence;
+    private List<Refinement> sequence;
 
     public RuntimeAnnotation() {
-        sequence = new HashMap<Integer, Refinement>();
+        sequence = Collections.synchronizedList(new ArrayList<Refinement>());
+    }
+
+    public List<Refinement> getRefinements() {
+        return sequence;
+    }
+
+    public void includeRefinement(Refinement refinement, int position) {
+        sequence.add(refinement);
     }
 
     public abstract int getType();
 
-    public void includeRefinement(Refinement refinement, int position) {
-        sequence.put(position, refinement);
-        handleRefinement(refinement);
-    }
-
-    public abstract void handleRefinement(Refinement refinement);
-
-    public abstract double getQuality(FilterMetric metric);
+    public abstract List<Plan> getPossiblePlans(Map<Refinement, Plan> approaches);
 
 }

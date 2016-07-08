@@ -18,7 +18,7 @@ public class CGM {
 	}
 
 	public Plan isAchievable(Set<Context> current, Interpretation interp) {
-		return rootGoal.isAchievable(current, interp);
+		return rootGoal.isAchievable(current, interp, null);
 	}
 
 

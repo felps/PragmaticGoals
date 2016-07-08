@@ -8,7 +8,7 @@
 //import cgm.Comparison;
 //import cgm.Context;
 //import cgm.ContextAnnotation;
-//import cgm.QualityConstraint;
+//import cgm.FilterQualityConstraint;
 //import cgm.Refinement;
 //
 //public class YamlHandlerTest {
@@ -34,7 +34,7 @@
 //
 //		assertEquals(1, cgm.getRoot().getDependencies().size());
 //
-//		for( QualityConstraint qc : cgm.getRoot().getAllQualityConstraint()){
+//		for( FilterQualityConstraint qc : cgm.getRoot().getAllQualityConstraint()){
 //			assertNotEquals(null, qc);
 //			assertEquals(Comparison.LESS_OR_EQUAL_TO, qc.getComparison());
 //			assertEquals(20.0, qc.getThreshold(), 0);

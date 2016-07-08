@@ -1,6 +1,6 @@
 package cgm;
 
-import cgm.metrics.FilterMetric;
+import cgm.metrics.Metric;
 import cgm.metrics.exceptions.MetricNotFoundException;
 import org.junit.Test;
 
@@ -18,9 +18,9 @@ public class TaskTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-		task.setProvidedQuality(current, FilterMetric.METERS, 30.0);
+		task.setProvidedQuality(current, Metric.METERS, 30.0);
 
-		assertEquals(30.0, task.myProvidedQuality(FilterMetric.METERS, fullContext), 0);
+		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
 	}
 
 	@Test
@@ -31,9 +31,9 @@ public class TaskTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-		task.setProvidedQuality(null, FilterMetric.METERS, 30.0);
+		task.setProvidedQuality(null, Metric.METERS, 30.0);
 
-		assertEquals(30.0, task.myProvidedQuality(FilterMetric.METERS, fullContext), 0);
+		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
 	}
 
 	@Test(expected = MetricNotFoundException.class)
@@ -44,9 +44,9 @@ public class TaskTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-		task.setProvidedQuality(null, FilterMetric.SECONDS, 30.0);
+		task.setProvidedQuality(null, Metric.SECONDS, 30.0);
 
-		assertEquals(30.0, task.myProvidedQuality(FilterMetric.METERS, fullContext), 0);
+		assertEquals(30.0, task.myProvidedQuality(Metric.METERS, fullContext), 0);
 	}
 	
 	@Test

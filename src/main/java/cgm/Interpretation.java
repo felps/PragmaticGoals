@@ -1,6 +1,7 @@
 package cgm;
 
-import cgm.quality.QualityConstraint;
+import cgm.quality.FilterQualityConstraint;
+import cgm.workflow.Plan;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,36 +9,36 @@ import java.util.Set;
 
 public class Interpretation {
 
-	private HashMap<Context, Set<QualityConstraint>> contextDependentInterpretation;
-	private HashSet<QualityConstraint> qualityConstraints;
+    private HashMap<Context, Set<FilterQualityConstraint>> contextDependentInterpretation;
+    private HashSet<FilterQualityConstraint> qualityConstraints;
 
 	public Interpretation() {
-		contextDependentInterpretation = new HashMap<Context, Set<QualityConstraint>>();
-		qualityConstraints = new HashSet<QualityConstraint>();
-	}
+        contextDependentInterpretation = new HashMap<Context, Set<FilterQualityConstraint>>();
+        qualityConstraints = new HashSet<FilterQualityConstraint>();
+    }
 
-	public HashMap<Context, Set<QualityConstraint>> getContextDependentInterpretation() {
-		return contextDependentInterpretation;
-	}
+    public HashMap<Context, Set<FilterQualityConstraint>> getContextDependentInterpretation() {
+        return contextDependentInterpretation;
+    }
 
-	public void addFilterQualityConstraint(QualityConstraint constraint) {
-		qualityConstraints.add(constraint);
+    public void addFilterQualityConstraint(FilterQualityConstraint constraint) {
+        qualityConstraints.add(constraint);
 
 		Context context = constraint.getApplicableContext();
 
 		if (contextDependentInterpretation.containsKey(context)) {
 			contextDependentInterpretation.get(context).add(constraint);
 		} else {
-			HashSet<QualityConstraint> constraintSet = new HashSet<QualityConstraint>();
-			constraintSet.add(constraint);
-			contextDependentInterpretation.put(context, constraintSet);
+            HashSet<FilterQualityConstraint> constraintSet = new HashSet<FilterQualityConstraint>();
+            constraintSet.add(constraint);
+            contextDependentInterpretation.put(context, constraintSet);
 		}
 	}
 
-	public Set<QualityConstraint> getQualityConstraints(Set<Context> current) {
-		HashSet<QualityConstraint> allQCs = new HashSet<QualityConstraint>();
-		if (current != null)
-			for (Context context : current) {
+    public Set<FilterQualityConstraint> getQualityConstraints(Set<Context> current) {
+        HashSet<FilterQualityConstraint> allQCs = new HashSet<FilterQualityConstraint>();
+        if (current != null)
+            for (Context context : current) {
 				if (contextDependentInterpretation.containsKey(context)) {
 					allQCs.addAll(contextDependentInterpretation.get(context));
 				}
@@ -51,13 +52,17 @@ public class Interpretation {
 	public void merge(Interpretation interp) {
 		if (interp == null)
 			return;
-		for (QualityConstraint qualityConstraint : interp.getAllQualityConstraints()) {
-			addFilterQualityConstraint(qualityConstraint);
-		}
-	}
+        for (FilterQualityConstraint filterQualityConstraint : interp.getAllQualityConstraints()) {
+            addFilterQualityConstraint(filterQualityConstraint);
+        }
+    }
 
-	private HashSet<QualityConstraint> getAllQualityConstraints() {
-		return qualityConstraints;
-	}
+    private HashSet<FilterQualityConstraint> getAllQualityConstraints() {
+        return qualityConstraints;
+    }
 
+    public boolean withinLimits(Plan approach, String qualityMetrics) {
+        // TODO implement this
+        return true;
+    }
 }

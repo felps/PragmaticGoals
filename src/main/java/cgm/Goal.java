@@ -1,36 +1,48 @@
 package cgm;
 
-import cgm.runtime.annotations.ParallelAnd;
-import cgm.runtime.annotations.ParallelOr;
+import cgm.metrics.CompositeMetric;
+import cgm.runtime.annotations.AlternativeAnnotation;
 import cgm.runtime.annotations.RuntimeAnnotation;
+import cgm.runtime.annotations.SequentialAnnotation;
 import cgm.workflow.Plan;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class Goal extends Refinement {
 
     public final static boolean OR = true;
     public final static boolean AND = false;
+    private final boolean isOrDecomposition;
 
-    public RuntimeAnnotation runtimeAnnotation;
+    private RuntimeAnnotation runtimeAnnotation;
 
     public Goal(boolean isOrDecomposition) {
         super();
-        dependencies = new HashSet<Refinement>();
+        dependencies = new ArrayList<Refinement>();
         this.isOrDecomposition = isOrDecomposition;
         if (isOrDecomposition()) {
-            runtimeAnnotation = new ParallelOr();
+            runtimeAnnotation = new AlternativeAnnotation();
         } else {
-            runtimeAnnotation = new ParallelAnd();
+            runtimeAnnotation = new SequentialAnnotation();
         }
     }
 
     public Goal(boolean isOrDecomposition, RuntimeAnnotation annotation) {
         super();
-        dependencies = new HashSet<Refinement>();
+        dependencies = new ArrayList<Refinement>();
         this.isOrDecomposition = isOrDecomposition;
         runtimeAnnotation = annotation;
+    }
+
+    public RuntimeAnnotation getRuntimeAnnotation() {
+        return runtimeAnnotation;
+    }
+
+    public void setRuntimeAnnotation(RuntimeAnnotation runtimeAnnotation) {
+        this.runtimeAnnotation = runtimeAnnotation;
     }
 
     @Override
@@ -44,37 +56,57 @@ public class Goal extends Refinement {
 		return !isOrDecomposition;	}
 
 	@Override
-	public Plan isAchievable(Set<Context> current, Interpretation interp) {
-		if (!this.isApplicable(current)) {
+    public Plan isAchievable(Set<Context> current, Interpretation interp, String compositeMetric) {
+        if (!this.isApplicable(current)) {
             return null;
         } else {
-            Plan complete, plan;
-            complete = new Plan();
-			for (Refinement dep : getApplicableDependencies(current)) {
-				plan = dep.isAchievable(current, interp);
-				if (plan != null) {
-                    if (isOrDecomposition()) {
-                        if (runtimeAnnotation.getType() == RuntimeAnnotation.Interleaved) {
-                            if (plan.getQuality() > complete.getQuality())
-                                complete = plan;
-                            // Consider perhaps both
-                        }
-                    } else {
-                        if (getRuntimeAnnotation().getType() == RuntimeAnnotation.Sequential)
-                            complete.addSerial(plan);
-                    }
-                } else {
-                    return null;
-                }
-			}
-			if (complete.getTasks().size() > 0)
-				return complete;
-			else
-				return null;
-		}
-	}
+            Plan plan;
+            HashMap<Refinement, Plan> refinementPlans = getRefinementPlans(current, interp, compositeMetric);
+            List<Plan> approaches = getRuntimeAnnotation().getPossiblePlans(refinementPlans);
 
-    public RuntimeAnnotation getRuntimeAnnotation() {
-        return runtimeAnnotation;
+            Plan chosenApproach = null;
+
+            for (Plan approach : approaches) {
+                if (chosenApproach == null || (!chosenApproach.isAchievable() && approach.isAchievable())) {
+                    chosenApproach = approach;
+                } else {
+                    CompositeMetric currentMetric = chosenApproach.getQualityMetrics(compositeMetric);
+                    CompositeMetric candidate = approach.getQualityMetrics(compositeMetric);
+                    if (candidate != null) {
+                        if (candidate.isBetterThan(currentMetric))
+                            chosenApproach = approach;
+                    }
+                }
+                if (interp != null && !interp.withinLimits(chosenApproach, compositeMetric)) {
+                    chosenApproach.setAchievable(false);
+                }
+            }
+            return chosenApproach;
+        }
+    }
+
+    @Override
+    public void addDependency(Refinement goal) {
+        dependencies.add(goal);
+        getRuntimeAnnotation().includeRefinement(goal, getRuntimeAnnotation().getRefinements().size());
+    }
+
+    private HashMap<Refinement, Plan> getRefinementPlans(Set<Context> current, Interpretation interp, String compositeMetric) {
+        Plan plan;
+        HashMap<Refinement, Plan> approaches = new HashMap<Refinement, Plan>();
+
+        for (Refinement dep : getApplicableDependencies(current)) {
+            plan = dep.isAchievable(current, interp, compositeMetric);
+            if (plan != null)
+                approaches.put(dep, plan);
+//            if(plan.isAchievable())
+//                System.out.println("I am " + getIdentifier() + " and i found a way to achieve"+
+//                    " the dependency " + dep.getIdentifier() + " with " + plan.getTasks().size() + " tasks.");
+//            else
+//                System.out.println("I am " + getIdentifier() + " and the best i can do to achieve"+
+//                        " the dependency " + dep.getIdentifier() + " will require" + plan.getTasks().size() + " tasks.");
+        }
+
+        return approaches;
     }
 }

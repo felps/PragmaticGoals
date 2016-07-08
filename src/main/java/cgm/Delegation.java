@@ -16,10 +16,15 @@ public class Delegation extends Refinement {
 	}
 
 	@Override
-	public Plan isAchievable(Set<Context> current, Interpretation interp) {
-		return null;
-	}
-	// public void dumpToYamlFile(){
+    public Plan isAchievable(Set<Context> current, Interpretation interp, String reliabilty) {
+        return null;
+    }
+
+    @Override
+    public void addDependency(Refinement goal) {
+        dependencies.add(goal);
+    }
+    // public void dumpToYamlFile(){
 	// YamlHandler yaml = new YamlHandler();
 	// yaml.dumpToYamlFile(this);
 	// }

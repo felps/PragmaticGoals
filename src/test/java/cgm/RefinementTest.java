@@ -1,8 +1,9 @@
 package cgm;
 
-import cgm.metrics.FilterMetric;
+import cgm.metrics.Metric;
 import cgm.metrics.exceptions.DifferentMetricsException;
-import cgm.quality.QualityConstraint;
+import cgm.quality.FilterQualityConstraint;
+import cgm.runtime.annotations.InterleavedAnnotation;
 import cgm.workflow.Plan;
 import org.junit.Test;
 
@@ -73,16 +74,16 @@ public class RefinementTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task.addApplicableContext(current);
-        task.setProvidedQuality(current, FilterMetric.SECONDS, 12);
+        task.setProvidedQuality(current, Metric.SECONDS, 12);
 
 		Interpretation interp = new Interpretation();
         interp.addFilterQualityConstraint(qc);
 
-		assertTrue(task.isAchievable(fullContext, interp).getTasks().contains(task));
-	}
+        assertTrue(task.isAchievable(fullContext, interp).getTasks().contains(task.getWorkflowTask()));
+    }
 
 	@Test
 	public void aTaskMayNotBeAchievable() throws Exception {
@@ -92,16 +93,18 @@ public class RefinementTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task.addApplicableContext(current);
-        task.setProvidedQuality(current, FilterMetric.SECONDS, 16);
+        task.setProvidedQuality(current, Metric.SECONDS, 16);
 
 		Interpretation interp = new Interpretation();
         interp.addFilterQualityConstraint(qc);
 
-		assertEquals(null, task.isAchievable(fullContext, interp));
-	}
+        Plan plan = task.isAchievable(fullContext, interp);
+
+        assertFalse(plan.isAchievable());
+    }
 
 	@Test
 	public void aNonApplicableRootGoalIsNotAchievable() throws Exception {
@@ -109,7 +112,7 @@ public class RefinementTest {
 		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
         goal.addApplicableContext((new Context("C2")));
 
 		Interpretation interp = new Interpretation();
@@ -128,12 +131,12 @@ public class RefinementTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
         Interpretation interp = new Interpretation();
         interp.addFilterQualityConstraint(qc);
 
 		task.addApplicableContext(current);
-        task.setProvidedQuality(current, FilterMetric.SECONDS, 13);
+        task.setProvidedQuality(current, Metric.SECONDS, 13);
 
 		goal.addDependency(task);
 		goal.setIdentifier("Root");
@@ -145,23 +148,26 @@ public class RefinementTest {
 
 	@Test
 	public void aGoalAndDecomposedWithTwoTasksMayBeAchievable() throws Exception {
-		Goal goal = new Goal(false);
-		assertTrue(goal.isAndDecomposition());
+        Goal goal = new Goal(Goal.AND);
+        assertTrue(goal.isAndDecomposition());
+        goal.setRuntimeAnnotation(new InterleavedAnnotation());
 
-		Task task1 = new Task();
-		Task task2 = new Task();
+        Task task1 = new Task();
+        task1.setIdentifier("t1");
+        Task task2 = new Task();
+        task2.setIdentifier("t2");
 
 		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task1.addApplicableContext(current);
-        task1.setProvidedQuality(current, FilterMetric.SECONDS, 13);
+        task1.setProvidedQuality(current, Metric.SECONDS, 13);
 
 		task2.addApplicableContext(current);
-        task2.setProvidedQuality(current, FilterMetric.SECONDS, 11);
+        task2.setProvidedQuality(current, Metric.SECONDS, 11);
 
 		goal.addDependency(task1);
 		goal.addDependency(task2);
@@ -173,8 +179,22 @@ public class RefinementTest {
         interp.addFilterQualityConstraint(qc);
 
 		Plan plan = goal.isAchievable(fullContext, interp);
-		assertEquals(2, plan.getTasks().size());
-	}
+
+        assertNotNull(plan);
+
+        System.out.println(plan.getTasks().size());
+        System.out.println(plan.getTasks().contains(task1.getWorkflowTask()));
+        System.out.println(plan.getTasks().contains(task2.getWorkflowTask()));
+
+
+        assertTrue(plan.isAchievable());
+        assertTrue(plan.getTasks().contains(task1.getWorkflowTask()));
+        assertTrue(plan.getTasks().contains(task2.getWorkflowTask()));
+
+        assertTrue(plan.getInitialTasks().contains(task1.getWorkflowTask()));
+        assertTrue(plan.getFinalTasks().contains(task2.getWorkflowTask()));
+        assertEquals(2, plan.getTasks().size());
+    }
 
 	@Test
 	public void aGoalAndDecomposedWithTwoTasksMayNotBeAchievable() throws Exception {
@@ -188,13 +208,13 @@ public class RefinementTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task1.addApplicableContext(current);
-        task1.setProvidedQuality(current, FilterMetric.SECONDS, 16);
+        task1.setProvidedQuality(current, Metric.SECONDS, 16);
 
 		task2.addApplicableContext(current);
-        task2.setProvidedQuality(current, FilterMetric.SECONDS, 11);
+        task2.setProvidedQuality(current, Metric.SECONDS, 11);
 
 		goal.addDependency(task1);
 		goal.addDependency(task2);
@@ -206,13 +226,13 @@ public class RefinementTest {
         interp.addFilterQualityConstraint(qc);
 
 		Plan plan = goal.isAchievable(fullContext, interp);
-		assertEquals(null, plan);
-	}
+        assertFalse(plan.isAchievable());
+    }
 
 	@Test
 	public void aGoalOrDecomposedWithTwoTasksMayBeAchievable() throws Exception {
-		Goal goal = new Goal(true);
-		assertTrue(goal.isOrDecomposition());
+        Goal goal = new Goal(Goal.OR);
+        assertTrue(goal.isOrDecomposition());
 
 		Task task1 = new Task();
 		Task task2 = new Task();
@@ -221,13 +241,13 @@ public class RefinementTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task1.addApplicableContext(current);
-        task1.setProvidedQuality(current, FilterMetric.SECONDS, 13);
+        task1.setProvidedQuality(current, Metric.SECONDS, 13);
 
 		task2.addApplicableContext(current);
-        task2.setProvidedQuality(current, FilterMetric.SECONDS, 11);
+        task2.setProvidedQuality(current, Metric.SECONDS, 11);
 
 		goal.addDependency(task1);
 		goal.addDependency(task2);
@@ -239,29 +259,31 @@ public class RefinementTest {
         interp.addFilterQualityConstraint(qc);
 
 		Plan plan = goal.isAchievable(fullContext, interp);
-        assertNotNull(plan);
+        assertTrue(plan.isAchievable());
         assertEquals(1, plan.getTasks().size());
     }
 
 	@Test
 	public void aGoalOrDecomposedWithTwoTasksMayBeAchievableAtOnlyOneBranch() throws Exception {
-		Goal goal = new Goal(true);
-		assertTrue(goal.isOrDecomposition());
+        Goal goal = new Goal(Goal.OR);
+        assertTrue(goal.isOrDecomposition());
 
 		Task task1 = new Task();
-		Task task2 = new Task();
+        task1.setIdentifier("t1");
+        Task task2 = new Task();
+        task2.setIdentifier("t2");
 
 		Context current = new Context("C1");
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task1.addApplicableContext(current);
-        task1.setProvidedQuality(current, FilterMetric.SECONDS, 16);
+        task1.setProvidedQuality(current, Metric.SECONDS, 16);
 
 		task2.addApplicableContext(current);
-        task2.setProvidedQuality(current, FilterMetric.SECONDS, 11);
+        task2.setProvidedQuality(current, Metric.SECONDS, 11);
 
 		goal.addDependency(task1);
 		goal.addDependency(task2);
@@ -273,14 +295,14 @@ public class RefinementTest {
         interp.addFilterQualityConstraint(qc);
 
 		Plan plan = goal.isAchievable(fullContext, interp);
-        assertNotNull(plan);
-        assertTrue(plan.getTasks().contains(task2));
-        assertTrue(!plan.getTasks().contains(task1));
-	}
+        assertTrue(plan.isAchievable());
+        assertTrue(plan.getTasks().contains(task2.getWorkflowTask()));
+        assertTrue(!plan.getTasks().contains(task1.getWorkflowTask()));
+    }
 
 	@Test
 	public void aGoalOrDecomposedWithTwoTasksMayNotBeAchievable() throws Exception {
-		Goal goal = new Goal(true);
+        Goal goal = new Goal(Goal.OR);
 
 		Task task1 = new Task();
 		Task task2 = new Task();
@@ -288,13 +310,13 @@ public class RefinementTest {
 		HashSet<Context> fullContext = new HashSet<Context>();
 		fullContext.add(current);
 
-        QualityConstraint qc = new QualityConstraint(current, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(current, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task1.addApplicableContext(current);
-        task1.setProvidedQuality(current, FilterMetric.SECONDS, 16);
+        task1.setProvidedQuality(current, Metric.SECONDS, 16);
 
 		task2.addApplicableContext(current);
-        task2.setProvidedQuality(current, FilterMetric.SECONDS, 17);
+        task2.setProvidedQuality(current, Metric.SECONDS, 17);
 
 		goal.addDependency(task1);
 		goal.addDependency(task2);
@@ -307,8 +329,8 @@ public class RefinementTest {
 
 		Plan plan = goal.isAchievable(fullContext, interp);
 		assertTrue(goal.isOrDecomposition());
-		assertEquals(null, plan);
-	}
+        assertFalse(plan.isAchievable());
+    }
 
 	@Test
 	public void testApplicableDeps() {
@@ -319,10 +341,10 @@ public class RefinementTest {
 		Context wrongContext = new Context("C2");
 		HashSet<Context> current = new HashSet<Context>();
 
-        QualityConstraint qc = new QualityConstraint(context, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(context, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task.addApplicableContext(context);
-        task.setProvidedQuality(context, FilterMetric.SECONDS, 13);
+        task.setProvidedQuality(context, Metric.SECONDS, 13);
 
 		goal.addDependency(task);
 		goal.setIdentifier("Root");
@@ -350,8 +372,8 @@ public class RefinementTest {
 
 		HashSet<Context> fullContext = new HashSet<Context>();
 
-        QualityConstraint qc = new QualityConstraint(context, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
-        QualityConstraint stricter = new QualityConstraint(anotherContext, FilterMetric.SECONDS, 10,
+        FilterQualityConstraint qc = new FilterQualityConstraint(context, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint stricter = new FilterQualityConstraint(anotherContext, Metric.SECONDS, 10,
                 Comparison.LESS_OR_EQUAL_TO);
 
 		goal.addDependency(task);
@@ -388,8 +410,8 @@ public class RefinementTest {
 
 		HashSet<Context> fullContext = new HashSet<Context>();
 
-        QualityConstraint qc = new QualityConstraint(context, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
-        QualityConstraint stricter = new QualityConstraint(anotherContext, FilterMetric.SECONDS, 10,
+        FilterQualityConstraint qc = new FilterQualityConstraint(context, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint stricter = new FilterQualityConstraint(anotherContext, Metric.SECONDS, 10,
                 Comparison.LESS_OR_EQUAL_TO);
 
 		goal.addDependency(task);
@@ -417,10 +439,10 @@ public class RefinementTest {
 		Context wrongContext = new Context("C2");
 		HashSet<Context> current = new HashSet<Context>();
 
-        QualityConstraint qc = new QualityConstraint(context, FilterMetric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
+        FilterQualityConstraint qc = new FilterQualityConstraint(context, Metric.SECONDS, 15, Comparison.LESS_OR_EQUAL_TO);
 
 		task.addApplicableContext(context);
-        task.setProvidedQuality(context, FilterMetric.SECONDS, 13);
+        task.setProvidedQuality(context, Metric.SECONDS, 13);
 
 		goal.addDependency(task);
 		goal.setIdentifier("Root");

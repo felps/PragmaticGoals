@@ -76,13 +76,15 @@ public class GoalTest {
 		current.add(context);
 		
 		Task task1 = new Task();
-		
-		Task task2 = new Task();
-		
+        task1.setIdentifier("t1");
+        Task task2 = new Task();
+        task2.setIdentifier("t2");
+
 		task1.addApplicableContext(context);
 
-		root.addDependency(task1);
-		root.addDependency(task2);
+        root.setIdentifier("root");
+        root.addDependency(task1);
+        root.addDependency(task2);
 
 		HashSet<Refinement> deps = new HashSet<Refinement>();
 		deps.add(task1);
@@ -90,15 +92,10 @@ public class GoalTest {
 
 		Plan plan = root.isAchievable(current, null);
 		assertNotEquals(null, plan);
-		
-		assertTrue(plan.getTasks().contains(task1));
-		assertTrue(plan.getTasks().contains(task2));
-		
-		
 
-	}
-
-
+        assertTrue(plan.getTasks().contains(task1.getWorkflowTask()));
+        assertTrue(plan.getTasks().contains(task2.getWorkflowTask()));
+    }
 
 	@Test
 	public void shouldBeUnachievable(){
@@ -112,20 +109,17 @@ public class GoalTest {
 		current.add(context1);
 		
 		Task task1 = new Task();
-		
-		Task task2 = new Task();
-		
-		task1.addApplicableContext(context2);
-		task2.addApplicableContext(context2);
+        task1.setIdentifier("t1");
+        Task task2 = new Task();
+        task2.setIdentifier("t2");
+
+        task1.addApplicableContext(context2);
+        task2.addApplicableContext(context2);
 
 		root.addDependency(task1);
 		root.addDependency(task2);
 
-		HashSet<Refinement> deps = new HashSet<Refinement>();
-		deps.add(task1);
-		deps.add(task2);
-
 		Plan plan = root.isAchievable(current, null);
-		assertEquals(null, plan);
-	}
+        assertFalse(plan.isAchievable());
+    }
 }

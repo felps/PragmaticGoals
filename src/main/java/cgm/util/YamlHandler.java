@@ -16,7 +16,7 @@
 //import cgm.Context;
 //import cgm.ContextAnnotation;
 //import cgm.Goal;
-//import cgm.quality.QualityConstraint;
+//import cgm.quality.FilterQualityConstraint;
 //import cgm.Refinement;
 //import cgm.Task;
 //
@@ -139,13 +139,13 @@
 //
 //		goal.setIdentifier(goalName);
 //		
-//		QualityConstraint qc = getQualityConstraints(goal, goalAttributes);
+//		FilterQualityConstraint qc = getQualityConstraints(goal, goalAttributes);
 //		
 //		
 //		refinements.put(goalName, goal);
 //	}
 //
-//	private QualityConstraint getQualityConstraints(Goal goal, Map<String, Object> goalAttributes) {
+//	private FilterQualityConstraint getQualityConstraints(Goal goal, Map<String, Object> goalAttributes) {
 //		Map<String, Map<String, Object>> qualityConstraints = (Map<String, Map<String, Object>>) goalAttributes.get("qc");
 //		
 //		for (Map<String,Object> constraint : qualityConstraints.values()) {
@@ -160,7 +160,7 @@
 //			comparison = getComparisonCode((String) constraint.get("comparison"));
 //			applicable = getContextFromYaml(goalAttributes);
 //			
-//			QualityConstraint qc = new QualityConstraint(applicable, metric,value,comparison);
+//			FilterQualityConstraint qc = new FilterQualityConstraint(applicable, metric,value,comparison);
 //			
 //			goal.addQualityConstraint(qc);
 //		}

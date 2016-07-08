@@ -1,16 +1,15 @@
 package cgm.util.generator;
 
-import static org.junit.Assert.*;
+import cgm.CGM;
+import cgm.Context;
+import cgm.Refinement;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
-
-import cgm.CGM;
-import cgm.Context;
-import cgm.Refinement;
-import cgm.util.generator.RandomCGMGenerator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RandomCGMGeneratorTest {
 

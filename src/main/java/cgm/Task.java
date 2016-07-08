@@ -1,7 +1,7 @@
 package cgm;
 
 import cgm.metrics.exceptions.MetricNotFoundException;
-import cgm.quality.QualityConstraint;
+import cgm.quality.FilterQualityConstraint;
 import cgm.workflow.Plan;
 import cgm.workflow.WorkflowTask;
 
@@ -12,20 +12,30 @@ public class Task extends Refinement {
 
 	private HashMap<String, HashMap<Context, Float>> providedQualityLevels;
 	private boolean lessIsMore;
+    private WorkflowTask workflowTask;
 
-	public Task(boolean lessIsMore) {
-		providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
-		this.lessIsMore = lessIsMore;
-	}
+    public Task(boolean lessIsMore) {
+        providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
+        this.lessIsMore = lessIsMore;
+        workflowTask = new WorkflowTask(this);
+    }
 
 	public Task() {
 		providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
 		this.lessIsMore = false;
-	}
+        workflowTask = new WorkflowTask(this);
+    }
 
-	@Override
-	public int myType() {
-		return Refinement.TASK;
+    public Task(String id) {
+        providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
+        this.lessIsMore = false;
+        workflowTask = new WorkflowTask(this);
+        this.setIdentifier(id);
+    }
+
+    @Override
+    public int myType() {
+        return Refinement.TASK;
 	}
 
 	public void setProvidedQuality(Context context, String metric, double value) {
@@ -45,13 +55,13 @@ public class Task extends Refinement {
 		float myQuality = 0;
 		boolean set = false;
 
-		if (providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).containsKey(null)) {
-			myQuality = providedQualityLevels.get(metric).get(null);
-			set = true;
-		}
-		for (Context context : current) {
-			if (providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).get(context) != null) {
-				if (!set) {
+        if (providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).containsKey(null)) {
+            myQuality = providedQualityLevels.get(metric).get(null);
+            set = true;
+        }
+        for (Context context : current) {
+            if (providedQualityLevels.get(metric) != null && providedQualityLevels.get(metric).get(context) != null) {
+                if (!set) {
 					myQuality = providedQualityLevels.get(metric).get(context).floatValue();
 					set = true;
 				} else {
@@ -77,18 +87,18 @@ public class Task extends Refinement {
 		if (interp==null){
 			return true;
 		}
-		for (QualityConstraint qc : interp.getQualityConstraints(current)) {
-			try {
-				if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
+        for (FilterQualityConstraint qc : interp.getQualityConstraints(current)) {
+            try {
+                if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
 					feasible = false;
 				}
 			} catch (MetricNotFoundException e) {
 			}
 		}
 		if (interp.getQualityConstraints(null) != null)
-			for (QualityConstraint qc : interp.getQualityConstraints(null)) {
-				try {
-					if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
+            for (FilterQualityConstraint qc : interp.getQualityConstraints(null)) {
+                try {
+                    if (!qc.abidesByQC(myProvidedQuality(qc.getMetric(), current), qc.getMetric())) {
 						feasible = false;
 					}
 				} catch (MetricNotFoundException e) {
@@ -97,20 +107,44 @@ public class Task extends Refinement {
 		return feasible;
 	}
 
-	@Override
-	public Plan isAchievable(Set<Context> current, Interpretation interp) {
-		if (!this.isApplicable(current)) {
-			return null;
-		}
-		if (abidesByInterpretation(interp, current)) {
-			return new Plan(this);
-		} else {
-			return null;
-		}
-	}
+    @Override
+    public Plan isAchievable(Set<Context> current, Interpretation interp, String reliabilty) {
+        Plan plan = new Plan(this);
+        try {
+            plan.setReliability(getReliability());
+        } catch (Exception e) {
+            System.err.println("cgm.Task Class: Out of Bounds reliability value!");
+            e.printStackTrace();
+        }
+        plan.setTimeConsumed(getTimeConsumed());
 
-	public WorkflowTask getWorkflowTask() {
-		WorkflowTask workflowTask = new WorkflowTask(getIdentifier());
-		return workflowTask;
-	}
+        if (!this.isApplicable(current)) {
+//            System.out.println("I am " + getIdentifier() + " but i am not achievable!");
+            return null;
+        }
+        if (abidesByInterpretation(interp, current)) {
+            plan.setAchievable(true);
+//            System.out.println("I am " + getIdentifier() + " and i am achievable!");
+            return plan;
+        } else {
+            plan.setAchievable(false);
+//            System.out.println("I am " + getIdentifier() + " but i am not achievable!");
+            return plan;
+        }
+    }
+
+    @Override
+    public void addDependency(Refinement goal) {
+        dependencies.add(goal);
+    }
+
+    public WorkflowTask getWorkflowTask() {
+        return workflowTask;
+    }
+
+    @Override
+    public void setIdentifier(String identifier) {
+        super.setIdentifier(identifier);
+        workflowTask.setIdentifier(identifier);
+    }
 }
