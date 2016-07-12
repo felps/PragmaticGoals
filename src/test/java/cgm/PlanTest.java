@@ -10,6 +10,8 @@ import static org.junit.Assert.*;
 
 /**
  * Created by Felipe on 07/07/2016.
+ *
+ * Tests for the Plan class
  */
 public class PlanTest {
 
@@ -66,7 +68,7 @@ public void shouldAddAnotherTaskSequentially() {
 
         Plan initialPlan = new Plan(task1);
 
-        HashSet<WorkflowTask> dependencies = new HashSet<WorkflowTask>();
+        HashSet<WorkflowTask> dependencies = new HashSet<>();
         dependencies.add(task1.getWorkflowTask());
         initialPlan.add(task2.getWorkflowTask(), dependencies);
 
@@ -123,7 +125,7 @@ public void shouldAddAnotherTaskInterleaved() {
         task3 = new Task("t3");
 
         Plan initialPlan = new Plan(task1);
-        HashSet<WorkflowTask> dependencies = new HashSet<WorkflowTask>();
+        HashSet<WorkflowTask> dependencies = new HashSet<>();
         dependencies.add(task1.getWorkflowTask());
         initialPlan.add(task2.getWorkflowTask(), dependencies);
 
@@ -187,5 +189,25 @@ public void shouldAddAnotherTaskInterleaved() {
         assertTrue("Task1 was not set as initial", plan.getInitialTasks().contains(workflowTask1));
         // Test if it is a final task
         assertTrue("Task1 was not set as final", plan.getFinalTasks().contains(workflowTask1));
+    }
+
+    @Test
+    public void shouldAddAnEmptyPlanToAPlanCorrectly() throws Exception {
+        Task task1 = new Task();
+        task1.setIdentifier("final");
+
+        Plan plan = new Plan();
+        Plan plan2 = new Plan(task1);
+
+        WorkflowTask workflowTask1 = task1.getWorkflowTask();
+
+        plan2.addSerial(plan);
+
+        // Test if it was added
+        assertEquals("A Task was not added", 1, plan2.getTasks().size());
+        // Test if it is an initial tasks
+        assertTrue("Task1 was not set as initial", plan2.getInitialTasks().contains(workflowTask1));
+        // Test if it is a final task
+        assertTrue("Task1 was not set as final", plan2.getFinalTasks().contains(workflowTask1));
     }
 }
