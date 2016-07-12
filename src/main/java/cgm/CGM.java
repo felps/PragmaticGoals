@@ -8,6 +8,9 @@ public class CGM {
 
 	private Refinement rootGoal;
 
+	public int size() {
+		return rootGoal.size();
+	}
 	public Refinement getRoot() {
 		return rootGoal;
 	}

@@ -114,4 +114,12 @@ public abstract class Refinement {
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
+
+	public int size() {
+		int amount = 1;
+		for (Refinement ref : dependencies) {
+			amount += ref.size();
+		}
+		return amount;
+	}
 }
