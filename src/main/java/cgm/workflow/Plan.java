@@ -13,6 +13,7 @@ public class Plan {
 
     Logger logger = LogManager.getLogger();
 
+    // TODO modificar funcao addSerial e Addparallel para atualizar as qualityMeasures do plano
 
     private HashMap<String, WorkflowTask> tasks;
     private List<WorkflowTask> initialTasks;
@@ -146,7 +147,10 @@ public class Plan {
 
         for (WorkflowTask task : plan.getInitialTasks()) {
             task.requires(this.getFinalTasks());
+            getInitialTasks().remove(task);
         }
+
+
         checkFinalTasks();
         finalTasks.addAll(plan.getFinalTasks());
         for (WorkflowTask task : plan.getTasks()) {
