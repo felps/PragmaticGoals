@@ -8,6 +8,9 @@ import java.util.Set;
 
 public class RandomCGMGenerator extends CGMGenerator{
 
+	int taskNumber = 0;
+	int goalNumber = 0;
+
 	public CGM generateRandomCGM(int refinementsAmount, int contextAmount) {
 		return generateCGM(refinementsAmount, contextAmount);
 	}
@@ -32,8 +35,8 @@ public class RandomCGMGenerator extends CGMGenerator{
 		} else{
 			metric = 9;
 		}
-		
-		Task task = new Task();
+
+		Task task = new Task("Task" + (taskNumber++));
 		
 		int randomIndex = (int) (Math.random() * possibleContexts.size());
 		int run = 0;
@@ -50,10 +53,13 @@ public class RandomCGMGenerator extends CGMGenerator{
 	protected Goal generateGoal(Set<Context> possibleContexts) {
 		double isOrDecomposition = Math.random();
 		Pragmatic goal;
-		if (isOrDecomposition >= 0.8)
-			goal = new Pragmatic(true);
-		else
-			goal = new Pragmatic(false);
+		if (isOrDecomposition >= 0.8) {
+			goal = new Pragmatic(Goal.OR);
+			goal.setIdentifier("GoalOR" + (goalNumber++));
+		} else {
+			goal = new Pragmatic(Goal.AND);
+			goal.setIdentifier("GoalAnd" + (goalNumber++));
+		}
 
 		int randomIndex = (int) (Math.random() * possibleContexts.size());
 		int run = 0;
@@ -91,7 +97,7 @@ public class RandomCGMGenerator extends CGMGenerator{
 		return goal;
 	}
 
-	protected int getRefinementsAmount(int maxRefinements) {
+	protected int getRandomRefinementsUpTo(int maxRefinements) {
 		return (int) Math.floor(Math.random() * (maxRefinements - 1)) + 1;
 	}
 

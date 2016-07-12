@@ -38,7 +38,7 @@ public class WorstCaseCGMGenerator extends CGMGenerator {
 	}
 
 	@Override
-	protected int getRefinementsAmount(int maxRefinements) {
+	protected int getRandomRefinementsUpTo(int maxRefinements) {
 		return 2;
 	}
 

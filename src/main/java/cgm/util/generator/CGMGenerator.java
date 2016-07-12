@@ -25,7 +25,7 @@ public abstract class CGMGenerator {
 	}
 
 	private Refinement generateDeps(int refinementsAmount, Set<Context> possibleContexts) {
-		int depAmount = getRefinementsAmount(refinementsAmount);
+		int depAmount = getRandomRefinementsUpTo(refinementsAmount);
 		if (refinementsAmount == 0)
 			return null;
 
@@ -52,7 +52,7 @@ public abstract class CGMGenerator {
 		return root;
 	}
 
-	protected abstract int getRefinementsAmount(int maxRefinements) ;
+	protected abstract int getRandomRefinementsUpTo(int maxRefinements);
 
 	protected abstract Task generateTask(Set<Context> possibleContexts);
 	protected abstract Goal generateGoal(Set<Context> possibleContexts);
