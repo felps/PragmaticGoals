@@ -169,4 +169,23 @@ public void shouldAddAnotherTaskInterleaved() {
     }
     // TODO Add a test to verify that an empty plan serially added another plan maintais the initial tasks correctly.
 
+    @Test
+    public void shouldAddAPlanToAnEmptyPlanCorrectly() throws Exception {
+        Task task1 = new Task();
+        task1.setIdentifier("final");
+
+        Plan plan = new Plan();
+        Plan plan2 = new Plan(task1);
+
+        WorkflowTask workflowTask1 = task1.getWorkflowTask();
+
+        plan.addSerial(plan2);
+
+        // Test if it was added
+        assertEquals("A Task was not added", 1, plan.getTasks().size());
+        // Test if it is an initial tasks
+        assertTrue("Task1 was not set as initial", plan.getInitialTasks().contains(workflowTask1));
+        // Test if it is a final task
+        assertTrue("Task1 was not set as final", plan.getFinalTasks().contains(workflowTask1));
+    }
 }
