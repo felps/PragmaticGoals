@@ -14,8 +14,6 @@ public class Plan {
 
     Logger logger = LogManager.getLogger();
 
-    // TODO modificar funcao addSerial e Addparallel para atualizar as qualityMeasures do plano
-
     private HashMap<String, WorkflowTask> tasks;
     private List<WorkflowTask> initialTasks;
     private List<WorkflowTask> finalTasks;
