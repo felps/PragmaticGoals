@@ -6,6 +6,8 @@ import cgm.Interpretation;
 import cgm.Task;
 import cgm.metrics.Metric;
 import cgm.quality.CompositeQualityConstraint;
+import cgm.runtime.annotations.AlternativeAnnotation;
+import cgm.runtime.annotations.InterleavedAnnotation;
 import cgm.runtime.annotations.SequentialAnnotation;
 import cgm.workflow.Plan;
 import org.junit.Before;
@@ -15,12 +17,16 @@ import static org.junit.Assert.*;
 
 /**
  * Created by Felipe on 07/07/2016.
+ *
+ * Pragmatic Runtime to evaluate composite metrics evaluation in small models (3 nodes)
  */
 public class PragmaticRuntimeCgmTest {
 
-    Task t1, t2;
-    Goal rootAnd, rootOr;
-    SequentialAnnotation sequentialRuntimeAnnotation;
+    private Task t1, t2;
+    private Goal rootAnd, rootOr;
+    private SequentialAnnotation sequentialRuntimeAnnotation;
+    private InterleavedAnnotation interleavedAnnotation;
+    private AlternativeAnnotation alternativeAnnotation;
 
     @Before
     public void setUp() throws Exception {
@@ -38,23 +44,38 @@ public class PragmaticRuntimeCgmTest {
         sequentialRuntimeAnnotation.includeRefinement(t1, 0);
         sequentialRuntimeAnnotation.includeRefinement(t2, 1);
 
+        interleavedAnnotation = new InterleavedAnnotation();
+        interleavedAnnotation.includeRefinement(t1, 0);
+        interleavedAnnotation.includeRefinement(t2, 1);
+
+        alternativeAnnotation = new AlternativeAnnotation();
+        alternativeAnnotation.includeRefinement(t1, 0);
+        alternativeAnnotation.includeRefinement(t2, 1);
+
         rootAnd = new Goal(Goal.AND);
         rootAnd.setIdentifier("rootAnd");
         rootAnd.addDependency(t1);
         rootAnd.addDependency(t2);
+
+        rootOr = new Goal(Goal.OR);
+        rootOr.setIdentifier("rootOr");
+        rootOr.addDependency(t1);
+        rootOr.addDependency(t2);
     }
 
     @Test
     public void achievableSequentialAND() throws Exception {
+        Goal root = this.rootAnd;
+        root.setRuntimeAnnotation(sequentialRuntimeAnnotation);
+
         CompositeQualityConstraint compQC;
         Interpretation interp = new Interpretation();
 
-        rootAnd.setRuntimeAnnotation(sequentialRuntimeAnnotation);
 
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 241);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = rootAnd.isAchievable(null, interp);
+        Plan plan = root.isAchievable(null, interp);
 
         assertTrue(plan.isAchievable());
         assertEquals(2, plan.getTasks().size());
@@ -62,41 +83,140 @@ public class PragmaticRuntimeCgmTest {
 
     @Test
     public void unachievableSequentialAND() throws Exception {
+        Goal root = this.rootAnd;
+        root.setRuntimeAnnotation(sequentialRuntimeAnnotation);
+
         CompositeQualityConstraint compQC;
         Interpretation interp = new Interpretation();
 
-        rootAnd.setRuntimeAnnotation(sequentialRuntimeAnnotation);
 
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = rootAnd.isAchievable(null, interp);
+        Plan plan = root.isAchievable(null, interp);
 
         assertFalse(plan.isAchievable());
     }
 
     @Test
-    public void unachievableParallelAND() {
+    public void unachievableParallelAND() throws Exception {
+        Goal root = this.rootAnd;
+        root.setRuntimeAnnotation(interleavedAnnotation);
+
+        CompositeQualityConstraint compQC;
+        Interpretation interp = new Interpretation();
+
+
+        t1.setTimeConsumed(150);
+        compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
+        interp.addCompositeQualityConstraint(compQC);
+
+        Plan plan = root.isAchievable(null, interp);
+
+        assertFalse(plan.isAchievable());
 
     }
 
     @Test
-    public void achievableParallelOR() {
+    public void achievableParallelAND() throws Exception {
+        Goal root = this.rootAnd;
+        root.setRuntimeAnnotation(interleavedAnnotation);
+
+        CompositeQualityConstraint compQC;
+        Interpretation interp = new Interpretation();
+
+        t1.setTimeConsumed(150);
+        t1.setTimeConsumed(120);
+
+        compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
+        interp.addCompositeQualityConstraint(compQC);
+
+        Plan plan = root.isAchievable(null, interp);
+
+        assertTrue(plan.isAchievable());
 
     }
 
     @Test
-    public void unachievableParallelOR() {
+    public void achievableParallelOR() throws Exception {
+        Goal goal = this.rootOr;
+        goal.setRuntimeAnnotation(interleavedAnnotation);
+
+        CompositeQualityConstraint compQC;
+        Interpretation interp = new Interpretation();
+
+
+        t1.setTimeConsumed(150);
+        t2.setTimeConsumed(100);
+
+        compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
+        interp.addCompositeQualityConstraint(compQC);
+
+        Plan plan = goal.isAchievable(null, interp);
+
+        assertTrue(plan.isAchievable());
+    }
+
+    @Test
+    public void unachievableParallelOR() throws Exception {
+        Goal root = this.rootOr;
+        root.setRuntimeAnnotation(interleavedAnnotation);
+
+        CompositeQualityConstraint compQC;
+        Interpretation interp = new Interpretation();
+
+
+        t1.setTimeConsumed(150);
+        t2.setTimeConsumed(150);
+
+        compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
+        interp.addCompositeQualityConstraint(compQC);
+
+        Plan plan = root.isAchievable(null, interp);
+
+        assertFalse(plan.isAchievable());
 
     }
 
     @Test
-    public void achievableAlternativeOR() {
+    public void achievableAlternativeOR() throws Exception {
+        Goal goal = this.rootOr;
+        goal.setRuntimeAnnotation(alternativeAnnotation);
+
+        CompositeQualityConstraint compQC;
+        Interpretation interp = new Interpretation();
+
+
+        t1.setTimeConsumed(150);
+        t2.setTimeConsumed(100);
+
+        compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
+        interp.addCompositeQualityConstraint(compQC);
+
+        Plan plan = goal.isAchievable(null, interp);
+
+        assertTrue(plan.isAchievable());
+
 
     }
 
     @Test
-    public void unachievableAlternativeOR() {
+    public void unachievableAlternativeOR() throws Exception {
+        Goal goal = this.rootOr;
+        goal.setRuntimeAnnotation(interleavedAnnotation);
+
+        CompositeQualityConstraint compQC;
+        Interpretation interp = new Interpretation();
+
+        t1.setTimeConsumed(150);
+        t2.setTimeConsumed(130);
+
+        compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
+        interp.addCompositeQualityConstraint(compQC);
+
+        Plan plan = goal.isAchievable(null, interp);
+
+        assertFalse(plan.isAchievable());
 
     }
 
