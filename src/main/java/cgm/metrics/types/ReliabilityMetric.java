@@ -5,6 +5,8 @@ import cgm.metrics.Metric;
 
 /**
  * Created by Felipe on 07/07/2016.
+ *
+ * Reliability is a composite metric indicating how likely it is for a task or workflo to be correctly executed
  */
 public class ReliabilityMetric extends CompositeMetric {
     public String getType() {
@@ -27,6 +29,6 @@ public class ReliabilityMetric extends CompositeMetric {
     public void setValue(double value) {
         if (value > 1)
             System.err.println("reliability cannot be greater than one.");
-        else this.value = value;
+        else super.setValue(value);
     }
 }
