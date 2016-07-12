@@ -15,8 +15,8 @@ public class ScalabilityEvaluationRandomModels {
 
 	RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 
-	// @Test
-	public void scalabilityTestModelSize() {
+    @Test
+    public void scalabilityTestModelSize() {
 
 		int round = 1;
 		int contexts = 10;
@@ -25,8 +25,8 @@ public class ScalabilityEvaluationRandomModels {
 		}
 	}
 
-	// @Test
-	public void scalabilityTestContextSize() {
+    @Test
+    public void scalabilityTestContextSize() {
 
 		int round = 1, model = 1000;
 		for (int contexts = 10; contexts < 10000; contexts += 100) {
@@ -92,68 +92,125 @@ public class ScalabilityEvaluationRandomModels {
 		assertTrue(current.contains(new Context("c10")));
 		assertTrue(current.contains(new Context("C10")));
 	}
-	
-	@Test
-	public void scalabilityTestModelAndContextSize() {
 
-		System.out.println("Scalability Evaluation - Varying Model and Context amounts");
-		System.out.println("Experiment executed on " + (new Date()).toString());
+    @Test
+    public void scalabilityTestModelAndContextSize() {
 
-		executeScientificalEvaluation("", 1, 10);
-		
-		for (int contexts = 1; contexts < 30; contexts++) {
-			for (int model = 100; model < 10000; model += 100) {
-				executeScientificalEvaluation("", contexts, model);
-			}
-		}
-	}
+        System.out.println("Scalability Evaluation - Varying Model and Context amounts");
+        System.out.println("Experiment executed on " + (new Date()).toString());
 
-	private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
-		{
-			long accumulated = 0;
-			boolean achievable = false;
+        executeScientificalEvaluation("", 1, 10);
 
-			RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
-			Set<Context> current = generateCompleteContextSet(contextAmount);
+        for (int contexts = 1; contexts < 30; contexts++) {
+            for (int model = 100; model < 5000; model += 100) {
+                executeScientificalEvaluation("", contexts, model);
+            }
+        }
+    }
 
-			if (current == null) {
-				System.out.println("NULL");
-				fail();
-			}
+    @Test
+    public void testSingleModelAndContextSize() {
 
-			for (int i = 0; i < 100; i++) {
-				// Setup Model
-				CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
+        System.out.println("Scalability Evaluation - Varying Model and Context amounts");
+        System.out.println("Experiment executed on " + (new Date()).toString());
 
-				long start = System.nanoTime();
-				for (int j = 0; j < 100; j++) {
-					// Execute test
-					cgm.isAchievable(current, null);
-				}
-				accumulated += (System.nanoTime() - start);
+        long accumulated = 0;
+        boolean achievable = false;
 
-				if (cgm.isAchievable(current, null) != null) {
-					achievable = true;
-				}
+        RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 
-			}
+        Set<Context> current = generateCompleteContextSet(1);
 
-			// Print result
+        if (current == null) {
+            System.out.println("NULL");
+            fail();
+        }
 
-			long timePerExecutionInNs = accumulated / 10000; // TimeMetric in nanosseconds for each execution
-			long timeInMs = accumulated / 1000; // TimeMetric in milliseconds
-			
-			System.out.print(experimentId + " ");
-			
-			if (achievable) {
-				System.out.print("achievable ");
-				achievable = false;
-			} else
-				System.out.print("unachievable ");
-			
-			System.out.println(modelSize + " " + contextAmount + " "+ timeInMs + " ms " + timePerExecutionInNs + " ns");
-		}
-	}
+        int modelAmount = 100;
+        int repetitions = 100;
+
+        for (int i = 0; i < modelAmount; i++) {
+            // Setup Model
+            CGM cgm = cgmFactory.generateRandomCGM(100, 1);
+            System.out.println("Model size:" + cgm.getRoot().size());
+            long start = System.nanoTime();
+            for (int j = 0; j < repetitions; j++) {
+                // Execute test
+                cgm.isAchievable(current, null);
+            }
+            accumulated += (System.nanoTime() - start);
+
+            if (cgm.isAchievable(current, null) != null) {
+                achievable = true;
+            }
+
+        }
+
+        // Print result
+        long timePerExecutionInNs = accumulated / (modelAmount * repetitions); // TimeMetric in nanosseconds for each execution
+        long timeInMs = accumulated / (1000 * modelAmount * repetitions); // TimeMetric in milliseconds
+
+        System.out.print("Resultado: ");
+
+        if (achievable) {
+            System.out.print("achievable ");
+            achievable = false;
+        } else
+            System.out.print("unachievable ");
+
+        System.out.println(10 + " " + 1 + " " + timeInMs + " ms " + timePerExecutionInNs + " ns");
+
+
+    }
+
+    private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
+        long accumulated = 0;
+        boolean achievable = false;
+
+        RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
+        Set<Context> current = generateCompleteContextSet(contextAmount);
+
+        if (current == null) {
+            System.out.println("NULL");
+            fail();
+        }
+
+        int modelAmount = 10;
+        int repetitions = 10;
+
+        for (int i = 0; i < modelAmount; i++) {
+            // Setup Model
+            CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
+
+            long start = System.nanoTime();
+            for (int j = 0; j < repetitions; j++) {
+                // Execute test
+                cgm.isAchievable(current, null);
+            }
+            accumulated += (System.nanoTime() - start);
+
+            if (cgm.isAchievable(current, null) != null) {
+                achievable = true;
+            }
+
+        }
+
+        // Print result
+
+        long timePerExecutionInNs = accumulated / (modelAmount * repetitions); // TimeMetric in nanosseconds for each execution
+        long timeInMs = accumulated / (modelAmount * repetitions * 1000); // TimeMetric in milliseconds
+
+        System.out.print(experimentId + " ");
+
+        if (achievable) {
+            System.out.print("achievable ");
+            achievable = false;
+        } else
+            System.out.print("unachievable ");
+
+        System.out.println(modelSize + " " + contextAmount + " " + timeInMs + " ms " + timePerExecutionInNs + " ns");
+
+    }
 
 
 	private Set<Context> generateCompleteContextSet(int contextAmount) {
