@@ -1,11 +1,13 @@
 package cgm.runtime.annotations;
 
+import cgm.Goal;
 import cgm.Refinement;
-import cgm.metrics.types.ReliabilityMetric;
-import cgm.metrics.types.TimeMetric;
 import cgm.workflow.Plan;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,8 @@ import java.util.Map;
  * Created by Felipe on 07/07/2016.
  */
 public class InterleavedAnnotation extends RuntimeAnnotation {
+    Logger logger = LogManager.getLogger();
+
     public int getType() {
         return RuntimeAnnotation.Interleaved;
     }
@@ -20,29 +24,29 @@ public class InterleavedAnnotation extends RuntimeAnnotation {
     @Override
     public List<Plan> getPossiblePlans(Map<Refinement, Plan> approaches) {
         List<Plan> list = new ArrayList<Plan>();
+        if (goalType == Goal.AND) {
+            list.add(getPlan(approaches.values()));
+        } else {
+            if (goalType == Goal.AND) {
+                list.add(getPlan(approaches.values()));
+            }
+        }
+        logger.debug("I am the interleaved experiment.runtime annotation and I have devised " + list.size() + " plans ");
+
+        return list;
+    }
+
+    private Plan getPlan(Collection<Plan> approaches) {
         Plan completePlan = new Plan();
 
         completePlan.setAchievable(true);
 
-        TimeMetric time = new TimeMetric();
-        ReliabilityMetric reliability = new ReliabilityMetric();
-
-        //System.out.println("I am the interleaved experiment.runtime annotation and I have been given " + approaches.size() + " plans");
-        for (Refinement ref : getRefinements()) {
-            Plan refinementPlan = approaches.get(ref);
+        logger.debug("I am the interleaved experiment.runtime annotation and I have been given " + approaches.size() + " plans");
+        for (Plan refinementPlan : approaches) {
             completePlan.addParallel(refinementPlan);
-
-            completePlan.setTimeConsumed(time.getParallelQuality(completePlan.getTimeConsumed(), refinementPlan.getTimeConsumed()));
-            completePlan.setReliability(reliability.getParallelQuality(completePlan.getReliability(), refinementPlan.getReliability()));
-
-            //System.out.println("I am the interleaved experiment.runtime annotation and I have added the approach for " + ref.getIdentifier() + " dependency");
-            //System.out.println("It has " + refinementPlan.getTasks().size() + " tasks");
         }
 
-        list.add(completePlan);
-
-        //System.out.println("I am the interleaved experiment.runtime annotation and I have devised " + list.size() + " plans with " + completePlan.getTasks().size() + " tasks");
-        return list;
+        return completePlan;
     }
 
 
