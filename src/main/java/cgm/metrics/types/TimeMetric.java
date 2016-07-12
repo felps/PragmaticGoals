@@ -13,8 +13,7 @@ public class TimeMetric extends CompositeMetric {
     }
 
     public double getSequentialQuality(double metric1, double metric2) {
-        double returnValue = metric1 + metric2;
-        return returnValue;
+        return metric1 + metric2;
     }
 
     public double getParallelQuality(double metric1, double metric2) {
@@ -22,11 +21,6 @@ public class TimeMetric extends CompositeMetric {
     }
 
     public boolean isBetterThan(CompositeMetric candidateMetric) {
-        // this.isBetterThan(candidate)?
-
-        // If the candidate time is equal or higher
-        // then this is better than the candidate
-// else, this is worse than the candidate
         return candidateMetric.getValue() >= this.getValue();
     }
 }

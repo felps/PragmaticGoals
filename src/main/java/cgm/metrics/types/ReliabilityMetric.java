@@ -20,12 +20,13 @@ public class ReliabilityMetric extends CompositeMetric {
     }
 
     public boolean isBetterThan(CompositeMetric candidateMetric) {
-        // this.isBetterThan(candidate)?
-
-        // If the candidate reliability is lower
-        // then this is better than the candidate
-// else, this is worse than the candidate
         return candidateMetric.getValue() < this.getValue();
     }
 
+    @Override
+    public void setValue(double value) {
+        if (value > 1)
+            System.err.println("reliability cannot be greater than one.");
+        else this.value = value;
+    }
 }

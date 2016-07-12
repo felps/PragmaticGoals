@@ -16,9 +16,7 @@ public abstract class CompositeMetric extends Metric {
     }
 
     public void setValue(double value) {
-        if (value > 1)
-            System.err.println("reliability cannot be greater than one.");
-        else this.value = value;
+        this.value = value;
     }
 
     public abstract double getSequentialQuality(double metric1, double metric2);
