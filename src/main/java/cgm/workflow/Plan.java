@@ -15,8 +15,8 @@ public class Plan {
     Logger logger = LogManager.getLogger();
 
     private HashMap<String, WorkflowTask> tasks;
-    private List<WorkflowTask> initialTasks;
-    private List<WorkflowTask> finalTasks;
+    private Set<WorkflowTask> initialTasks;
+    private Set<WorkflowTask> finalTasks;
     private HashMap<String, CompositeMetric> qualityMeasures;
     private boolean achievable;
 
@@ -32,10 +32,10 @@ public class Plan {
         }
     }
 
-    public Plan(WorkflowTask task) {
-        createMaps();
-        add(task, null);
-    }
+//    public Plan(WorkflowTask task) {
+//        createMaps();
+//        add(task, null);
+//    }
 
     public Plan() {
         createMaps();
@@ -43,8 +43,8 @@ public class Plan {
 
     private void createMaps() {
         tasks = new HashMap<String, WorkflowTask>();
-        initialTasks = Collections.synchronizedList(new ArrayList<WorkflowTask>());
-        finalTasks = Collections.synchronizedList(new ArrayList<WorkflowTask>());
+        initialTasks = Collections.synchronizedSet(new HashSet<WorkflowTask>());
+        finalTasks = Collections.synchronizedSet(new HashSet<WorkflowTask>());
         qualityMeasures = new HashMap<String, CompositeMetric>(2);
     }
 
@@ -110,9 +110,11 @@ public class Plan {
         tasks.put(newTask.getId(), newTask);
         finalTasks.add(newTask);
         if (dependencies == null) {
+            if (!initialTasks.contains(newTask))
             initialTasks.add(newTask);
         } else if (dependencies.size() == 0) {
-            initialTasks.add(newTask);
+            if (!initialTasks.contains(newTask))
+                initialTasks.add(newTask);
         } else {
             for (WorkflowTask task : dependencies) {
                 newTask.requires(task);
@@ -191,8 +193,7 @@ public class Plan {
 
     private synchronized void checkFinalTasks() {
         int i;
-        for (i = 0; i < getFinalTasks().size(); i++) {
-            WorkflowTask task = getFinalTasks().get(i);
+        for (WorkflowTask task : getFinalTasks()) {
             if (!task.getEnabledTasksSet().isEmpty()) {
                 removeFinalTask(task);
             }
@@ -220,11 +221,11 @@ public class Plan {
         finalTasks.addAll(plan.getFinalTasks());
     }
 
-    public List<WorkflowTask> getInitialTasks() {
+    public Set<WorkflowTask> getInitialTasks() {
         return initialTasks;
     }
 
-    public List<WorkflowTask> getFinalTasks() {
+    public Set<WorkflowTask> getFinalTasks() {
         return finalTasks;
     }
 }

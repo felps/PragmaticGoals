@@ -4,8 +4,8 @@ import cgm.Task;
 import cgm.metrics.CompositeMetric;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Felipe on 07/07/2016.
@@ -53,7 +53,7 @@ public class WorkflowTask {
         return requires;
     }
 
-    public void requires(List<WorkflowTask> taskSet) {
+    public void requires(Set<WorkflowTask> taskSet) {
         for (WorkflowTask task : taskSet) {
             this.requires(task);
         }
