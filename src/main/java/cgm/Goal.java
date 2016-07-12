@@ -28,6 +28,7 @@ public class Goal extends Refinement {
         } else {
             runtimeAnnotation = new SequentialAnnotation();
         }
+        runtimeAnnotation.setGoalType(isOrDecomposition());
     }
 
     public Goal(boolean isOrDecomposition, RuntimeAnnotation annotation) {
@@ -35,6 +36,7 @@ public class Goal extends Refinement {
         dependencies = new ArrayList<Refinement>();
         this.isOrDecomposition = isOrDecomposition;
         runtimeAnnotation = annotation;
+        runtimeAnnotation.setGoalType(isOrDecomposition());
     }
 
     public RuntimeAnnotation getRuntimeAnnotation() {
@@ -43,6 +45,7 @@ public class Goal extends Refinement {
 
     public void setRuntimeAnnotation(RuntimeAnnotation runtimeAnnotation) {
         this.runtimeAnnotation = runtimeAnnotation;
+        runtimeAnnotation.setGoalType(isOrDecomposition());
     }
 
     @Override

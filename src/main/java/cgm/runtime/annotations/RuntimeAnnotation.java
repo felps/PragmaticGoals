@@ -20,11 +20,19 @@ public abstract class RuntimeAnnotation {
     public static final int InterleavedIterated = 4;
     public static final int Alternative = 5;
     public static final int skip = 6;
-
+    public boolean goalType;
     private List<Refinement> sequence;
 
     public RuntimeAnnotation() {
         sequence = Collections.synchronizedList(new ArrayList<Refinement>());
+    }
+
+    public boolean getGoalType() {
+        return goalType;
+    }
+
+    public void setGoalType(boolean goalType) {
+        this.goalType = goalType;
     }
 
     public List<Refinement> getRefinements() {
