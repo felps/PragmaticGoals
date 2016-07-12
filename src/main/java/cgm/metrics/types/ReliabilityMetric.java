@@ -17,14 +17,12 @@ public class ReliabilityMetric extends CompositeMetric {
         return Metric.RELIABILITY;
     }
 
-    //TODO implement serial reliability calculations
     public double getSequentialQuality(double metric1, double metric2) {
-        return 0;
+        return metric1 * metric2;
     }
 
-    //TODO implement parallel reliability calculations
     public double getParallelQuality(double metric1, double metric2) {
-        return 0;
+        return metric1 * metric2;
     }
 
     public boolean isBetterThan(CompositeMetric candidateMetric) {
