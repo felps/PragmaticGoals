@@ -20,7 +20,7 @@ public class WorkflowTask {
     public WorkflowTask(Task task) {
         requires = new HashSet<WorkflowTask>();
         enables = new HashSet<WorkflowTask>();
-        this.id = id;
+        this.id = task.getIdentifier();
         this.originalTask = task;
     }
 

@@ -4,13 +4,16 @@ import cgm.metrics.exceptions.MetricNotFoundException;
 import cgm.quality.FilterQualityConstraint;
 import cgm.workflow.Plan;
 import cgm.workflow.WorkflowTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Set;
 
 public class Task extends Refinement {
 
-	private HashMap<String, HashMap<Context, Float>> providedQualityLevels;
+    Logger logger = LogManager.getLogger();
+    private HashMap<String, HashMap<Context, Float>> providedQualityLevels;
 	private boolean lessIsMore;
     private WorkflowTask workflowTask;
 
@@ -112,16 +115,16 @@ public class Task extends Refinement {
         Plan plan = new Plan(this);
 
         if (!this.isApplicable(current)) {
-//            System.out.println("I am " + getIdentifier() + " but i am not achievable!");
+            logger.debug("I am " + getIdentifier() + " but i am not achievable!");
             return null;
         }
         if (abidesByInterpretation(interp, current)) {
             plan.setAchievable(true);
-//            System.out.println("I am " + getIdentifier() + " and i am achievable!");
+            logger.debug("I am " + getIdentifier() + " and i am achievable!");
             return plan;
         } else {
             plan.setAchievable(false);
-//            System.out.println("I am " + getIdentifier() + " but i am not achievable!");
+            logger.debug("I am " + getIdentifier() + " but i am not achievable!");
             return plan;
         }
     }
