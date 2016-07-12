@@ -4,6 +4,7 @@ import cgm.Task;
 import cgm.metrics.CompositeMetric;
 import cgm.metrics.Metric;
 import cgm.metrics.types.ReliabilityMetric;
+import cgm.metrics.types.TimeMetric;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,16 +23,15 @@ public class Plan {
     private boolean achievable;
 
     public Plan(Task task) {
-        createMaps();
-        add(task.getWorkflowTask(), null);
         try {
+            createMaps();
+            add(task.getWorkflowTask(), null);
             setReliability(task.getReliability());
+            setTimeConsumed(task.getTimeConsumed());
         } catch (Exception e) {
             logger.error("cgm.Task Class: Out of Bounds reliability value!");
             e.printStackTrace();
         }
-        setTimeConsumed(task.getTimeConsumed());
-
     }
 
     public Plan(WorkflowTask task) {
@@ -76,6 +76,7 @@ public class Plan {
             return getMapValue(Metric.RELIABILITY);
         } catch (NonExistingMetricException e) {
             logger.warn("Reliability was not previously set. Inferring 100%");
+            setMapValue(1, Metric.RELIABILITY);
             return 1;
         }
     }
@@ -84,12 +85,12 @@ public class Plan {
         setMapValue(reliability, Metric.RELIABILITY);
     }
 
-    private void setMapValue(double reliability, String key) {
+    private void setMapValue(double value, String key) {
         if (qualityMeasures.containsKey(key))
-            qualityMeasures.get(key).setValue(reliability);
+            qualityMeasures.get(key).setValue(value);
         else {
             ReliabilityMetric reliabilityMetric = new ReliabilityMetric();
-            reliabilityMetric.setValue(reliability);
+            reliabilityMetric.setValue(value);
             qualityMeasures.put(key, reliabilityMetric);
         }
     }
@@ -145,6 +146,18 @@ public class Plan {
         if (plan == null)
             return;
 
+        CompositeMetric reliabilityMetric = getQualityMetric();
+        double planReliability = plan.getReliability();
+        double myReliability = this.getReliability();
+        double reliability = reliabilityMetric.getSequentialQuality(myReliability, planReliability);
+        CompositeMetric timeMetric = getTimeMetric();
+        double planTimeConsumed = plan.getTimeConsumed();
+        double myTimeConsumed = this.getTimeConsumed();
+        double time = timeMetric.getSequentialQuality(myTimeConsumed, planTimeConsumed);
+
+        this.setReliability(reliability);
+        this.setTimeConsumed(time);
+
         for (WorkflowTask task : plan.getInitialTasks()) {
             task.requires(this.getFinalTasks());
             getInitialTasks().remove(task);
@@ -156,6 +169,26 @@ public class Plan {
         for (WorkflowTask task : plan.getTasks()) {
             tasks.put(task.getId(), task);
         }
+    }
+
+    private CompositeMetric getTimeMetric() {
+        if (qualityMeasures.get(Metric.TIME) == null) {
+            TimeMetric timeMetric = new TimeMetric();
+            timeMetric.setValue(getTimeConsumed());
+            qualityMeasures.put(Metric.TIME, timeMetric);
+        }
+
+        return qualityMeasures.get(Metric.TIME);
+    }
+
+    private CompositeMetric getQualityMetric() {
+        if (qualityMeasures.get(Metric.RELIABILITY) == null) {
+            ReliabilityMetric reliabilityMetric = new ReliabilityMetric();
+            reliabilityMetric.setValue(getReliability());
+            qualityMeasures.put(Metric.RELIABILITY, reliabilityMetric);
+        }
+        return qualityMeasures.get(Metric.RELIABILITY);
+
     }
 
     private synchronized void checkFinalTasks() {
@@ -173,6 +206,17 @@ public class Plan {
     }
 
     public void addParallel(Plan plan) {
+
+        CompositeMetric reliabilityMetric = getQualityMetric();
+        double reliability1 = plan.getReliability();
+        double reliability2 = this.getReliability();
+        double reliability = reliabilityMetric.getParallelQuality(reliability1, reliability2);
+        CompositeMetric timeMetric = getTimeMetric();
+        double time = timeMetric.getParallelQuality(plan.getTimeConsumed(), this.getTimeConsumed());
+
+        this.setReliability(reliability);
+        this.setTimeConsumed(time);
+
         initialTasks.addAll(plan.getInitialTasks());
         tasks.putAll(plan.getTasksMap());
         finalTasks.addAll(plan.getFinalTasks());

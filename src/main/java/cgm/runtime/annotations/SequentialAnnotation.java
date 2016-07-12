@@ -2,8 +2,6 @@ package cgm.runtime.annotations;
 
 import cgm.Goal;
 import cgm.Refinement;
-import cgm.metrics.types.ReliabilityMetric;
-import cgm.metrics.types.TimeMetric;
 import cgm.workflow.Plan;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,11 +24,6 @@ public class SequentialAnnotation extends RuntimeAnnotation {
     public synchronized List<Plan> getPossiblePlans(Map<Refinement, Plan> approaches) {
         int i;
         Plan fullPlan = new Plan();
-        TimeMetric time = new TimeMetric();
-        ReliabilityMetric reliability = new ReliabilityMetric();
-
-        double fullTime = 0;
-        double fullReliability = 1;
         boolean achievable = true;
 
         for (i = 0; i < getRefinements().size(); i++) {
@@ -48,12 +41,8 @@ public class SequentialAnnotation extends RuntimeAnnotation {
 
             logger.debug("Adding {} tasks to plan previously with {} tasks", dependencyPlan.getTasks().size(), fullPlan.getTasks().size());
             fullPlan.addSerial(dependencyPlan);
-            fullReliability = reliability.getSequentialQuality(fullReliability, dependencyPlan.getReliability());
-            fullTime = time.getSequentialQuality(fullTime, dependencyPlan.getTimeConsumed());
         }
 
-        fullPlan.setTimeConsumed(fullTime);
-        fullPlan.setReliability(fullReliability);
         List<Plan> list = new ArrayList<Plan>();
         fullPlan.setAchievable(achievable);
         logger.debug("I am SequentialAnnotation and I found a plan for this refinement with {} tasks.", fullPlan.getTasks().size());
