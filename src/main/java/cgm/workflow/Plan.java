@@ -93,10 +93,14 @@ public class Plan {
     private void setMapValue(double value, String key) {
         if (qualityMeasures.containsKey(key))
             qualityMeasures.get(key).setValue(value);
-        else {
+        else if (key == Metric.RELIABILITY) {
             ReliabilityMetric reliabilityMetric = new ReliabilityMetric();
             reliabilityMetric.setValue(value);
             qualityMeasures.put(key, reliabilityMetric);
+        } else if (key == Metric.TIME) {
+            TimeMetric timeMetric = new TimeMetric();
+            timeMetric.setValue(value);
+            qualityMeasures.put(key, timeMetric);
         }
     }
 

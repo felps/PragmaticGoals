@@ -14,7 +14,7 @@ public class Goal extends Refinement {
 
     public final static boolean OR = true;
     public final static boolean AND = false;
-    private static final Logger logger = LogManager.getLogger(Goal.class);
+    private static final Logger logger = LogManager.getLogger();
     private final boolean isOrDecomposition;
 
     private RuntimeAnnotation runtimeAnnotation;
