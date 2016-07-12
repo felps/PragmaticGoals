@@ -53,4 +53,13 @@ public class TaskTest {
 	public void shouldUseLessIsMoreQC(){
 		Task t1= new Task(true);
 	}
+
+    @Test
+    public void shouldInferFullReliabilityAndNoTime() {
+        Task t1 = new Task();
+
+        assertEquals(1.0, t1.getReliability(), 0.01);
+        assertEquals(0.0, t1.getTimeConsumed(), 0.01);
+    }
+
 }
