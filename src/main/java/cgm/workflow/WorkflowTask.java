@@ -9,19 +9,19 @@ import java.util.Set;
 
 /**
  * Created by Felipe on 07/07/2016.
+ *
+ * Workflow task is a node in the workflow structure
  */
 public class WorkflowTask {
     private String id;
     private HashSet<WorkflowTask> requires;
     private HashSet<WorkflowTask> enables;
     private Map<CompositeMetric, Double> qualityMeasures;
-    private Task originalTask;
 
     public WorkflowTask(Task task) {
-        requires = new HashSet<WorkflowTask>();
-        enables = new HashSet<WorkflowTask>();
+        requires = new HashSet<>();
+        enables = new HashSet<>();
         this.id = task.getIdentifier();
-        this.originalTask = task;
     }
 
     public String getId() {
@@ -36,7 +36,7 @@ public class WorkflowTask {
         this.id = identifier;
     }
 
-    public void requires(WorkflowTask task) {
+    void requires(WorkflowTask task) {
         task.enables(this);
         requires.add(task);
     }
@@ -53,7 +53,7 @@ public class WorkflowTask {
         return requires;
     }
 
-    public void requires(Set<WorkflowTask> taskSet) {
+    void requires(Set<WorkflowTask> taskSet) {
         for (WorkflowTask task : taskSet) {
             this.requires(task);
         }

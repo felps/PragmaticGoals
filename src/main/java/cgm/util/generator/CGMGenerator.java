@@ -10,7 +10,7 @@ public abstract class CGMGenerator {
 	public CGM generateCGM(int refinementsAmount, int contextAmount) {
 		int i, j;
 
-		HashSet<Context> possibleContexts = new HashSet<Context>();
+		HashSet<Context> possibleContexts = new HashSet<>();
 
 		for (i = 1; i <= contextAmount; i++) {
 			possibleContexts.add(new Context("c" + i));
@@ -24,7 +24,7 @@ public abstract class CGMGenerator {
 		return cgm;
 	}
 
-	public Refinement generateDeps(int refinementsAmount, Set<Context> possibleContexts) {
+	private Refinement generateDeps(int refinementsAmount, Set<Context> possibleContexts) {
 		int depAmount = getRefinementsAmount(refinementsAmount);
 		if (refinementsAmount == 0)
 			return null;
