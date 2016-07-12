@@ -13,7 +13,7 @@ import java.util.*;
 public class Plan {
 
     Logger logger = LogManager.getLogger();
-
+    private int iterationCopy;
     private HashMap<String, WorkflowTask> tasks;
     private Set<WorkflowTask> initialTasks;
     private Set<WorkflowTask> finalTasks;
@@ -32,13 +32,20 @@ public class Plan {
         }
     }
 
-//    public Plan(WorkflowTask task) {
-//        createMaps();
-//        add(task, null);
-//    }
-
     public Plan() {
         createMaps();
+    }
+
+    public int getIterationCopy() {
+        return iterationCopy;
+    }
+
+    public void setIterationCopy(int iterationCopy) {
+        this.iterationCopy = iterationCopy;
+    }
+
+    public HashMap<String, CompositeMetric> getQualityMeasures() {
+        return qualityMeasures;
     }
 
     private void createMaps() {
@@ -107,7 +114,7 @@ public class Plan {
     }
 
     public void add(WorkflowTask newTask, Set<WorkflowTask> dependencies) {
-        tasks.put(newTask.getId(), newTask);
+        tasks.put(newTask.getId() + "it" + iterationCopy, newTask);
         finalTasks.add(newTask);
         if (dependencies == null) {
             if (!initialTasks.contains(newTask))
@@ -158,13 +165,17 @@ public class Plan {
         this.setReliability(reliability);
         this.setTimeConsumed(time);
 
-        for (WorkflowTask task : plan.getInitialTasks()) {
-            task.requires(this.getFinalTasks());
-            getInitialTasks().remove(task);
+        if (this.getInitialTasks().size() == 0) {
+            getInitialTasks().addAll(plan.getInitialTasks());
+        } else {
+            for (WorkflowTask task : plan.getInitialTasks()) {
+                task.requires(this.getFinalTasks());
+                getInitialTasks().remove(task);
+            }
+            checkFinalTasks();
         }
 
 
-        checkFinalTasks();
         finalTasks.addAll(plan.getFinalTasks());
         for (WorkflowTask task : plan.getTasks()) {
             tasks.put(task.getId(), task);
@@ -228,4 +239,5 @@ public class Plan {
     public Set<WorkflowTask> getFinalTasks() {
         return finalTasks;
     }
+
 }

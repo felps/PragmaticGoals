@@ -13,19 +13,28 @@ import java.util.Set;
  * Workflow task is a node in the workflow structure
  */
 public class WorkflowTask {
+
     private String id;
+    private int iterationCopy;
     private HashSet<WorkflowTask> requires;
     private HashSet<WorkflowTask> enables;
     private Map<CompositeMetric, Double> qualityMeasures;
-
+    private Task originalTask;
     public WorkflowTask(Task task) {
         requires = new HashSet<>();
         enables = new HashSet<>();
         this.id = task.getIdentifier();
+        originalTask = task;
+    }
+
+    public Task getOriginalTask() {
+        return originalTask;
     }
 
     public String getId() {
-        return id;
+        if (iterationCopy == 0) {
+            return id;
+        } else return id + iterationCopy;
     }
 
     public String getIdentifier() {
@@ -34,6 +43,14 @@ public class WorkflowTask {
 
     public void setIdentifier(String identifier) {
         this.id = identifier;
+    }
+
+    public int getIterationCopy() {
+        return iterationCopy;
+    }
+
+    public void setIterationCopy(int iterationCopy) {
+        this.iterationCopy = iterationCopy;
     }
 
     void requires(WorkflowTask task) {
@@ -62,11 +79,4 @@ public class WorkflowTask {
     public Map<CompositeMetric, Double> getQualityMeasures() {
         return qualityMeasures;
     }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if(obj.getClass().equals(this.getClass())) {
-//            return id.equals(((WorkflowTask) obj).id);
-//        } else return false;
-//    }
 }

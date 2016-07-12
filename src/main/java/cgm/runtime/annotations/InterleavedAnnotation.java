@@ -29,6 +29,19 @@ public class InterleavedAnnotation extends RuntimeAnnotation {
         } else {
             if (goalType == Goal.AND) {
                 list.add(getPlan(approaches.values()));
+            } else {
+                Collection<Plan> consideredApproaches = new ArrayList<>();
+                Plan firstRefinementPlan = approaches.get(getRefinements().get(0));
+                Plan secondRefinementPlan = approaches.get(getRefinements().get(1));
+                consideredApproaches.add(firstRefinementPlan);
+                list.add(getPlan(consideredApproaches));
+
+                consideredApproaches.add(secondRefinementPlan);
+                list.add(getPlan(consideredApproaches));
+
+                consideredApproaches.clear();
+                consideredApproaches.add(secondRefinementPlan);
+                list.add(getPlan(consideredApproaches));
             }
         }
         logger.debug("I am the interleaved experiment.runtime annotation and I have devised " + list.size() + " plans ");
