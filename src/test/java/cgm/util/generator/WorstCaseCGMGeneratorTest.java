@@ -1,20 +1,18 @@
 package cgm.util.generator;
 
-import static org.junit.Assert.*;
+import cgm.CGM;
+import cgm.Context;
+import cgm.Refinement;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
-
-import cgm.CGM;
-import cgm.Context;
-import cgm.Refinement;
-import cgm.util.generator.RandomCGMGenerator;
-import cgm.util.generator.WorstCaseCGMGenerator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class WorstCaseCGMGeneratorTest {
-	WorstCaseCGMGenerator cgmFactory = new WorstCaseCGMGenerator();
+	private WorstCaseCGMGenerator cgmFactory = new WorstCaseCGMGenerator();
 	
 	@Test
 	public void shouldCreateASingleTask() {
@@ -71,7 +69,7 @@ public class WorstCaseCGMGeneratorTest {
 	}
 	
 	private Set<Context> collectContexts(Refinement root) {
-		HashSet<Context> contextSet = new HashSet<Context>();
+		HashSet<Context> contextSet = new HashSet<>();
 
 		contextSet.addAll(root.getApplicableContext());
 		for (Refinement dep : root.getDependencies()) {
