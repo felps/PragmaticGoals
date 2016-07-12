@@ -1,5 +1,6 @@
 package cgm;
 
+import cgm.metrics.Metric;
 import cgm.metrics.exceptions.MetricNotFoundException;
 import cgm.quality.FilterQualityConstraint;
 import cgm.workflow.Plan;
@@ -21,12 +22,24 @@ public class Task extends Refinement {
         providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
         this.lessIsMore = lessIsMore;
         workflowTask = new WorkflowTask(this);
+        try {
+            setReliability(1.0);
+            setTimeConsumed(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 	public Task() {
 		providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
 		this.lessIsMore = false;
         workflowTask = new WorkflowTask(this);
+        try {
+            setReliability(1.0);
+            setTimeConsumed(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Task(String id) {
@@ -45,7 +58,16 @@ public class Task extends Refinement {
 		HashMap<Context, Float> map;
 
 		if (providedQualityLevels.containsKey(metric)) {
-			map = providedQualityLevels.get(metric);
+            if (metric == Metric.TIME) {
+                setTimeConsumed(value);
+            } else if (metric == Metric.RELIABILITY) {
+                try {
+                    setReliability(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            map = providedQualityLevels.get(metric);
 			map.put(context, new Float(value));
 		} else {
 			map = new HashMap<Context, Float>();
