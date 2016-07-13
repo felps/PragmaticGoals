@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RandomCGMGeneratorTest {
 
-	Logger logger = LogManager.getLogger();
+    private Logger logger = LogManager.getLogger();
 
 	@Test
 	public void shouldCreateASingleTask() {
@@ -30,8 +30,8 @@ public class RandomCGMGeneratorTest {
 
 		CGM cgm = cgmFactory.generateCGM(1, 2);
 
-		Set<Context> current = new HashSet<Context>();
-		current.add(new Context("c1"));
+        Set<Context> current = new HashSet<>();
+        current.add(new Context("c1"));
 		current.add(new Context("c2"));
 		assertTrue(cgm.isAchievable(current, null) != null);
 	}
@@ -63,18 +63,18 @@ public class RandomCGMGeneratorTest {
 		}
 
 		logger.debug("Contexts applicable:");
-		for (Context context : cgm.getRoot().getApplicableContext()) {
-			logger.debug(">" + context.getName() + "<");
+        for (Context context : cgm.getRoot().getApplicableContexts()) {
+            logger.debug(">" + context.getName() + "<");
 		}
 
 		for (Context context : current) {
-			for (Context applicable : cgm.getRoot().getApplicableContext()) {
-				if (applicable.equals(context)) {
+            for (Context applicable : cgm.getRoot().getApplicableContexts()) {
+                if (applicable.equals(context)) {
 					logger.debug("Context valid");
 					if (context.equals(applicable))
 						logger.debug("Equals not reflexive");
-					if (cgm.getRoot().getApplicableContext().contains(context)) {
-						logger.debug("And recognized");
+                    if (cgm.getRoot().getApplicableContexts().contains(context)) {
+                        logger.debug("And recognized");
 					} else
 						logger.debug("And NOT recognized");
 				}
@@ -202,21 +202,26 @@ public class RandomCGMGeneratorTest {
 	private Set<Context> collectContexts(Refinement root) {
 		HashSet<Context> contextSet = new HashSet<Context>();
 
-		contextSet.addAll(root.getApplicableContext());
-		for (Refinement dep : ((Goal) root).getDependencies()) {
-			contextSet.addAll(collectContexts(dep));
-		}
-		contextSet.remove(null);
+        contextSet.addAll(root.getApplicableContexts());
+        if (root instanceof Goal) {
+            for (Refinement dep : ((Goal) root).getDependencies()) {
+                contextSet.addAll(collectContexts(dep));
+            }
+        }
+        contextSet.remove(null);
 		return contextSet;
 	}
 
 	private int countRefinements(Refinement refinement) {
 		int amount = 1;
 
-		for (Refinement dep : ((Goal) refinement).getDependencies()) {
-			amount = amount + countRefinements(dep);
-		}
-		return amount;
+        if (refinement instanceof Goal) {
+            for (Refinement dep : ((Goal) refinement).getDependencies()) {
+                amount = amount + countRefinements(dep);
+            }
+        }
+
+        return amount;
 	}
 
 }

@@ -74,11 +74,9 @@ public class GoalTest {
 		Context context = new Context("c1");
 		HashSet<Context> current = new HashSet<Context>();
 		current.add(context);
-		
-		Task task1 = new Task();
-        task1.setIdentifier("t1");
-        Task task2 = new Task();
-        task2.setIdentifier("t2");
+
+		Task task1 = new Task("T1");
+		Task task2 = new Task("T2");
 
 		task1.addApplicableContext(context);
 

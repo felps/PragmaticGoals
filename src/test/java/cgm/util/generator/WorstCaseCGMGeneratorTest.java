@@ -69,9 +69,11 @@ public class WorstCaseCGMGeneratorTest {
 	private Set<Context> collectContexts(Refinement root) {
 		HashSet<Context> contextSet = new HashSet<>();
 
-		contextSet.addAll(root.getApplicableContext());
-		for (Refinement dep : ((Goal) root).getDependencies()) {
-			contextSet.addAll(collectContexts(dep));
+		contextSet.addAll(root.getApplicableContexts());
+		if (root instanceof Goal) {
+			for (Refinement dep : ((Goal) root).getDependencies()) {
+				contextSet.addAll(collectContexts(dep));
+			}
 		}
 		contextSet.remove(null);
 		return contextSet;
@@ -80,6 +82,7 @@ public class WorstCaseCGMGeneratorTest {
 	private int countRefinements(Refinement refinement) {
 		int amount = 1;
 
+		if (refinement instanceof Goal)
 		for (Refinement dep : ((Goal) refinement).getDependencies()) {
 			amount = amount + countRefinements(dep);
 		}
@@ -90,6 +93,7 @@ public class WorstCaseCGMGeneratorTest {
 		int amount = 1;
 		int maxLevels = 0;
 
+		if (refinement instanceof Goal)
 		for (Refinement dep : ((Goal) refinement).getDependencies()) {
 			int levelsBelow = countTreeLevels(dep, currentLevel++);
 			if (maxLevels < levelsBelow)

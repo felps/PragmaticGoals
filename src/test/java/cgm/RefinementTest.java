@@ -459,14 +459,14 @@ public class RefinementTest {
 		Context context2 = new Context("C2");
 
         Task task = new Task("t1");
-        int originalSize = task.getApplicableContext().size();
-		HashSet<Context> set = new HashSet<Context>();
+        int originalSize = task.getApplicableContexts().size();
+        HashSet<Context> set = new HashSet<Context>();
 		
 		set.add(context1);
 		set.add(context2);
 		
 		task.addApplicableContext(set);
 		// null is always an applicable context
-		assertEquals(2, task.getApplicableContext().size() - originalSize);
-	}
+        assertEquals(2, task.getApplicableContexts().size() - originalSize);
+    }
 }

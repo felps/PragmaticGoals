@@ -18,11 +18,12 @@ public class Goal extends Refinement {
     private final boolean isOrDecomposition;
 
     protected ArrayList<Refinement> dependencies = new ArrayList<Refinement>();
+    protected HashMap<Context, List<Refinement>> dependenciesPerContext = new HashMap<>();
+
     private RuntimeAnnotation runtimeAnnotation;
 
     public Goal(boolean isOrDecomposition) {
         super();
-        dependencies = new ArrayList<>();
         this.isOrDecomposition = isOrDecomposition;
         if (isOrDecomposition()) {
             runtimeAnnotation = new AlternativeAnnotation();
@@ -34,7 +35,6 @@ public class Goal extends Refinement {
 
     public Goal(boolean isOrDecomposition, RuntimeAnnotation annotation) {
         super();
-        dependencies = new ArrayList<>();
         this.isOrDecomposition = isOrDecomposition;
         runtimeAnnotation = annotation;
         runtimeAnnotation.setGoalType(isOrDecomposition());
@@ -47,12 +47,11 @@ public class Goal extends Refinement {
     public Set<Refinement> getApplicableDependencies(Set<Context> current) {
 
         HashSet<Refinement> applicableDeps = new HashSet<Refinement>();
-        for (Refinement dep : dependencies) {
-            for (Context context : current) {
-                if (dep.getApplicableContext().contains(context) || dep.getApplicableContext().contains(null)) {
-                    applicableDeps.add(dep);
-                }
-            }
+        if (dependenciesPerContext.containsKey(null))
+            applicableDeps.addAll(dependenciesPerContext.get(null));
+        for (Context context : current) {
+            if (dependenciesPerContext.containsKey(context))
+                applicableDeps.addAll(dependenciesPerContext.get(context));
         }
         return applicableDeps;
     }
@@ -133,6 +132,14 @@ public class Goal extends Refinement {
 
     public void addDependency(Refinement goal) {
         dependencies.add(goal);
+        for (Context context : goal.getApplicableContexts()) {
+            if (!dependenciesPerContext.containsKey(context)) {
+                ArrayList<Refinement> refinementArrayList = new ArrayList<>();
+                dependenciesPerContext.put(context, refinementArrayList);
+                dependenciesPerContext.put(context, refinementArrayList);
+            }
+            dependenciesPerContext.get(context).add(goal);
+        }
         getRuntimeAnnotation().includeRefinement(goal, getRuntimeAnnotation().getRefinements().size());
     }
 
@@ -163,4 +170,5 @@ public class Goal extends Refinement {
         }
         return amount;
     }
+
 }

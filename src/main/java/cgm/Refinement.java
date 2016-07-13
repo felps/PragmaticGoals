@@ -36,12 +36,12 @@ public abstract class Refinement {
         this.reliability = reliability;
     }
 
-	public void addApplicableContext(Context context) {
-		if (applicableContexts.contains(null)) {
-			applicableContexts.remove(null);
-		}
-		applicableContexts.add(context);
-	}
+    public void addApplicableContext(Context context) {
+        if (applicableContexts.contains(null)) {
+            applicableContexts.remove(null);
+        }
+        applicableContexts.add(context);
+    }
 
 	public void addNonApplicableContext(Context wrongContext) {
 		nonApplicableContexts.add(wrongContext);
@@ -52,8 +52,8 @@ public abstract class Refinement {
 		applicableContexts.addAll(contextSet);
 	}
 
-	public HashSet<Context> getApplicableContext() {
-		return applicableContexts;
+    public HashSet<Context> getApplicableContexts() {
+        return applicableContexts;
 	}
 
 
