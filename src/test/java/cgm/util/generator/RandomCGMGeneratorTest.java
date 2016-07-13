@@ -1,8 +1,6 @@
 package cgm.util.generator;
 
-import cgm.CGM;
-import cgm.Context;
-import cgm.Refinement;
+import cgm.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -23,7 +21,7 @@ public class RandomCGMGeneratorTest {
 
 		CGM cgm = cgmFactory.generateCGM(1, 2);
 
-		assertTrue(cgm.getRoot().myType() == Refinement.TASK);
+		assertTrue(cgm.getRoot() instanceof Task);
 	}
 
 	@Test
@@ -44,10 +42,10 @@ public class RandomCGMGeneratorTest {
 
 		CGM cgm = cgmFactory.generateCGM(2, 2);
 
-		assertTrue(cgm.getRoot().myType() == Refinement.GOAL);
+		assertTrue(cgm.getRoot() instanceof Goal);
 
 		for (Refinement dep : cgm.getRoot().getDependencies()) {
-			assertTrue(dep.myType() == Refinement.TASK);
+			assertTrue(dep instanceof Task);
 		}
 	}
 

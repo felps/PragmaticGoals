@@ -48,10 +48,6 @@ public class Goal extends Refinement {
         runtimeAnnotation.setGoalType(isOrDecomposition());
     }
 
-    @Override
-    public int myType() {
-        return Refinement.GOAL;	}
-
 	public boolean isOrDecomposition() {
 		return isOrDecomposition;	}
 

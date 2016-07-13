@@ -17,19 +17,6 @@ import static org.junit.Assert.*;
 public class RefinementTest {
 
 	@Test
-	public void shouldReturnMyType() {
-		Refinement goal = new Goal(false);
-		Task task = new Task();
-		Delegation delegation = new Delegation();
-
-		assertEquals(Refinement.GOAL, goal.myType());
-
-		assertEquals(Refinement.TASK, task.myType());
-
-		assertEquals(Refinement.DELEGATION, delegation.myType());
-	}
-
-	@Test
 	public void shouldBeApplicable() throws Exception {
 		Refinement goal = new Goal(false);
 		Task task = new Task();

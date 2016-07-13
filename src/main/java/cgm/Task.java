@@ -49,11 +49,6 @@ public class Task extends Refinement {
         this.setIdentifier(id);
     }
 
-    @Override
-    public int myType() {
-        return Refinement.TASK;
-	}
-
 	public void setProvidedQuality(Context context, String metric, double value) {
 		HashMap<Context, Float> map;
 

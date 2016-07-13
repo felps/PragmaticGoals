@@ -6,11 +6,6 @@ import java.util.Set;
 
 public class Delegation extends Refinement {
 
-	@Override
-	public int myType() {
-		return Refinement.DELEGATION;
-	}
-
 	public void parseFromYamlFile() {
 
 	}

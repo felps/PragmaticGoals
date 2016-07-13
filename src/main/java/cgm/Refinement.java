@@ -9,10 +9,6 @@ import java.util.Set;
 
 public abstract class Refinement {
 
-	public static final int GOAL = 1;
-	public static final int TASK = 2;
-	public static final int DELEGATION = 3;
-
     protected ArrayList<Refinement> dependencies;
     private HashSet<Context> applicableContexts;
     private HashSet<Context> nonApplicableContexts;
@@ -64,7 +60,6 @@ public abstract class Refinement {
 		return applicableContexts;
 	}
 
-	public abstract int myType();
 
 	public boolean isApplicable(Set<Context> current) {
 

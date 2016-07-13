@@ -1,8 +1,6 @@
 package cgm.util.generator;
 
-import cgm.CGM;
-import cgm.Context;
-import cgm.Refinement;
+import cgm.*;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -18,7 +16,7 @@ public class WorstCaseCGMGeneratorTest {
 	public void shouldCreateASingleTask() {
 		CGM cgm = cgmFactory.generateCGM(1, 2);
 
-		assertTrue(cgm.getRoot().myType() == Refinement.TASK);
+		assertTrue(cgm.getRoot() instanceof Task);
 		assertEquals(1, countTreeLevels(cgm.getRoot(), 0));
 	}
 
@@ -26,10 +24,10 @@ public class WorstCaseCGMGeneratorTest {
 	public void shouldCreateASingleGoalWithASingleTask() {
 		CGM cgm = cgmFactory.generateCGM(2, 2);
 
-		assertTrue(cgm.getRoot().myType() == Refinement.GOAL);
+		assertTrue(cgm.getRoot() instanceof Goal);
 
 		for (Refinement dep : cgm.getRoot().getDependencies()) {
-			assertTrue(dep.myType() == Refinement.TASK);
+			assertTrue(dep instanceof  Task);
 		}
 		assertEquals(2, countTreeLevels(cgm.getRoot(), 0));
 	}
