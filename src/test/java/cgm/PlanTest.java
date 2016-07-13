@@ -19,7 +19,6 @@ public class PlanTest {
     public void shouldAddASingleTask() {
         Task task = new Task("id");
 
-
         Plan plan = new Plan(task);
 
         // Test if it was added

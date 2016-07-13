@@ -10,25 +10,24 @@ import org.junit.Test;
 
 import java.util.HashSet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ExperimentScenarios {
 
-	CGM cgm;
+	private CGM cgm;
 	/* Contexts */
-	Context c1 = new Context("c1");
-	Context c2 = new Context("c2");
-	Context c3 = new Context("c3");
-	Context c4 = new Context("c4");
-	Context c5 = new Context("c5");
-	Context c6 = new Context("c6");
-	Context c7 = new Context("c7");
-	Context c8 = new Context("c8");
-	Context c9 = new Context("c9");
-	Context c10 = new Context("c10");
-	Context c11 = new Context("c11");
-	Context c12 = new Context("c12");
+	private Context c1 = new Context("c1");
+	private Context c2 = new Context("c2");
+	private Context c3 = new Context("c3");
+	private Context c4 = new Context("c4");
+	private Context c5 = new Context("c5");
+	private Context c6 = new Context("c6");
+	private Context c7 = new Context("c7");
+	private Context c8 = new Context("c8");
+	private Context c9 = new Context("c9");
+	private Context c10 = new Context("c10");
+	private Context c11 = new Context("c11");
+	private Context c12 = new Context("c12");
 
 	@Test
 	public void contextSet1() {
@@ -75,7 +74,8 @@ public class ExperimentScenarios {
 		}
 		long elapsed = System.nanoTime() - startTime;
 		System.out.println("Average elapsed time:" + elapsed/10000 + " ns...");
-		assertTrue(tasks == null);
+		assertFalse(tasks == null);
+		assertFalse(tasks.isAchievable());
 
 	}
 
@@ -432,7 +432,7 @@ public class ExperimentScenarios {
 
 	private HashSet<Context> createFullContext(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,
 			int t10, int t11, int t12) {
-		HashSet<Context> fullContext = new HashSet<Context>();
+		HashSet<Context> fullContext = new HashSet<>();
 
 		System.out.print("Contexto: [");
 		if (t1 == 1) {

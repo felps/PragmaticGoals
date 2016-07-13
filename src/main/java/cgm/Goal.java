@@ -21,7 +21,7 @@ public class Goal extends Refinement {
 
     public Goal(boolean isOrDecomposition) {
         super();
-        dependencies = new ArrayList<Refinement>();
+        dependencies = new ArrayList<>();
         this.isOrDecomposition = isOrDecomposition;
         if (isOrDecomposition()) {
             runtimeAnnotation = new AlternativeAnnotation();
@@ -33,7 +33,7 @@ public class Goal extends Refinement {
 
     public Goal(boolean isOrDecomposition, RuntimeAnnotation annotation) {
         super();
-        dependencies = new ArrayList<Refinement>();
+        dependencies = new ArrayList<>();
         this.isOrDecomposition = isOrDecomposition;
         runtimeAnnotation = annotation;
         runtimeAnnotation.setGoalType(isOrDecomposition());
@@ -61,7 +61,7 @@ public class Goal extends Refinement {
 	@Override
     public Plan isAchievable(Set<Context> current, Interpretation interp) {
         if (current == null) {
-            current = new HashSet<Context>();
+            current = new HashSet<>();
             current.add(null);
         }
         if (!this.isApplicable(current)) {
@@ -74,26 +74,28 @@ public class Goal extends Refinement {
             Plan chosenApproach = null;
 
             for (Plan currentApproach : approaches) {
-                if (chosenApproach == null) {
-                    chosenApproach = currentApproach;
-                    logger.debug("I am {} and i chose an approach with {} reliability and {} time", getIdentifier(), getReliability(), getTimeConsumed());
-                } else {
-                    if (!chosenApproach.isAchievable()) {
-                        if (currentApproach.isAchievable())
-                            chosenApproach = currentApproach;
-                        else
+                if (currentApproach != null) {
+                    if (chosenApproach == null) {
+                        chosenApproach = currentApproach;
+                        logger.debug("I am {} and i chose an approach with {} reliability and {} time", getIdentifier(), getReliability(), getTimeConsumed());
+                    } else {
+                        if (!chosenApproach.isAchievable()) {
+                            if (currentApproach.isAchievable())
+                                chosenApproach = currentApproach;
+                            else
+                                chosenApproach = chooseBetterPlan(interp, chosenApproach, currentApproach);
+                        } else if (chosenApproach.isAchievable()) {
                             chosenApproach = chooseBetterPlan(interp, chosenApproach, currentApproach);
-                    } else if (chosenApproach.isAchievable()) {
-                        chosenApproach = chooseBetterPlan(interp, chosenApproach, currentApproach);
+                        }
                     }
-                }
 
-                if (interp != null && !interp.withinLimits(chosenApproach)) {
-                    logger.debug("Yet it is unachievable");
-                    chosenApproach.setAchievable(false);
-                } else if (chosenApproach.isAchievable()) {
-                    logger.debug("and it can be achieved!");
-                } else logger.debug("Yet it is unachievable 2");
+                    if (interp != null && !interp.withinLimits(chosenApproach)) {
+                        logger.debug("Yet it is unachievable");
+                        chosenApproach.setAchievable(false);
+                    } else if (chosenApproach.isAchievable()) {
+                        logger.debug("and it can be achieved!");
+                    } else logger.debug("Yet it is unachievable 2");
+                }
             }
             return chosenApproach;
         }
@@ -123,18 +125,19 @@ public class Goal extends Refinement {
 
     private HashMap<Refinement, Plan> getRefinementPlans(Set<Context> current, Interpretation interp) {
         Plan plan;
-        HashMap<Refinement, Plan> approaches = new HashMap<Refinement, Plan>();
+        HashMap<Refinement, Plan> approaches = new HashMap<>();
 
         for (Refinement dep : getApplicableDependencies(current)) {
             plan = dep.isAchievable(current, interp);
-            if (plan != null)
+            if (plan != null) {
                 approaches.put(dep, plan);
-            if (plan.isAchievable())
-                logger.debug("I am " + getIdentifier() + " and i found a way to achieve" +
-                        " the dependency " + dep.getIdentifier() + " with " + plan.getTasks().size() + " tasks.");
-            else
-                logger.debug("I am " + getIdentifier() + " and the best i can do to achieve" +
-                        " the dependency " + dep.getIdentifier() + " will require" + plan.getTasks().size() + " tasks.");
+                if (plan.isAchievable())
+                    logger.debug("I am " + getIdentifier() + " and i found a way to achieve" +
+                            " the dependency " + dep.getIdentifier() + " with " + plan.getTasks().size() + " tasks.");
+                else
+                    logger.debug("I am " + getIdentifier() + " and the best i can do to achieve" +
+                            " the dependency " + dep.getIdentifier() + " will require" + plan.getTasks().size() + " tasks.");
+            }
         }
 
         return approaches;
