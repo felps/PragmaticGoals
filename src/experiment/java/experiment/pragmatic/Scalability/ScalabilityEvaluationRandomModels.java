@@ -1,4 +1,4 @@
-package experiment.pragmatic;
+package experiment.pragmatic.Scalability;
 
 import cgm.CGM;
 import cgm.Context;
@@ -30,8 +30,8 @@ public class ScalabilityEvaluationRandomModels {
 
 		int round = 1, model = 1000;
 		for (int contexts = 10; contexts < 10000; contexts += 100) {
-			executeScientificalEvaluation("" + 2, contexts, model);
-		}
+            executeScientificalEvaluation("Evaluation: " + contexts + " model size: " + model, contexts, model);
+        }
 	}
 
 	@Test

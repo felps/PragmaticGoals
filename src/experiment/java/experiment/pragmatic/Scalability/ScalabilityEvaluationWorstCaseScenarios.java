@@ -1,4 +1,4 @@
-package experiment.pragmatic;
+package experiment.pragmatic.Scalability;
 
 import cgm.CGM;
 import cgm.Context;
