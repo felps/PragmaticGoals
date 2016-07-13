@@ -2,14 +2,11 @@ package cgm;
 
 import cgm.workflow.Plan;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public abstract class Refinement {
 
-    protected ArrayList<Refinement> dependencies;
     private HashSet<Context> applicableContexts;
     private HashSet<Context> nonApplicableContexts;
 	private String identifier;
@@ -20,7 +17,6 @@ public abstract class Refinement {
 		applicableContexts = new HashSet<Context>();
 		applicableContexts.add(null);
 		nonApplicableContexts = new HashSet<Context>();
-        dependencies = new ArrayList<Refinement>();
     }
 
     public double getTimeConsumed() {
@@ -83,25 +79,6 @@ public abstract class Refinement {
 
 	public abstract Plan isAchievable(Set<Context> current, Interpretation interp);
 
-    public abstract void addDependency(Refinement goal);
-
-    public List<Refinement> getDependencies() {
-        return dependencies;
-    }
-
-	public Set<Refinement> getApplicableDependencies(Set<Context> current) {
-
-		HashSet<Refinement> applicableDeps = new HashSet<Refinement>();
-		for (Refinement dep : dependencies) {
-			for (Context context : current) {
-				if (dep.getApplicableContext().contains(context) || dep.getApplicableContext().contains(null)) {
-					applicableDeps.add(dep);
-				}
-			}
-		}
-		return applicableDeps;
-	}
-
 	public String getIdentifier() {
 		return identifier;
 	}
@@ -110,11 +87,6 @@ public abstract class Refinement {
 		this.identifier = identifier;
 	}
 
-	public int size() {
-		int amount = 1;
-		for (Refinement ref : dependencies) {
-			amount += ref.size();
-		}
-		return amount;
-	}
+    public abstract int size();
+
 }

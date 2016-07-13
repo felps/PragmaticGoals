@@ -44,7 +44,7 @@ public class RandomCGMGeneratorTest {
 
 		assertTrue(cgm.getRoot() instanceof Goal);
 
-		for (Refinement dep : cgm.getRoot().getDependencies()) {
+		for (Refinement dep : ((Goal) cgm.getRoot()).getDependencies()) {
 			assertTrue(dep instanceof Task);
 		}
 	}
@@ -203,7 +203,7 @@ public class RandomCGMGeneratorTest {
 		HashSet<Context> contextSet = new HashSet<Context>();
 
 		contextSet.addAll(root.getApplicableContext());
-		for (Refinement dep : root.getDependencies()) {
+		for (Refinement dep : ((Goal) root).getDependencies()) {
 			contextSet.addAll(collectContexts(dep));
 		}
 		contextSet.remove(null);
@@ -213,7 +213,7 @@ public class RandomCGMGeneratorTest {
 	private int countRefinements(Refinement refinement) {
 		int amount = 1;
 
-		for (Refinement dep : refinement.getDependencies()) {
+		for (Refinement dep : ((Goal) refinement).getDependencies()) {
 			amount = amount + countRefinements(dep);
 		}
 		return amount;

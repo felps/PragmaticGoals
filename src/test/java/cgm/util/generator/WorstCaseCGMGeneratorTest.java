@@ -26,7 +26,7 @@ public class WorstCaseCGMGeneratorTest {
 
 		assertTrue(cgm.getRoot() instanceof Goal);
 
-		for (Refinement dep : cgm.getRoot().getDependencies()) {
+		for (Refinement dep : ((Goal) cgm.getRoot()).getDependencies()) {
 			assertTrue(dep instanceof  Task);
 		}
 		assertEquals(2, countTreeLevels(cgm.getRoot(), 0));
@@ -70,7 +70,7 @@ public class WorstCaseCGMGeneratorTest {
 		HashSet<Context> contextSet = new HashSet<>();
 
 		contextSet.addAll(root.getApplicableContext());
-		for (Refinement dep : root.getDependencies()) {
+		for (Refinement dep : ((Goal) root).getDependencies()) {
 			contextSet.addAll(collectContexts(dep));
 		}
 		contextSet.remove(null);
@@ -80,7 +80,7 @@ public class WorstCaseCGMGeneratorTest {
 	private int countRefinements(Refinement refinement) {
 		int amount = 1;
 
-		for (Refinement dep : refinement.getDependencies()) {
+		for (Refinement dep : ((Goal) refinement).getDependencies()) {
 			amount = amount + countRefinements(dep);
 		}
 		return amount;
@@ -90,7 +90,7 @@ public class WorstCaseCGMGeneratorTest {
 		int amount = 1;
 		int maxLevels = 0;
 
-		for (Refinement dep : refinement.getDependencies()) {
+		for (Refinement dep : ((Goal) refinement).getDependencies()) {
 			int levelsBelow = countTreeLevels(dep, currentLevel++);
 			if (maxLevels < levelsBelow)
 				maxLevels = levelsBelow;

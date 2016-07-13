@@ -6,21 +6,13 @@ import java.util.Set;
 
 public class Delegation extends Refinement {
 
-	public void parseFromYamlFile() {
-
-	}
-
-	@Override
+    @Override
     public Plan isAchievable(Set<Context> current, Interpretation interp) {
         return null;
     }
 
     @Override
-    public void addDependency(Refinement goal) {
-        dependencies.add(goal);
+    public int size() {
+        return 0;
     }
-    // public void dumpToYamlFile(){
-	// YamlHandler yaml = new YamlHandler();
-	// yaml.dumpToYamlFile(this);
-	// }
 }

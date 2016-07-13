@@ -146,11 +146,6 @@ public class Task extends Refinement {
         }
     }
 
-    @Override
-    public void addDependency(Refinement goal) {
-        dependencies.add(goal);
-    }
-
     public WorkflowTask getWorkflowTask() {
         return workflowTask;
     }
@@ -159,5 +154,10 @@ public class Task extends Refinement {
     public void setIdentifier(String identifier) {
         super.setIdentifier(identifier);
         workflowTask.setIdentifier(identifier);
+    }
+
+    @Override
+    public int size() {
+        return 1;
     }
 }

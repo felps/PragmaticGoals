@@ -17,6 +17,7 @@ public class Goal extends Refinement {
     private static final Logger logger = LogManager.getLogger();
     private final boolean isOrDecomposition;
 
+    protected ArrayList<Refinement> dependencies = new ArrayList<Refinement>();
     private RuntimeAnnotation runtimeAnnotation;
 
     public Goal(boolean isOrDecomposition) {
@@ -37,6 +38,23 @@ public class Goal extends Refinement {
         this.isOrDecomposition = isOrDecomposition;
         runtimeAnnotation = annotation;
         runtimeAnnotation.setGoalType(isOrDecomposition());
+    }
+
+    public List<Refinement> getDependencies() {
+        return dependencies;
+    }
+
+    public Set<Refinement> getApplicableDependencies(Set<Context> current) {
+
+        HashSet<Refinement> applicableDeps = new HashSet<Refinement>();
+        for (Refinement dep : dependencies) {
+            for (Context context : current) {
+                if (dep.getApplicableContext().contains(context) || dep.getApplicableContext().contains(null)) {
+                    applicableDeps.add(dep);
+                }
+            }
+        }
+        return applicableDeps;
     }
 
     public RuntimeAnnotation getRuntimeAnnotation() {
@@ -113,7 +131,6 @@ public class Goal extends Refinement {
         return chosenApproach;
     }
 
-    @Override
     public void addDependency(Refinement goal) {
         dependencies.add(goal);
         getRuntimeAnnotation().includeRefinement(goal, getRuntimeAnnotation().getRefinements().size());
@@ -137,5 +154,13 @@ public class Goal extends Refinement {
         }
 
         return approaches;
+    }
+
+    public int size() {
+        int amount = 1;
+        for (Refinement ref : dependencies) {
+            amount += ref.size();
+        }
+        return amount;
     }
 }
