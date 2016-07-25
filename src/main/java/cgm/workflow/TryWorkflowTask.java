@@ -2,41 +2,45 @@ package cgm.workflow;
 
 import cgm.Task;
 
+import java.util.HashSet;
+
 /**
  * Created by Felipe on 13/07/2016.
  */
 public class TryWorkflowTask extends WorkflowTask {
 
-    private Plan attempt;
-    private Plan ifSuccess;
-    private Plan ifFail;
+
+    private WorkflowTask initialTask;
+    private WorkflowTask endTask;
+    private Boolean achieved;
+    private HashSet<WorkflowTask> rescueTasks = new HashSet<>();
 
     public TryWorkflowTask(Task task) {
         super(task);
-        attempt = new Plan(task);
     }
 
-    public Plan getAttempt() {
-        return attempt;
+    @Override
+    public HashSet<WorkflowTask> getEnabledTasksSet() {
+        return getEnabledTasksSet();
     }
 
-    public void setAttempt(Plan attempt) {
-        this.attempt = attempt;
+    public HashSet<WorkflowTask> getRescueTasks() {
+        return rescueTasks;
     }
 
-    public Plan getIfSuccess() {
-        return ifSuccess;
+    public Boolean getAchieved() {
+        return achieved;
     }
 
-    public void setIfSuccess(Plan ifSuccess) {
-        this.ifSuccess = ifSuccess;
+    public void setAchieved(Boolean achieved) {
+        this.achieved = achieved;
     }
 
-    public Plan getIfFail() {
-        return ifFail;
-    }
+    public void addRescuePlan(Plan rescuePlan) {
+        for (WorkflowTask task : rescuePlan.getInitialTasks()) {
+            task.requires(this);
 
-    public void setIfFail(Plan ifFail) {
-        this.ifFail = ifFail;
+        }
+        rescueTasks.addAll(rescuePlan.getTasks());
     }
 }
