@@ -44,6 +44,12 @@ public class Goal extends Refinement {
         return dependencies;
     }
 
+    /**
+     * Given a context set "current", which dependencies can be applied?
+     * <p>
+     * Answer: Those that can always be applied (null context) and those
+     * applicable to an active context
+     */
     public Set<Refinement> getApplicableDependencies(Set<Context> current) {
 
         HashSet<Refinement> applicableDeps = new HashSet<Refinement>();
@@ -135,7 +141,6 @@ public class Goal extends Refinement {
         for (Context context : goal.getApplicableContexts()) {
             if (!dependenciesPerContext.containsKey(context)) {
                 ArrayList<Refinement> refinementArrayList = new ArrayList<>();
-                dependenciesPerContext.put(context, refinementArrayList);
                 dependenciesPerContext.put(context, refinementArrayList);
             }
             dependenciesPerContext.get(context).add(goal);

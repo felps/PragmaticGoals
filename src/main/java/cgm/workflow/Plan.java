@@ -179,7 +179,6 @@ public class Plan {
             checkFinalTasks();
         }
 
-
         finalTasks.addAll(plan.getFinalTasks());
         for (WorkflowTask task : plan.getTasks()) {
             tasks.put(task.getId(), task);

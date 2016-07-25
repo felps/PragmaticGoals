@@ -21,7 +21,6 @@ public class WorkflowTask {
     private Map<CompositeMetric, Double> qualityMeasures;
     private Task originalTask;
 
-
     public WorkflowTask(Task task) {
         requires = new HashSet<>();
         enables = new HashSet<>();
