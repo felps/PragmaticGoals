@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Felipe on 07/07/2016.
  *
- * Pragmatic Runtime to evaluate composite metrics evaluation in small models (3 nodes)
+ * pragmatic Runtime to evaluate composite metrics evaluation in small models (3 nodes)
  */
 public class PragmaticRuntimeCgmTest {
 

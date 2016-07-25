@@ -1,4 +1,4 @@
-package cgm.util.generator;
+package cgm.util.generator.pragmatic;
 
 import cgm.*;
 import cgm.metrics.Metric;
