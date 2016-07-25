@@ -3,12 +3,14 @@ package cgm.runtime.annotations;
 import cgm.Refinement;
 import cgm.Task;
 import cgm.workflow.Plan;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Math.pow;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -16,51 +18,70 @@ import static org.junit.Assert.assertEquals;
  */
 public class CardinalityAnnotationTest {
 
+    private Task t1;
+    private Map<Refinement, Plan> planMap;
+    private Plan plan1;
+    private CardinalityAnnotation seq;
+    private CardinalityAnnotation interleavedCardinalAnnotation;
 
-    @Test
-    public void shouldReturnNPlansForAnOrDecompositionTest() throws Exception {
-        Task t1 = new Task("iteracao");
+    @Before
+    public void setUp() throws Exception {
+        t1 = new Task("iteracao");
         t1.setTimeConsumed(15);
 
-        CardinalityAnnotation seq = new CardinalityAnnotation();
+        planMap = new HashMap<Refinement, Plan>();
+
+        plan1 = new Plan(t1);
+        planMap.put(t1, plan1);
+
+        seq = new SequentialCardinalAnnotation();
         seq.includeRefinement(t1, 0);
-        seq.setIterations(20);
 
-        Plan plan1 = new Plan(t1);
-
-        Map<Refinement, Plan> plans;
-        plans = new HashMap<Refinement, Plan>();
-        plans.put(t1, plan1);
-
-        List<Plan> possible = seq.getPossiblePlans(plans);
-
-        assertEquals(1, possible.size());
-        assertEquals(20, possible.get(0).getTasks().size());
-        //TODO resolver...
-        //assertEquals(15*20, possible.get(0).getTimeConsumed(), 0.1);
-
+        interleavedCardinalAnnotation = new InterleavedCardinalAnnotation();
+        interleavedCardinalAnnotation.includeRefinement(t1, 0);
     }
 
     @Test
-    public void shouldReturn1PlansForAnAndDecompositionTest() throws Exception {
-        Task t1 = new Task("iteracao");
-        t1.setTimeConsumed(15);
+    public void shouldCloneAPlan() throws Exception {
+        Plan p = new Plan(t1);
+        Plan clone = seq.clonePlan(p, 1);
 
-        CardinalityAnnotation seq = new CardinalityAnnotation();
-        seq.includeRefinement(t1, 0);
-        seq.setIterations(20);
+        assertEquals(p.getReliability(), clone.getReliability(), 0.01);
+        assertEquals(p.getTimeConsumed(), clone.getTimeConsumed(), 0.01);
+        assertEquals(p.getTasks().size(), clone.getTasks().size());
+    }
 
-        Plan plan1 = new Plan(t1);
+    @Test
+    public void shouldReturnNSequentialIterationsTest() throws Exception {
 
-        Map<Refinement, Plan> plans;
-        plans = new HashMap<Refinement, Plan>();
-        plans.put(t1, plan1);
+        int iterations = 50;
+        for (iterations = 1; iterations < 100; iterations++) {
+            seq.setIterations(iterations);
 
-        List<Plan> possible = seq.getPossiblePlans(plans);
+            List<Plan> possible = seq.getPossiblePlans(planMap);
 
-        assertEquals(1, possible.size());
-        assertEquals(20, possible.get(0).getTasks().size());
+            assertEquals(1, possible.size());
+            assertEquals(iterations, possible.get(0).getTasks().size());
 
+            assertEquals(15 * iterations, possible.get(0).getTimeConsumed(), 0.1);
+            assertEquals(plan1.getReliability(), pow(possible.get(0).getReliability(), iterations), 0.1);
+        }
+    }
+
+    @Test
+    public void shouldReturNParallelPlansTest() throws Exception {
+        int replicas = 1;
+
+        for (replicas = 1; replicas < 100; replicas++) {
+            interleavedCardinalAnnotation.setIterations(replicas);
+
+            List<Plan> possible = interleavedCardinalAnnotation.getPossiblePlans(planMap);
+
+            assertEquals(1, possible.size());
+            assertEquals(replicas, possible.get(0).getTasks().size());
+            assertEquals(plan1.getReliability(), pow(possible.get(0).getReliability(), replicas), 0.1);
+            assertEquals(plan1.getTimeConsumed(), possible.get(0).getTimeConsumed(), 0.01);
+        }
     }
 
 
