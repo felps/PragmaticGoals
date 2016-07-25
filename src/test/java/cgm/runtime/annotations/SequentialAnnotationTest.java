@@ -45,31 +45,4 @@ public class SequentialAnnotationTest {
         assertTrue(possible.get(0).getTasks().contains(t1.getWorkflowTask()));
         assertTrue(possible.get(0).getTasks().contains(t2.getWorkflowTask()));
     }
-
-
-    @Test
-    public void shouldReturnThreePlansForOrDecompositions() {
-        Task t1 = new Task("T1");
-        Task t2 = new Task("T2");
-
-        SequentialAnnotation seq = new SequentialAnnotation();
-        seq.setGoalType(Goal.OR);
-        seq.includeRefinement(t1, 0);
-        seq.includeRefinement(t1, 1);
-
-        Plan plan1 = new Plan(t1);
-        Plan plan2 = new Plan(t2);
-
-        Map<Refinement, Plan> plans;
-        plans = new HashMap<Refinement, Plan>();
-        plans.put(t1, plan1);
-        plans.put(t2, plan2);
-
-        List<Plan> possible = seq.getPossiblePlans(plans);
-
-        assertEquals(3, possible.size());
-        for (Plan p : possible) {
-            assertTrue(p.getTasks().contains(t1.getWorkflowTask()) || p.getTasks().contains(t2.getWorkflowTask()));
-        }
-    }
 }

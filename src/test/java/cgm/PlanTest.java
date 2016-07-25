@@ -84,36 +84,36 @@ public void shouldAddAnotherTaskSequentially() {
         assertTrue("Task2 was not set as final", initialPlan.getFinalTasks().contains(task2.getWorkflowTask()));
 
     }
-//
-@Test
-public void shouldAddAnotherTaskInterleaved() {
-    Task cgmTask1 = new Task();
-    Task cgmTask2 = new Task();
-    cgmTask1.setIdentifier("initial1");
-    cgmTask2.setIdentifier("initial2");
 
-    WorkflowTask task1 = cgmTask1.getWorkflowTask();
-    WorkflowTask task2 = cgmTask2.getWorkflowTask();
+    @Test
+    public void shouldAddAnotherTaskInterleaved() {
+        Task cgmTask1 = new Task();
+        Task cgmTask2 = new Task();
+        cgmTask1.setIdentifier("initial1");
+        cgmTask2.setIdentifier("initial2");
 
-    Plan plan2 = new Plan(cgmTask1);
-    Plan plan = new Plan(cgmTask2);
+        WorkflowTask task1 = cgmTask1.getWorkflowTask();
+        WorkflowTask task2 = cgmTask2.getWorkflowTask();
 
-    plan.addParallel(plan2);
+        Plan plan2 = new Plan(cgmTask1);
+        Plan plan = new Plan(cgmTask2);
 
-    // Test if it was added
-    assertEquals("A Task was not added", 2, plan.getTasks().size());
-    // Test if it is an initial tasks
-    assertTrue("Task1 was not set as initial", plan.getInitialTasks().contains(task1));
-    assertTrue("Task2 was not set as initial", plan.getInitialTasks().contains(task2));
-    // Test if it is a final task
-    assertTrue("Task1 was not set as final", plan.getFinalTasks().contains(task1));
-    assertTrue("Task2 was not set as final", plan.getFinalTasks().contains(task2));
-    // Test if the chaining was correct
-    assertTrue("Task2 is not enabled by task1", !task1.getEnabledTasksSet().contains(task2));
-    assertTrue("Task1 is not a prerequisite for task2", !task2.getRequiredTasksSet().contains(task1));
-    assertTrue("Task1 is not enabled by task2", !task2.getEnabledTasksSet().contains(task1));
-    assertTrue("Task2 is not a prerequisite for task1", !task1.getRequiredTasksSet().contains(task2));
-}
+        plan.addParallel(plan2);
+
+        // Test if it was added
+        assertEquals("A Task was not added", 2, plan.getTasks().size());
+        // Test if it is an initial tasks
+        assertTrue("Task1 was not set as initial", plan.getInitialTasks().contains(task1));
+        assertTrue("Task2 was not set as initial", plan.getInitialTasks().contains(task2));
+        // Test if it is a final task
+        assertTrue("Task1 was not set as final", plan.getFinalTasks().contains(task1));
+        assertTrue("Task2 was not set as final", plan.getFinalTasks().contains(task2));
+        // Test if the chaining was correct
+        assertTrue("Task2 is not enabled by task1", !task1.getEnabledTasksSet().contains(task2));
+        assertTrue("Task1 is not a prerequisite for task2", !task2.getRequiredTasksSet().contains(task1));
+        assertTrue("Task1 is not enabled by task2", !task2.getEnabledTasksSet().contains(task1));
+        assertTrue("Task2 is not a prerequisite for task1", !task1.getRequiredTasksSet().contains(task2));
+    }
 
     @Test
     public void shouldAddASerialPlan() {
@@ -168,7 +168,6 @@ public void shouldAddAnotherTaskInterleaved() {
 
 
     }
-    // TODO Add a test to verify that an empty plan serially added another plan maintais the initial tasks correctly.
 
     @Test
     public void shouldAddAPlanToAnEmptyPlanCorrectly() throws Exception {

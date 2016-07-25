@@ -2,12 +2,13 @@ package experiment.pragmatic.Scalability;
 
 import cgm.CGM;
 import cgm.Context;
-import cgm.util.generator.RandomCGMGenerator;
+import cgm.util.generator.pragmatic.RandomCGMGenerator;
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
@@ -21,16 +22,19 @@ public class ScalabilityEvaluationRandomModels {
 		int round = 1;
 		int contexts = 10;
 		for (int model = 10; model < 10000; model += 100) {
-			executeScientificalEvaluation("" + 1, contexts, model);
-		}
+            executeScientificalEvaluation("" + 1, contexts, model, 10, 10);
+        }
 	}
 
     @Test
     public void scalabilityTestContextSize() {
 
 		int round = 1, model = 1000;
-		for (int contexts = 10; contexts < 10000; contexts += 100) {
-            executeScientificalEvaluation("Evaluation: " + contexts + " model size: " + model, contexts, model);
+        for (int i = 1; i < 20; i++) {
+            int contextAmount = i * 100;
+            String message = "Evaluation:\n Contexts: " + contextAmount + " model size: " + model + "\n";
+
+            executeScientificalEvaluation(message, contextAmount, model, 10, 10);
         }
 	}
 
@@ -99,11 +103,13 @@ public class ScalabilityEvaluationRandomModels {
         System.out.println("Scalability Evaluation - Varying Model and Context amounts");
         System.out.println("Experiment executed on " + (new Date()).toString());
 
-        executeScientificalEvaluation("", 1, 10);
+        executeScientificalEvaluation("", 1, 10, 10, 10);
 
         for (int contexts = 1; contexts < 30; contexts++) {
-            for (int model = 100; model < 5000; model += 100) {
-                executeScientificalEvaluation("", contexts, model);
+            for (int modelSize = 100; modelSize < 5000; modelSize += 100) {
+                int modelAmount = 10;
+                int repetitions = 10;
+                executeScientificalEvaluation("", contexts, modelSize, modelAmount, repetitions);
             }
         }
     }
@@ -163,8 +169,7 @@ public class ScalabilityEvaluationRandomModels {
 
     }
 
-    private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize) {
-        long accumulated = 0;
+    private void executeScientificalEvaluation(String experimentId, int contextAmount, int modelSize, int modelAmount, int repetitions) {
         boolean achievable = false;
 
         RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
@@ -175,9 +180,7 @@ public class ScalabilityEvaluationRandomModels {
             fail();
         }
 
-        int modelAmount = 10;
-        int repetitions = 10;
-
+        long accumulated = 0;
         for (int i = 0; i < modelAmount; i++) {
             // Setup Model
             CGM cgm = cgmFactory.generateRandomCGM(modelSize, contextAmount);
@@ -195,11 +198,10 @@ public class ScalabilityEvaluationRandomModels {
 
         }
 
-        // Print result
-
         long timePerExecutionInNs = accumulated / (modelAmount * repetitions); // TimeMetric in nanosseconds for each execution
-        long timeInMs = accumulated / (modelAmount * repetitions * 1000); // TimeMetric in milliseconds
+        long durationInMs = TimeUnit.MILLISECONDS.convert(timePerExecutionInNs, TimeUnit.NANOSECONDS);
 
+        // Print result
         System.out.print(experimentId + " ");
 
         if (achievable) {
@@ -208,7 +210,7 @@ public class ScalabilityEvaluationRandomModels {
         } else
             System.out.print("unachievable ");
 
-        System.out.println(modelSize + " " + contextAmount + " " + timeInMs + " ms " + timePerExecutionInNs + " ns");
+        System.out.println(modelSize + " " + contextAmount + " " + durationInMs + " ms " + timePerExecutionInNs + " ns");
 
     }
 

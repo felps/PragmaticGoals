@@ -1,6 +1,7 @@
 package cgm.util.generator;
 
 import cgm.*;
+import cgm.util.generator.pragmatic.WorstCaseCGMGenerator;
 import org.junit.Test;
 
 import java.util.HashSet;

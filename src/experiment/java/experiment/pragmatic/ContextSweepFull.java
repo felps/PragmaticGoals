@@ -2,7 +2,7 @@ package experiment.pragmatic;
 
 import cgm.CGM;
 import cgm.Context;
-import cgm.util.generator.RandomCGMGenerator;
+import cgm.util.generator.pragmatic.RandomCGMGenerator;
 
 import java.util.Date;
 import java.util.HashSet;
