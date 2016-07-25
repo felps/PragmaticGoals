@@ -16,11 +16,6 @@ import java.util.Map;
 public class SequentialAnnotation extends RuntimeAnnotation {
     private static final Logger logger = LogManager.getLogger(Goal.class);
 
-
-    public int getType() {
-        return Sequential;
-    }
-
     @Override
     public synchronized List<Plan> getPossiblePlans(Map<Refinement, Plan> approaches) {
 

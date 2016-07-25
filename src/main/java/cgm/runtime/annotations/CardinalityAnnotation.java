@@ -1,46 +1,20 @@
 package cgm.runtime.annotations;
 
-import cgm.Refinement;
 import cgm.workflow.Plan;
 import cgm.workflow.WorkflowTask;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Felipe on 12/07/2016.
  */
-public class CardinalityAnnotation extends RuntimeAnnotation {
+public abstract class CardinalityAnnotation extends RuntimeAnnotation {
+    protected int iterations = 1;
     private boolean sequential = false;
-    private int iterations = 1;
 
-    @Override
     public int getType() {
         if (isSequential())
             return RuntimeAnnotation.SequentiallyIterated;
         else
             return RuntimeAnnotation.InterleavedIterated;
-    }
-
-    @Override
-    public List<Plan> getPossiblePlans(Map<Refinement, Plan> approaches) {
-        int i;
-        ArrayList<Plan> list = new ArrayList<Plan>();
-
-        if (getRefinements().size() == 0)
-            return null;
-
-        Plan fullPlan = approaches.get(getRefinements().get(0));
-        for (i = 1; i < iterations; i++) {
-            Plan plan = clonePlan(fullPlan);
-            if (isSequential())
-                fullPlan.addSerial(plan);
-            else
-                fullPlan.addParallel(plan);
-        }
-        list.add(fullPlan);
-        return list;
     }
 
     public boolean isSequential() {
@@ -51,12 +25,11 @@ public class CardinalityAnnotation extends RuntimeAnnotation {
         this.iterations = iterations;
     }
 
-    private Plan clonePlan(Plan originalPlan) {
-        int i = 0;
+    protected Plan clonePlan(Plan originalPlan, int iterationCopy) {
         Plan clonedPlan = new Plan();
         for (WorkflowTask wfTask : originalPlan.getTasks()) {
             WorkflowTask clonedWorkflowTask = new WorkflowTask(wfTask.getOriginalTask());
-            clonedWorkflowTask.setIterationCopy(i++);
+            clonedWorkflowTask.setIterationCopy(iterationCopy++);
 
             clonedPlan.getTasksMap().put(clonedWorkflowTask.getId(), clonedWorkflowTask);
 

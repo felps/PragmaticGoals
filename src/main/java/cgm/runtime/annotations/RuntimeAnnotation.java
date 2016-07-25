@@ -43,8 +43,6 @@ public abstract class RuntimeAnnotation {
         sequence.add(refinement);
     }
 
-    public abstract int getType();
-
     public abstract List<Plan> getPossiblePlans(Map<Refinement, Plan> approaches);
 
 }
