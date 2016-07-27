@@ -48,7 +48,7 @@ public abstract class Refinement {
 
 	}
 
-	public void addApplicableContext(HashSet<Context> contextSet) {
+	public void addApplicableContext(Set<Context> contextSet) {
 		applicableContexts.addAll(contextSet);
 	}
 
