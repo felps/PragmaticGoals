@@ -4,15 +4,25 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%msg (%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} )%n"/>
         </Console>
+
+        <File name="Experiments1" fileName="./logs/experiments/experimentalLog.log">
+            <PatternLayout pattern="%d{${datestamp}} [%t] %-5level %logger{36} - %msg %n"/>
+        </File>
+
+
+        <File name="Experiments2" fileName="./logs/experiments/experimentalLogParseable.log">
+            <PatternLayout pattern="%m %n"/>
+        </File>
+
     </Appenders>
     <Loggers>
-        <Root level="error">
+        <Logger name="experiment.runtime.SensitivityAnalysis.SensitivityAnalysisEvaluation" level ="TRACE" >
+            <AppenderRef ref="Experiments1"/>
+            <AppenderRef ref="Experiments2"/>
+        </Logger>
+
+        <Root level="ERROR">
             <AppenderRef ref="Console"/>
         </Root>
-        <appenders>
-            <RollingFile name="Experiments" fileName="${sys:experimentLogFilename}">
-                <PatternLayout pattern="%-4r %d{${datestamp}} [%t] %-5level %logger{36} - %msg%n"/>
-            </RollingFile>
-        </appenders>
     </Loggers>
 </Configuration>
