@@ -24,7 +24,7 @@ public abstract class CGMGenerator {
 		return cgm;
 	}
 
-	private Refinement generateDeps(int refinementsAmount, Set<Context> possibleContexts) {
+	protected Refinement generateDeps(int refinementsAmount, Set<Context> possibleContexts) {
 		int depAmount = getRandomRefinementsUpTo(refinementsAmount);
 		if (refinementsAmount == 0)
 			return null;
