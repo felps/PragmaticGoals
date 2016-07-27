@@ -9,5 +9,10 @@
         <Root level="error">
             <AppenderRef ref="Console"/>
         </Root>
+        <appenders>
+            <RollingFile name="Experiments" fileName="${sys:experimentLogFilename}">
+                <PatternLayout pattern="%-4r %d{${datestamp}} [%t] %-5level %logger{36} - %msg%n"/>
+            </RollingFile>
+        </appenders>
     </Loggers>
 </Configuration>
