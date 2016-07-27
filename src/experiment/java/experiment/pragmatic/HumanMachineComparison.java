@@ -1,8 +1,8 @@
 package experiment.pragmatic;
 
-import cgm.*;
-import cgm.metrics.Metric;
-import cgm.quality.FilterQualityConstraint;
+import pragmatic.*;
+import pragmatic.metrics.Metric;
+import pragmatic.quality.FilterQualityConstraint;
 import org.junit.Before;
 import org.junit.Test;
 

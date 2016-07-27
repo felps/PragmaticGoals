@@ -1,15 +1,15 @@
 package experiment.runtime;
 
-import cgm.Comparison;
-import cgm.Goal;
-import cgm.Interpretation;
-import cgm.Task;
-import cgm.metrics.Metric;
-import cgm.quality.CompositeQualityConstraint;
-import cgm.runtime.annotations.AlternativeAnnotation;
-import cgm.runtime.annotations.InterleavedAnnotation;
-import cgm.runtime.annotations.SequentialAnnotation;
-import cgm.workflow.Plan;
+import pragmatic.Comparison;
+import pragmatic.Goal;
+import pragmatic.Interpretation;
+import pragmatic.Task;
+import pragmatic.metrics.Metric;
+import pragmatic.quality.CompositeQualityConstraint;
+import pragmatic.runtime.annotations.AlternativeAnnotation;
+import pragmatic.runtime.annotations.InterleavedAnnotation;
+import pragmatic.runtime.annotations.SequentialAnnotation;
+import pragmatic.workflow.Plan;
 import org.junit.Before;
 import org.junit.Test;
 

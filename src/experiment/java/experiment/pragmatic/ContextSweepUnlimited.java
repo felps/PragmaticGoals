@@ -1,8 +1,8 @@
 package experiment.pragmatic;
 
-import cgm.CGM;
-import cgm.Context;
-import cgm.util.generator.pragmatic.RandomCGMGenerator;
+import pragmatic.CGM;
+import pragmatic.Context;
+import pragmatic.util.generator.pragmatic.RandomCGMGenerator;
 import org.junit.Test;
 
 import java.util.Date;

@@ -1,10 +1,10 @@
 package experiment.pragmatic;
 
-import cgm.*;
-import cgm.metrics.Metric;
-import cgm.quality.FilterQualityConstraint;
-import cgm.workflow.Plan;
-import cgm.workflow.WorkflowTask;
+import pragmatic.*;
+import pragmatic.metrics.Metric;
+import pragmatic.quality.FilterQualityConstraint;
+import pragmatic.workflow.Plan;
+import pragmatic.workflow.WorkflowTask;
 import org.junit.Before;
 import org.junit.Test;
 
