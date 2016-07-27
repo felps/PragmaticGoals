@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  *
  * pragmatic Runtime to evaluate composite metrics evaluation in small models (3 nodes)
  */
-public class PragmaticRuntimeCgmTest {
+public class PragmaticRuntimeCGMTest {
 
     private Task t1, t2;
     private Goal rootAnd, rootOr;
