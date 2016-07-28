@@ -28,8 +28,10 @@ public class TryAnnotation extends RuntimeAnnotation {
 
         if (tryPlan.isAchievable()) {
             tryPlan.addSerial(thenPlan);
+            tryPlan.setAchievable(thenPlan.isAchievable());
         } else {
             tryPlan.addSerial(elsePlan);
+            tryPlan.setAchievable(elsePlan.isAchievable());
         }
 
         ArrayList<Plan> plans = new ArrayList<>(1);
