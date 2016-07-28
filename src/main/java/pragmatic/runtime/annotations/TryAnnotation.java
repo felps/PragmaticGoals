@@ -26,13 +26,22 @@ public class TryAnnotation extends RuntimeAnnotation {
             return null;
         }
 
-        if (tryPlan.isAchievable()) {
-            tryPlan.addSerial(thenPlan);
-        } else {
-            tryPlan.addSerial(elsePlan);
+        ArrayList<Plan> plans = new ArrayList<>(1);
+        if(tryPlan == null && elsePlan != null){
+            plans.add(elsePlan);
+            return plans;
         }
 
-        ArrayList<Plan> plans = new ArrayList<>(1);
+        if (tryPlan.isAchievable()) {
+            tryPlan.addSerial(thenPlan);
+            tryPlan.setAchievable(thenPlan.isAchievable());
+        } else {
+            if(elsePlan != null) {
+                tryPlan.addSerial(elsePlan);
+                tryPlan.setAchievable(elsePlan.isAchievable());
+            } else return null;
+        }
+
         plans.add(tryPlan);
 
         return plans;
