@@ -16,7 +16,7 @@
 
     </Appenders>
     <Loggers>
-        <Logger name="experiment.runtime.SensitivityAnalysis.SensitivityAnalysisEvaluation" level ="TRACE" >
+        <Logger name="SensitivityAnalysisEvaluation" level ="TRACE" >
             <AppenderRef ref="Experiments1"/>
             <AppenderRef ref="Experiments2"/>
         </Logger>
