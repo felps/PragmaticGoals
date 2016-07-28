@@ -29,7 +29,7 @@ public abstract class CardinalityAnnotation extends RuntimeAnnotation {
         Plan clonedPlan = new Plan();
         for (WorkflowTask wfTask : originalPlan.getTasks()) {
             WorkflowTask clonedWorkflowTask = new WorkflowTask(wfTask.getOriginalTask());
-            clonedWorkflowTask.setIterationCopy(iterationCopy++);
+            clonedWorkflowTask.setIterationCopy(iterationCopy);
 
             clonedPlan.getTasksMap().put(clonedWorkflowTask.getId(), clonedWorkflowTask);
 
@@ -41,10 +41,7 @@ public abstract class CardinalityAnnotation extends RuntimeAnnotation {
             }
         }
 
-        for (WorkflowTask wfTask : originalPlan.getTasks()) {
-
-            clonedPlan.getQualityMeasures().putAll(originalPlan.getQualityMeasures());
-        }
+        clonedPlan.getQualityMeasures().putAll(originalPlan.getQualityMeasures());
 
         return clonedPlan;
     }

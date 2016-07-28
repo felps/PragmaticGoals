@@ -8,6 +8,7 @@ import pragmatic.metrics.types.TimeMetric;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.swing.*;
 import java.util.*;
 
 public class Plan {
@@ -207,15 +208,21 @@ public class Plan {
 
     private synchronized void checkFinalTasks() {
         int i;
+        Set<WorkflowTask> tasksToBeRemoved = new HashSet<>();
         for (WorkflowTask task : getFinalTasks()) {
             if (!task.getEnabledTasksSet().isEmpty()) {
-                removeFinalTask(task);
+                tasksToBeRemoved.add(task);
             }
         }
+        removeFinalTask(tasksToBeRemoved);
     }
 
     private boolean removeFinalTask(WorkflowTask task) {
         return finalTasks.remove(task);
+    }
+
+    private boolean removeFinalTask(Set<WorkflowTask> task) {
+        return finalTasks.removeAll(task);
     }
 
     public void addParallel(Plan plan) {

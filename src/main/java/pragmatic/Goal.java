@@ -91,6 +91,7 @@ public class Goal extends Refinement {
             List<Plan> approaches = getRuntimeAnnotation().getPossiblePlans(refinementPlans);
 
             Plan chosenApproach = null;
+            if(approaches == null) return null;
 
             for (Plan currentApproach : approaches) {
                 if (currentApproach != null) {

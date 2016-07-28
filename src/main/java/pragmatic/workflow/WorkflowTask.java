@@ -80,4 +80,17 @@ public class WorkflowTask {
     public Map<CompositeMetric, Double> getQualityMeasures() {
         return qualityMeasures;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof WorkflowTask){
+            WorkflowTask wf = (WorkflowTask) obj;
+            if(wf.getOriginalTask().equals(this.getOriginalTask()) &&
+                    wf.getIterationCopy() == this.getIterationCopy() &&
+                    wf.getIdentifier().equals(this.getIdentifier())){
+                        return true;
+            }
+        }
+        return false;
+    }
 }
