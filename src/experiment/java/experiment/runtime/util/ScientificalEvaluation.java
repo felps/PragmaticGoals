@@ -17,16 +17,15 @@ public class ScientificalEvaluation {
     public CGMGenerator generator;
 
     public String experimentId = "";
-    public int modelAmount = 1;
+    public int generatedModelsAmount = 1;
     public int minModelSize = 1;
     public int modelStep = 1;
     public int maxModelSize = 1;
 
-
     public int contextAmount = 10;
     public int repetitions;
 
-    public ScientificalEvaluation(CGMGenerator generator){
+    public ScientificalEvaluation(CGMGenerator generator) {
         this.generator = generator;
     }
 
@@ -37,17 +36,17 @@ public class ScientificalEvaluation {
             int modelSize;
             boolean achievable = false;
 
-            for(modelSize=minModelSize;modelSize<maxModelSize;modelSize+= modelStep) {
+            Set<Context> current = generateContextSet(contextAmount);
+
+            for (modelSize = minModelSize; modelSize <= maxModelSize; modelSize += modelStep) {
                 long accumulated = 0;
-                for(i=0;i<modelAmount;i++) {
+                for (i = 0; i < generatedModelsAmount; i++) {
 
                     // Setup Model
                     CGM cgm = generator.generateCGM(modelSize, contextAmount);
 
-                    Set<Context> current = generateContextSet(contextAmount);
 
                     long start = System.nanoTime();
-
                     for (int j = 0; j < repetitions; j++) {
                         // Execute test
                         cgm.isAchievable(current, null);
@@ -60,14 +59,13 @@ public class ScientificalEvaluation {
 
                     if (accumulated < 0)
                         throw new ArithmeticException("TimeMetric evaluation Overflow");
-                    // Print result
-
                 }
 
-                long timePerExecutionInNs = accumulated / repetitions; // TimeMetric in nanosseconds for each execution
+                // Print result
+                long timePerExecutionInNs = accumulated / (repetitions* generatedModelsAmount); // TimeMetric in nanosseconds for each execution
                 long durationInMs = TimeUnit.MILLISECONDS.convert(timePerExecutionInNs, TimeUnit.NANOSECONDS);
 
-                logger.trace(experimentId + " " + modelSize + " " + contextAmount + " " + durationInMs);
+                logger.trace(experimentId + ": " + modelSize + " " + contextAmount + " " + durationInMs);
 
 //                if (achievable) {
 //                    logger.trace(experimentId + " achievable");
@@ -85,7 +83,7 @@ public class ScientificalEvaluation {
 
         HashSet<Context> allContexts = new HashSet<Context>();
 
-        for(int contextIndex=1;contextIndex<=contextAmount;contextIndex++){
+        for (int contextIndex = 1; contextIndex <= contextAmount; contextIndex++) {
             allContexts.add(new Context("c" + contextIndex));
         }
 

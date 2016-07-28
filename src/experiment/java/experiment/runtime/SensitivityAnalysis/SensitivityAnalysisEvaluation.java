@@ -22,7 +22,7 @@ public class SensitivityAnalysisEvaluation {
     private int modelStep = 500;
 
     private final int repetitionAmount = 50;
-    private int maxContexts = 5;
+    private int maxContexts = 10;
 
 
     @Test
@@ -115,7 +115,7 @@ public class SensitivityAnalysisEvaluation {
 
         logger.trace( "Beginning " + ID + " evaluation");
 
-        for(evaluation.contextAmount=1; evaluation.contextAmount<= maxContexts; evaluation.contextAmount++)
+        for(evaluation.contextAmount=5; evaluation.contextAmount<= maxContexts; evaluation.contextAmount++)
             evaluation.executeScientificalEvaluation(logger);
 
         logger.trace( "End " + ID + " evaluation");
