@@ -1,4 +1,4 @@
-package experiment.runtime.SensitivityAnalysis;
+package experiment.runtime.sensitivity.analysis;
 
 import experiment.runtime.util.AnnotatedGoalGenerator;
 import experiment.runtime.util.IteratedGoalGenerator;
