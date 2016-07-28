@@ -18,12 +18,17 @@ public class IteratedGoalGenerator extends CGMGenerator {
 
     private boolean decomposition;
     private RuntimeAnnotation runtimeAnnotation;
+    private CardinalityAnnotation iterationRuntimeAnnotation;
 
     public int timeConsumedInSeconds = 10;
     public double reliability = 0.999;
+    private int iterations = 1;
 
     public IteratedGoalGenerator(RuntimeAnnotation annotation, boolean goalDecomposition) {
         if(annotation instanceof CardinalityAnnotation) {
+            CardinalityAnnotation cardinalityAnnotation = (CardinalityAnnotation) annotation;
+            iterationRuntimeAnnotation = cardinalityAnnotation;
+
             if(goalDecomposition)
                 runtimeAnnotation = new SequentialAnnotation();
             else
@@ -53,7 +58,12 @@ public class IteratedGoalGenerator extends CGMGenerator {
 
         Pragmatic pragmaticGoal = new Pragmatic(decomposition);
 
-        pragmaticGoal.setRuntimeAnnotation(runtimeAnnotation);
+        try {
+            RuntimeAnnotation clone = ((RuntimeAnnotation) runtimeAnnotation.clone());
+            pragmaticGoal.setRuntimeAnnotation(clone);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
 
         for (Context context : possibleContexts) {
             pragmaticGoal.addApplicableContext(context);
@@ -73,12 +83,13 @@ public class IteratedGoalGenerator extends CGMGenerator {
         if (refinementsAmount == 0)
             return null;
 
-        if (refinementsAmount == 1) {
-            Goal iteratedGoal = new Goal(Goal.AND);
-            SequentialCardinalAnnotation iteration = new SequentialCardinalAnnotation();
-            iteration.setIterations(1);
+        if (refinementsAmount <= 2 ) {
+            Goal iteratedGoal = new Goal(Goal.OR);
+            iterationRuntimeAnnotation.setIterations(iterations);
+            RuntimeAnnotation iteration = iterationRuntimeAnnotation;
             iteratedGoal.setRuntimeAnnotation(iteration);
             iteratedGoal.addDependency(generateTask(possibleContexts));
+            return iteratedGoal;
         }
 
         Goal root = generateGoal(possibleContexts);
@@ -94,7 +105,6 @@ public class IteratedGoalGenerator extends CGMGenerator {
                 dependency = generateDeps(temp, possibleContexts);
                 root.addDependency(dependency);
             }
-
         }
 
         return root;
@@ -103,7 +113,7 @@ public class IteratedGoalGenerator extends CGMGenerator {
 
     @Override
     protected int getRandomRefinementsUpTo(int maxRefinements) {
-        return 2;
+        return dependenciesPerNode;
     }
 
 }

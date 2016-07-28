@@ -48,7 +48,12 @@ public class AnnotatedGoalGenerator extends CGMGenerator {
 
         Pragmatic pragmaticGoal = new Pragmatic(decomposition);
 
-        pragmaticGoal.setRuntimeAnnotation(runtimeAnnotation);
+        try {
+            RuntimeAnnotation clone = ((RuntimeAnnotation) runtimeAnnotation.clone());
+            pragmaticGoal.setRuntimeAnnotation(clone);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
 
         for (Context context : possibleContexts) {
             pragmaticGoal.addApplicableContext(context);
@@ -64,7 +69,7 @@ public class AnnotatedGoalGenerator extends CGMGenerator {
 
     @Override
     protected int getRandomRefinementsUpTo(int maxRefinements) {
-        return 2;
+        return dependenciesPerNode;
     }
 
 }

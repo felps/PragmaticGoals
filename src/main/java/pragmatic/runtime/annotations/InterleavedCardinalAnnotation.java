@@ -20,15 +20,16 @@ public class InterleavedCardinalAnnotation extends CardinalityAnnotation {
         if (getRefinements().size() == 0)
             return null;
 
-        Plan fullPlan = clonePlan(approaches.get(getRefinements().get(0)), 0);
-        Plan originalVersion = approaches.get(getRefinements().get(0));
+        Plan originalPlan = approaches.get(getRefinements().get(0));
+        if (originalPlan != null) {
+            Plan fullPlan = clonePlan(originalPlan, 0);
 
-        for (i = 1; i < super.iterations; i++) {
-            Plan plan = clonePlan(originalVersion, i);
-            fullPlan.addParallel(plan);
+            for (i = 1; i < super.iterations; i++) {
+                Plan plan = clonePlan(originalPlan, i);
+                fullPlan.addParallel(plan);
+            }
+            list.add(fullPlan);
         }
-        list.add(fullPlan);
         return list;
     }
-
 }

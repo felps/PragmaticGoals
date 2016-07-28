@@ -22,9 +22,11 @@ public class SequentialCardinalAnnotation extends CardinalityAnnotation {
 
         Plan fullPlan = new Plan();
         Plan originalClone = approaches.get(getRefinements().get(0));
-        for (i = 0; i < super.iterations; i++) {
-            Plan plan = clonePlan(originalClone, i);
-            fullPlan.addSerial(plan);
+        if(originalClone!=null) {
+            for (i = 0; i < super.iterations; i++) {
+                Plan plan = clonePlan(originalClone, i);
+                fullPlan.addSerial(plan);
+            }
         }
         list.add(fullPlan);
         return list;

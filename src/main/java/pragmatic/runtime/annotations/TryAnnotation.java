@@ -22,6 +22,9 @@ public class TryAnnotation extends RuntimeAnnotation {
         Plan thenPlan = approaches.get(thenRequirement);
         Plan elsePlan = approaches.get(elseRequirement);
 
+        if(tryPlan == null && elsePlan == null){
+            return null;
+        }
 
         if (tryPlan.isAchievable()) {
             tryPlan.addSerial(thenPlan);

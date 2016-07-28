@@ -22,9 +22,7 @@ public class AlternativeAnnotation extends RuntimeAnnotation {
     @Override
     public List<Plan> getPossiblePlans(Map<Refinement, Plan> approaches) {
         List<Plan> alternatives = new ArrayList<Plan>();
-        for (Refinement ref : getRefinements()) {
-            alternatives.add(approaches.get(ref));
-        }
+        alternatives.addAll(approaches.values());
         return alternatives;
     }
 
