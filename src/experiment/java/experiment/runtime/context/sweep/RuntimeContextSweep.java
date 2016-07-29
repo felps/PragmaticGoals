@@ -18,20 +18,17 @@ public class RuntimeContextSweep {
 
     Logger logger = LogManager.getLogger();
 
-    private int minModelSize = 500;
+    private int minModelSize = 100;
     private int maxModelSize = 10000;
-    private int modelStep = 500;
-    private int repetitionAmount = 100;
+    private int modelStep = 100;
+    private int repetitionAmount = 1;
     private int modelAmount = 10;
     private int contexts = 10;
-
-
-    private int contextSet = 0;
 
     @Test
     public void scalabilityTestContextSweep() {
 
-        logger.trace("Scalability Evaluation - Context sweep capability with 20 context set");
+        System.out.println("Scalability Evaluation - Context sweep capability with 20 context set");
 
         CGMGenerator modelGenerator;
 
@@ -54,29 +51,13 @@ public class RuntimeContextSweep {
         evaluation.generatedModelsAmount = modelAmount;
         evaluation.contextAmount = contexts;
 
+        System.out.println("Beginning " + ID + " evaluation");
+
         logger.trace( "Beginning " + ID + " evaluation");
 
-        evaluation.executeScientificalEvaluation(logger);
+        evaluation.executeSweep(logger);
 
         logger.trace( "End " + ID + " evaluation");
     }
 
-
-    private Set<Context> generateNextContextSet(int contextAmount) {
-        long limit;
-        HashSet<Context> contexts = new HashSet<Context>();
-        int currentSet = contextSet;
-        limit = (long) Math.pow(2, contextAmount);
-        for (int i = 0; i < contextAmount; i++) {
-            if (currentSet % 2 != 0) {
-                contexts.add(new Context("c" + (contextAmount - i)));
-                //System.out.println("c" + (contextAmount - i));
-            }
-            currentSet /= 2;
-        }
-
-        //contexts.add(null);
-        contextSet++;
-        return contexts;
-    }
 }
