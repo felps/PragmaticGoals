@@ -1,9 +1,10 @@
 package experiment.pragmatic.Scalability;
 
+import org.apache.logging.log4j.*;
+import org.junit.Test;
 import pragmatic.CGM;
 import pragmatic.Context;
 import pragmatic.util.generator.pragmatic.RandomCGMGenerator;
-import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -14,7 +15,9 @@ import static org.junit.Assert.*;
 
 public class ScalabilityEvaluationRandomModels {
 
-	RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
+    private static final Marker EXP_MARKER = MarkerManager.getMarker("EXPERIMENTS");
+    Logger logger = LogManager.getLogger();
+    RandomCGMGenerator cgmFactory = new RandomCGMGenerator();
 
     @Test
     public void scalabilityTestModelSize() {
@@ -31,7 +34,7 @@ public class ScalabilityEvaluationRandomModels {
 
 		int round = 1, model = 1000;
         for (int i = 1; i < 20; i++) {
-            int contextAmount = i * 100;
+            int contextAmount = i;
             String message = "Evaluation:\n Contexts: " + contextAmount + " model size: " + model + "\n";
 
             executeScientificalEvaluation(message, contextAmount, model, 10, 10);
@@ -100,8 +103,8 @@ public class ScalabilityEvaluationRandomModels {
     @Test
     public void scalabilityTestModelAndContextSize() {
 
-        System.out.println("Scalability Evaluation - Varying Model and Context amounts");
-        System.out.println("Experiment executed on " + (new Date()).toString());
+        logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "Scalability Evaluation - Varying Model and Context amounts");
+        logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "Experiment executed on " + (new Date()).toString());
 
         executeScientificalEvaluation("", 1, 10, 10, 10);
 
@@ -117,8 +120,8 @@ public class ScalabilityEvaluationRandomModels {
     @Test
     public void testSingleModelAndContextSize() {
 
-        System.out.println("Scalability Evaluation - Varying Model and Context amounts");
-        System.out.println("Experiment executed on " + (new Date()).toString());
+        logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "Scalability Evaluation - Varying Model and Context amounts");
+        logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "Experiment executed on " + (new Date()).toString());
 
         long accumulated = 0;
         boolean achievable = false;
@@ -128,7 +131,7 @@ public class ScalabilityEvaluationRandomModels {
         Set<Context> current = generateCompleteContextSet(1);
 
         if (current == null) {
-            System.out.println("NULL");
+            logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "NULL");
             fail();
         }
 
@@ -138,7 +141,7 @@ public class ScalabilityEvaluationRandomModels {
         for (int i = 0; i < modelAmount; i++) {
             // Setup Model
             CGM cgm = cgmFactory.generateRandomCGM(100, 1);
-            System.out.println("Model size:" + cgm.getRoot().size());
+            //logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "Model size:" + cgm.getRoot().size());
             long start = System.nanoTime();
             for (int j = 0; j < repetitions; j++) {
                 // Execute test
@@ -156,15 +159,15 @@ public class ScalabilityEvaluationRandomModels {
         long timePerExecutionInNs = accumulated / (modelAmount * repetitions); // TimeMetric in nanosseconds for each execution
         long timeInMs = accumulated / (1000 * modelAmount * repetitions); // TimeMetric in milliseconds
 
-        System.out.print("Resultado: ");
+        logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "Resultado: ");
 
         if (achievable) {
-            System.out.print("achievable ");
+            logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "achievable ");
             achievable = false;
         } else
-            System.out.print("unachievable ");
+            logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "unachievable ");
 
-        System.out.println(10 + " " + 1 + " " + timeInMs + " ms " + timePerExecutionInNs + " ns");
+        logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, 10 + " " + 1 + " " + timeInMs + " ms " + timePerExecutionInNs + " ns");
 
 
     }
@@ -176,7 +179,7 @@ public class ScalabilityEvaluationRandomModels {
         Set<Context> current = generateCompleteContextSet(contextAmount);
 
         if (current == null) {
-            System.out.println("NULL");
+            logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "NULL");
             fail();
         }
 
@@ -202,15 +205,15 @@ public class ScalabilityEvaluationRandomModels {
         long durationInMs = TimeUnit.MILLISECONDS.convert(timePerExecutionInNs, TimeUnit.NANOSECONDS);
 
         // Print result
-        System.out.print(experimentId + " ");
+        logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, experimentId + " ");
 
         if (achievable) {
-            System.out.print("achievable ");
+            logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "achievable ");
             achievable = false;
         } else
-            System.out.print("unachievable ");
+            logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, "unachievable ");
 
-        System.out.println(modelSize + " " + contextAmount + " " + durationInMs + " ms " + timePerExecutionInNs + " ns");
+        logger.log(Level.forName("EXPERIMENT", 350), EXP_MARKER, modelSize + " " + contextAmount + " " + durationInMs + " ms " + timePerExecutionInNs + " ns");
 
     }
 

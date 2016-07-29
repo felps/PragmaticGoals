@@ -1,10 +1,10 @@
 package pragmatic.util.generator;
 
-import pragmatic.*;
-import pragmatic.util.generator.pragmatic.RandomCGMGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import pragmatic.*;
+import pragmatic.util.generator.pragmatic.RandomCGMGenerator;
 
 import java.util.HashSet;
 import java.util.Set;

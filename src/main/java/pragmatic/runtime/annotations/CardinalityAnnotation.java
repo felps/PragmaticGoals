@@ -27,6 +27,7 @@ public abstract class CardinalityAnnotation extends RuntimeAnnotation {
 
     protected Plan clonePlan(Plan originalPlan, int iterationCopy) {
         Plan clonedPlan = new Plan();
+
         for (WorkflowTask wfTask : originalPlan.getTasks()) {
             WorkflowTask clonedWorkflowTask = new WorkflowTask(wfTask.getOriginalTask());
             clonedWorkflowTask.setIterationCopy(iterationCopy);
@@ -43,6 +44,7 @@ public abstract class CardinalityAnnotation extends RuntimeAnnotation {
 
         clonedPlan.getQualityMeasures().putAll(originalPlan.getQualityMeasures());
 
+        clonedPlan.setAchievable(originalPlan.isAchievable());
         return clonedPlan;
     }
 }

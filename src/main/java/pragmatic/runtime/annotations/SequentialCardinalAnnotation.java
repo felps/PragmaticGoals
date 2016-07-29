@@ -22,6 +22,8 @@ public class SequentialCardinalAnnotation extends CardinalityAnnotation {
 
         Plan fullPlan = new Plan();
         Plan originalClone = approaches.get(getRefinements().get(0));
+        fullPlan.setAchievable(originalClone.isAchievable());
+
         if(originalClone!=null) {
             for (i = 0; i < super.iterations; i++) {
                 Plan plan = clonePlan(originalClone, i);

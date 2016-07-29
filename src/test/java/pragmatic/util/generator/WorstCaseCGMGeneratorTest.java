@@ -1,8 +1,8 @@
 package pragmatic.util.generator;
 
+import org.junit.Test;
 import pragmatic.*;
 import pragmatic.util.generator.pragmatic.WorstCaseCGMGenerator;
-import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;

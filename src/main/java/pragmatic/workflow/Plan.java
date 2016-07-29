@@ -1,14 +1,13 @@
 package pragmatic.workflow;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pragmatic.Task;
 import pragmatic.metrics.CompositeMetric;
 import pragmatic.metrics.Metric;
 import pragmatic.metrics.types.ReliabilityMetric;
 import pragmatic.metrics.types.TimeMetric;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import javax.swing.*;
 import java.util.*;
 
 public class Plan {
@@ -54,6 +53,7 @@ public class Plan {
         initialTasks = Collections.synchronizedSet(new HashSet<WorkflowTask>());
         finalTasks = Collections.synchronizedSet(new HashSet<WorkflowTask>());
         qualityMeasures = new HashMap<String, CompositeMetric>(2);
+        setAchievable(true);
     }
 
     public boolean isAchievable() {
