@@ -19,14 +19,14 @@ public class RandomAnnotatedGoalGenerator extends pragmatic.util.generator.pragm
 
     @Override
     protected int getRandomRefinementsUpTo(int maxRefinements) {
-        return ((int) Math.floor(Math.random() * maxRefinements));
+        return (int) Math.ceil(Math.random()*maxRefinements);
     }
 
 
     @Override
     protected Task generateTask(Set<Context> possibleContexts) {
 
-        Task task = new Task("T"+(id++));
+        Task task = new Task("T" + (id++));
         task.setTimeConsumed(timeConsumedInSeconds);
         try {
             task.setReliability(reliability);
@@ -47,6 +47,7 @@ public class RandomAnnotatedGoalGenerator extends pragmatic.util.generator.pragm
     @Override
     protected Refinement generateDeps(int refinementsAmount, Set<Context> possibleContexts) {
         int depAmount = getRandomRefinementsUpTo(refinementsAmount);
+
         if (refinementsAmount == 0)
             return null;
 
@@ -60,14 +61,11 @@ public class RandomAnnotatedGoalGenerator extends pragmatic.util.generator.pragm
 
         for (int i = 0; i < depAmount; i++) {
             int temp = fraction;
-            if (i == 0)
-                temp = fraction + ((refinementsAmount - 1) - fraction * depAmount);
             if (temp != 0) {
                 Refinement dependency;
                 dependency = generateDeps(temp, possibleContexts);
                 root.addDependency(dependency);
             }
-
         }
 
         return root;
@@ -100,31 +98,31 @@ public class RandomAnnotatedGoalGenerator extends pragmatic.util.generator.pragm
     private RuntimeAnnotation getRandomAnnotation(boolean decomposition, int depAmount) {
         double value = Math.random();
 
-        if(depAmount == 1) {
-            if(value>0.5) {
+        if (depAmount == 1) {
+            if (value < 0.5) {
                 // Iterated Serial
-                return new SequentialCardinalAnnotation();
+                SequentialCardinalAnnotation cardinalAnnotation = new SequentialCardinalAnnotation();
+                cardinalAnnotation.setIterations(3);
+                return cardinalAnnotation;
             } else {
                 // Iterated parallel
-                return new InterleavedCardinalAnnotation();
+                InterleavedCardinalAnnotation cardinalAnnotation = new InterleavedCardinalAnnotation();
+                cardinalAnnotation.setIterations(3);
+                return cardinalAnnotation;
             }
-        } else if (depAmount == 3 && (decomposition == Goal.OR)){
-            if(value <0.7) {
-                return new TryAnnotation();
-            } else return new AlternativeAnnotation();
-        } else {
-            if (decomposition == Goal.AND) {
-                if(value>0.5) {
-                    // AND Seq
-                    return new SequentialAnnotation();
-                } else {
-                    // AND Int
-                    return new InterleavedAnnotation();
-                }
+        }
+
+        if (decomposition == Goal.AND) {
+            if (value > 0.5) {
+                // AND Seq
+                return new SequentialAnnotation();
             } else {
-                // Alt OR
-                return new AlternativeAnnotation();
+                // AND Int
+                return new InterleavedAnnotation();
             }
+        } else {
+            // Alt OR
+            return new AlternativeAnnotation();
         }
     }
 
