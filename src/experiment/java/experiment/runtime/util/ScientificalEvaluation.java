@@ -23,8 +23,8 @@ public class ScientificalEvaluation {
     public int maxModelSize = 1;
 
     public int contextAmount = 10;
-    private int contextSet = 1;
     public int repetitions = 10;
+    private int contextSet = 1;
 
     public ScientificalEvaluation(CGMGenerator generator) {
         this.generator = generator;
@@ -120,7 +120,9 @@ public class ScientificalEvaluation {
             // Execute test
             cgm.isAchievable(current, null);
         }
-        return (System.nanoTime() - start);
+        long durationInMs = TimeUnit.MILLISECONDS.convert((System.nanoTime() - start), TimeUnit.NANOSECONDS);
+
+        return durationInMs;
     }
 
 

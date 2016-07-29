@@ -10,11 +10,11 @@ import pragmatic.runtime.annotations.*;
 import pragmatic.workflow.Plan;
 import pragmatic.workflow.WorkflowTask;
 
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import static java.lang.Math.pow;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -436,16 +436,41 @@ public class PragmaticRuntimeTest {
 
     @Test
     public void testEachContextForBreachesInAnnotationSemantic() throws Exception {
-        int i;
-
-        for (i = 0; i < pow(2,12); i++) {
-            Set<Context> contextSet = generateNextContextSet(12);
+        int currentSet;
+        for (currentSet = 0; currentSet < pow(2, 12); currentSet++) {
+            Set<Context> contextSet = generateNextContextSet(12, currentSet);
             Plan plan = mpersModel.isAchievable(contextSet, null);
             if (plan != null && plan.isAchievable()) {
                 validateAnnotations(plan);
             }
         }
 
+    }
+
+
+    @Test
+    public void evaluateMpersTime() throws Exception {
+
+        int currentSet;
+        long timeInMs = 0;
+
+        for (currentSet = 0; currentSet < pow(2, 12); currentSet++) {
+            Set<Context> contextSet = generateNextContextSet(12, currentSet);
+            Plan plan = mpersModel.isAchievable(contextSet, null);
+            timeInMs += performAverageMeasures(contextSet, mpersModel, 100);
+        }
+
+        System.out.println("Time elapsed in average: " + timeInMs / pow(2, 12) + " ms.");
+
+    }
+
+    private long performAverageMeasures(Set<Context> current, CGM cgm, int repetitions) {
+        long start = System.nanoTime();
+        for (int j = 0; j < repetitions; j++) {
+            // Execute test
+            cgm.isAchievable(current, null);
+        }
+        return (System.nanoTime() - start);
     }
 
     private void validateAnnotations(Plan plan) {
@@ -740,10 +765,9 @@ public class PragmaticRuntimeTest {
     }
 
 
-    private Set<Context> generateNextContextSet(int contextAmount) {
+    private Set<Context> generateNextContextSet(int contextAmount, int currentSet) {
         long limit;
         HashSet<Context> contexts = new HashSet<Context>();
-        int currentSet = contextSet;
         limit = (long) pow(2, contextAmount);
         for (int i = 0; i < contextAmount; i++) {
             if (currentSet % 2 != 0) {
@@ -753,8 +777,6 @@ public class PragmaticRuntimeTest {
             currentSet /= 2;
         }
 
-        //contexts.add(null);
-        contextSet++;
         return contexts;
     }
 
