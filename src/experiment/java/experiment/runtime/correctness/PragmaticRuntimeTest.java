@@ -1,5 +1,8 @@
 package experiment.runtime.correctness;
 
+import experiment.runtime.sensitivity.analysis.SensitivityAnalysisEvaluation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import pragmatic.*;
@@ -81,6 +84,11 @@ public class PragmaticRuntimeTest {
     private Task acceptEmergencyTask;
     private Task notifyCentralByInternetTask;
     private Task notifyCentralBySMSTask;
+    private Logger logger;
+
+    public PragmaticRuntimeTest() {
+        logger = LogManager.getLogger(SensitivityAnalysisEvaluation.class);
+    }
 
 
     @Before
@@ -456,12 +464,14 @@ public class PragmaticRuntimeTest {
 
         for (currentSet = 0; currentSet < pow(2, 12); currentSet++) {
             Set<Context> contextSet = generateNextContextSet(12, currentSet);
-            Plan plan = mpersModel.isAchievable(contextSet, null);
-            timeInMs += performAverageMeasures(contextSet, mpersModel, 100);
+            for (int j = 0; j < 100; j++) {
+                // Execute test
+                long start = System.nanoTime();
+                mpersModel.isAchievable(contextSet, null);
+                logger.trace("MpersTime: " + (System.nanoTime() - start));
+            }
+
         }
-
-        System.out.println("Time elapsed in average: " + timeInMs / pow(2, 12) + " ms.");
-
     }
 
     private long performAverageMeasures(Set<Context> current, CGM cgm, int repetitions) {

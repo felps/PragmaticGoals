@@ -22,14 +22,13 @@
     </Appenders>
 
     <Loggers>
+        <Logger name="experiment.runtime.sensitivity.analysis.SensitivityAnalysisEvaluation" level ="TRACE" >
+            <AppenderRef ref="Experiments1"/>
+            <AppenderRef ref="Experiments2"/>
+        </Logger>
 
         <Root level="ERROR">
             <AppenderRef ref="Console"/>
         </Root>
-
-        <Logger name="SensitivityAnalysisEvaluation" level ="TRACE" >
-            <AppenderRef ref="Experiments1"/>
-            <AppenderRef ref="Experiments2"/>
-        </Logger>
     </Loggers>
 </Configuration>
