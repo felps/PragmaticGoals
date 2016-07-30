@@ -99,8 +99,7 @@ public class ScientificalEvaluation {
 
                 }
 
-                long timePerExecutionInNs = accumulated / (repetitions * generatedModelsAmount); // TimeMetric in nanosseconds for each execution
-                durationInMs = TimeUnit.MILLISECONDS.convert(timePerExecutionInNs, TimeUnit.NANOSECONDS);
+                durationInMs = accumulated / (repetitions * generatedModelsAmount); // TimeMetric in nanosseconds for each execution
 
                 System.out.println(experimentId + ": " + modelSize + " " + contextAmount + " " + durationInMs);
 
