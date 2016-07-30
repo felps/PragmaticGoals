@@ -41,11 +41,8 @@ public class ScientificalEvaluation {
             Set<Context> current = generateContextSet(contextAmount);
 
             for (modelSize = minModelSize; modelSize <= maxModelSize; modelSize += modelStep) {
-                System.out.println("Test with " + modelSize + " nodes.");
-                System.out.println("Test with " + contextAmount + " contexts.");
                 long accumulated = 0;
                 for (i = 0; i < generatedModelsAmount; i++) {
-                    System.out.println("Model " + i + "...");
 
                     // Setup Model
                     CGM cgm = generator.generateCGM(modelSize, contextAmount);
@@ -60,11 +57,10 @@ public class ScientificalEvaluation {
                     if (accumulated < 0)
                         throw new ArithmeticException("TimeMetric evaluation Overflow");
 
-                    long timePerExecutionInNs = accumulated / (repetitions * generatedModelsAmount); // TimeMetric in nanosseconds for each execution
-                    durationInMs = TimeUnit.MILLISECONDS.convert(timePerExecutionInNs, TimeUnit.NANOSECONDS);
 
-                    System.out.println(experimentId + ": " + modelSize + " " + contextAmount + " " + durationInMs);
                 }
+                durationInMs = accumulated / generatedModelsAmount;
+                System.out.println(experimentId + ": " + modelSize + " " + contextAmount + " " + durationInMs);
 
                 // Print result
                 logger.trace(experimentId + ": " + modelSize + " " + contextAmount + " " + durationInMs);
@@ -122,7 +118,7 @@ public class ScientificalEvaluation {
         }
         long durationInMs = TimeUnit.MILLISECONDS.convert((System.nanoTime() - start), TimeUnit.NANOSECONDS);
 
-        return durationInMs;
+        return durationInMs / repetitions;
     }
 
 
