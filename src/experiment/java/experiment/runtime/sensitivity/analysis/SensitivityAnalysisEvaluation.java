@@ -3,6 +3,7 @@ package experiment.runtime.sensitivity.analysis;
 import experiment.runtime.util.AnnotatedGoalGenerator;
 import experiment.runtime.util.IteratedGoalGenerator;
 import experiment.runtime.util.ScientificalEvaluation;
+import experiment.runtime.util.TryGoalGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -15,13 +16,11 @@ import pragmatic.util.generator.pragmatic.CGMGenerator;
  */
 public class SensitivityAnalysisEvaluation {
 
+    private final int repetitionAmount = 50;
     Logger logger = LogManager.getLogger();
-
     private int minModelSize = 500;
     private int maxModelSize = 10000;
     private int modelStep = 500;
-
-    private final int repetitionAmount = 50;
     private int maxContexts = 10;
 
 
@@ -60,15 +59,13 @@ public class SensitivityAnalysisEvaluation {
         performAnalysis(modelGenerator, ID);
     }
 
-    //@Test
+    @Test
     public void sensitivityAnalysisTry() throws Exception {
 
         RuntimeAnnotation runtimeAnnotation = new TryAnnotation();
-        AnnotatedGoalGenerator modelGenerator = new AnnotatedGoalGenerator(runtimeAnnotation, Goal.OR);
-        modelGenerator.dependenciesPerNode = 3;
+        CGMGenerator modelGenerator = new TryGoalGenerator();
 
         String ID = "Try";
-
         performAnalysis(modelGenerator, ID);
     }
 
@@ -115,7 +112,7 @@ public class SensitivityAnalysisEvaluation {
 
         logger.trace( "Beginning " + ID + " evaluation");
 
-        for(evaluation.contextAmount=5; evaluation.contextAmount<= maxContexts; evaluation.contextAmount++)
+        for (evaluation.contextAmount = 1; evaluation.contextAmount <= maxContexts; evaluation.contextAmount++)
             evaluation.executeScientificalEvaluation(logger);
 
         logger.trace( "End " + ID + " evaluation");
