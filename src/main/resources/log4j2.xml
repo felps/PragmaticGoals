@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+
+    <CustomLevels>
+        <CustomLevel name="EXPERIMENT" intLevel="250"/>
+    </CustomLevels>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg (%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} )%n"/>
+        </Console>
+
+        <File name="Experiments1" fileName="./logs/experiments/experimentalLog.log">
+            <PatternLayout pattern="%d{${datestamp}} [%t] %-5level %logger{36} - %msg %n"/>
+        </File>
+
+
+        <File name="Experiments2" fileName="./logs/experiments/experimentalLogParseable.log">
+            <PatternLayout pattern="%m %n"/>
+        </File>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="experiment.runtime.sensitivity.analysis.SensitivityAnalysisEvaluation" level ="TRACE" >
+            <AppenderRef ref="Experiments1"/>
+            <AppenderRef ref="Experiments2"/>
+        </Logger>
+
+        <Root level="ERROR">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
