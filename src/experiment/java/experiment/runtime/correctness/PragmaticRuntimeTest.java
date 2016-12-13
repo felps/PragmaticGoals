@@ -5,13 +5,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import pragmatic.*;
-import pragmatic.metrics.Metric;
-import pragmatic.metrics.exceptions.MetricNotFoundException;
-import pragmatic.quality.FilterQualityConstraint;
-import pragmatic.runtime.annotations.*;
-import pragmatic.workflow.Plan;
-import pragmatic.workflow.WorkflowTask;
+
+import br.ime.usp.improv.pragmatic.*;
+import br.ime.usp.improv.pragmatic.metrics.Metric;
+import br.ime.usp.improv.pragmatic.metrics.exceptions.MetricNotFoundException;
+import br.ime.usp.improv.pragmatic.quality.FilterQualityConstraint;
+import br.ime.usp.improv.pragmatic.runtime.annotations.*;
+import br.ime.usp.improv.pragmatic.workflow.WorkflowTask;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -447,7 +447,7 @@ public class PragmaticRuntimeTest {
         int currentSet;
         for (currentSet = 0; currentSet < pow(2, 12); currentSet++) {
             Set<Context> contextSet = generateNextContextSet(12, currentSet);
-            Plan plan = mpersModel.isAchievable(contextSet, null);
+            WorkflowPlan plan = mpersModel.isAchievable(contextSet, null);
             if (plan != null && plan.isAchievable()) {
                 validateAnnotations(plan);
             }
@@ -483,7 +483,7 @@ public class PragmaticRuntimeTest {
         return (System.nanoTime() - start);
     }
 
-    private void validateAnnotations(Plan plan) {
+    private void validateAnnotations(WorkflowPlan plan) {
         //System.out.println("validating plan");
         Collection<WorkflowTask> tasks = plan.getTasks();
 
@@ -708,7 +708,7 @@ public class PragmaticRuntimeTest {
     }
 
 
-    private boolean containsAny(Plan plan, Set<WorkflowTask> tasks) {
+    private boolean containsAny(WorkflowPlan plan, Set<WorkflowTask> tasks) {
         for (WorkflowTask task : tasks){
             if(plan.getTasks().contains(task)){
                 return true;
@@ -790,11 +790,11 @@ public class PragmaticRuntimeTest {
         return contexts;
     }
 
-    private Plan evaluateContextSet(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,
+    private WorkflowPlan evaluateContextSet(int t1, int t2, int t3, int t4, int t5, int t6, int t7, int t8, int t9,
                                    int t10, int t11, int t12) {
         System.out.println("=========== Experiment Context Set  ================");
         Set<Context> fullContext = createFullContext(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12);
-        Plan plan = null;
+        WorkflowPlan plan = null;
         long startTime = System.nanoTime();
         for (int i = 0; i < 1000; i++) {
             plan = mpersModel.isAchievable(fullContext, null);
@@ -808,7 +808,7 @@ public class PragmaticRuntimeTest {
     public void GlocGoal() throws MetricNotFoundException {
         System.out.println("=========== Experiment Context Set 1 ================");
         Set<Context> fullContext = createFullContext(1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0);
-        Plan plan = null;
+        WorkflowPlan plan = null;
         long startTime = System.nanoTime();
         for (int i = 0; i < 1000; i++) {
             plan = g17_locationIsIdentifiedGoal.isAchievable(fullContext, null);
@@ -824,7 +824,7 @@ public class PragmaticRuntimeTest {
     public void GlocGoalAchievable() throws MetricNotFoundException {
         System.out.println("=========== Experiment Context Set 1 ================");
         Set<Context> fullContext = createFullContext(1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0);
-        Plan plan = null;
+        WorkflowPlan plan = null;
         long startTime = System.nanoTime();
         for (int i = 0; i < 1000; i++) {
             plan = g17_locationIsIdentifiedGoal.isAchievable(fullContext, null);

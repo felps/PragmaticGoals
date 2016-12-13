@@ -1,10 +1,11 @@
 package experiment.pragmatic.Scalability;
 
 import org.junit.Test;
-import pragmatic.CGM;
-import pragmatic.Context;
-import pragmatic.util.generator.pragmatic.CGMGenerator;
-import pragmatic.util.generator.pragmatic.WorstCaseCGMGenerator;
+
+import br.ime.usp.improv.pragmatic.CGM;
+import br.ime.usp.improv.pragmatic.Context;
+import br.ime.usp.improv.pragmatic.util.generator.pragmatic.CGMGenerator;
+import br.ime.usp.improv.pragmatic.util.generator.pragmatic.WorstCaseCGMGenerator;
 
 import java.util.Date;
 import java.util.HashSet;

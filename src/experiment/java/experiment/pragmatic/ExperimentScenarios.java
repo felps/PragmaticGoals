@@ -1,12 +1,12 @@
 package experiment.pragmatic;
 
-import pragmatic.*;
-import pragmatic.metrics.Metric;
-import pragmatic.quality.FilterQualityConstraint;
-import pragmatic.workflow.Plan;
-import pragmatic.workflow.WorkflowTask;
 import org.junit.Before;
 import org.junit.Test;
+
+import br.ime.usp.improv.pragmatic.*;
+import br.ime.usp.improv.pragmatic.metrics.Metric;
+import br.ime.usp.improv.pragmatic.quality.FilterQualityConstraint;
+import br.ime.usp.improv.pragmatic.workflow.WorkflowTask;
 
 import java.util.HashSet;
 
@@ -33,7 +33,7 @@ public class ExperimentScenarios {
 	public void contextSet1() {
 		System.out.println("=========== Experiment Context Set 1 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0);
-		Plan tasks = null;
+		WorkflowPlan tasks = null;
 		long startTime = System.nanoTime();
 		for(int i=0;i<1000;i++){
 			tasks = cgm.isAchievable(fullContext, null);
@@ -67,7 +67,7 @@ public class ExperimentScenarios {
 	public void contextSet2() {
 		System.out.println("=========== Experiment Context Set 2 ================");
 		HashSet<Context> fullContext = createFullContext(0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0);
-		Plan tasks = null;
+		WorkflowPlan tasks = null;
 		long startTime = System.nanoTime();
 		for(int i=0;i<10000;i++){
 			tasks = cgm.isAchievable(fullContext, null);
@@ -83,7 +83,7 @@ public class ExperimentScenarios {
 	public void contextSet3() {
 		System.out.println("=========== Experiment Context Set 3 ================");
 		HashSet<Context> fullContext = createFullContext(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0);
-		Plan tasks = null;
+		WorkflowPlan tasks = null;
 		long startTime = System.nanoTime();
 		for(int i=0;i<10000;i++){
 			tasks = cgm.isAchievable(fullContext, null);
@@ -120,7 +120,7 @@ public class ExperimentScenarios {
 	public void contextSet4() {
 		System.out.println("=========== Experiment Context Set 4 ================");
 		HashSet<Context> fullContext = createFullContext(1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0);
-		Plan tasks = null;
+		WorkflowPlan tasks = null;
 		long startTime = System.nanoTime();
 		for(int i=0;i<10000;i++){
 			tasks = cgm.isAchievable(fullContext, null);

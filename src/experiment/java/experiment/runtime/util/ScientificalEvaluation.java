@@ -1,9 +1,10 @@
 package experiment.runtime.util;
 
 import org.apache.logging.log4j.Logger;
-import pragmatic.CGM;
-import pragmatic.Context;
-import pragmatic.util.generator.pragmatic.CGMGenerator;
+
+import br.ime.usp.improv.pragmatic.CGM;
+import br.ime.usp.improv.pragmatic.Context;
+import br.ime.usp.improv.pragmatic.util.generator.pragmatic.CGMGenerator;
 
 import java.util.HashSet;
 import java.util.Set;

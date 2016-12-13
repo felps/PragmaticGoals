@@ -7,9 +7,10 @@ import experiment.runtime.util.TryGoalGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
-import pragmatic.Goal;
-import pragmatic.runtime.annotations.*;
-import pragmatic.util.generator.pragmatic.CGMGenerator;
+
+import br.ime.usp.improv.pragmatic.Goal;
+import br.ime.usp.improv.pragmatic.runtime.annotations.*;
+import br.ime.usp.improv.pragmatic.util.generator.pragmatic.CGMGenerator;
 
 /**
  * Created by felps on 27/07/16.

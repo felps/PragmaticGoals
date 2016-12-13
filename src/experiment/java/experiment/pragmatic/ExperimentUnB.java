@@ -1,11 +1,12 @@
 package experiment.pragmatic;
 
-import pragmatic.*;
-import pragmatic.metrics.Metric;
-import pragmatic.quality.FilterQualityConstraint;
-import pragmatic.workflow.WorkflowTask;
 import org.junit.Before;
 import org.junit.Test;
+
+import br.ime.usp.improv.pragmatic.*;
+import br.ime.usp.improv.pragmatic.metrics.Metric;
+import br.ime.usp.improv.pragmatic.quality.FilterQualityConstraint;
+import br.ime.usp.improv.pragmatic.workflow.WorkflowTask;
 
 import java.util.HashSet;
 

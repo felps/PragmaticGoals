@@ -4,8 +4,9 @@ import experiment.runtime.util.ScientificalEvaluation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
-import pragmatic.Context;
-import pragmatic.util.generator.pragmatic.CGMGenerator;
+
+import br.ime.usp.improv.pragmatic.Context;
+import br.ime.usp.improv.pragmatic.util.generator.pragmatic.CGMGenerator;
 import experiment.runtime.util.RandomAnnotatedGoalGenerator;
 
 import java.util.HashSet;

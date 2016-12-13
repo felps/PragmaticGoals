@@ -1,16 +1,16 @@
 package experiment.runtime.util;
 
-import pragmatic.*;
-import pragmatic.metrics.Metric;
-import pragmatic.quality.FilterQualityConstraint;
-import pragmatic.runtime.annotations.*;
-
 import java.util.Set;
+
+import br.ime.usp.improv.pragmatic.*;
+import br.ime.usp.improv.pragmatic.metrics.Metric;
+import br.ime.usp.improv.pragmatic.quality.FilterQualityConstraint;
+import br.ime.usp.improv.pragmatic.runtime.annotations.*;
 
 /**
  * Created by felps on 28/07/16.
  */
-public class RandomAnnotatedGoalGenerator extends pragmatic.util.generator.pragmatic.CGMGenerator {
+public class RandomAnnotatedGoalGenerator extends br.ime.usp.improv.pragmatic.util.generator.pragmatic.CGMGenerator {
 
     private static int id = 1;
 

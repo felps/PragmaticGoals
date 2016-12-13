@@ -1,17 +1,18 @@
 package experiment.runtime;
 
-import pragmatic.Comparison;
-import pragmatic.Goal;
-import pragmatic.Interpretation;
-import pragmatic.Task;
-import pragmatic.metrics.Metric;
-import pragmatic.quality.CompositeQualityConstraint;
-import pragmatic.runtime.annotations.AlternativeAnnotation;
-import pragmatic.runtime.annotations.InterleavedAnnotation;
-import pragmatic.runtime.annotations.SequentialAnnotation;
-import pragmatic.workflow.Plan;
 import org.junit.Before;
 import org.junit.Test;
+
+import br.ime.usp.improv.pragmatic.Comparison;
+import br.ime.usp.improv.pragmatic.Goal;
+import br.ime.usp.improv.pragmatic.Interpretation;
+import br.ime.usp.improv.pragmatic.Task;
+import br.ime.usp.improv.pragmatic.WorkflowPlan;
+import br.ime.usp.improv.pragmatic.metrics.Metric;
+import br.ime.usp.improv.pragmatic.quality.CompositeQualityConstraint;
+import br.ime.usp.improv.pragmatic.runtime.annotations.AlternativeAnnotation;
+import br.ime.usp.improv.pragmatic.runtime.annotations.InterleavedAnnotation;
+import br.ime.usp.improv.pragmatic.runtime.annotations.SequentialAnnotation;
 
 import static org.junit.Assert.*;
 
@@ -75,7 +76,7 @@ public class PragmaticRuntimeCGMTest {
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 241);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = root.isAchievable(null, interp);
+        WorkflowPlan plan = root.isAchievable(null, interp);
 
         assertTrue(plan.isAchievable());
         assertEquals(2, plan.getTasks().size());
@@ -93,7 +94,7 @@ public class PragmaticRuntimeCGMTest {
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = root.isAchievable(null, interp);
+        WorkflowPlan plan = root.isAchievable(null, interp);
 
         assertFalse(plan.isAchievable());
     }
@@ -111,7 +112,7 @@ public class PragmaticRuntimeCGMTest {
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = root.isAchievable(null, interp);
+        WorkflowPlan plan = root.isAchievable(null, interp);
 
         assertFalse(plan.isAchievable());
 
@@ -131,7 +132,7 @@ public class PragmaticRuntimeCGMTest {
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = root.isAchievable(null, interp);
+        WorkflowPlan plan = root.isAchievable(null, interp);
 
         assertTrue(plan.isAchievable());
 
@@ -152,7 +153,7 @@ public class PragmaticRuntimeCGMTest {
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = goal.isAchievable(null, interp);
+        WorkflowPlan plan = goal.isAchievable(null, interp);
 
         assertTrue(plan.isAchievable());
     }
@@ -172,7 +173,7 @@ public class PragmaticRuntimeCGMTest {
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = root.isAchievable(null, interp);
+        WorkflowPlan plan = root.isAchievable(null, interp);
 
         assertFalse(plan.isAchievable());
 
@@ -193,7 +194,7 @@ public class PragmaticRuntimeCGMTest {
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = goal.isAchievable(null, interp);
+        WorkflowPlan plan = goal.isAchievable(null, interp);
 
         assertTrue(plan.isAchievable());
 
@@ -214,7 +215,7 @@ public class PragmaticRuntimeCGMTest {
         compQC = new CompositeQualityConstraint(Metric.TIME, null, Comparison.LESS_OR_EQUAL_TO, 120);
         interp.addCompositeQualityConstraint(compQC);
 
-        Plan plan = goal.isAchievable(null, interp);
+        WorkflowPlan plan = goal.isAchievable(null, interp);
 
         assertFalse(plan.isAchievable());
 

@@ -1,12 +1,12 @@
 package experiment.runtime.util;
 
-import pragmatic.*;
-import pragmatic.metrics.Metric;
-import pragmatic.quality.FilterQualityConstraint;
-import pragmatic.runtime.annotations.RuntimeAnnotation;
-import pragmatic.util.generator.pragmatic.CGMGenerator;
-
 import java.util.Set;
+
+import br.ime.usp.improv.pragmatic.*;
+import br.ime.usp.improv.pragmatic.metrics.Metric;
+import br.ime.usp.improv.pragmatic.quality.FilterQualityConstraint;
+import br.ime.usp.improv.pragmatic.runtime.annotations.RuntimeAnnotation;
+import br.ime.usp.improv.pragmatic.util.generator.pragmatic.CGMGenerator;
 
 /**
  * Created by felps on 27/07/16.

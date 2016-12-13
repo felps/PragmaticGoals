@@ -1,9 +1,10 @@
 package experiment.pragmatic;
 
-import pragmatic.CGM;
-import pragmatic.Context;
-import pragmatic.util.generator.pragmatic.RandomCGMGenerator;
 import org.junit.Test;
+
+import br.ime.usp.improv.pragmatic.CGM;
+import br.ime.usp.improv.pragmatic.Context;
+import br.ime.usp.improv.pragmatic.util.generator.pragmatic.RandomCGMGenerator;
 
 import java.util.Date;
 import java.util.HashSet;
