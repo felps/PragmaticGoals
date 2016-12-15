@@ -22,7 +22,8 @@ public class WorkflowTask implements Serializable, Comparable {
     private ConcurrentSkipListSet<WorkflowTask> enables;
     private HashMap<CompositeMetric, Double> qualityMeasures;
     private Task originalTask;
-
+    private String performedBy;
+    
     public WorkflowTask(Task task) {
         requires = new ConcurrentSkipListSet<>();
         enables = new ConcurrentSkipListSet<>();
@@ -84,6 +85,10 @@ public class WorkflowTask implements Serializable, Comparable {
         return qualityMeasures;
     }
 
+    public boolean perform() {
+    	System.out.println("Executing task " + getId());
+    	return true;
+    }
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof WorkflowTask){
@@ -103,5 +108,13 @@ public class WorkflowTask implements Serializable, Comparable {
 			return this.getId().compareTo(((WorkflowTask) o).getId());
 		}
 		throw new ClassCastException();
+	}
+
+	public String isPerformedBy() {
+		return performedBy;
+	}
+
+	public void setPerformedBy(String performedBy) {
+		this.performedBy = performedBy;
 	}
 }

@@ -16,14 +16,19 @@ import br.ime.usp.improv.proxy.webservice.handlers.WsInvoker;
 
 public class Delegation extends Task {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4159224450071751058L;
 	private String nextActorEndpoint;
 	private HashMap<String, Integer> output;
 	private ArrayList<String> expectedOutput;
 	private WsInvoker nextActorInvoker;
-	public String actor;
 	private Result result;
+	private String nextActorID;
 
 	public Delegation() {
+		super();
 		output = new HashMap<>();
 		expectedOutput = new ArrayList<>();
 	}
@@ -32,6 +37,7 @@ public class Delegation extends Task {
 	public WorkflowPlan isAchievable(Set<Context> current, Interpretation interp) {
 
 		WorkflowPlan plan = new WorkflowPlan(this);
+		plan.getActors().put(getNextActorID(), nextActorEndpoint);
 		byte[] serializedInterp = null;
 
 		if (this.nextActorInvoker == null)
@@ -52,14 +58,8 @@ public class Delegation extends Task {
 				serializedPlan = (byte[]) invocation.getResultSetter().getResultValue();
 			} while (serializedPlan == null);
 			System.out.println("Serialized Plan :" + serializedPlan);
-			if (serializedPlan != null) {
-				WorkflowPlan deserializedPlan = (WorkflowPlan) ObjectSerializer.deserialize(serializedPlan);
-				plan.addSerial(deserializedPlan);
-			} else {
-				System.out.println("No plan available for actor at " + nextActorEndpoint);
-				plan.setAchievable(false);
-				return plan;
-			}
+			WorkflowPlan deserializedPlan = (WorkflowPlan) ObjectSerializer.deserialize(serializedPlan);
+			plan.addSerial(deserializedPlan);
 		} catch (TimeoutException e) {
 			System.out.println("Delegation 54");
 			e.printStackTrace();
@@ -70,7 +70,7 @@ public class Delegation extends Task {
 			System.out.println("Delegation 60");
 			e.printStackTrace();
 		}
-		System.out.println("Achievable plan at " + this.actor);
+		System.out.println("Achievable plan at " + this.getExecutingActor());
 		System.out.println("Plan Size:" + plan.getTasks().size());
 		System.out.println("Plan Tasks:");	
 		for (WorkflowTask task : plan.getTasks()) {
@@ -91,5 +91,13 @@ public class Delegation extends Task {
 
 	public void setEndpoint(String nextActorEndpoint) {
 		this.nextActorEndpoint = nextActorEndpoint;
+	}
+
+	public String getNextActorID() {
+		return nextActorID;
+	}
+
+	public void setNextActorID(String nextActorID) {
+		this.nextActorID = nextActorID;
 	}
 }

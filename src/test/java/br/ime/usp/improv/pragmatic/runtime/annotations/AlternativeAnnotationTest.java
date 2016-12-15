@@ -44,7 +44,7 @@ public class AlternativeAnnotationTest {
         assertEquals(2, possible.size());
         WorkflowTask wt1 = t1.getWorkflowTask();
         WorkflowTask wt2 = t2.getWorkflowTask();
-        for (Plan p : possible) {
+        for (WorkflowPlan p : possible) {
             boolean hasT1 = p.getTasks().contains(wt1);
             boolean hasT2 = p.getTasks().contains(wt2);
 

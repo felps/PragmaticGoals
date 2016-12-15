@@ -44,16 +44,6 @@ public class GoalTest {
 		Task task = new Task();
 		Refinement goal = new Goal(false);
 		Delegation delegation = new Delegation();
-.phase.PhaseInterceptorChain doDefaultLogging
-WARNING: Application {http://pragmatic.improv.usp.ime.br/}ChoreographyActorService#{http://pragmatic.improv.usp.ime.br/}webPlan has thrown exception, unwinding now
-org.apache.cxf.interceptor.Fault
-	at org.apache.cxf.service.invoker.AbstractInvoker.createFault(AbstractInvoker.java:163)
-	at org.apache.cxf.jaxws.AbstractJAXWSMethodInvoker.createFault(AbstractJAXWSMethodInvoker.java:267)
-	at org.apache.cxf.service.invoker.AbstractInvoker.invoke(AbstractInvoker.java:129)
-	at org.apache.cxf.jaxws.AbstractJAXWSMethodInvoker.invoke(AbstractJAXWSMethodInvoker.java:232)
-	at org.apache.cxf.jaxws.JAXWSMethodInvoker.invoke(JAXWSMethodInvoker.java:69)
-	at org.apache.cxf.service.invoker.AbstractInvoker.invoke(AbstractInvoker.java:75)
-	at org.apache.cxf.interceptor.Service
 		task.addApplicableContext(context);
 
 		root.addDependency(task);

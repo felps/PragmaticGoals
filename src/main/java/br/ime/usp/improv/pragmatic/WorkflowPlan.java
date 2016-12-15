@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -20,14 +21,15 @@ import br.ime.usp.improv.pragmatic.workflow.WorkflowTask;
 
 public class WorkflowPlan implements Serializable {
 
-    private transient Logger logger = LogManager.getLogger();
+    private transient Logger logger;
     private int iterationCopy;
+    private HashMap<String, String> actorEndpoints;
     private HashMap<String, WorkflowTask> tasks;
     private ConcurrentSkipListSet<WorkflowTask> initialTasks;
     private ConcurrentSkipListSet<WorkflowTask> finalTasks;
     private HashMap<String, CompositeMetric> qualityMeasures;
     private boolean achievable;
-
+    
     public WorkflowPlan(Task task) {
         try {
             createMaps();
@@ -35,7 +37,7 @@ public class WorkflowPlan implements Serializable {
             setReliability(task.getReliability());
             setTimeConsumed(task.getTimeConsumed());
         } catch (Exception e) {
-            logger.error("pragmatic.Task Class: Out of Bounds reliability value!");
+            log().error("pragmatic.Task Class: Out of Bounds reliability value!");
             e.printStackTrace();
         }
     }
@@ -59,6 +61,7 @@ public class WorkflowPlan implements Serializable {
     private void createMaps() {
         tasks = new HashMap<String, WorkflowTask>();
         initialTasks = new ConcurrentSkipListSet<>();
+        actorEndpoints = new HashMap<String, String>();
         finalTasks = new ConcurrentSkipListSet<>();
         qualityMeasures = new HashMap<String, CompositeMetric>(2);
         setAchievable(true);
@@ -76,7 +79,7 @@ public class WorkflowPlan implements Serializable {
         try {
             return getMapValue(Metric.TIME);
         } catch (NonExistingMetricException e) {
-            logger.warn("Time was not previously set. Inferring 0.");
+            log().warn("Time was not previously set. Inferring 0.");
             return 0;
         }
     }
@@ -89,7 +92,7 @@ public class WorkflowPlan implements Serializable {
         try {
             return getMapValue(Metric.RELIABILITY);
         } catch (NonExistingMetricException e) {
-            logger.warn("Reliability was not previously set. Inferring 100%");
+            log().warn("Reliability was not previously set. Inferring 100%");
             setMapValue(1, Metric.RELIABILITY);
             return 1;
         }
@@ -162,6 +165,7 @@ public class WorkflowPlan implements Serializable {
     }
 
     public synchronized void addSerial(WorkflowPlan plan) {
+    	this.actorEndpoints.putAll(plan.getActors());
         boolean emptyInitial = this.getTasks().isEmpty();
         if (plan == null)
             return;
@@ -194,7 +198,11 @@ public class WorkflowPlan implements Serializable {
         }
     }
 
-    private CompositeMetric getTimeMetric() {
+    public Map<String, String> getActors() {
+		return actorEndpoints;
+	}
+
+	private CompositeMetric getTimeMetric() {
         if (qualityMeasures.get(Metric.TIME) == null) {
             TimeMetric timeMetric = new TimeMetric();
             timeMetric.setValue(getTimeConsumed());
@@ -218,9 +226,9 @@ public class WorkflowPlan implements Serializable {
         int i;
         Set<WorkflowTask> tasksToBeRemoved = new HashSet<>();
         for (WorkflowTask task : getFinalTasks()) {
-            if (!task.getEnabledTasksSet().isEmpty()) {
+//            if (!task.getEnabledTasksSet().isEmpty()) {
                 tasksToBeRemoved.add(task);
-            }
+//            }
         }
         removeFinalTask(tasksToBeRemoved);
     }
@@ -234,7 +242,8 @@ public class WorkflowPlan implements Serializable {
     }
 
     public void addParallel(WorkflowPlan plan) {
-
+    	this.actorEndpoints.putAll(plan.getActors());
+        
         CompositeMetric reliabilityMetric = getQualityMetric();
         double reliability1 = plan.getReliability();
         double reliability2 = this.getReliability();
@@ -258,4 +267,8 @@ public class WorkflowPlan implements Serializable {
         return finalTasks;
     }
 
+    public Logger log() {
+    	if (logger ==null) logger = LogManager.getLogger();
+    	return logger;
+    }
 }

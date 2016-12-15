@@ -14,15 +14,20 @@ import java.util.Set;
 
 public class Task extends Refinement implements Serializable{
 
-    private transient Logger logger = LogManager.getLogger();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3085695630993169882L;
+	private transient Logger logger = LogManager.getLogger();
     private HashMap<String, HashMap<Context, Float>> providedQualityLevels;
 	private boolean lessIsMore;
-//    private WorkflowTask workflowTask;
+    private WorkflowTask workflowTask;
+    private String executedBy;
 
     public Task(boolean lessIsMore) {
         providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
         this.lessIsMore = lessIsMore;
-//        workflowTask = new WorkflowTask(this);
+        workflowTask = new WorkflowTask(this);
         try {
             setReliability(1.0);
             setTimeConsumed(0);
@@ -34,7 +39,7 @@ public class Task extends Refinement implements Serializable{
 	public Task() {
 		providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
 		this.lessIsMore = false;
-//        workflowTask = new WorkflowTask(this);
+        workflowTask = new WorkflowTask(this);
         try {
             setReliability(1.0);
             setTimeConsumed(0);
@@ -46,7 +51,7 @@ public class Task extends Refinement implements Serializable{
     public Task(String id) {
         providedQualityLevels = new HashMap<String, HashMap<Context, Float>>();
         this.lessIsMore = false;
-//        workflowTask = new WorkflowTask(this);
+        workflowTask = new WorkflowTask(this);
         this.setIdentifier(id);
     }
 
@@ -131,7 +136,7 @@ public class Task extends Refinement implements Serializable{
     @Override
     public WorkflowPlan isAchievable(Set<Context> current, Interpretation interp) {
         WorkflowPlan plan = new WorkflowPlan(this);
-
+        
         if (!this.isApplicable(current)) {
             logger.debug("I am " + getIdentifier() + " but i am not achievable!");
             return null;
@@ -154,11 +159,26 @@ public class Task extends Refinement implements Serializable{
     @Override
     public void setIdentifier(String identifier) {
         super.setIdentifier(identifier);
-       // workflowTask.setIdentifier(identifier);
+        workflowTask.setIdentifier(identifier);
     }
 
     @Override
     public int size() {
         return 1;
     }
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Task){
+    		return getIdentifier().contentEquals(((Task)obj).getIdentifier());
+    	}
+    	return super.equals(obj);
+    }
+
+	public String isExecutedBy() {
+		return executedBy;
+	}
+
+	public void setExecutedBy(String executedBy) {
+		this.executedBy = executedBy;
+	}
 }
