@@ -111,10 +111,10 @@ public class WorkflowTask implements Serializable, Comparable {
 	}
 
 	public String isPerformedBy() {
-		return performedBy;
+		return this.getOriginalTask().getExecutingActor();
 	}
 
-	public void setPerformedBy(String performedBy) {
-		this.performedBy = performedBy;
+	public void setPerformedBy(String performedBy, String atEndpoint) {
+		this.getOriginalTask().isExecutedBy(performedBy, atEndpoint);
 	}
 }

@@ -27,8 +27,9 @@ public class Delegation extends Task {
 	private Result result;
 	private String nextActorID;
 
-	public Delegation() {
+	public Delegation(String ID) {
 		super();
+		this.setIdentifier(ID);
 		output = new HashMap<>();
 		expectedOutput = new ArrayList<>();
 	}
@@ -40,8 +41,10 @@ public class Delegation extends Task {
 		plan.getActors().put(getNextActorID(), nextActorEndpoint);
 		byte[] serializedInterp = null;
 
-		if (this.nextActorInvoker == null)
+		if (this.nextActorInvoker == null){
 			this.nextActorInvoker = new WsInvoker(nextActorEndpoint);
+			System.out.println("Invoker created");
+		}
 
 		this.nextActorInvoker.setTimeout(15000);
 		System.out.println("Delegation underway");

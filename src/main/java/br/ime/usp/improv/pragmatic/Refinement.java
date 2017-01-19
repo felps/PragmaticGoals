@@ -12,6 +12,7 @@ public abstract class Refinement implements Serializable {
     private double timeConsumedInSeconds;
     private double reliability;
     private String executedBy;
+    private String executingActorEndpoint;
 
 	public Refinement() {
 		applicableContexts = new HashSet<Context>();
@@ -100,12 +101,16 @@ public abstract class Refinement implements Serializable {
     	return false;
     }
 
-	public String getExecutingActor() {
+    public String getExecutingActor() {
 		return executedBy;
 	}
 
-	public void isExecutedBy(String executedBy) {
+	public void isExecutedBy(String executedBy, String atEndpoint) {
 		this.executedBy = executedBy;
+		this.executingActorEndpoint = atEndpoint;
 	}
 
+	public String getExecutingActorEndpoint() {
+		return executingActorEndpoint;
+	}
 }

@@ -23,7 +23,7 @@ public class RefinementTest {
 	public void shouldBeApplicable() throws Exception {
 		Refinement goal = new Goal(false);
 		Task task = new Task();
-		Delegation delegation = new Delegation();
+		Delegation delegation = new Delegation("delegation");
 
 		Context current = new Context("c1");
 		HashSet<Context> fullContext = new HashSet<Context>();
@@ -42,7 +42,7 @@ public class RefinementTest {
 	public void shouldBeNotApplicable() throws Exception {
 		Refinement goal = new Goal(false);
 		Task task = new Task();
-		Delegation delegation = new Delegation();
+		Delegation delegation = new Delegation("delegation");
 
 		Context context = new Context("C1");
 

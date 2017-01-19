@@ -19,7 +19,7 @@ public class GoalTest {
 
 		Task task = new Task();
 		Refinement goal = new Goal(false);
-		Delegation delegation = new Delegation();
+		Delegation delegation = new Delegation("delegation");
 
 		root.addDependency(task);
 		root.addDependency(goal);
@@ -43,7 +43,7 @@ public class GoalTest {
 		current.add(context);
 		Task task = new Task();
 		Refinement goal = new Goal(false);
-		Delegation delegation = new Delegation();
+		Delegation delegation = new Delegation("delegation");
 		task.addApplicableContext(context);
 
 		root.addDependency(task);

@@ -138,7 +138,7 @@ public class Goal extends Refinement {
     }
 
     public void addDependency(Refinement goal) {
-    	goal.isExecutedBy(this.getExecutingActor());
+    	goal.isExecutedBy(this.getExecutingActor(), this.getExecutingActorEndpoint());
         dependencies.add(goal);
         for (Context context : goal.getApplicableContexts()) {
             if (!dependenciesPerContext.containsKey(context)) {
@@ -171,11 +171,11 @@ public class Goal extends Refinement {
     }
     
     @Override
-    public void isExecutedBy(String executedBy) {
+    public void isExecutedBy(String executedBy, String atEndpoint) {
     	for (Refinement refinement : dependencies) {
-			refinement.isExecutedBy(executedBy);
+			refinement.isExecutedBy(executedBy, atEndpoint);
 		}
-    	super.isExecutedBy(executedBy);
+    	super.isExecutedBy(executedBy, atEndpoint);
     }
 
     public int size() {
